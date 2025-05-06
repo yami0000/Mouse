@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ammo Effect", menuName = "Data/Item Effect/Grenade")]
-public class Grenade :ItemEffect
+[CreateAssetMenu(fileName = "Ammo Effect", menuName = "Data/Ammo/Grenade")]
+public class Effect_Grenade :ItemEffect
 {
     [SerializeField] private GameObject AmmoPrefab;
     [SerializeField] private float xVelocity;

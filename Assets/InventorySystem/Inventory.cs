@@ -166,48 +166,7 @@ public class Inventory : MonoBehaviour
 
 
     }
-    public void AddItem(ItemData _item)
-    {  if (_item.ItemType == ItemType.Equipment)
-       AddToInventory(_item);
-       else if (_item.ItemType == ItemType.Material)
-       AddToStash(_item);
 
-       
-        UpdateSlotUI();
-
-    }
-
-    private void AddToStash(ItemData _item)
-    {
-        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.AddStack();
-
-        }
-        else
-        {
-            InventoryItem newitem = new InventoryItem(_item);
-            stash.Add(newitem);
-            stashDictionary.Add(_item, newitem);
-
-        }
-    }
-
-    private void AddToInventory(ItemData _item)
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.AddStack();
-
-        }
-        else
-        {
-            InventoryItem newitem = new InventoryItem(_item);
-            inventory.Add(newitem);
-            inventoryDictionary.Add(_item, newitem);
-
-        }
-    }
 
     public void RemoveItem(ItemData _item)
     {
@@ -253,5 +212,46 @@ public class Inventory : MonoBehaviour
 
         return equipedItem;
     }
- 
+     public void AddItem(ItemData _item)
+    {  if (_item.ItemType == ItemType.Equipment)
+       AddToInventory(_item);
+       else  
+       AddToStash(_item);
+
+       
+        UpdateSlotUI();
+
+    }
+
+    private void AddToStash(ItemData _item)
+    {
+        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            value.AddStack();
+
+        }
+        else
+        {
+            InventoryItem newitem = new InventoryItem(_item);
+            stash.Add(newitem);
+            stashDictionary.Add(_item, newitem);
+
+        }
+    }
+
+    private void AddToInventory(ItemData _item)
+    {
+        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            value.AddStack();
+
+        }
+        else
+        {
+            InventoryItem newitem = new InventoryItem(_item);
+            inventory.Add(newitem);
+            inventoryDictionary.Add(_item, newitem);
+
+        }
+    }
 }

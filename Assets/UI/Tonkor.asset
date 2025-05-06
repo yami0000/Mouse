@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Tonkor
   m_EditorClassIdentifier: 
-  ItemType: 1
+  ItemType: 4
   itemName: Bone_Tonkor
   icon: {fileID: -3941375285955399018, guid: 9ebf1b2c617667e4ebddb24671fbb27b, type: 3}
   dropChance: 1
+  itemEffects: []
   equipmentType: 0
-  itemEffects:
+  equipmentEffects:
   - {fileID: 11400000, guid: 2732f754169a99943a5fc0d2a9b5dcda, type: 2}
   FirePower: 200
   Agility: 0

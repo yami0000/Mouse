@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ammo_Effect : Entity
+public class Collide_Ammo : Entity
 {
     private PlayerStats PlayerStats;
     protected Transform enemy;

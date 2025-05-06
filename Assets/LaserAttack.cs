@@ -63,7 +63,7 @@ public class LaserAttack : MonoBehaviour
             { PlayerStats player = PlayerManager.Instance.player.GetComponent<PlayerStats>();
                 hitBefore = true;
                 EnemyStats.DoDamage(player);
-                //Debug.Log("total damage dealt is "+ EnemyStats.Damage.GetValue() + EnemyStats.FirePower.GetValue());
+                
             }
                
            

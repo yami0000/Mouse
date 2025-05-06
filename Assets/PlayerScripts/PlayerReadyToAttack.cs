@@ -32,7 +32,7 @@ public class PlayerReadyToAttack : PlayerState
             Transform player = PlayerManager.Instance.player.transform;
 
             if(weaponData != null ) 
-            weaponData.ExecuteItemEffect(player.transform);//Ç¹Ðµ¹¥»÷
+            weaponData.ExecuteEquipmentEffect(player.transform);//Ç¹Ðµ¹¥»÷
 
 
         }

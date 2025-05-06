@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Energy Pistol
   m_EditorClassIdentifier: 
-  ItemType: 1
+  ItemType: 4
   itemName: Energy Pistol
   icon: {fileID: -1435255028787470546, guid: 37562f3fc7c19e64cbc7754e5a5586b8, type: 3}
   dropChance: 100
-  equipmentType: 0
   itemEffects: []
+  equipmentType: 0
+  equipmentEffects:
+  - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
   FirePower: 0
   Agility: 0
   Intelligence: 0

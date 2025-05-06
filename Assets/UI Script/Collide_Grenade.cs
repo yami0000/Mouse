@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grenade_Effect : Ammo_Effect
+public class Collide_Grenade : Collide_Ammo
 {
     [SerializeField]private GameObject explode;
     public override void OnTriggerEnter2D(Collider2D collision)

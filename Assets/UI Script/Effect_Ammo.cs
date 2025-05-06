@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName = "Ammo Effect", menuName = "Data/Item Effect/Ammo")]
-public class Ammo : ItemEffect 
+[CreateAssetMenu(fileName = "Ammo Effect", menuName = "Data/Ammo/Common Ammo")]
+public class Effect_Ammo : ItemEffect 
 {
     [SerializeField]private GameObject AmmoPrefab;
     [SerializeField] private float xVelocity;

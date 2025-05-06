@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerWeaponHolder : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PlayerWeaponHolder : MonoBehaviour
     public static PlayerWeaponHolder Instance;
 
     public GameObject Weapon;
-
+ 
      
 
     public bool isHolding = false;
@@ -27,8 +28,8 @@ public class PlayerWeaponHolder : MonoBehaviour
         else
             Instance = this;
     }
-
  
+
     public void EquipWeapon(ItemData_Equipment weaponData)
     {
 
@@ -43,6 +44,9 @@ public class PlayerWeaponHolder : MonoBehaviour
             weapon.sprite = weaponData.icon;
 
         }
+
+       
+
  
         isHolding = true;   
         

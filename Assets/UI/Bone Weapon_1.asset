@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Bone Weapon_1
   m_EditorClassIdentifier: 
-  ItemType: 1
+  ItemType: 4
   itemName: Bone1
   icon: {fileID: -1857050152024054682, guid: cf099c530f5f42e41b60df062adea0cf, type: 3}
   dropChance: 2
+  itemEffects: []
   equipmentType: 0
-  itemEffects:
+  equipmentEffects:
   - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
   FirePower: 10
   Agility: 0

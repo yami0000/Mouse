@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Vitality Chip
   m_EditorClassIdentifier: 
-  ItemType: 1
+  ItemType: 4
   itemName: Vitality Chip
   icon: {fileID: 8471642650417472771, guid: d2d09cce74197364d90ecfac6f41248e, type: 3}
   dropChance: 100
-  equipmentType: 2
   itemEffects: []
+  equipmentType: 2
+  equipmentEffects: []
   FirePower: 0
   Agility: 0
   Intelligence: 0

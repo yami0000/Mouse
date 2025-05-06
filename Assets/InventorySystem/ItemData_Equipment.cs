@@ -22,7 +22,7 @@ public class ItemData_Equipment : ItemData
 
     public EquipmentType equipmentType;
 
-    public ItemEffect[] itemEffects;
+    public ItemEffect[] equipmentEffects;
 
     [Header("Major Stats")]
     public int FirePower;
@@ -47,9 +47,9 @@ public class ItemData_Equipment : ItemData
     public int PoisonDamage;
     public int LightningDamage;
 
-    public void ExecuteItemEffect(Transform _position) 
+    public void ExecuteEquipmentEffect(Transform _position) 
     {
-        foreach (var effect in itemEffects)
+        foreach (var effect in equipmentEffects)
         { 
         effect.ExecuteEffect(  _position);
         }

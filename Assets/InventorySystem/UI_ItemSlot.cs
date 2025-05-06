@@ -18,10 +18,11 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
     private HealthBarUi healthBarUi;
 
     public ItemData_Equipment Weapon;
-    
-   // public static UI_ItemSlot Instance;
 
-     
+    public AspectRatioFitter aspectFitter;
+    // public static UI_ItemSlot Instance;
+
+
 
     public void Start()
     {
@@ -46,6 +47,11 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
             }
 
 
+        }
+        if (aspectFitter != null)
+        {
+            float ratio = (float)item.data.icon.rect.width / item.data.icon.rect.height;
+            aspectFitter.aspectRatio = ratio;
         }
     }
 
@@ -85,19 +91,23 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
             Inventory.Instance.EquipItem(item.data);
 
 
-            if (equipmentData.equipmentType == EquipmentType.Weapon && oldequipment != null)
-            {
-                // Debug.Log("Redirect");
-                Weapon = equipmentData;
-                PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
+          
+              if (equipmentData.equipmentType == EquipmentType.Weapon) 
+              PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
+            
+        }
 
-            }
-            else if (equipmentData.equipmentType == EquipmentType.Weapon) 
-            {
-                //Debug.Log("this is a weapon!!");
-                Weapon = equipmentData;
-                PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
-            }
+        if (item == null || item.data == null)
+        {
+
+            return;
+        }
+        if (item.data.ItemType == ItemType.UsableObject)
+        {
+            ItemData data = item.data;
+            Inventory.Instance.RemoveItem(data);
+            data.ExecuteItemEffect(PlayerManager.Instance.player.transform);
+            Debug.Log("excuteeffect!");
         }
     }
 

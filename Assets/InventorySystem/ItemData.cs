@@ -4,8 +4,11 @@ using UnityEngine;
 
 public enum ItemType
 {
-  Material,
-  Equipment
+    Currency,
+    Material,
+    UsableObject,
+    Other,
+    Equipment
 
 }
 
@@ -19,5 +22,15 @@ public class ItemData : ScriptableObject
 
     [Range(0,100)]
     public float dropChance;
-     
+
+    public ItemEffect[] itemEffects;
+
+    public void ExecuteItemEffect(Transform _position)
+    {
+        foreach (var effect in itemEffects)
+        {
+            effect.ExecuteEffect(_position);
+        }
+    }
+
 }

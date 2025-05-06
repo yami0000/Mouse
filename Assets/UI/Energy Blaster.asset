@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Energy Blaster
   m_EditorClassIdentifier: 
-  ItemType: 1
+  ItemType: 4
   itemName: Energy Blaster
   icon: {fileID: -4411314264719886262, guid: cd17d07179b9b0a48a2621723b456cfa, type: 3}
   dropChance: 0
+  itemEffects: []
   equipmentType: 0
-  itemEffects:
+  equipmentEffects:
   - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
   FirePower: 10
   Agility: 0
