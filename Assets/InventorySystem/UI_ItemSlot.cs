@@ -101,12 +101,7 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
         }
     }
 
-    public void Update()
-    {
-       if (PlayerWeaponHolder.Instance.previousWeapon == null && Weapon != null)
-          PlayerWeaponHolder.Instance.EquipWeapon(Weapon);
-    
-    }
+ 
 
 
 }

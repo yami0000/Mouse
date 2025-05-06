@@ -25,8 +25,8 @@ public class UI_EquipmentSlot : UI_ItemSlot
 
         if (equipmentData.equipmentType == EquipmentType.Weapon)
         {
-            Destroy(PlayerWeaponHolder.Instance.previousWeapon);
-            PlayerWeaponHolder.Instance.previousWeapon = null;
+
+            PlayerWeaponHolder.Instance.UnEquipWeapon();
 
              
 

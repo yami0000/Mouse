@@ -45,7 +45,7 @@ public class ItemDrop : MonoBehaviour
 
     Vector2 randomVelocity = new Vector2(Random.Range(-5,5), Random.Range(10,15));   
     
-    newDrop.GetComponent<ItemObject>().SetUpItem(_itemData, randomVelocity);
+    newDrop.GetComponent<ItemDropMovement>().SetUpItem(_itemData, randomVelocity);
     
     }
 }

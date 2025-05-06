@@ -7,7 +7,7 @@ public class EquipmentObject : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private ItemData_Equipment itemEquipmentData;
-    //[SerializeField] private Vector2 velocity;
+  ¡¡
 
 
 

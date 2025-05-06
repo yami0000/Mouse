@@ -23,16 +23,16 @@ public class PlayerReadyToAttack : PlayerState
     public override void Update()
     {
         base.Update();
-        if (Input.GetKey(KeyCode.Mouse0) && PlayerWeaponHolder.Instance.previousWeapon == null)
-            stateMachine.ChangeState(player.attackState);
+        if (Input.GetKey(KeyCode.Mouse0) && !PlayerWeaponHolder.Instance.isHolding)
+            stateMachine.ChangeState(player.attackState);//ÆÕÍ¨¹¥»÷£¨Åç»ð£©
 
-        if (Input.GetKey(KeyCode.Mouse0) && PlayerWeaponHolder.Instance.previousWeapon != null)
+        if (Input.GetKey(KeyCode.Mouse0) && PlayerWeaponHolder.Instance.isHolding)
         { 
             ItemData_Equipment weaponData = Inventory.Instance.GetEquipment(EquipmentType.Weapon);
             Transform player = PlayerManager.Instance.player.transform;
 
             if(weaponData != null ) 
-            weaponData.ExecuteItemEffect(player.transform);
+            weaponData.ExecuteItemEffect(player.transform);//Ç¹Ðµ¹¥»÷
 
 
         }
