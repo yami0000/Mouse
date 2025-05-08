@@ -29,7 +29,7 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
 
-   // private PlayerWeaponHolder weaponHolder;//
+   
 
     private void Awake()
     {
@@ -166,7 +166,6 @@ public class Inventory : MonoBehaviour
 
 
     }
-
 
     public void RemoveItem(ItemData _item)
     {

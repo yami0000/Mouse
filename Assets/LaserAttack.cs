@@ -84,7 +84,7 @@ public class LaserAttack : MonoBehaviour
         }
 
         isAttack = false;
-        Debug.Log(isAttack);
+         
         
         t = 0f;
 

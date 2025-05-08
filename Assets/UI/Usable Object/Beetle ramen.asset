@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28d2aa326e5d1d469ed4e610beadbc6, type: 3}
+  m_Name: Beetle ramen
+  m_EditorClassIdentifier: 
+  ItemType: 2
+  itemName: Beetle ramen
+  icon: {fileID: 1488182172509723299, guid: b04b90d8de2e55b4abded816282e394a, type: 3}
+  price: 3
+  dropChance: 8
+  itemEffects:
+  - {fileID: 11400000, guid: 188eaacac83cc414c8157268fa2062f9, type: 2}

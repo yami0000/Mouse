@@ -23,7 +23,7 @@ public class UI_Inventory : MonoBehaviour
         {
            OpenMenu();
            canOpenMenu = false;
-                Debug.Log("open!");
+               
         }
 
 

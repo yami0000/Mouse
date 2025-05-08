@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28d2aa326e5d1d469ed4e610beadbc6, type: 3}
+  m_Name: Tempura Udon
+  m_EditorClassIdentifier: 
+  ItemType: 2
+  itemName: Tempura Udon
+  icon: {fileID: -4156787232488257927, guid: 11e27f0aa9067c949a5ad742dd5c5f6d, type: 3}
+  price: 1
+  dropChance: 10
+  itemEffects:
+  - {fileID: 11400000, guid: 188eaacac83cc414c8157268fa2062f9, type: 2}
