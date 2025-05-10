@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class EnemyAmmo_Effect : MonoBehaviour
 {
-    [SerializeField]private Enemy_Bee enemy;
+     private Enemy_Bee enemy;
     private EnemyStats EnemyStats;
 
+
+
+    public void Initialize(Enemy_Bee enemy) 
+    { 
     
-    private void Start()
-    {
-        EnemyStats = enemy.GetComponent<EnemyStats>();
+     EnemyStats = enemy.GetComponent<EnemyStats>();
+    
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
+    {   
+       
+
+         
         if (collision.GetComponent<Player>() != null)
         {
             PlayerStats player = collision.GetComponent<PlayerStats>();

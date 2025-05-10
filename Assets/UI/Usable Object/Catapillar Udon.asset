@@ -18,4 +18,4 @@ MonoBehaviour:
   price: 2
   dropChance: 4
   itemEffects:
-  - {fileID: 11400000, guid: 188eaacac83cc414c8157268fa2062f9, type: 2}
+  - {fileID: 11400000, guid: 9d83170834f4bc3448f11dc0f2bd3e27, type: 2}

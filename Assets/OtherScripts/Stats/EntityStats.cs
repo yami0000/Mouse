@@ -29,6 +29,9 @@ public class EntityStats : MonoBehaviour
     public Stats PoisonDamage;
     public Stats LightningDamage;
 
+    [Header("support power")]
+    public Stats HealPower;
+
     public bool isIgnited;
     public bool isFrosted;
     public bool isShocked;
@@ -108,6 +111,15 @@ public class EntityStats : MonoBehaviour
         _targetStats.TakeDamage(totalDamage);
         DoElementDamage(_targetStats);
 
+    }
+
+    public virtual void Heal(EntityStats _targetStats) 
+    {
+    int totalHeal = HealPower.GetValue() * 10;
+
+        _targetStats.HealAmount(totalHeal);
+    
+    
     }
 
     public virtual void DoElementDamage(EntityStats _targetStats)
@@ -203,6 +215,15 @@ public class EntityStats : MonoBehaviour
             Die();
     }
 
+
+    public virtual void HealAmount(int totalHeal) 
+    {
+       CurrentHP += totalHeal;
+
+        if(CurrentHP  >= MaxHP.GetValue())
+            CurrentHP = MaxHP.GetValue();
+    
+    }
     protected virtual void Die()
     {
 

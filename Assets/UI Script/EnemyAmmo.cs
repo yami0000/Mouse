@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "Ammo Effect", menuName = "Data/Enemy Item/Ammo")]
-public class EnemyAmmo : ItemEffect
+ 
+public class EnemyAmmo :MonoBehaviour
 {
     [SerializeField] public GameObject AmmoPrefab;
 
@@ -14,8 +13,8 @@ public class EnemyAmmo : ItemEffect
     [SerializeField] float Range;
     [SerializeField] float speed;
 
- 
-    public override void ExecuteEffect(Transform _position)
+     
+    public  void ExecuteEffect(Transform _position)
     {
         Player player = PlayerManager.Instance.player;
 
@@ -26,7 +25,9 @@ public class EnemyAmmo : ItemEffect
         Ammo.GetComponent<Rigidbody2D>().velocity = direction * speed;
 
 
-       
+        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        if (_Ammo != null)
+            _Ammo.Initialize(enemy);
         
  
 
@@ -34,5 +35,7 @@ public class EnemyAmmo : ItemEffect
 
         
     }
+
+ 
  
 }

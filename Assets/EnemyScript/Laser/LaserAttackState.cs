@@ -51,8 +51,8 @@ public class LaserAttackState : EnemyState
         if (!enemy.laser.isAttack) 
         
         {
-            Debug.Log("change into walkstate!");
-            stateMachine.ChangeState(enemy.walkState); }
+             
+            stateMachine.ChangeState(enemy.battleState); }
             
          
     }

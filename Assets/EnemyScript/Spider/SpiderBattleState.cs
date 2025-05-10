@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpiderBattleState : EnemyState
-
-{
+ {
     private Transform player;
     private Enemy_Spider enemy;
     private int moveDir;

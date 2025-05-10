@@ -11,8 +11,10 @@ public class Enemy_Spider : Enemy
 
     public SpiderAttackState attackState{ get; private set; }
 
-    public SpiderDeathState deathState{ get; private set; } 
-      
+    public SpiderDeathState deathState{ get; private set; }
+
+   
+
     protected override void Awake()
     {
         base.Awake();

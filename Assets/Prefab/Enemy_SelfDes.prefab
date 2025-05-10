@@ -240,11 +240,11 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCheckDistance: 50
+  playerCheckDistance: 35
   moveSpeed: 4.5
   idleTime: 1
-  battleTime: 3
-  attackDistance: 1.5
+  battleTime: 5
+  attackDistance: 1
   attackCooldown: 0
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
@@ -395,6 +395,9 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   LightningDamage:
+    BaseValue: 0
+    modifiers: 
+  HealPower:
     BaseValue: 0
     modifiers: 
   isIgnited: 0

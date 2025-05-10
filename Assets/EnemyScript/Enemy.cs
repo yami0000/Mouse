@@ -70,7 +70,14 @@ public class Enemy : Entity
 
     public virtual void AttackPreparetion_Bee() => stateMachine.currentState.AttackPreparetionTrigger_Bee();
 
+    public virtual void AnimationTrigger_Medic() => stateMachine.currentState.AnimationFinishTrigger_Medic();
+
+    public virtual void AttackPreparetion_Medic() => stateMachine.currentState.AttackPreparetionTrigger_Medic();
+
     //public virtual RaycastHit2D IsPlayerDetected() =>Physics2D.Raycast(wallCheck.position,Vector2.right*facingDir, playerCheckDistance, whatIsPlayer);
+
+
+
 
     public virtual bool IsPlayerDetected()
     {
@@ -131,8 +138,8 @@ public class Enemy : Entity
     {
         base.OnDrawGizmos();
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
 
 
         if (IsPlayerDetected())

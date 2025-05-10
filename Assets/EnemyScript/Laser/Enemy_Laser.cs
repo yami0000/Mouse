@@ -14,6 +14,8 @@ public class Enemy_Laser : Enemy
 
     public LaserDeathState deathState { get; private set; }
 
+    public LaserBattleState battleState { get; private set; }
+
     [SerializeField] public LaserAttack laser;
 
     public bool isDetected;
@@ -25,6 +27,7 @@ protected override void Awake()
     walkState = new LaserMoveState(this, stateMachine, "Walk", this);
     attackState = new LaserAttackState(this, stateMachine, "Attack", this);
     deathState = new LaserDeathState(this, stateMachine, "Idle", this);
+    battleState = new LaserBattleState(this, stateMachine, "Walk", this);
   
 
 }

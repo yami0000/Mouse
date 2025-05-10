@@ -107,7 +107,7 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
             ItemData data = item.data;
             Inventory.Instance.RemoveItem(data);
             data.ExecuteItemEffect(PlayerManager.Instance.player.transform);
-            Debug.Log("excuteeffect!");
+             
         }
     }
 

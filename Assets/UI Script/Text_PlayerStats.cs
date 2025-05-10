@@ -13,10 +13,10 @@ public class Text_PlayerStats : MonoBehaviour
     public void Update()
     {
         PlayerStats player = PlayerManager.Instance.player.GetComponent<PlayerStats>();
-        Health.   text = "HEALTH       " + player.CurrentHP.ToString();
-        FirePower.text = "FIREPOWER    " + player.FirePower.GetValue().ToString();
-        Armor.    text = "ARMOR        " + player.Armor.GetValue().ToString();
-        CritChance.text= "CRIT CHANCE  " + player.CriticalChance.GetValue().ToString();
-        CritDMG  .text = "CRIT DAMAGE  " + player.CriticalDamage.GetValue().ToString();
+        Health.   text = player.CurrentHP.ToString() + "/" + player.GetMaxHealth();
+        FirePower.text = player.FirePower.GetValue().ToString();
+        Armor.    text = player.Armor.GetValue().ToString();
+        CritChance.text= player.CriticalChance.GetValue().ToString() + "%";
+        CritDMG  .text = player.CriticalDamage.GetValue().ToString() + "%";
     }
 }

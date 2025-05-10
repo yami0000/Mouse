@@ -14,6 +14,8 @@ public class EnemyState
     protected bool triggerCalled_Bee;
     protected bool ReadyToAttack;
     protected bool ReadyToAttack_Bee;
+    protected bool triggerCalled_Medic ;
+    protected bool ReadyToAttack_Medic ;
 
     protected float stateTimer;
     protected float stateTimer_Bee;
@@ -44,8 +46,11 @@ public class EnemyState
     ReadyToAttack = false;
     triggerCalled_Bee = false;
     ReadyToAttack_Bee = false;
+    triggerCalled_Medic = false;
+    ReadyToAttack_Medic = false ;
 
-        rb = enemyBase.rb;
+
+                rb = enemyBase.rb;
     enemyBase.anim.SetBool(animBoolName,true);
     
     }
@@ -74,5 +79,15 @@ public class EnemyState
     public virtual void AttackPreparetionTrigger_Bee()
     {
         ReadyToAttack_Bee = true;
+    }
+
+    public virtual void AnimationFinishTrigger_Medic()
+    {
+        triggerCalled_Medic = true;
+    }
+
+    public virtual void AttackPreparetionTrigger_Medic()
+    {
+        ReadyToAttack_Medic = true;
     }
 }
