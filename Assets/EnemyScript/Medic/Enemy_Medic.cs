@@ -22,6 +22,7 @@ public class Enemy_Medic : Enemy
     public Enemy _enemy;
 
     [SerializeField] public HealAmmo healAmmo;
+    [SerializeField] public EnemyAmmo ammo;
 
     [SerializeField] public Test ParticleSystem;
     protected override void Awake()
@@ -61,8 +62,13 @@ public class Enemy_Medic : Enemy
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, enemyCheckDistance, whatIsEnemy);
 
-         
+        if (hits.Length == 1)
+        {
+            _enemy = null;
+            return;
+        }
 
+        Debug.Log(hits.Length);
         float minDistance = Mathf.Infinity;
         Vector2 pos = transform.position;
 
@@ -71,18 +77,19 @@ public class Enemy_Medic : Enemy
             if (hit.gameObject == this.gameObject)
                 continue;
 
+       
+               
+
             Enemy enemy = hit.gameObject.GetComponent<Enemy>();
-            if (enemy == null)
-                continue;
-        
+             
+
             float distance = Vector2.Distance(pos, hit.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
                 _enemy = enemy;
             }
-
-
+             
         }
     }
 

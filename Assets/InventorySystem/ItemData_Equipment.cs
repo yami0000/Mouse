@@ -38,7 +38,7 @@ public class ItemData_Equipment : ItemData
     [Header("Defensive Stats")]
     public int MaxHP;
     public int Armor;
-    public int Evasion;
+    //public int Evasion;
     public int ElementResistance;
 
     [Header("Element")]
@@ -59,8 +59,8 @@ public class ItemData_Equipment : ItemData
        PlayerStats playerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
 
        playerStats.FirePower.AddModifier(FirePower);
-       playerStats.Agility.AddModifier(Agility);    
-       playerStats.Intelligence.AddModifier(Intelligence);
+      // playerStats.Agility.AddModifier(Agility);    
+      // playerStats.Intelligence.AddModifier(Intelligence);
        playerStats.Vitality.AddModifier(Vitality); 
 
        playerStats.Damage.AddModifier(Damage);
@@ -69,7 +69,7 @@ public class ItemData_Equipment : ItemData
 
         playerStats.MaxHP.AddModifier(MaxHP);
         playerStats.Armor.AddModifier(Armor);   
-        playerStats.Evasion.AddModifier(Evasion);
+       // playerStats.Evasion.AddModifier(Evasion);
         playerStats.ElementResistance.AddModifier(ElementResistance);
 
         playerStats.FireDamage.AddModifier(FireDamage);
@@ -86,8 +86,8 @@ public class ItemData_Equipment : ItemData
 
 
         playerStats.FirePower.RemoveModifier(FirePower);
-        playerStats.Agility.RemoveModifier(Agility);
-        playerStats.Intelligence.RemoveModifier(Intelligence);
+        //playerStats.Agility.RemoveModifier(Agility);
+        // playerStats.Intelligence.RemoveModifier(Intelligence);
         playerStats.Vitality.RemoveModifier(Vitality);
 
         playerStats.Damage.RemoveModifier(Damage);
@@ -96,7 +96,7 @@ public class ItemData_Equipment : ItemData
 
         playerStats.MaxHP.RemoveModifier(MaxHP);
         playerStats.Armor.RemoveModifier(Armor);
-        playerStats.Evasion.RemoveModifier(Evasion);
+       // playerStats.Evasion.RemoveModifier(Evasion);s
         playerStats.ElementResistance.RemoveModifier(ElementResistance);
 
         playerStats.FireDamage.RemoveModifier(FireDamage);

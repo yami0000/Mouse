@@ -6,21 +6,18 @@ public class EntityStats : MonoBehaviour
 {
     private Effects fx;
     
-    [Header("Major Stats")]
-    public Stats FirePower;
-    public Stats Agility;
-    public Stats Intelligence;
-    public Stats Vitality;
 
     [Header("Damage")]
+    public Stats FirePower;
     public Stats Damage;
     public Stats CriticalChance;
     public Stats CriticalDamage;
 
     [Header("Defensive Stats")]
+    public Stats Vitality;
     public Stats MaxHP;
     public Stats Armor;
-    public Stats Evasion;
+    //public Stats Evasion;
     public Stats ElementResistance;
 
     [Header("Element")]
@@ -32,10 +29,11 @@ public class EntityStats : MonoBehaviour
     [Header("support power")]
     public Stats HealPower;
 
-    public bool isIgnited;
-    public bool isFrosted;
-    public bool isShocked;
-    public bool isPoisoned;
+
+    private bool isIgnited;
+    private bool isFrosted;
+    private bool isShocked;
+    private bool isPoisoned;
 
     public int CurrentHP;
 
@@ -98,8 +96,8 @@ public class EntityStats : MonoBehaviour
 
     public virtual void DoDamage(EntityStats _targetStats)
     {
-        if (Avoid(_targetStats))
-            return;
+       // if (Avoid(_targetStats))
+           // return;
 
         int totalDamage = Damage.GetValue() + FirePower.GetValue();
 
@@ -129,7 +127,7 @@ public class EntityStats : MonoBehaviour
         int _lightingDamage = LightningDamage.GetValue();
         int _poisionDamage = PoisonDamage.GetValue();
 
-        int totalElementDamage = _fireDamage + _frostDamage + _lightingDamage + _poisionDamage + Intelligence.GetValue();
+        int totalElementDamage = _fireDamage + _frostDamage + _lightingDamage + _poisionDamage ;
         totalElementDamage = CheckTargetElementResistance(_targetStats, totalElementDamage);
 
         _targetStats.TakeDamage(totalElementDamage);
@@ -215,7 +213,6 @@ public class EntityStats : MonoBehaviour
             Die();
     }
 
-
     public virtual void HealAmount(int totalHeal) 
     {
        CurrentHP += totalHeal;
@@ -230,7 +227,7 @@ public class EntityStats : MonoBehaviour
     }
     private static int CheckTargetElementResistance(EntityStats _targetStats, int totalElementDamage)
     {
-        totalElementDamage -= _targetStats.ElementResistance.GetValue() + (_targetStats.Intelligence.GetValue() * 2);
+        totalElementDamage -= _targetStats.ElementResistance.GetValue() ;
         totalElementDamage = Mathf.Clamp(totalElementDamage, 0, int.MaxValue);
         return totalElementDamage;
     }
@@ -247,7 +244,7 @@ public class EntityStats : MonoBehaviour
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
     }  //Reduce taken damage by armor
-    private bool Avoid(EntityStats _targetStats)
+   /* private bool Avoid(EntityStats _targetStats)
     {
         int totalevasion = _targetStats.Evasion.GetValue() + _targetStats.Agility.GetValue();
 
@@ -258,10 +255,10 @@ public class EntityStats : MonoBehaviour
 
         }
         return false;
-    }//Chances to avoid damage.
+    }//Chances to avoid damage.*/
     private bool CanCritical()
     {
-        int totalCriticalChance = CriticalChance.GetValue() + Agility.GetValue();
+        int totalCriticalChance = CriticalChance.GetValue()  ;
 
         if (Random.Range(0, 100) <= totalCriticalChance)
         {

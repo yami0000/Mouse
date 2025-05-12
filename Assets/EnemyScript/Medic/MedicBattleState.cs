@@ -25,9 +25,32 @@ public class MedicBattleState : EnemyState
     public override void Update()
     {
         base.Update();
-        Tracing();
-        if(CanAttack())
-            stateMachine.ChangeState(enemy.healState);
+        enemy.pinpointClosestEnemy();
+        if (enemy._enemy != null)
+        {
+            Tracing();
+            if (CanAttack())
+            {
+
+                stateMachine.ChangeState(enemy.healState);
+
+            }
+        }
+        else if (enemy._enemy == null && enemy.IsPlayerDetectedAll())
+        {
+            TracingPlayer();
+            if (CanAttack())
+            {
+
+                stateMachine.ChangeState(enemy.healState);
+
+            }
+        }
+        else
+            stateMachine.ChangeState(enemy.idleState);
+         
+                
+        
     }
 
     private void Tracing()
@@ -36,6 +59,33 @@ public class MedicBattleState : EnemyState
         float targetX = enemy._enemy.transform.position.x - offsetX;
         float currentX = enemy.transform.position.x;
         float enemyX = enemy._enemy.transform.position.x;
+
+        int moveDir = (currentX < targetX) ? 1 : -1;
+        int facingDir = (currentX < enemyX) ? 1 : -1;
+        float distance = Mathf.Abs(currentX - targetX);
+
+
+        if (distance > 1f)
+        {
+
+            enemy.Setvelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
+        }
+        else
+        {
+
+            enemy.Setvelocity(0.00001f * facingDir, rb.velocity.y);
+        }
+    }
+
+    private void TracingPlayer()
+    {
+
+        Player player = PlayerManager.Instance.player;
+
+        float offsetX = player.facingDir * enemy.followingDistance;
+        float targetX = player.transform.position.x - offsetX;
+        float currentX = enemy.transform.position.x;
+        float enemyX = player.transform.position.x;
 
         int moveDir = (currentX < targetX) ? 1 : -1;
         int facingDir = (currentX < enemyX) ? 1 : -1;

@@ -7,7 +7,7 @@ public class EnemyAmmo :MonoBehaviour
 {
     [SerializeField] public GameObject AmmoPrefab;
 
-    [SerializeField] private Enemy_Bee enemy;
+    [SerializeField] private Enemy enemy;
     
     
     [SerializeField] float Range;

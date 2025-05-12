@@ -95,6 +95,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &702450439581865551
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &2173897937536734427
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +870,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &3143641039186789621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1102,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &3212740173057996732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,6 +1338,7 @@ MonoBehaviour:
     data: {fileID: 0}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
   slotType: 0
 --- !u!1 &3637837771778781959
 GameObject:
@@ -1702,6 +1707,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &4173059050050633883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,6 +2181,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &4630690151914359146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2827,6 +2834,7 @@ MonoBehaviour:
     data: {fileID: 0}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
   slotType: 2
 --- !u!1 &6665818399073528049
 GameObject:
@@ -3052,6 +3060,9 @@ MonoBehaviour:
   LightningDamage:
     BaseValue: 0
     modifiers: 
+  HealPower:
+    BaseValue: 0
+    modifiers: 
   isIgnited: 0
   isFrosted: 0
   isShocked: 0
@@ -3069,8 +3080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce1f16f0a26fed449c8e0bbfce6b472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousWeapon: {fileID: 0}
-  equipmentPrefab: {fileID: 7792831938927016523, guid: cff3c0b8d2b0b924580cb41143a70080, type: 3}
+  Weapon: {fileID: 0}
+  isHolding: 0
 --- !u!114 &5514482779264178211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3216,6 +3227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 553635143635187740}
+  player: {fileID: 0}
 --- !u!1 &6929969047465292792
 GameObject:
   m_ObjectHideFlags: 0
@@ -3495,6 +3507,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &7101797537172385719
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,6 +3603,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &7265015566432271531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3685,6 +3699,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &8427781406369730801
 GameObject:
   m_ObjectHideFlags: 0
@@ -3780,6 +3795,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     stackSize: 0
   Weapon: {fileID: 0}
+  aspectFitter: {fileID: 0}
 --- !u!1 &8476773831084783825
 GameObject:
   m_ObjectHideFlags: 0

@@ -77,7 +77,18 @@ public class Enemy : Entity
     //public virtual RaycastHit2D IsPlayerDetected() =>Physics2D.Raycast(wallCheck.position,Vector2.right*facingDir, playerCheckDistance, whatIsPlayer);
 
 
+    public virtual bool IsPlayerDetectedAll() 
+    {
+        float distance = (PlayerManager.Instance.player.transform.position - transform.position).magnitude;
+        float playerPosition = PlayerManager.Instance.player.transform.position.x;
 
+        if(distance <= playerCheckDistance )
+            return true;
+
+
+        return false;
+    
+    }
 
     public virtual bool IsPlayerDetected()
     {

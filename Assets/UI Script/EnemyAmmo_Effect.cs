@@ -9,7 +9,7 @@ public class EnemyAmmo_Effect : MonoBehaviour
 
 
 
-    public void Initialize(Enemy_Bee enemy) 
+    public void Initialize(Enemy enemy) 
     { 
     
      EnemyStats = enemy.GetComponent<EnemyStats>();

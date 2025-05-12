@@ -29,7 +29,7 @@ public class MedicGroundState : EnemyState
 
 
         enemy.pinpointClosestEnemy();
-        if (enemy._enemy != null)
+        if (enemy._enemy != null|| enemy.IsPlayerDetectedAll())
             stateMachine.ChangeState(enemy.battleState);
 
 
