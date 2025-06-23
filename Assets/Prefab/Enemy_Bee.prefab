@@ -362,7 +362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5933917798709032654}
 --- !u!1 &5317045734150289598
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,15 +576,6 @@ MonoBehaviour:
   FirePower:
     BaseValue: 0
     modifiers: 
-  Agility:
-    BaseValue: 0
-    modifiers: 
-  Intelligence:
-    BaseValue: 0
-    modifiers: 
-  Vitality:
-    BaseValue: 0
-    modifiers: 
   Damage:
     BaseValue: 100
     modifiers: 
@@ -595,16 +585,25 @@ MonoBehaviour:
   CriticalDamage:
     BaseValue: 0
     modifiers: 
+  Vitality:
+    BaseValue: 0
+    modifiers: 
   MaxHP:
     BaseValue: 2000
     modifiers: 
   Armor:
     BaseValue: 0
     modifiers: 
-  Evasion:
+  FireResistance:
     BaseValue: 0
     modifiers: 
-  ElementResistance:
+  FrostResistance:
+    BaseValue: 0
+    modifiers: 
+  PoisonResistance:
+    BaseValue: 0
+    modifiers: 
+  LightingResistance:
     BaseValue: 0
     modifiers: 
   FireDamage:
@@ -619,12 +618,14 @@ MonoBehaviour:
   LightningDamage:
     BaseValue: 0
     modifiers: 
-  isIgnited: 0
-  isFrosted: 0
-  isShocked: 0
-  isPoisoned: 0
+  HealPower:
+    BaseValue: 0
+    modifiers: 
   CurrentHP: 0
-  level: 1
+  Fire_THRESHOLD: 100
+  Frost_THRESHOLD: 100
+  Lighting_THRESHOLD: 100
+  Poison_THRESHOLD: 100
   percantageModifier: 0.15
 --- !u!114 &3419357008144241395
 MonoBehaviour:

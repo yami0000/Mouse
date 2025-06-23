@@ -33,7 +33,7 @@ public class SceneController : MonoBehaviour
 
     public void ToMaze()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 2);
 
     }
 

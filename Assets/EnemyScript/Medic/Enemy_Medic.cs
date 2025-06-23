@@ -68,7 +68,7 @@ public class Enemy_Medic : Enemy
             return;
         }
 
-        Debug.Log(hits.Length);
+         
         float minDistance = Mathf.Infinity;
         Vector2 pos = transform.position;
 

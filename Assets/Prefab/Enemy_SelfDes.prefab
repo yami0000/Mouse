@@ -355,15 +355,6 @@ MonoBehaviour:
   FirePower:
     BaseValue: 0
     modifiers: 
-  Agility:
-    BaseValue: 0
-    modifiers: 
-  Intelligence:
-    BaseValue: 0
-    modifiers: 
-  Vitality:
-    BaseValue: 0
-    modifiers: 
   Damage:
     BaseValue: 0
     modifiers: 
@@ -373,16 +364,25 @@ MonoBehaviour:
   CriticalDamage:
     BaseValue: 0
     modifiers: 
+  Vitality:
+    BaseValue: 0
+    modifiers: 
   MaxHP:
     BaseValue: 400
     modifiers: 
   Armor:
     BaseValue: 0
     modifiers: 
-  Evasion:
+  FireResistance:
     BaseValue: 0
     modifiers: 
-  ElementResistance:
+  FrostResistance:
+    BaseValue: 0
+    modifiers: 
+  PoisonResistance:
+    BaseValue: 0
+    modifiers: 
+  LightingResistance:
     BaseValue: 0
     modifiers: 
   FireDamage:
@@ -400,12 +400,11 @@ MonoBehaviour:
   HealPower:
     BaseValue: 0
     modifiers: 
-  isIgnited: 0
-  isFrosted: 0
-  isShocked: 0
-  isPoisoned: 0
   CurrentHP: 0
-  level: 1
+  Fire_THRESHOLD: 25
+  Frost_THRESHOLD: 75
+  Lighting_THRESHOLD: 75
+  Poison_THRESHOLD: 75
   percantageModifier: 0
 --- !u!114 &8424636279219040729
 MonoBehaviour:

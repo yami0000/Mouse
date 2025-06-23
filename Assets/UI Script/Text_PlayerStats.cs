@@ -9,14 +9,23 @@ public class Text_PlayerStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI FirePower;
     [SerializeField] private TextMeshProUGUI Armor;
     [SerializeField] private TextMeshProUGUI CritChance;
-    [SerializeField] private TextMeshProUGUI CritDMG;   
+    [SerializeField] private TextMeshProUGUI CritDMG;
+    [SerializeField] private TextMeshProUGUI Fire;
+    [SerializeField] private TextMeshProUGUI Frost;
+    [SerializeField] private TextMeshProUGUI Poison;
+    [SerializeField] private TextMeshProUGUI Lightning;
+
     public void Update()
     {
         PlayerStats player = PlayerManager.Instance.player.GetComponent<PlayerStats>();
-        Health.   text = player.CurrentHP.ToString() + "/" + player.GetMaxHealth();
+        Health.text = player.CurrentHP.ToString() + "/" + player.GetMaxHealth();
         FirePower.text = player.FirePower.GetValue().ToString();
-        Armor.    text = player.Armor.GetValue().ToString();
-        CritChance.text= player.CriticalChance.GetValue().ToString() + "%";
-        CritDMG  .text = player.CriticalDamage.GetValue().ToString() + "%";
+        Armor.text = player.Armor.GetValue().ToString();
+        CritChance.text = player.CriticalChance.GetValue().ToString() + "%";
+        CritDMG.text = player.CriticalDamage.GetValue().ToString() + "%";
+        Fire.text = player.FireDamage.GetValue().ToString();
+        Frost.text = player.FrostDamage.GetValue().ToString();
+        Poison.text = player.PoisonDamage.GetValue().ToString();
+        Lightning.text = player.LightningDamage.GetValue().ToString();
     }
 }

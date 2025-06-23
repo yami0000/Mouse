@@ -8,11 +8,11 @@ public class EnemyStats : EntityStats
     private Enemy enemy;
     private ItemDrop myDropSystem;
 
-    [Header("level details")]
+    //[Header("level details")]
     
 
-    [Range(0f,1f)]
-    [SerializeField] private float percantageModifier;
+    //[Range(0f,1f)]
+    //[SerializeField] private float percantageModifier;
     protected override void Start()
     {
          

@@ -31,6 +31,8 @@ public class EnemyAmmo_Effect : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+
     }
 
  

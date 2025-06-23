@@ -17,8 +17,10 @@ public class EntityStats : MonoBehaviour
     public Stats Vitality;
     public Stats MaxHP;
     public Stats Armor;
-    //public Stats Evasion;
-    public Stats ElementResistance;
+    public Stats FireResistance;
+    public Stats FrostResistance;
+    public Stats PoisonResistance;
+    public Stats LightingResistance;
 
     [Header("Element")]
     public Stats FireDamage;
@@ -42,8 +44,11 @@ public class EntityStats : MonoBehaviour
     private float shockMeter = 0;
     private float poisonMeter = 0;
 
-    // Threshold to trigger status effect
-    private const float STATUS_THRESHOLD = 100f;
+    [Header("Element Threshold")]
+    [SerializeField] private float Fire_THRESHOLD;
+    [SerializeField] private float Frost_THRESHOLD;
+    [SerializeField] private float Lighting_THRESHOLD;
+    [SerializeField] private float Poison_THRESHOLD;
 
     private float ignitedTimer; 
     private float frostTimer;
@@ -127,8 +132,9 @@ public class EntityStats : MonoBehaviour
         int _lightingDamage = LightningDamage.GetValue();
         int _poisionDamage = PoisonDamage.GetValue();
 
-        int totalElementDamage = _fireDamage + _frostDamage + _lightingDamage + _poisionDamage ;
-        totalElementDamage = CheckTargetElementResistance(_targetStats, totalElementDamage);
+         
+        int totalElementDamage = CheckTargetFireResistance(_targetStats, _fireDamage)+CheckTargetFrostResistance(_targetStats, _frostDamage) + CheckTargetLightingResistance(_targetStats, _lightingDamage) + CheckTargetPoisonResistance(_targetStats,_poisionDamage);
+
 
         _targetStats.TakeDamage(totalElementDamage);
         _targetStats.ApplyElementalBuildup(_targetStats,FireDamage.GetValue(), FrostDamage.GetValue(), LightningDamage.GetValue(), PoisonDamage.GetValue());
@@ -142,10 +148,10 @@ public class EntityStats : MonoBehaviour
     public void ApplyElementalBuildup(EntityStats _targetStats, int fire, int frost, int lightning, int poison)
     {
 
-        fire = CheckTargetElementResistance( _targetStats, fire);
-        frost = CheckTargetElementResistance( _targetStats, frost);
-        lightning = CheckTargetElementResistance( _targetStats, lightning);
-        poison = CheckTargetElementResistance( _targetStats, poison);
+        fire = CheckTargetFireResistance( _targetStats, fire);
+        frost = CheckTargetFrostResistance( _targetStats, frost);
+        lightning = CheckTargetLightingResistance( _targetStats, lightning);
+        poison = CheckTargetPoisonResistance( _targetStats, poison);
 
         fireMeter += fire;
         frostMeter += frost;
@@ -153,7 +159,7 @@ public class EntityStats : MonoBehaviour
         poisonMeter += poison;
 
       
-        if (fireMeter >= STATUS_THRESHOLD)
+        if (fireMeter >= Fire_THRESHOLD)
         {
             //Debug.Log("Fire! " +fireMeter);
             isIgnited = true;
@@ -161,7 +167,7 @@ public class EntityStats : MonoBehaviour
             fx.IgniteFxFor(4);
             fireMeter = 0;
         }
-        if (frostMeter >= STATUS_THRESHOLD)
+        if (frostMeter >= Frost_THRESHOLD)
         {
            // Debug.Log("Freeze! "+ frostMeter);
             isFrosted = true;
@@ -173,7 +179,7 @@ public class EntityStats : MonoBehaviour
             frostMeter = 0;
         }
 
-        if (shockMeter >= STATUS_THRESHOLD)
+        if (shockMeter >= Lighting_THRESHOLD)
         {
             //Debug.Log("Shock! "+ shockMeter);
             isShocked = true;
@@ -183,7 +189,7 @@ public class EntityStats : MonoBehaviour
             shockMeter = 0;
 
         }
-        if (poisonMeter >= STATUS_THRESHOLD)
+        if (poisonMeter >= Poison_THRESHOLD)
         {
            // Debug.Log("Poison! " + poisonMeter);
             isPoisoned = true;
@@ -193,12 +199,7 @@ public class EntityStats : MonoBehaviour
 
         }
     }
-
-
-
-
     #endregion
- 
 
     public void SetIgniteDamage(int _damage) => igniteDamage = _damage;
 
@@ -225,12 +226,38 @@ public class EntityStats : MonoBehaviour
     {
 
     }
-    private static int CheckTargetElementResistance(EntityStats _targetStats, int totalElementDamage)
+
+    #region ElementResistance
+    private static int CheckTargetFireResistance(EntityStats _targetStats, int FireElementDamage)
     {
-        totalElementDamage -= _targetStats.ElementResistance.GetValue() ;
-        totalElementDamage = Mathf.Clamp(totalElementDamage, 0, int.MaxValue);
-        return totalElementDamage;
+        FireElementDamage -= _targetStats.FireResistance.GetValue() ;
+        FireElementDamage = Mathf.Clamp(FireElementDamage, 0, int.MaxValue);
+        return FireElementDamage;
     }
+
+    private static int CheckTargetFrostResistance(EntityStats _targetStats, int FrostElementDamage)
+    {
+        FrostElementDamage -= _targetStats.FrostResistance.GetValue();
+        FrostElementDamage = Mathf.Clamp(FrostElementDamage, 0, int.MaxValue);
+        return FrostElementDamage;
+    }
+
+    private static int CheckTargetLightingResistance(EntityStats _targetStats, int LightingElementDamage)
+    {
+        LightingElementDamage -= _targetStats.LightingResistance.GetValue();
+        LightingElementDamage = Mathf.Clamp(LightingElementDamage, 0, int.MaxValue);
+        return LightingElementDamage;
+    }
+
+    private static int CheckTargetPoisonResistance(EntityStats _targetStats, int PoisonElementDamage)
+    {
+        PoisonElementDamage -= _targetStats.PoisonResistance.GetValue();
+        PoisonElementDamage = Mathf.Clamp(PoisonElementDamage, 0, int.MaxValue);
+        return PoisonElementDamage;
+    }
+
+    #endregion
+
     private int ArmorSystem(EntityStats _targetStats, int totalDamage)
     {
         if (_targetStats.isPoisoned)
@@ -243,19 +270,8 @@ public class EntityStats : MonoBehaviour
 
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
-    }  //Reduce taken damage by armor
-   /* private bool Avoid(EntityStats _targetStats)
-    {
-        int totalevasion = _targetStats.Evasion.GetValue() + _targetStats.Agility.GetValue();
-
-        if (Random.Range(0, 100) < totalevasion)
-        {
-
-            return true;
-
-        }
-        return false;
-    }//Chances to avoid damage.*/
+    }  //Reduce taken physical damage by armor
+    
     private bool CanCritical()
     {
         int totalCriticalChance = CriticalChance.GetValue()  ;

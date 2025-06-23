@@ -16,7 +16,7 @@ public class Button_Purchase : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Click!");
+        
         CheckCurrency();
        
     }

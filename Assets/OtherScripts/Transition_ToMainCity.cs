@@ -25,7 +25,7 @@ public class Transition_ToMainCity : MonoBehaviour
             if (hit.GetComponent<Player>() != null && Input.GetKey(KeyCode.E))
             {
 
-                SceneController.instance.ToMainCity();
+                SceneController.instance.ToMaze();
 
             }
         }

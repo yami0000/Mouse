@@ -39,7 +39,10 @@ public class ItemData_Equipment : ItemData
     public int MaxHP;
     public int Armor;
     //public int Evasion;
-    public int ElementResistance;
+    public int FireResistance;
+    public int FrostResistance;
+    public int LightingResistance;
+    public int PoisonResistance;
 
     [Header("Element")]
     public int FireDamage;
@@ -70,7 +73,10 @@ public class ItemData_Equipment : ItemData
         playerStats.MaxHP.AddModifier(MaxHP);
         playerStats.Armor.AddModifier(Armor);   
        // playerStats.Evasion.AddModifier(Evasion);
-        playerStats.ElementResistance.AddModifier(ElementResistance);
+        playerStats.FireResistance.AddModifier(FireResistance);
+        playerStats.FrostDamage.AddModifier(FrostDamage);
+        playerStats.LightingResistance.AddModifier(LightingResistance);
+        playerStats.PoisonResistance.AddModifier(PoisonResistance);
 
         playerStats.FireDamage.AddModifier(FireDamage);
         playerStats.FrostDamage.AddModifier(FrostDamage);
@@ -96,8 +102,11 @@ public class ItemData_Equipment : ItemData
 
         playerStats.MaxHP.RemoveModifier(MaxHP);
         playerStats.Armor.RemoveModifier(Armor);
-       // playerStats.Evasion.RemoveModifier(Evasion);s
-        playerStats.ElementResistance.RemoveModifier(ElementResistance);
+        // playerStats.Evasion.RemoveModifier(Evasion);s
+        playerStats.FireResistance.RemoveModifier(FireResistance);
+        playerStats.FrostDamage.RemoveModifier(FrostDamage);
+        playerStats.LightingResistance.RemoveModifier(LightingResistance);
+        playerStats.PoisonResistance.RemoveModifier(PoisonResistance);
 
         playerStats.FireDamage.RemoveModifier(FireDamage);
         playerStats.FrostDamage.RemoveModifier(FrostDamage);
