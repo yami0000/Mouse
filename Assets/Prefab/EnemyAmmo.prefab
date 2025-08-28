@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5360149777645407151}
   - component: {fileID: 6128413733627440672}
   - component: {fileID: 9174489806036374888}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,4 +178,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5933917798709032654, guid: 1cc8272c4e5e6334486c7d21d3b7152e, type: 3}

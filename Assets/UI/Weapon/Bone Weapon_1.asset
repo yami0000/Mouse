@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Bone Weapon_1
   m_EditorClassIdentifier: 
   ItemType: 4
-  itemName: Bone1
+  itemName: Bone blaster
   icon: {fileID: -1857050152024054682, guid: cf099c530f5f42e41b60df062adea0cf, type: 3}
+  price: 0
   dropChance: 2
   itemEffects: []
   equipmentType: 0
@@ -29,8 +30,10 @@ MonoBehaviour:
   CriticalDamage: 0
   MaxHP: 0
   Armor: 0
-  Evasion: 0
-  ElementResistance: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
   FireDamage: 0
   FrostDamage: 0
   PoisonDamage: 0

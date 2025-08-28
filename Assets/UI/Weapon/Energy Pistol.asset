@@ -15,12 +15,13 @@ MonoBehaviour:
   ItemType: 4
   itemName: Energy Pistol
   icon: {fileID: -1435255028787470546, guid: 37562f3fc7c19e64cbc7754e5a5586b8, type: 3}
+  price: 0
   dropChance: 100
   itemEffects: []
   equipmentType: 0
   equipmentEffects:
   - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
-  FirePower: 0
+  FirePower: 10
   Agility: 0
   Intelligence: 0
   Vitality: 0
@@ -29,8 +30,10 @@ MonoBehaviour:
   CriticalDamage: 0
   MaxHP: 0
   Armor: 0
-  Evasion: 0
-  ElementResistance: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
   FireDamage: 0
   FrostDamage: 0
   PoisonDamage: 0

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Virtual Camera
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Player
   - Enemy
   - Item
-  - 
-  - 
+  - NPC
+  - Elevator
   - 
   - 
   - 

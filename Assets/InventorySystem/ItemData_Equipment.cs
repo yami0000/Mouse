@@ -54,7 +54,7 @@ public class ItemData_Equipment : ItemData
     {
         foreach (var effect in equipmentEffects)
         { 
-        effect.ExecuteEffect(  _position);
+        effect.ExecuteEffect(_position);
         }
     }
     public void AddModifiers() 

@@ -30,6 +30,7 @@ public class UI_Cat : MonoBehaviour
         isMenuOpen = true;  
 
         uiParent.SetActive(true);
+        GM.Instance.GameManager.isUIOpened = true;
     }
 
     public void CloseMenu()
@@ -39,6 +40,7 @@ public class UI_Cat : MonoBehaviour
         isMenuOpen = false; 
 
         uiParent.SetActive(false);
+        GM.Instance.GameManager.isUIOpened = false;
     }
 
 

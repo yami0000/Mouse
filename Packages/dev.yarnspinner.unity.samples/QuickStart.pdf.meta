@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d0556c5d5dbf5473e8a750588b1b43c6
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319418
+  packageName: Yarn Spinner for Unity Samples
+  packageVersion: 3.0.3
+  assetPath: Packages/dev.yarnspinner.unity.samples/QuickStart.pdf
+  uploadId: 766635

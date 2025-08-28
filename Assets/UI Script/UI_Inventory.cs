@@ -8,7 +8,7 @@ public class UI_Inventory : MonoBehaviour
 
     private bool isMenuOpen;
     private bool canOpenMenu = true;
-
+    
     private void Start()
     {
         uiParent.SetActive(false);
@@ -23,7 +23,7 @@ public class UI_Inventory : MonoBehaviour
         {
            OpenMenu();
            canOpenMenu = false;
-               
+           GM.Instance.GameManager.isUIOpened = true;
         }
 
 
@@ -32,6 +32,7 @@ public class UI_Inventory : MonoBehaviour
         {
             CloseMenu();
             canOpenMenu = true;
+            GM.Instance.GameManager.isUIOpened = false;
         }
     }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5360149777645407151}
   - component: {fileID: 6128413733627440672}
   - component: {fileID: 9174489806036374888}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MedicAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAmmo_Effect : MonoBehaviour
 {
-     private Enemy_Bee enemy;
+     private Enemy enemy;
     private EnemyStats EnemyStats;
 
 

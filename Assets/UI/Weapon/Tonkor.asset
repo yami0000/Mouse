@@ -15,12 +15,13 @@ MonoBehaviour:
   ItemType: 4
   itemName: Bone_Tonkor
   icon: {fileID: -3941375285955399018, guid: 9ebf1b2c617667e4ebddb24671fbb27b, type: 3}
+  price: 0
   dropChance: 1
   itemEffects: []
   equipmentType: 0
   equipmentEffects:
   - {fileID: 11400000, guid: 2732f754169a99943a5fc0d2a9b5dcda, type: 2}
-  FirePower: 200
+  FirePower: 35
   Agility: 0
   Intelligence: 0
   Vitality: 0
@@ -29,8 +30,10 @@ MonoBehaviour:
   CriticalDamage: 0
   MaxHP: 0
   Armor: 0
-  Evasion: 0
-  ElementResistance: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
   FireDamage: 0
   FrostDamage: 0
   PoisonDamage: 20

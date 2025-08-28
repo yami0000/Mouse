@@ -258,7 +258,7 @@ public class EntityStats : MonoBehaviour
 
     #endregion
 
-    private int ArmorSystem(EntityStats _targetStats, int totalDamage)
+    public int ArmorSystem(EntityStats _targetStats, int totalDamage)
     {
         if (_targetStats.isPoisoned)
         {
@@ -272,7 +272,7 @@ public class EntityStats : MonoBehaviour
         return totalDamage;
     }  //Reduce taken physical damage by armor
     
-    private bool CanCritical()
+    public bool CanCritical()
     {
         int totalCriticalChance = CriticalChance.GetValue()  ;
 
@@ -284,7 +284,7 @@ public class EntityStats : MonoBehaviour
         return false;
 
     }
-    private int CalculateCrit(int _damage)
+    public int CalculateCrit(int _damage)
     {
       float totalCritPower = (CriticalDamage.GetValue()) * 0.01f; 
      // Debug.Log("total crit power" + totalCritPower);

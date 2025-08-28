@@ -6,6 +6,9 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private Tile tile;
 
+    [SerializeField] private Auto_Elevator Elevator1F;
+    [SerializeField] private Auto_Elevator Elevator2F;
+
     protected float stateTimer = 0;
 
     public BoxCollider2D cd { get; private set; }
@@ -41,7 +44,17 @@ public class Tile : MonoBehaviour
             tile.cd.enabled = false;
 
 
-         
+
+        if (Elevator1F != null && Elevator2F != null)
+        {
+            if (Elevator1F.Interact || Elevator2F.Interact)
+                tile.cd.enabled = false;
+            else
+                tile.cd.enabled = true;
+        }
+
+
+
 
     }
 

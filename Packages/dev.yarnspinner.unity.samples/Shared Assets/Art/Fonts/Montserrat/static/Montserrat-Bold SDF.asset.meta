@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0c47edf8a9d8843a18e90245e6c62058
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319418
+  packageName: Yarn Spinner for Unity Samples
+  packageVersion: 3.0.3
+  assetPath: Packages/dev.yarnspinner.unity.samples/Shared Assets/Art/Fonts/Montserrat/static/Montserrat-Bold
+    SDF.asset
+  uploadId: 766635
