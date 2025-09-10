@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: christmas hat
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  itemName: christmas hat
+  icon: {fileID: 3166088785058165561, guid: afa7ecec53e6bd140bbcf820c744fcd4, type: 3}
+  price: 2
+  dropChance: 0
+  itemEffects: []
+  equipmentType: 1
+  equipmentEffects: []
+  FirePower: 0
+  Agility: 0
+  Intelligence: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  Armor: 15
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0

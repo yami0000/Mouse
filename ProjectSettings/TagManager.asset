@@ -19,7 +19,7 @@ TagManager:
   - Item
   - NPC
   - Elevator
-  - 
+  - Ammo
   - 
   - 
   - 
@@ -44,11 +44,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3940904341
+    locked: 0
   - name: Enemy
     uniqueID: 1570414249
     locked: 0
   - name: Player
     uniqueID: 1622824371
+    locked: 0
+  - name: Foreground
+    uniqueID: 1554633837
     locked: 0
   - name: item
     uniqueID: 3516878087

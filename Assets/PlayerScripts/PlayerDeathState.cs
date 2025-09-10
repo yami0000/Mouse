@@ -16,6 +16,7 @@ public class PlayerDeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        GM.Instance.GameManager.isUIOpened = true;
     }
 
     public override void Exit()

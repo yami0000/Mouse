@@ -49,8 +49,7 @@ public class Tile : MonoBehaviour
         {
             if (Elevator1F.Interact || Elevator2F.Interact)
                 tile.cd.enabled = false;
-            else
-                tile.cd.enabled = true;
+             
         }
 
 

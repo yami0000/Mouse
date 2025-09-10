@@ -29,7 +29,7 @@ public class Auto_Elevator : MonoBehaviour
         }
     }
     private void Update()
-    {    Debug.Log(Interact);
+    {   
         if(ElevatorReadyToOpen)
         if(Input.GetKeyDown(KeyCode.E))
         {

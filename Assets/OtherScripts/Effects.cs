@@ -16,24 +16,24 @@ public class Effects : MonoBehaviour
     [SerializeField] private Color[] poisonColor;
     [SerializeField] private Color[] shockColor;
 
-
+    Color originalcolor;
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMat = sr.material;
-        
+       originalcolor = sr.color;
     }
 
     private IEnumerator FlashFX()
     {
       sr.material = hitMat;
-      Color currentcolor = sr.color;
-      sr.color = Color.white;
+      //sr.color = Color.white;
+        
 
 
-       yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.2f);
 
-       sr.color = currentcolor;
+       sr.color = originalcolor;
        sr.material = originalMat;
     }
 

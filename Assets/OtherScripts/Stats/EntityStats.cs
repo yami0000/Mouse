@@ -111,6 +111,8 @@ public class EntityStats : MonoBehaviour
 
         totalDamage = ArmorSystem(_targetStats, totalDamage);
 
+        Debug.Log(totalDamage);
+
         _targetStats.TakeDamage(totalDamage);
         DoElementDamage(_targetStats);
 

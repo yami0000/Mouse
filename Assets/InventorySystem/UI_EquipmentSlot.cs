@@ -24,13 +24,12 @@ public class UI_EquipmentSlot : UI_ItemSlot
         Inventory.Instance.AddItem(item.data as ItemData_Equipment);
 
         if (equipmentData.equipmentType == EquipmentType.Weapon)
-        {
-
-            PlayerWeaponHolder.Instance.UnEquipWeapon();
+        PlayerWeaponHolder.Instance.UnEquipWeapon();
+        if (equipmentData.equipmentType == EquipmentType.Armor)
+        PlayerArmorHolder.Instance.UnEquipArmor();  
 
              
 
-        }
 
             CleanUpSlot();
 

@@ -9,9 +9,11 @@ public enum WhichSide
     Left,
     Right,
  }
+ 
 public class ElevatorDoor : MonoBehaviour
 {
    public WhichSide WhichSide;
+  
    
    [HideInInspector] public bool isOpened;
    [HideInInspector]public bool isMoving = false;
@@ -19,6 +21,7 @@ public class ElevatorDoor : MonoBehaviour
 
     [SerializeField]private Auto_Elevator Elevator;
     [SerializeField]private Auto_Elevator AnotherElevator;
+    [SerializeField]private ElevatorPlatform Platform;  
 
     [SerializeField] private float distance ;      // How far left it moves
    [SerializeField] private float smoothTime;  // Movement speed/acceleration
@@ -37,12 +40,16 @@ public class ElevatorDoor : MonoBehaviour
     }
     private void Update()
     {
+
+
         if (Elevator.Interact || AnotherElevator.Interact)
             return;
-
+        
         if (Elevator.ElevatorReadyToOpen && !isMoving )
         {
+            if(Elevator.WhichFloor == WhichFloor.First && Platform.WhichFloor == 1 || Elevator.WhichFloor == WhichFloor.Second && Platform.WhichFloor == 2)
             Open();
+            else return;
              
 
         }

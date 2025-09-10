@@ -9,7 +9,7 @@ public class HealthBarUi : MonoBehaviour
 {
     private EntityStats EntityStats;
     public Image Fill;
-    [SerializeField] private Player player;  
+    [SerializeField] private Entity entity;  
     void Start()
     {
         
@@ -18,7 +18,7 @@ public class HealthBarUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Fill.fillAmount = (float)player.stats.CurrentHP / player.stats.GetMaxHealth();
+        Fill.fillAmount = (float)entity.stats.CurrentHP / entity.stats.GetMaxHealth();
          
         
 

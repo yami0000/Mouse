@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main city.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Bug reagion.unity
-    guid: b05f313b37189284a8acc4cefd517308
-  - enabled: 1
     path: Assets/Scenes/Maze.unity
     guid: 752b4cfe30c11cc4582f250e3059e90a
   m_configObjects: {}

@@ -94,6 +94,9 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
           
               if (equipmentData.equipmentType == EquipmentType.Weapon) 
               PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
+
+              if(equipmentData.equipmentType == EquipmentType.Armor)
+              PlayerArmorHolder.Instance.EquipArmor(equipmentData); 
             
         }
 

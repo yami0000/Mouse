@@ -9,10 +9,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [SerializeField] private int Num;
     private Rigidbody2D rb;
     private DialogueRunner DialogueRunner;
-    public bool isUIOpened;
-    public bool isInteract;
-
+    [HideInInspector]public bool isUIOpened;
+    [HideInInspector] public bool isInteract;
+    public bool isMantisBossFightStarted;
+        
     private Animator ani;
+
+
+    [HideInInspector] public int MantisHealth;
+    [HideInInspector] public int MantisMaxHealth;
     private void Start()
     {
        
@@ -25,6 +30,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void Update()
     {
         
+
+
         DialogueRunner = FindObjectOfType<DialogueRunner>();
 
          
