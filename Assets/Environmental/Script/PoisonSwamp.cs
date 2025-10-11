@@ -6,39 +6,39 @@ public class PoisonSwamp : MonoBehaviour
 {
     private EntityStats stats => GetComponentInParent<EntityStats>();
 
-    private HashSet<Player> playersInSwamp = new HashSet<Player>();
+    private HashSet<Entity> entitysInSwamp = new HashSet<Entity>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.GetComponent<Player>();
-        PlayerStats playerStats = collision.GetComponent<PlayerStats>();
+        Entity entity = collision.GetComponent<Entity>();
+        EntityStats entityStats = collision.GetComponent<EntityStats>();
 
-        if (player != null && playerStats != null && !playersInSwamp.Contains(player))
+        if (entity != null && entityStats != null && !entitysInSwamp.Contains(entity))
         {
-            playersInSwamp.Add(player);
-            stats.DoDamage(playerStats); // Initial damage
-            StartCoroutine(DamageOverTime(player, playerStats));
+            entitysInSwamp.Add(entity);
+            stats.DoDamage(entityStats); // Initial damage
+            StartCoroutine(DamageOverTime(entity, entityStats));
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Player player = collision.GetComponent<Player>();
-        if (player != null && playersInSwamp.Contains(player))
+        Entity entity = collision.GetComponent<Entity>();
+        if (entity != null && entitysInSwamp.Contains(entity))
         {
-            playersInSwamp.Remove(player);
+            entitysInSwamp.Remove(entity);
         }
     }
 
-    private IEnumerator DamageOverTime(Player player, PlayerStats playerStats)
+    private IEnumerator DamageOverTime(Entity entity, EntityStats entityStats)
     {
-        while (playersInSwamp.Contains(player))
+        while (entitysInSwamp.Contains(entity))
         {
             yield return new WaitForSeconds(1.5f);
 
-            if (player != null && playerStats != null && playersInSwamp.Contains(player))
+            if (entity != null && entityStats != null && entitysInSwamp.Contains(entity))
             {
-                stats.DoDamage(playerStats);
+                stats.DoDamage(entityStats);
             }
         }
     }

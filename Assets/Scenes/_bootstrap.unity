@@ -5159,10 +5159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317b40ee95109034c889ff1e23722adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Num: 1
+  Num: 3
   isUIOpened: 0
   isInteract: 0
+  isInteractGrandma: 0
   isMantisBossFightStarted: 0
+  isMantisAlive: 0
   MantisHealth: 0
   MantisMaxHealth: 0
 --- !u!4 &871780451
@@ -9410,7 +9412,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11719,6 +11721,8 @@ MonoBehaviour:
     portrait: {fileID: -1648555420839537733, guid: da655d7ec60b5634a86be4df525d2502, type: 3}
   - characterName: Bear
     portrait: {fileID: 3181587230368130581, guid: aa4dc3f12a481c14a910cfd3fc6f57af, type: 3}
+  - characterName: Grandma
+    portrait: {fileID: 21300000, guid: 5143cc2b3bce6f54399640c71810a821, type: 3}
 --- !u!224 &52524520686666646
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11876,7 +11880,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -12251,8 +12255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
-  attackCheck: {fileID: 6836117191256635859}
-  attackCheckRadius: 0.85
   groundCheck: {fileID: 3104993390163186222}
   groundCheckDistance: 0.95
   wallCheck: {fileID: 724591493335185406}
@@ -12265,6 +12267,8 @@ MonoBehaviour:
   - -2
   - -3
   - -6
+  attackCheck: {fileID: 6836117191256635859}
+  attackCheckRadius: 0.85
   movespeed: 10
   jumpforce: 24
   dashcooldown: 0.9
@@ -15076,7 +15080,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 11
   m_Sprite: {fileID: -6053841060726746562, guid: cf048d31d1053ee42aecf3b08ffb53c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -15147,8 +15151,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54f7371fa5b00e44a9944638ae2bbeb4, type: 2}
   - {fileID: 11400000, guid: d115b21423b1d034e877b505f28b2b30, type: 2}
   - {fileID: 11400000, guid: 44bce65d3d61cbd4d97518625666d8f4, type: 2}
-  - {fileID: 11400000, guid: 920548b41a253b748b8ffcea35442dc2, type: 2}
-  - {fileID: 11400000, guid: 8cde37b73f5635e49821c7c5abe7f9be, type: 2}
+  - {fileID: 11400000, guid: 066b0b8ad282af442b246c4d8d6b2af9, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -15183,7 +15186,7 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   MaxHP:
-    BaseValue: 2500
+    BaseValue: 5000
     modifiers: 
   Armor:
     BaseValue: 25

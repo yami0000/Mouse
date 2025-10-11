@@ -29,6 +29,9 @@ public class MantisDeathState : EnemyState
     {
         base.Update();
         if (stateTimer > 0)
+        {
             rb.velocity = new Vector2(0, 5);
+            GM.Instance.GameManager.isMantisAlive = false;
+        }
     }
 }

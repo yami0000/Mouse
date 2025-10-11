@@ -10,7 +10,7 @@ public class EnemySpiderAnimation : MonoBehaviour
     {
     enemy.AnimationTrigger();
     }
-    private void AttackTrigger()
+   private void AttackTrigger()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(enemy.attackCheck.position, enemy.attackCheckRadius);
 

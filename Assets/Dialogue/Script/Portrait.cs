@@ -44,11 +44,11 @@ public class PortraitDialogueUI : DialoguePresenterBase
 
        // string text = line.Text.Text;
 
-        Debug.Log($"Speaker: {speaker}");
+        //Debug.Log($"Speaker: {speaker}");
 
         if (line.CharacterName != null)
         {
-            Debug.Log(line.CharacterName);
+            //Debug.Log(line.CharacterName);
             portraitImage.sprite = portraitDict[line.CharacterName];
         }
         else
@@ -77,13 +77,13 @@ public class PortraitDialogueUI : DialoguePresenterBase
     public override async YarnTask OnDialogueStartedAsync()
     {
         await Task.Delay(0);
-        Debug.Log("Dialogue started");
+        //Debug.Log("Dialogue started");
     }
 
     public override async YarnTask OnDialogueCompleteAsync()
     {
         await Task.Delay(0);
-        Debug.Log("Dialogue complete");
+        //Debug.Log("Dialogue complete");
     }
 
 

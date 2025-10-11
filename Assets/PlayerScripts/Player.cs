@@ -15,8 +15,10 @@ public class Player : Entity
     public float[] attackMovement;
 
     public bool isBusy { get; private set; }
-    
 
+
+    public Transform attackCheck;
+    public float attackCheckRadius;
 
     [Header("move info")]
     public float movespeed = 12f;
@@ -172,6 +174,12 @@ public class Player : Entity
         StateMachine.ChangeState(deathState);
     }
 
+
+    protected new virtual void OnDrawGizmos()
+    {
+
+        Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
+    }
 
 
 }

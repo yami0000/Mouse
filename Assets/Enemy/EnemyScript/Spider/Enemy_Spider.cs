@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy_Spider : Enemy
 {
+
+    public Transform attackCheck;
+    public float attackCheckRadius;
     public SpiderWalkingState walkState{  get; private set; }
     public SpiderIdleState idleState{ get; private set; }
 
@@ -45,5 +48,13 @@ public class Enemy_Spider : Enemy
         base.Die();
 
         stateMachine.ChangeState(deathState);
+    }
+
+    protected new virtual void OnDrawGizmos()
+    {
+
+        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+        Gizmos.DrawWireSphere(attackCheck.position,attackCheckRadius);
     }
 }

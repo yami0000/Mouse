@@ -29,7 +29,7 @@ public class NPCstate
     {
         triggerCalled = false;
         npc.anim.SetBool(animBoolName, true);
-        //rb = npc.rb;
+        rb = npc.rb;
  
 
     }

@@ -33,7 +33,7 @@ public class LaserBattleState : EnemyState
         if (enemy.IsPlayerDetected())
 
         {
-            //Debug.Log("player is detected");
+            Debug.Log(enemy.CanAttack());
              
             if (Vector2.Distance(player.transform.position, enemy.transform.position) < enemy.attackDistance)
             {

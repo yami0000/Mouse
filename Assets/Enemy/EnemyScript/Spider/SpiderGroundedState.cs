@@ -28,7 +28,7 @@ public class SpiderGroundedState : EnemyState
         base.Update();
 
         if (player != null) 
-        if(enemy.IsPlayerDetected()|| Vector2.Distance(enemy.transform.position,player.position)<2)
+        if(enemy.IsPlayerDetected()|| Vector2.Distance(enemy.transform.position,player.position)<4)
             stateMachine.ChangeState(enemy.battleState);
     }
 }

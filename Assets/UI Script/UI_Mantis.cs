@@ -34,6 +34,9 @@ public class UI_Mantis : MonoBehaviour
 
 
         }
+
+        if(!GM.Instance.GameManager.isMantisBossFightStarted)
+            MantisHP.SetActive(false);
     }
 
     IEnumerator ShowIntro()

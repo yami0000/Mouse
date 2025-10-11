@@ -7,6 +7,9 @@ public class MantisDetection : DETECTION
     public override void Event()
     {
         base.Event();
+        if(GM.Instance.GameManager.isMantisAlive)
         GM.Instance.GameManager.isMantisBossFightStarted = true;
+        else
+           GM.Instance.GameManager.isMantisBossFightStarted = false;
     }
 }

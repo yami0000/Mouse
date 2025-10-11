@@ -34,7 +34,7 @@ public class SpiderBattleState : EnemyState
         if (enemy.IsPlayerDetected())
 
         {
-            Debug.Log("player is detected");
+           // Debug.Log("player is detected");
             stateTimer = enemy.battleTime;
             if (Vector2.Distance(player.transform.position, enemy.transform.position) < enemy.attackDistance)
             {
@@ -46,7 +46,7 @@ public class SpiderBattleState : EnemyState
             }
         }
         else {
-            Debug.Log("player is not detected");
+           // Debug.Log("player is not detected");
             if (stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position)>6)
                 stateMachine.ChangeState(enemy.idleState);
         }
@@ -57,7 +57,10 @@ public class SpiderBattleState : EnemyState
         else if (player.position.x < enemy.transform.position.x)
             moveDir = -1;
 
-        enemy.Setvelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
+        if (enemy.IsGroundDetected())
+            enemy.Setvelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
+        else
+            enemy.zerovelocity();
     }
 
     private bool CanAttack()

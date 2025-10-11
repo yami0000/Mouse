@@ -29,7 +29,11 @@ public class SpiderAttackState : EnemyState
         enemy.zerovelocity();
 
         if (ReadyToAttack)
-            enemy.Setvelocity(enemy.moveSpeed * enemy.facingDir*10, rb.velocity.y);
+        { if (!enemy.IsGroundDetected())
+                enemy.zerovelocity();
+          else
+                enemy.Setvelocity(enemy.moveSpeed * enemy.facingDir * 10, rb.velocity.y);
+        }
 
         if(triggerCalled)
             stateMachine.ChangeState(enemy.battleState);

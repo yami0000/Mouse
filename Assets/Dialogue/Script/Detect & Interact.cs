@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
@@ -11,9 +11,18 @@ public class Detect_Interact : MonoBehaviour
 
     private bool isInteractable;
 
+    public static NPCDialogue CurrentNPC { get; private set; }
+
+
     private void Start()
     {
-        dialogueRunner = FindObjectOfType<DialogueRunner>();    
+        dialogueRunner = FindObjectOfType<DialogueRunner>();
+
+        if (dialogueRunner != null)
+        {
+             
+            dialogueRunner.onDialogueComplete.AddListener(OnDialogueEnded);
+        }
     }
     private void Update()
     {
@@ -33,9 +42,16 @@ public class Detect_Interact : MonoBehaviour
 
     private void Interact() 
     {
-        /*var allNPC = new List<NPCDialogue>(FindObjectsOfType<NPCDialogue>());
-        var target = allNPC.Find(delegate (NPCDialogue npc)
-        { return string.IsNullOrEmpty(npc.talkToNode) == false && (npc.transform.position - PlayerManager.player.transform.position).magnitude <= interactionRadius; });*/
+
+        if (dialogueRunner == null) return;
+
+        CurrentNPC = npc;
+
+        if (npc.characterName == "Grandma")
+            GM.Instance.GameManager.isInteractGrandma = true;
+
+        Debug.Log(GM.Instance.GameManager.isInteractGrandma);
+        Debug.Log(CurrentNPC.characterName);
 
         dialogueRunner.StartDialogue(npc.talkToNode);
     }
@@ -54,5 +70,15 @@ public class Detect_Interact : MonoBehaviour
             isInteractable = false;
             
         }
+    }
+
+    private void OnDialogueEnded()
+    {
+        if (CurrentNPC != null && CurrentNPC.characterName == "Grandma")
+        {
+            GM.Instance.GameManager.isInteractGrandma = false;  //   reset the flag here
+        }
+
+        CurrentNPC = null;
     }
 }

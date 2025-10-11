@@ -8,8 +8,8 @@ public class Laser : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Detection detection;
     [SerializeField] LayerMask WallsLayer;
-    [SerializeField] Enemy_Laser enemy;
-
+    [SerializeField] Enemy enemy;
+    [SerializeField] string LaserName;
     //[SerializeField] float chargingwidth;
     [SerializeField] float firingwidth;
 
@@ -32,7 +32,7 @@ public class Laser : MonoBehaviour
     public void ShowChargeLaser( ) 
     {
         ShowLaser();
-        animator.Play("Laser");
+        animator.Play(LaserName);
         line.colorGradient = chargingColor;
     }
 
