@@ -7,6 +7,7 @@ TagManager:
   - Virtual Camera
   - Enemy
   - Ground
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - NPC
   - Elevator
   - Ammo
-  - 
-  - 
+  - EnemyAmmo
+  - Shield
   - 
   - 
   - 

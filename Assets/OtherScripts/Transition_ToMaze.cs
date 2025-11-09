@@ -11,7 +11,7 @@ public class Transition_ToMaze : MonoBehaviour
         if (collision.GetComponent<Player>() != null)
         {
 
-            SceneController.instance.ToMaze();
+            SceneController.instance.ToBugRegion();
         }
 
     }

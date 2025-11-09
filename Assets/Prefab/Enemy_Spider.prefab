@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 331107900721707204}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.787, y: 0, z: 0}
+  m_LocalPosition: {x: 0.985, y: -0.396, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63,8 +63,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 32.82, y: -3.7, z: 0}
-  m_LocalScale: {x: 1.2519, y: 1.2519, z: 1.2519}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2.37, y: 2.37, z: 2.37}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2642829490058764609}
   - {fileID: 3797581395339858354}
@@ -86,12 +86,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 7, y: 3}
   knockbackDuration: 0.1
-  attackCheck: {fileID: 1457327441451632520}
-  attackCheckRadius: 0.43
   groundCheck: {fileID: 3797581395339858354}
   groundCheckDistance: 1.14
   wallCheck: {fileID: 7815753032130870532}
-  wallCheckDistance: 0.93
+  wallCheckDistance: 1.45
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
@@ -103,10 +101,12 @@ MonoBehaviour:
   moveSpeed: 2.8
   idleTime: 0.8
   battleTime: 0
-  attackDistance: 2
+  attackDistance: 2.99
   attackCooldown: 0.8
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  attackCheck: {fileID: 1457327441451632520}
+  attackCheckRadius: 1.46
 --- !u!50 &697456388072350344
 Rigidbody2D:
   serializedVersion: 4
@@ -212,7 +212,7 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   Damage:
-    BaseValue: 15
+    BaseValue: 100
     modifiers: 
   CriticalChance:
     BaseValue: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   MaxHP:
-    BaseValue: 1000
+    BaseValue: 30
     modifiers: 
   Armor:
     BaseValue: 0
@@ -261,7 +261,6 @@ MonoBehaviour:
   Frost_THRESHOLD: 75
   Lighting_THRESHOLD: 75
   Poison_THRESHOLD: 75
-  percantageModifier: 0.1
 --- !u!114 &5776112314560515833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,11 +273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed7138283fc8fa4ebadd142f6649445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 2
-  possibleDrop:
-  - {fileID: 11400000, guid: e2b529fefb4ccf44c80a381fa3bf95ae, type: 2}
-  - {fileID: 11400000, guid: 51a05e0766b16834a9c65baf98431482, type: 2}
-  - {fileID: 11400000, guid: 345bc92a36a2afa408d8097cb524912c, type: 2}
+  dropTable:
+  - item: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
+    dropChance: 40
+    rollTimes: 10
+  - item: {fileID: 11400000, guid: 066b0b8ad282af442b246c4d8d6b2af9, type: 2}
+    dropChance: 15
+    rollTimes: 2
   dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
 --- !u!1 &6154620421559769621
 GameObject:
@@ -355,7 +356,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1570414249
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_Sprite: {fileID: -2775964678536148537, guid: ad8690047a87f6447a97e30dbf4e4d41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -427,7 +428,7 @@ Transform:
   m_GameObject: {fileID: 6675497195647316892}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.468, y: -0.221, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -458,7 +459,7 @@ Transform:
   m_GameObject: {fileID: 6990872342714183348}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.05, y: -0.23, z: 0}
+  m_LocalPosition: {x: 1.519, y: -0.288, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -25,6 +25,7 @@ public class DETECTION : MonoBehaviour
 
     private void Update()
     {
+          
         if (IsReadyToInteract)
         {
                 Event();

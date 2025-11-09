@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerGroundedState : PlayerReadyToAttack
 {
@@ -22,12 +23,23 @@ public class PlayerGroundedState : PlayerReadyToAttack
     {
         base.Update();
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (GetEquippedSkill() == "Protective Shield")
+                stateMachine.ChangeState(player.shieldState);
+        }
+            
 
- 
+
         if (!player.IsGroundDetected())
-            stateMachine.ChangeState(player.airState);
+                    stateMachine.ChangeState(player.airState);
 
-        if(Input.GetKeyDown(KeyCode.Space)&& player.IsGroundDetected())
+        if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
+    }
+
+    private static string GetEquippedSkill()
+    {
+        return SK.Instance.Skill.EquippedSkill;
     }
 }

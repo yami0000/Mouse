@@ -68,5 +68,8 @@ public class Collide_SelfAimAmmoEnemy : MonoBehaviour
         if (collision.CompareTag("Ground"))
             Destroy(gameObject);
 
+        if (collision.CompareTag("Shield"))
+            Destroy(gameObject);
+
     }
 }

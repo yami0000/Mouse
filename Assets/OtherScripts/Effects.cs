@@ -5,11 +5,12 @@ using UnityEngine.Timeline;
 
 public class Effects : MonoBehaviour
 {
-    private SpriteRenderer sr;
+    public SpriteRenderer sr;
 
     [Header("Flash FX")]
     [SerializeField] private Material hitMat;
-     private Material originalMat;
+    private Material originalMat;
+    [SerializeField] private bool Special;
 
     [SerializeField] private Color[] freezeColor;
     [SerializeField] private Color[] igniteColor;
@@ -21,28 +22,39 @@ public class Effects : MonoBehaviour
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMat = sr.material;
-       originalcolor = sr.color;
+        originalcolor = sr.color;
+
+
+        if (Special)
+        {
+            sr.material = hitMat;
+            hitMat.SetFloat("_Hit", 0f);
+        }
     }
 
     private IEnumerator FlashFX()
     {
-      sr.material = hitMat;
-      //sr.color = Color.white;
-        
+        sr.material = hitMat;
+        //sr.color = Color.white;
 
+        if (Special)
+            hitMat.SetFloat("_Hit", 1f);
 
         yield return new WaitForSeconds(.2f);
 
-       sr.color = originalcolor;
-       sr.material = originalMat;
+        sr.color = originalcolor;
+        sr.material = originalMat;
+
+        if (Special)
+            hitMat.SetFloat("_Hit", 0f);
     }
 
-    private void CancelColorChange() 
+    private void CancelColorChange()
     {
         CancelInvoke();
         sr.color = Color.white;
 
-    
+
     }
 
     public void PoisonFxFor(float _seconds)
@@ -67,21 +79,21 @@ public class Effects : MonoBehaviour
 
 
     }
-    public void IgniteFxFor(float _seconds) 
+    public void IgniteFxFor(float _seconds)
     {
         InvokeRepeating("IgniteColorFX", 0, .3f);
         Invoke("CancelColorChange", _seconds);
-    
-    
+
+
     }
-    private void IgniteColorFX() 
+    private void IgniteColorFX()
     {
-        if(sr.color != igniteColor[0])
+        if (sr.color != igniteColor[0])
             sr.color = igniteColor[0];
         else
             sr.color = igniteColor[1];
-    
-    
+
+
     }
 
     private void PoisonColorFX()
@@ -91,7 +103,7 @@ public class Effects : MonoBehaviour
         else
             sr.color = poisonColor[1];
 
-     }
+    }
 
     private void FreezeColorFX()
     {

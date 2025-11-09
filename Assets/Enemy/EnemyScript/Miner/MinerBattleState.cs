@@ -23,6 +23,7 @@ public class MinerBattleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+        Debug.Log("Exit Battle");
     }
 
     public override void Update()
@@ -32,10 +33,14 @@ public class MinerBattleState : EnemyState
         if (!enemy.IsGroundDetected())
             enemy.Setvelocity(0.0000001f * moveDir, rb.velocity.y);
 
+
+         
+
+
         if (enemy.IsPlayerDetected())
 
         {
-            //Debug.Log("player is detected");
+             
 
             if (Vector2.Distance(player.transform.position, enemy.transform.position) < enemy.attackDistance)
             {

@@ -58,7 +58,7 @@ public class Enemy_Miner : Enemy
     {
         if (Time.time >= lastTimeAttacked + attackCooldown)
         {
-            lastTimeAttacked = Time.time;
+            
             return true;
         }
 

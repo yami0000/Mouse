@@ -15,7 +15,8 @@ MonoBehaviour:
   ItemType: 4
   itemName: Energy Blaster
   icon: {fileID: -4411314264719886262, guid: cd17d07179b9b0a48a2621723b456cfa, type: 3}
-  dropChance: 0
+  price: 0
+  dropChance: 2.1
   itemEffects: []
   equipmentType: 0
   equipmentEffects:
@@ -29,8 +30,10 @@ MonoBehaviour:
   CriticalDamage: 0
   MaxHP: 0
   Armor: 0
-  Evasion: 0
-  ElementResistance: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
   FireDamage: 50
   FrostDamage: 0
   PoisonDamage: 0

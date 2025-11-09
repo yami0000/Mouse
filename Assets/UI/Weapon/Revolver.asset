@@ -21,12 +21,12 @@ MonoBehaviour:
   equipmentType: 0
   equipmentEffects:
   - {fileID: 11400000, guid: 21b2f9ae753615041a0e2c9e4ca15953, type: 2}
-  FirePower: 22
+  FirePower: 28
   Agility: 0
   Intelligence: 0
   Vitality: 0
   Damage: 0
-  CriticalChance: 20
+  CriticalChance: 25
   CriticalDamage: 180
   MaxHP: 0
   Armor: 0

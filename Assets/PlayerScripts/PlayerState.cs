@@ -9,13 +9,13 @@ public class PlayerState
 
     protected Rigidbody2D rb;
 
-    protected float xInput;
-    protected float yInput;
+   // protected float player.xInput;
+   // protected float player.yInput;
     private string animBoolName;
 
     protected float stateTimer;
     protected bool triggerCalled;
-    protected bool Keyframe;//
+    protected bool Keyframe;
   
 
     public PlayerState(Player _player,PlayerStateMachine _stateMachine,string _animBoolName)
@@ -38,8 +38,8 @@ public class PlayerState
 
         stateTimer -= Time.deltaTime;
       
-        xInput= Input.GetAxisRaw("Horizontal");
-        yInput = Input.GetAxisRaw("Vertical");
+       // player.xInput= Input.GetAxisRaw("Horizontal");
+       // player.yInput = Input.GetAxisRaw("Vertical");
 
        
         

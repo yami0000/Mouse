@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float Range;
     //[SerializeField] float speed;
 
-    public float launchAngle;
+    [HideInInspector]public float launchAngle;
 
     private Transform player;
 
@@ -58,6 +58,8 @@ public class Projectile : MonoBehaviour
         EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
         if (_Ammo != null)
             _Ammo.Initialize(enemy);
+        _Ammo.Initialize2(enemy);
+
 
         Destroy(Ammo, Range);
     }

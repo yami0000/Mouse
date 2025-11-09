@@ -29,7 +29,7 @@ public class PlayerJumpState : PlayerReadyToAttack
         if (rb.velocity.y < 0)
             stateMachine.ChangeState(player.airState);
 
-        if (xInput != 0)
-            player.Setvelocity(player.movespeed * 0.8f * xInput, rb.velocity.y);
+        if (player.xInput != 0)
+            player.Setvelocity(player.movespeed * 0.8f * player.xInput, rb.velocity.y);
     }
 }

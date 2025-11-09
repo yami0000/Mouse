@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6079182818408302061}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4898887852319264888}
   - component: {fileID: 4019552805187055996}
   - component: {fileID: -4516127102920840387}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
-  attackCheck: {fileID: 6079182818408302061}
-  attackCheckRadius: 0
   groundCheck: {fileID: 6079182818408302061}
   groundCheckDistance: 0
   wallCheck: {fileID: 6079182818408302061}
@@ -164,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7830489147967500828}
   - component: {fileID: 309365187860700163}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Animation?
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +225,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653343281
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.24842751, b: 0.24842751, a: 1}

@@ -18,7 +18,7 @@ public class PlayerAttackState : PlayerState
     {
         base.Enter();
 
-        xInput = 0;
+        player.xInput = 0;
 
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
             comboCounter = 0;
@@ -27,8 +27,8 @@ public class PlayerAttackState : PlayerState
         // player.anim.speed = 1.5f;
 
           float attackDir = player.facingDir;
-          if (xInput != 0) 
-            attackDir = xInput; 
+          if (player.xInput != 0) 
+            attackDir = player.xInput; 
 
            
 

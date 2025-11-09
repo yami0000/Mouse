@@ -58,7 +58,7 @@ public override void Die()
     {
         if (Time.time >= lastTimeAttacked + attackCooldown)
         {
-            lastTimeAttacked = Time.time;
+            //lastTimeAttacked = Time.time;
             return true;
         }
 

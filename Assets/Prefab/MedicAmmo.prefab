@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5360149777645407151}
   - component: {fileID: 6128413733627440672}
   - component: {fileID: 9174489806036374888}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: MedicAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -778089209
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 0.9245283, g: 0.16135636, b: 0.55649066, a: 1}
@@ -178,3 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bounce: 0
+  projectilePrefab: {fileID: 0}
+  minSpeed: 5
+  maxSpeed: 10
+  minAngle: 30
+  maxAngle: 60

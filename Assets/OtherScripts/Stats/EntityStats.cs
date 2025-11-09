@@ -5,7 +5,7 @@ using UnityEngine;
 public class EntityStats : MonoBehaviour
 {
     private Effects fx;
-    
+     public int absorbedDAMAGE; 
 
     [Header("Damage")]
     public Stats FirePower;
@@ -60,15 +60,21 @@ public class EntityStats : MonoBehaviour
     private float igniteDamageTimer ;
     private int igniteDamage;
 
+
+    private bool Dead;
+
     protected virtual void Start()
     {
         CurrentHP = GetMaxHealth();
         CriticalDamage.SetDefaultValue(150);
         fx = GetComponent<Effects>();
+        Dead = false;   
     }
 
     protected virtual void Update()
     {
+         
+
         ignitedTimer -= Time.deltaTime;
         igniteDamageTimer -= Time.deltaTime;
 
@@ -87,7 +93,7 @@ public class EntityStats : MonoBehaviour
             if (CurrentHP <= 0)
             { Die(); 
               isIgnited = false;
-            
+              Dead = true;
             }
 
             igniteDamageTimer = igniteDamageCD;
@@ -101,19 +107,17 @@ public class EntityStats : MonoBehaviour
 
     public virtual void DoDamage(EntityStats _targetStats)
     {
-       // if (Avoid(_targetStats))
-           // return;
-
-        int totalDamage = Damage.GetValue() + FirePower.GetValue();
+        int baseDamage = Damage.GetValue() + FirePower.GetValue();
 
         if (CanCritical())
-            totalDamage = CalculateCrit(totalDamage);
+            baseDamage = CalculateCrit(baseDamage);
 
-        totalDamage = ArmorSystem(_targetStats, totalDamage);
+        int absorbedDamage;
+        int finalDamage = ArmorSystem(_targetStats, baseDamage, out absorbedDamage);
 
-        Debug.Log(totalDamage);
+        Debug.Log($"Final Damage: {finalDamage}, Absorbed: {absorbedDamage}");
 
-        _targetStats.TakeDamage(totalDamage);
+        _targetStats.TakeDamage(finalDamage);
         DoElementDamage(_targetStats);
 
     }
@@ -209,11 +213,14 @@ public class EntityStats : MonoBehaviour
     {
         CurrentHP -= _damage;
 
-        //Debug.Log(_damage); 
+        
 
 
-        if (CurrentHP <= 0)
-            Die();
+        if (CurrentHP <= 0 && !Dead)
+        {
+            Dead = true;
+            Die(); 
+        }
     }
 
     public virtual void HealAmount(int totalHeal) 
@@ -226,7 +233,7 @@ public class EntityStats : MonoBehaviour
     }
     protected virtual void Die()
     {
-
+       
     }
 
     #region ElementResistance
@@ -260,20 +267,29 @@ public class EntityStats : MonoBehaviour
 
     #endregion
 
-    public int ArmorSystem(EntityStats _targetStats, int totalDamage)
+    public int ArmorSystem(EntityStats _targetStats, int incomingDamage, out int absorbedDamage)
     {
-        if (_targetStats.isPoisoned)
-        {
-            totalDamage -= Mathf.RoundToInt(_targetStats.Armor.GetValue() * 0.7f);
-                
-        }
-        else
-            totalDamage -= _targetStats.Armor.GetValue();
+        int armorValue = _targetStats.Armor.GetValue();
 
-        totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
-        return totalDamage;
-    }  //Reduce taken physical damage by armor
-    
+        // If poisoned, armor effectiveness reduced
+        if (_targetStats.isPoisoned)
+            armorValue = Mathf.RoundToInt(armorValue * 0.7f);
+
+        absorbedDamage = Mathf.Clamp(armorValue, 0, incomingDamage);
+        int finalDamage = Mathf.Clamp(incomingDamage - absorbedDamage, 0, int.MaxValue);
+
+        _targetStats.AbsorbedDamage(absorbedDamage);
+
+        return finalDamage;
+    } 
+
+    public void AbsorbedDamage(int absorbedDamage) 
+    {
+        absorbedDAMAGE = absorbedDamage;
+
+
+    }
+
     public bool CanCritical()
     {
         int totalCriticalChance = CriticalChance.GetValue()  ;

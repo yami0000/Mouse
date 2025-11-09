@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3123339730493230497}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4577311682824335504}
   - component: {fileID: 9139082097356263033}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Animaion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653343281
-  m_SortingLayer: 3
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -154307144589177471, guid: 4d917211b7a4d3445b4e5425fcf61228, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2928325980709827311}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 4144038739504681698}
   - component: {fileID: 8539222167797160394}
   - component: {fileID: 879688561901256240}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,8 +199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
-  attackCheck: {fileID: 2928325980709827311}
-  attackCheckRadius: 0
   groundCheck: {fileID: 2928325980709827311}
   groundCheckDistance: 0.2
   wallCheck: {fileID: 3123339730493230497}

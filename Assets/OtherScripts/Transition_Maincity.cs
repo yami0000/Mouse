@@ -11,7 +11,7 @@ public class Transition_MainCity : MonoBehaviour
         if (collision.GetComponent<Player>() != null)
         {
            
-          SceneController.instance.ToBugReagion();
+          SceneController.instance.ToBugRegion();
         }
             
     }

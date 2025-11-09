@@ -52,7 +52,7 @@ public class ArtiliaryAttackState : EnemyState
     public override void Exit()
     {
         base.Exit();
-        enemy.stateTimer_Artiliary = enemy.attackCooldown;
+        //enemy.stateTimer_Artiliary = enemy.attackCooldown;
         enemy.lastTimeAttacked = Time.time;
     }
 }

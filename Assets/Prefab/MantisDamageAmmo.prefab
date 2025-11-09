@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8408305054943255496}
   - component: {fileID: 1768843253684000935}
   - component: {fileID: 3571323459788465121}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MantisDamageAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1554633837
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.9921569, g: 0.20392159, b: 0.32941177, a: 1}

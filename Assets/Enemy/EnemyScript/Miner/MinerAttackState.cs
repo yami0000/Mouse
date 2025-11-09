@@ -8,6 +8,8 @@ public class MinerAttackState : EnemyState
 
     protected Transform player;
 
+    private bool Hasturned;
+
     private int moveDir;
     public MinerAttackState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Miner enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
@@ -19,6 +21,9 @@ public class MinerAttackState : EnemyState
         base.Enter();
 
         player = PlayerManager.Instance.player.transform;
+
+        Hasturned = false;
+        enemy.stateTimer_Miner = 1.7f;
 
 
 
@@ -46,8 +51,18 @@ public class MinerAttackState : EnemyState
 
         enemy.zerovelocity();
 
+        if(enemy.stateTimer_Miner <= 0 && !Hasturned)
+        {
 
+            if (player.position.x > enemy.transform.position.x)
+                moveDir = 1;
+            else if (player.position.x < enemy.transform.position.x)
+                moveDir = -1;
 
+            enemy.Setvelocity(enemy.moveSpeed * moveDir, rb.velocity.y);
+
+            Hasturned = true;
+        }
         if (!enemy.laser.isAttack)
 
         {

@@ -8,12 +8,13 @@ public class Laser2Attack : MonoBehaviour
     [SerializeField] private Laser laser;
     [SerializeField] private float prepTime1;
     [SerializeField] private float chargingTime;
+    [SerializeField] private float chargingTime2;
     [SerializeField] private float fireLaserTime;
     [SerializeField] private float prepTime2;
     [SerializeField] private float cooldown;
     [SerializeField] LayerMask whatIsPlayer;
 
-    //[SerializeField] Detection detection;
+    [SerializeField] Detection detection;
 
     public bool isAttack = false;
 
@@ -69,15 +70,17 @@ public class Laser2Attack : MonoBehaviour
             }
 
 
-
+           
             t += Time.deltaTime;
 
             yield return null;
         }
         laser.HideLaser();
         t = 0f;
+        hitBefore = false;
 
 
+        
         while (t < prepTime2)
         {
             t += Time.deltaTime;
@@ -86,9 +89,9 @@ public class Laser2Attack : MonoBehaviour
 
         t = 0f;
 
-        laser.ShowChargeLaser();
+      laser.ReChargeLaser();    
 
-        while (t < chargingTime )
+        while (t < chargingTime2 )
         {
 
             t += Time.deltaTime;
@@ -117,7 +120,7 @@ public class Laser2Attack : MonoBehaviour
 
             yield return null;
         }
-        laser.HideLaser();
+        
         t = 0f;
         hitBefore = false;
 
@@ -126,7 +129,7 @@ public class Laser2Attack : MonoBehaviour
             t += Time.deltaTime;
             yield return null;
         }
-
+        laser.HideLaser();
         isAttack = false;
 
 

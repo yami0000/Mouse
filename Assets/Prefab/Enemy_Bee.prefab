@@ -137,7 +137,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1570414249
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2664803936569173411, guid: 66ebe761aba1ed144a759879c837cce9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -213,7 +213,7 @@ Transform:
   m_GameObject: {fileID: 4807435570920702771}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 23.2339, y: -2.7714, z: 0}
+  m_LocalPosition: {x: -0.32, y: 6.67, z: 0}
   m_LocalScale: {x: 0.4678, y: 0.4678, z: 0.4678}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -362,6 +362,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bounce: 0
+  projectilePrefab: {fileID: 0}
+  minSpeed: 0
+  maxSpeed: 0
+  minAngle: 0
+  maxAngle: 0
 --- !u!1 &5317045734150289598
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +432,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 24.01, y: -1.74, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1993438413897186720}
   - {fileID: 2266286446451567554}
@@ -450,8 +456,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDirection: {x: 5, y: 0}
   knockbackDuration: 0.1
-  attackCheck: {fileID: 5287615144451004913}
-  attackCheckRadius: 0.2
   groundCheck: {fileID: 2266286446451567554}
   groundCheckDistance: 0.99
   wallCheck: {fileID: 5877886810351868450}
@@ -589,7 +593,7 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   MaxHP:
-    BaseValue: 2000
+    BaseValue: 500
     modifiers: 
   Armor:
     BaseValue: 0
@@ -626,7 +630,6 @@ MonoBehaviour:
   Frost_THRESHOLD: 100
   Lighting_THRESHOLD: 100
   Poison_THRESHOLD: 100
-  percantageModifier: 0.15
 --- !u!114 &3419357008144241395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,11 +642,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed7138283fc8fa4ebadd142f6649445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 2
-  possibleDrop:
-  - {fileID: 11400000, guid: e2b529fefb4ccf44c80a381fa3bf95ae, type: 2}
-  - {fileID: 11400000, guid: 51a05e0766b16834a9c65baf98431482, type: 2}
-  - {fileID: 11400000, guid: 345bc92a36a2afa408d8097cb524912c, type: 2}
+  dropTable:
+  - item: {fileID: 11400000, guid: db92bcdc5984fbe43ac4e75a7ab4f710, type: 2}
+    dropChance: 5
+    rollTimes: 1
+  - item: {fileID: 11400000, guid: 345bc92a36a2afa408d8097cb524912c, type: 2}
+    dropChance: 20
+    rollTimes: 1
+  - item: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
+    dropChance: 50
+    rollTimes: 7
   dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
 --- !u!114 &5188037717291673170
 MonoBehaviour:
@@ -659,5 +667,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 5592102778672256002, guid: 50000bf778d42fb4ba2cd7185281b67a, type: 3}
   enemy: {fileID: 5933917798709032654}
-  Range: 2
-  speed: 2
+  Range: 4
+  speed: 5

@@ -40,11 +40,14 @@ public class Collide_RevolverAmmo : MonoBehaviour
         if (PlayerStats.CanCritical())
             totalDamage = PlayerStats.CalculateCrit(totalDamage);
 
-        totalDamage = PlayerStats.ArmorSystem(_targetStats, totalDamage);
+        int absorbedDamage;
+        totalDamage = PlayerStats.ArmorSystem(_targetStats, totalDamage,out absorbedDamage);
+
+        Debug.Log($"Final Damage: {totalDamage}, Absorbed: {absorbedDamage}");
 
         _targetStats.TakeDamage(totalDamage);
         PlayerStats.DoElementDamage(_targetStats);
 
-        Debug.Log(totalDamage);
+        
     }//特性：造成80%-140%的伤害。此处因为特殊规则将伤害计算函数单独抽出使用。
 }

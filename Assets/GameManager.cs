@@ -23,6 +23,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     [HideInInspector] public int MantisHealth;
     [HideInInspector] public int MantisMaxHealth;
+    [HideInInspector] public int ScorpionHealth;
+    [HideInInspector] public int ScorpionMaxHealth;
     private void Start()
     {
        

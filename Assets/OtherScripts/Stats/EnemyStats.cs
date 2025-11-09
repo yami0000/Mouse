@@ -37,6 +37,8 @@ public class EnemyStats : EntityStats
     {
         base.Die();
 
+
+
         enemy.Die();
 
         myDropSystem.GenerateDrop();

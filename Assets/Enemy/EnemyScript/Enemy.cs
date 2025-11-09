@@ -104,6 +104,7 @@ public class Enemy : Entity
                 if (distance < playerCheckDistance && !HasLineOfSightOfWall())
 
                     return true;
+               
             }
         }
 
@@ -114,6 +115,7 @@ public class Enemy : Entity
                 if (distance < playerCheckDistance && !HasLineOfSightOfWall())
 
                     return true;
+               
             }
         }
         

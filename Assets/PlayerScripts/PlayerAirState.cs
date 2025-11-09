@@ -30,7 +30,7 @@ public class PlayerAirState : PlayerReadyToAttack
         if(player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
 
-        if (xInput != 0)
-            player.Setvelocity(player.movespeed * 0.8f * xInput, rb.velocity.y);
+        if (player.xInput != 0)
+            player.Setvelocity(player.movespeed * 0.8f * player.xInput, rb.velocity.y);
     }
 }

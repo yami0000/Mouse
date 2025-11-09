@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Inventory : MonoBehaviour
+public class UI_Active : MonoBehaviour
 {
     [SerializeField] GameObject uiParent;
 
     private bool isMenuOpen;
     private bool canOpenMenu = true;
-    
+    [SerializeField] private KeyCode triggerKey ;
+
     private void Start()
     {
         uiParent.SetActive(false);
@@ -19,7 +20,7 @@ public class UI_Inventory : MonoBehaviour
         
 
         if (canOpenMenu) 
-        if (Input.GetKeyUp(KeyCode.I)  )
+        if (Input.GetKeyUp(triggerKey)  )
         {
            OpenMenu();
            canOpenMenu = false;
@@ -28,7 +29,7 @@ public class UI_Inventory : MonoBehaviour
 
 
         if (!isMenuOpen) return;
-        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1))
+        if (Input.GetKeyUp(KeyCode.Escape) )
         {
             CloseMenu();
             canOpenMenu = true;
@@ -56,6 +57,6 @@ public class UI_Inventory : MonoBehaviour
 
     private void openUI()
     {
-        FindAnyObjectByType<UI_Inventory>().OpenMenu();
+        FindAnyObjectByType<UI_Active>().OpenMenu();
     }
 }

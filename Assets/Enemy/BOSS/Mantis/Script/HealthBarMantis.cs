@@ -5,21 +5,30 @@ using UnityEngine.UI;
 
 public class HealthBarMantis : MonoBehaviour
 {
-    private EntityStats EntityStats;
-    public Image Fill;
-     
-    void Start()
-    {
+    public enum CreatureType { Mantis, Scorpion }
+    public CreatureType creatureType;
 
-    }
+    public Image fill;
 
-     
     void Update()
     {
-        Fill.fillAmount = (float)GM.Instance.GameManager.MantisHealth / GM.Instance.GameManager.MantisMaxHealth;
+        float currentHealth = 0f;
+        float maxHealth = 1f;
 
-         
+        switch (creatureType)
+        {
+            case CreatureType.Mantis:
+                currentHealth = GM.Instance.GameManager.MantisHealth;
+                maxHealth = GM.Instance.GameManager.MantisMaxHealth;
+                break;
 
+            case CreatureType.Scorpion:
+                currentHealth = GM.Instance.GameManager.ScorpionHealth;
+                maxHealth = GM.Instance.GameManager.ScorpionMaxHealth;
+                break;
+        }
+
+        fill.fillAmount = currentHealth / maxHealth;
     }
 
 }

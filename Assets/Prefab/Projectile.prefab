@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: -5402605180652903712}
   - component: {fileID: 5802516628278860351}
   - component: {fileID: 482892429980988539}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -778089209
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.24056602, b: 0.24056602, a: 1}
@@ -193,7 +193,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.31132433
 --- !u!50 &5802516628278860351
 Rigidbody2D:
   serializedVersion: 4
@@ -233,3 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bounce: 0
+  projectilePrefab: {fileID: 0}
+  minSpeed: 5
+  maxSpeed: 10
+  minAngle: 30
+  maxAngle: 60

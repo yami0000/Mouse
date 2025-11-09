@@ -6,7 +6,8 @@ public class Detection : MonoBehaviour
 {
     [SerializeField] float range;
     [SerializeField] LayerMask PlayerDetection;
-
+    
+ 
     public RaycastHit2D hit;
     public Vector2 Hitposition => hit.point;
 

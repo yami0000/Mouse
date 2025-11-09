@@ -8,6 +8,7 @@ public class Laser : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Detection detection;
     [SerializeField] LayerMask WallsLayer;
+   
     [SerializeField] Enemy enemy;
     [SerializeField] string LaserName;
     //[SerializeField] float chargingwidth;
@@ -15,6 +16,7 @@ public class Laser : MonoBehaviour
 
     [SerializeField] Gradient chargingColor;
     [SerializeField] Gradient firingColor;
+    
 
     public Vector2 laserDirection;
     public float laserLenth;
@@ -27,15 +29,19 @@ public class Laser : MonoBehaviour
     private void Update()
     {
         //ShowChargeLaser();
-        line.widthMultiplier = firingwidth;
+       line.widthMultiplier = firingwidth;
     }
     public void ShowChargeLaser( ) 
     {
         ShowLaser();
-        animator.Play(LaserName);
+        animator.Play(LaserName, 0, 0f);
         line.colorGradient = chargingColor;
     }
-
+    public void ReChargeLaser()
+    {
+        ShowLaser();
+        line.colorGradient = chargingColor;
+    }
     public void FireLaser()
     {
         
@@ -46,6 +52,7 @@ public class Laser : MonoBehaviour
 
         line.SetPosition(1, Vector3.zero);
         
+        
     }
 
     private void ShowLaser()
@@ -53,7 +60,7 @@ public class Laser : MonoBehaviour
         
         laserDirection = detection.DirectionToPlayer();
 
-        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, laserDirection, float.MaxValue, WallsLayer); 
+        RaycastHit2D hitWall = Physics2D.Raycast(transform.position, laserDirection , float.MaxValue, WallsLayer); 
 
        
         laserLenth = (transform.position - ((Vector3)hitWall.point)).magnitude;
@@ -67,7 +74,7 @@ public class Laser : MonoBehaviour
 
        
 
-        line.SetPosition(1, targetpos);
+        line.SetPosition(1, new Vector3(laserLenth, 0f, 0f));
 
         Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 90) * detection.DirectionToPlayer();
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget);

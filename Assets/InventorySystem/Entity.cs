@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 public class Entity : MonoBehaviour 
 {
@@ -9,6 +10,8 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public Effects fx { get; private set; }
+
+    public SpecialEffect fxs { get; private set; }
     public EntityStats stats{ get; private set; }
 
     public CapsuleCollider2D cd{ get; private set; }
@@ -41,6 +44,7 @@ public class Entity : MonoBehaviour
     protected virtual void Start() 
     {   
         fx = GetComponent<Effects>();
+        fxs = GetComponent<SpecialEffect>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         stats = GetComponent<EntityStats>();
@@ -71,7 +75,10 @@ public class Entity : MonoBehaviour
     }
     public virtual void damageEffect()
     {
-        fx.StartCoroutine("FlashFX");
+        if(fxs != null)
+        fxs.StartCoroutine("FlashFX");
+        if (fx != null)
+            fx.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
          
     }

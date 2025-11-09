@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
+ 
 
 
 
@@ -34,31 +35,29 @@ public class Player : Entity
     private float defaultDashSpeed;    
     public float dashDir { get; private set; }
 
-    public float Timer;
+    [Header("Shield")]
+    [SerializeField] Collider2D shieldcollider;
 
+    [HideInInspector] public float Timer;
+
+    [HideInInspector] public float xInput;
+    [HideInInspector] public float yInput;
+    [HideInInspector] public bool isAutoControl = false;
 
 
 
     #region States
     public PlayerStateMachine StateMachine { get; private set; }
-
-
-
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
-
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
-
     public PlayerWallSlideState wallSlideState { get; private set; }
-
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerDashState dashState { get; private set; }
-
     public PlayerAttackState attackState { get; private set; }
-
     public PlayerDeathState deathState { get; private set; }
-
+    public PlayerShieldState shieldState { get; private set; }
     #endregion
 
     protected override void Awake()
@@ -76,8 +75,8 @@ public class Player : Entity
         wallJumpState = new PlayerWallJumpState(this, StateMachine, "WallJump");
         attackState = new PlayerAttackState(this, StateMachine, "Attack");
         deathState = new PlayerDeathState(this, StateMachine, "Death");
+        shieldState = new PlayerShieldState(this, StateMachine, "Shield");
 
-       
 
     }
 
@@ -95,7 +94,7 @@ public class Player : Entity
         defaultJumpForce =jumpforce;
         defaultMoveSpeed = movespeed;
         defaultDashSpeed = dashspeed;
-        
+        shieldcollider.enabled = false;
     }
 
 
@@ -103,6 +102,15 @@ public class Player : Entity
     protected override void Update()
     {
         base.Update();
+
+        if (!isAutoControl)
+        {
+            xInput = Input.GetAxisRaw("Horizontal");
+            yInput = Input.GetAxisRaw("Vertical");
+        }
+
+         
+
         StateMachine.currentState.Update();
 
         Timer -= Time.deltaTime;
@@ -167,6 +175,28 @@ public class Player : Entity
         }
     }
 
+    public void shield() 
+    {
+        StartCoroutine(Shield());
+
+     }
+    IEnumerator Shield() 
+    {
+    yield return new WaitForSeconds(0.15f);
+
+        
+        float shieldTime = 0.5f;
+
+        while (shieldTime >= 0)
+        {
+            shieldTime -= Time.deltaTime;
+            shieldcollider.enabled = true;
+            yield return null;
+        }
+        shieldcollider.enabled = false;
+        
+
+    }
     public override void Die()
     {
         base.Die();

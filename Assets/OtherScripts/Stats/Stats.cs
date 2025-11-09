@@ -6,13 +6,15 @@ using UnityEngine;
 [System.Serializable]
 public class Stats 
 {
-    [SerializeField]private int BaseValue;
+    public int BaseValue;
+    
 
     public List<int> modifiers;    
+    
 
     public int GetValue() 
     {
-        int finalValue = BaseValue;
+        int finalValue = BaseValue ;
 
         foreach (int modifier in modifiers)
         {
