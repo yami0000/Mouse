@@ -29,12 +29,10 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
 
-   
+    public event System.Action OnInventoryUIUpdated;
 
     private void Awake()
     {
-
-
 
 
         if (Instance == null)
@@ -64,6 +62,7 @@ public class Inventory : MonoBehaviour
         equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
 
         AddStartingItems();
+        UpgradePanel.Instance.Initialize();
     }
 
     private void AddStartingItems()
@@ -79,7 +78,6 @@ public class Inventory : MonoBehaviour
     {
         ItemData_Equipment newEqipment = _item as ItemData_Equipment;//as的作用：如果 _item 是 ItemData_Equipment 或其派生类，转换成功，返回该对象。  如果 _item 不是 ItemData_Equipment 类型，返回 null（不会抛出异常）。
 
-        
         InventoryItem newItem = new InventoryItem(_item);
 
         ItemData_Equipment oldEquipment = null;
@@ -102,6 +100,9 @@ public class Inventory : MonoBehaviour
         {
             if (item.Key.equipmentType == EquipmentType.Weapon)
                 currentEquipment = item.Key;
+           // if (currentEquipment.Mods != null)
+              //  currentEquipment.ExecuteModEffect(PlayerManager.Instance.player.transform);
+          
 
         }
  
@@ -129,6 +130,8 @@ public class Inventory : MonoBehaviour
 
     private void UpdateSlotUI() 
     {
+         
+
         for (int i = 0; i < equipmentSlot.Length;i++) 
         {
             foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
@@ -163,6 +166,7 @@ public class Inventory : MonoBehaviour
 
         }
 
+        OnInventoryUIUpdated?.Invoke();
 
 
     }
@@ -218,7 +222,7 @@ public class Inventory : MonoBehaviour
        AddToStash(_item);
 
        
-        UpdateSlotUI();
+       UpdateSlotUI();
 
     }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2984256067671862951}
   - component: {fileID: 356842760878774785}
-  - component: {fileID: 5360149777645407151}
+  - component: {fileID: 3461882167446802624}
   - component: {fileID: 6128413733627440672}
   - component: {fileID: 9174489806036374888}
   m_Layer: 12
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 23.6657, y: -2.5889, z: 0}
-  m_LocalScale: {x: 1.3311858, y: 1.3311858, z: 1.3311858}
+  m_LocalScale: {x: 5.725164, y: 5.725164, z: 5.725164}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 1622824371
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0.9921569, g: 0.20784315, b: 0.33333334, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,8 +89,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5360149777645407151
-PolygonCollider2D:
+--- !u!58 &3461882167446802624
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -124,21 +124,7 @@ PolygonCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
-  m_UseDelaunayMesh: 0
+  m_Radius: 0.1
 --- !u!50 &6128413733627440672
 Rigidbody2D:
   serializedVersion: 4

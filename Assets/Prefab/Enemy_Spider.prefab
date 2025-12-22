@@ -98,6 +98,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerCheckDistance: 20
+  EXP: 3
   moveSpeed: 2.8
   idleTime: 0.8
   battleTime: 0
@@ -183,7 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c620d2d36c4c164993a88c20d55bf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 0}
   hitMat: {fileID: 2100000, guid: 2cb24316c4682ff46b54002ceb94e644, type: 2}
+  Special: 0
   freezeColor:
   - {r: 0.23602703, g: 0.40683788, b: 0.9811321, a: 1}
   - {r: 0.3726415, g: 0.7418257, b: 1, a: 1}
@@ -208,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a65da7e30377a42ac2b88edc36e42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  absorbedDAMAGE: 0
   FirePower:
     BaseValue: 0
     modifiers: 

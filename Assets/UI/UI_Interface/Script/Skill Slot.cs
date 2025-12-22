@@ -11,15 +11,22 @@ public class SkillSlot : MonoBehaviour, IPointerClickHandler
 
     private Icon assignedSkill;
 
+
     public void AssignSkill(Icon skill,string skillname)
     {
         assignedSkill = skill;
         slotImage.sprite = skill.activeSprite;
         SK.Instance.Skill.EquippedSkill = skillname;
+        if (skillname == "Protective Shield")
+            SK.Instance.Skill.CurrentSkillCoolDown = SK.Instance.Skill.ProtectiveShield;
+        if (skillname == "Reaper")
+            SK.Instance.Skill.CurrentSkillCoolDown = SK.Instance.Skill.Reaper;
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SkillCoolDown.Instance.UnassignSkill();
          
         if (eventData.button == PointerEventData.InputButton.Right && assignedSkill != null)
         {
@@ -33,6 +40,7 @@ public class SkillSlot : MonoBehaviour, IPointerClickHandler
         assignedSkill = null;
         slotImage.sprite = emptySprite;
         SK.Instance.Skill.EquippedSkill = null;
+        SK.Instance.Skill.CurrentSkillCoolDown = 0;
     }
 
     public bool IsEmpty()

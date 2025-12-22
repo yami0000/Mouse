@@ -5370,7 +5370,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -41812,8 +41812,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -4.3309536, y: -2.6981428}
-  m_Size: {x: 6.406229, y: 2.9836733}
+  m_Offset: {x: -3.3826227, y: -2.698143}
+  m_Size: {x: 6.997213, y: 2.9836733}
   m_Direction: 1
 --- !u!70 &1852466304
 CapsuleCollider2D:
@@ -41849,8 +41849,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 4.4264336, y: -2.698144}
-  m_Size: {x: 6.058385, y: 2.9836733}
+  m_Offset: {x: 3.5805526, y: -2.6981437}
+  m_Size: {x: 6.919239, y: 2.9836733}
   m_Direction: 1
 --- !u!70 &1852466305
 CapsuleCollider2D:

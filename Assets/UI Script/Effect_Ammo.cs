@@ -5,34 +5,38 @@ using UnityEngine;
 public class Effect_Ammo : ItemEffect 
 {
     [SerializeField]private GameObject AmmoPrefab;
-    [SerializeField] private float xVelocity;
-    [SerializeField] float Range;
-    [SerializeField] float speed;
- 
+   
+    private ItemData_Equipment Data; 
 
     private void start()
     {
-    PlayerManager.Instance.player.Timer = speed;
-       
-     }
- 
-    public override void ExecuteEffect(Transform _position)
+        GetPlayer().Timer = SK.Instance.Skill.EquippedSkill == "Reaper" && GetPlayer().UsingSkill ? Data.firingRate / 1.4f : Data.firingRate;//如果技能发动，子弹发射时间间隙/1.4
+
+    }
+
+
+    public override void ExecuteWeaponEffect(Transform _position,ItemData_Equipment data)
     {
-        if(PlayerManager.Instance.player.Timer > 0)
+        Data = data;
+        if(GetPlayer().Timer > 0)
         return;
 
 
         
-        Player  player = PlayerManager.Instance.player;
+        Player  player = GetPlayer();
         GameObject Ammo = Instantiate(AmmoPrefab, player.transform.position, player.transform.rotation);
-         Ammo.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity * player.facingDir,0);
+         Ammo.GetComponent<Rigidbody2D>().velocity = new Vector2(data.xVelocity * player.facingDir,0);
 
     
 
 
-            Destroy(Ammo, Range);
+            Destroy(Ammo, data.effectiveTime);
 
-        PlayerManager.Instance.player.Timer = speed;
+        GetPlayer().Timer = SK.Instance.Skill.EquippedSkill == "Reaper" && GetPlayer().UsingSkill ? Data.firingRate / 1.4f : Data.firingRate;
+    }
+    private static Player GetPlayer()
+    {
+        return PlayerManager.Instance.player;
     }
 
 

@@ -43,7 +43,7 @@ public class Collide_RevolverAmmo : MonoBehaviour
         int absorbedDamage;
         totalDamage = PlayerStats.ArmorSystem(_targetStats, totalDamage,out absorbedDamage);
 
-        Debug.Log($"Final Damage: {totalDamage}, Absorbed: {absorbedDamage}");
+       // Debug.Log($"Final Damage: {totalDamage}, Absorbed: {absorbedDamage}");
 
         _targetStats.TakeDamage(totalDamage);
         PlayerStats.DoElementDamage(_targetStats);

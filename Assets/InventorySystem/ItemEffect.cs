@@ -8,6 +8,17 @@ public class ItemEffect : ScriptableObject
     public virtual void ExecuteEffect(Transform _position)
     {
 
-        Debug.Log("Effect executed!");
     }
+
+    public virtual void ExecuteWeaponEffect(Transform _position,ItemData_Equipment data) 
+    {
+    
+    }
+
+    public virtual void ApplyModEffect(Transform _position) 
+    {
+    
+    }
+
+    
 }

@@ -51,6 +51,8 @@ public class Enemy_Miner : Enemy
         base.Die();
 
         stateMachine.ChangeState(deathState);
+
+      
     }
 
 

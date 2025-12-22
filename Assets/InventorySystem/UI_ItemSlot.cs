@@ -15,14 +15,7 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
     [SerializeField] private TextMeshProUGUI itemText;
 
     public InventoryItem item;
-    private HealthBarUi healthBarUi;
-
-    public ItemData_Equipment Weapon;
-
-    public AspectRatioFitter aspectFitter;
-    // public static UI_ItemSlot Instance;
-
-
+  
 
     public void Start()
     {
@@ -48,11 +41,7 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
 
 
         }
-        if (aspectFitter != null)
-        {
-            float ratio = (float)item.data.icon.rect.width / item.data.icon.rect.height;
-            aspectFitter.aspectRatio = ratio;
-        }
+       
     }
 
     public void CleanUpSlot()
@@ -92,10 +81,10 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
 
 
           
-              if (equipmentData.equipmentType == EquipmentType.Weapon) 
+              if (equipmentData.equipmentType == EquipmentType.Weapon) //装备武器
               PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
 
-              if(equipmentData.equipmentType == EquipmentType.Armor)
+              if(equipmentData.equipmentType == EquipmentType.Armor)//装备护甲/帽子？
               PlayerArmorHolder.Instance.EquipArmor(equipmentData); 
             
         }

@@ -7,6 +7,7 @@ public class EnemyAmmo_Effect : MonoBehaviour
 {
     private Enemy Enemy;
     private EnemyStats EnemyStats;
+    [HideInInspector] public SpriteRenderer sp;
     [SerializeField] private bool Bounce;
 
     [SerializeField] private GameObject projectilePrefab;
@@ -28,8 +29,11 @@ public class EnemyAmmo_Effect : MonoBehaviour
         Enemy = enemy;
 
     }
-
-
+   
+    private void Awake()
+    {
+        sp = GetComponent<SpriteRenderer>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 

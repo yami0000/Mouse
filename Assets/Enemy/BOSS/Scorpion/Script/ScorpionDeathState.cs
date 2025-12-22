@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScorpionDeathState : EnemyState
 {
     protected Boss_Scorpion boss;
+
     public ScorpionDeathState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Boss_Scorpion boss) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.boss = boss;
@@ -17,6 +18,8 @@ public class ScorpionDeathState : EnemyState
         boss.anim.SetBool(boss.lastAnimBoolName, true);
         boss.anim.speed = 0;
         boss.cd.enabled = false;
+        
+        Debug.Log("Death!!");
 
         boss.stateTimer_Scorpion = .1f;
     }
@@ -32,7 +35,7 @@ public class ScorpionDeathState : EnemyState
 
 
 
-        if (stateTimer > 0)
+        if (boss.stateTimer_Scorpion > 0)
             rb.velocity = new Vector2(0, 5);
     }
 }

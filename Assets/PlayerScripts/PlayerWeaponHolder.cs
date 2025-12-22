@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,9 @@ using UnityEngine.UI;
 public class PlayerWeaponHolder : MonoBehaviour
 {
 
-    
+    [SerializeField] private TextMeshProUGUI WeaponName;
+    [SerializeField] private TextMeshProUGUI atk;
+    [SerializeField] private TextMeshProUGUI Level;
 
     public static PlayerWeaponHolder Instance;
 

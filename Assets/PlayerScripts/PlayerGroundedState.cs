@@ -12,6 +12,7 @@ public class PlayerGroundedState : PlayerReadyToAttack
     public override void Enter()
     {
         base.Enter();
+        player.CanDoubleJump = true;
     }
 
     public override void Exit()
@@ -26,7 +27,8 @@ public class PlayerGroundedState : PlayerReadyToAttack
         if (Input.GetMouseButtonDown(1))
         {
             if (GetEquippedSkill() == "Protective Shield")
-                stateMachine.ChangeState(player.shieldState);
+                if(player.CanUseSkill())
+                    stateMachine.ChangeState(player.shieldState);
         }
             
 

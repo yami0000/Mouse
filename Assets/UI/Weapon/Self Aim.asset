@@ -16,25 +16,38 @@ MonoBehaviour:
   itemName: Self Aim
   icon: {fileID: -5266645353805765359, guid: c549dd908f7a0644a92c508092043740, type: 3}
   price: 0
-  dropChance: 5
   itemEffects: []
   equipmentType: 0
+  Level: 1
   equipmentEffects:
   - {fileID: 11400000, guid: b948bff3022f197479adfa74745058f7, type: 2}
-  FirePower: 3
+  Mods:
+  - {fileID: 11400000, guid: 64f313dce317a8f44b75bf977ab71de0, type: 2}
+  - {fileID: 11400000, guid: 989f5553375062744ac34fc51384be46, type: 2}
+  - {fileID: 0}
+  modSlotCount: 3
+  sFirePower: 12
   Agility: 0
-  Intelligence: 0
   Vitality: 0
   Damage: 0
   CriticalChance: 5
   CriticalDamage: 125
   MaxHP: 0
-  Armor: 0
+  sArmor: 0
   FireResistance: 0
   FrostResistance: 0
   LightingResistance: 0
   PoisonResistance: 0
-  FireDamage: 0
-  FrostDamage: 0
-  PoisonDamage: 0
-  LightningDamage: 0
+  sFireDamage: 0
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  xVelocity: 18
+  firingRate: 0.25
+  effectiveTime: 5
+  FirePower: 17
+  Armor: 7
+  FireDamage: 4
+  FrostDamage: 4
+  PoisonDamage: 4
+  LightningDamage: 4

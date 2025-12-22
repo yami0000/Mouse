@@ -11,13 +11,14 @@ public class PlayerShieldState :PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.Timer = 0.8f;
+        player.Timer = SK.Instance.Skill.OverCharging? 1.1f:0.8f;
         player.shield();
     }
 
     public override void Exit()
     {
         base.Exit();
+        player.SkillTimer = SK.Instance.Skill.ProtectiveShield;
     }
 
     public override void Update()

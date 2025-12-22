@@ -6,8 +6,11 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private Tile tile;
 
+    [Header("Elevator Advance")]
     [SerializeField] private Auto_Elevator Elevator1F;
     [SerializeField] private Auto_Elevator Elevator2F;
+
+    
 
     protected float stateTimer = 0;
 

@@ -239,6 +239,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   playerCheckDistance: 20
+  EXP: 10
   moveSpeed: 2.4
   idleTime: 0.5
   battleTime: 5
@@ -324,7 +325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c620d2d36c4c164993a88c20d55bf8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 0}
   hitMat: {fileID: 2100000, guid: 2cb24316c4682ff46b54002ceb94e644, type: 2}
+  Special: 0
   freezeColor:
   - {r: 0.23602703, g: 0.40683788, b: 0.9811321, a: 1}
   - {r: 0.3726415, g: 0.7418257, b: 1, a: 1}
@@ -349,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94a65da7e30377a42ac2b88edc36e42e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  absorbedDAMAGE: 0
   FirePower:
     BaseValue: 0
     modifiers: 
@@ -414,11 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed7138283fc8fa4ebadd142f6649445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possibleItemDrop: 2
-  possibleDrop:
-  - {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
-  - {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
-  - {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
+  dropTable: []
   dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
 --- !u!114 &4693692420175287964
 MonoBehaviour:

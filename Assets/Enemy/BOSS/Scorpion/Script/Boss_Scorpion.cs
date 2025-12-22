@@ -121,6 +121,8 @@ public class Boss_Scorpion : Enemy
     public override void Die()
     {
         base.Die();
+
+        stateMachine.ChangeState(deathState);
     }
 
     public void TurnToPlayer()

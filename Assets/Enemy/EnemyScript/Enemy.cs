@@ -9,6 +9,8 @@ public class Enemy : Entity
     [SerializeField] protected LayerMask whatIsPlayer;
     [SerializeField] protected float playerCheckDistance;
 
+    [Header("EXP")]
+    public int EXP;
     [Header("move info")]
     public float moveSpeed;
     public float idleTime;
@@ -162,5 +164,11 @@ public class Enemy : Entity
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
 
+        PlayerManager.Instance.player.Exp += EXP;
+        Debug.Log(PlayerManager.Instance.player.Exp);
+    }
 }

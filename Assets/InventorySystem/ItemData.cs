@@ -7,7 +7,7 @@ public enum ItemType
     Currency,
     Material,
     UsableObject,
-    Other,
+    Mods,
     Equipment
 
 }
@@ -21,8 +21,8 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     public int price;
 
-    [Range(0,100)]
-    public float dropChance;
+    //[Range(0,100)]
+    //public float dropChance;
 
     public ItemEffect[] itemEffects;
 
@@ -33,5 +33,6 @@ public class ItemData : ScriptableObject
             effect.ExecuteEffect(_position);
         }
     }
+
 
 }

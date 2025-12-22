@@ -12,7 +12,17 @@ public class Skill : MonoBehaviour
 
     [HideInInspector] public string EquippedSkill = null; 
 
-    [SerializeField] private int totalSkillPoints = 5;
+     public int SP = 5;
+
+    [Header("Skill")]
+    [HideInInspector] public bool Metabolism = false;
+    [HideInInspector] public bool OverCharging = false;
+    [HideInInspector] public float CurrentSkillCoolDown;
+    [HideInInspector] public bool DoubleJump = false;
+
+    [Header("CoolDown")]
+    public float ProtectiveShield;
+    public float Reaper;
 
     void Awake()
     {
@@ -21,20 +31,26 @@ public class Skill : MonoBehaviour
 
     public bool HasEnoughPoints(int cost)
     {
-        return totalSkillPoints >= cost;
+        return SP >= cost;
     }
 
     public void SpendPoints(int cost)
     {
-        totalSkillPoints -= cost;
-        Debug.Log($"Spent {cost} points. Remaining: {totalSkillPoints}");
+        SP -= cost;
+        Debug.Log($"Spent {cost} points. Remaining: {SP}");
     }
     public void ActivatePassiveSkill(string skillName)
     {
-        if(skillName == "Metabolism") 
-        {
-        
-        }
+        if (skillName == "Metabolism")
+            Metabolism = true;
+        if(skillName == "OverCharging")
+            OverCharging = true;
+        if (skillName == "FirePower Training")
+            PlayerManager.Instance.player.stats.FirePower.AddModifier(5);
+        if (skillName == "Defense Training")
+            PlayerManager.Instance.player.stats.Armor.AddModifier(10);
+        if(skillName == "Double Jump")
+            DoubleJump = true;
 
 
     }

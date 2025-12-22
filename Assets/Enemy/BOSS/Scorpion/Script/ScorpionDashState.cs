@@ -36,7 +36,7 @@ public class ScorpionDashState : EnemyState
             }
             else
             {
-                Debug.Log("Melee");
+                
                 stateMachine.ChangeState(boss.meleeState);
             }
         }

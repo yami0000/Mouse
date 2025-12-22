@@ -38,12 +38,12 @@ public class Collide_SelfAimAmmoEnemy : MonoBehaviour
         
             if (timer < homingDelay)
             {
-                // phase 1 ¡ú slow down
+                
                 rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, slowDownRate * Time.deltaTime);
             }
             else
             {
-                // phase 2 ¡ú accelerate toward player
+                 
                 Vector2 dir = (player.position - transform.position).normalized;
                 rb.velocity = Vector2.MoveTowards(rb.velocity, dir * maxSpeed, homingAcceleration * Time.deltaTime);
             }
@@ -69,7 +69,15 @@ public class Collide_SelfAimAmmoEnemy : MonoBehaviour
             Destroy(gameObject);
 
         if (collision.CompareTag("Shield"))
-            Destroy(gameObject);
+        { 
+            if(SK.Instance.Skill.Metabolism)
+            {
+                PlayerManager.Instance.player.stats.CurrentHP += (int)(0.015 * PlayerManager.Instance.player.stats.GetMaxHealth());
+                Mathf.Clamp(PlayerManager.Instance.player.stats.CurrentHP, -100, PlayerManager.Instance.player.stats.GetMaxHealth());
+            }
+            Destroy(gameObject); 
+                   
+        }
 
     }
 }

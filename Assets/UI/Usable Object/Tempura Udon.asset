@@ -16,6 +16,5 @@ MonoBehaviour:
   itemName: Tempura Udon
   icon: {fileID: -4156787232488257927, guid: 11e27f0aa9067c949a5ad742dd5c5f6d, type: 3}
   price: 1
-  dropChance: 10
   itemEffects:
   - {fileID: 11400000, guid: 62f547b47fd5a074e883193fb7438085, type: 2}

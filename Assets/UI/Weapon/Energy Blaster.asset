@@ -16,25 +16,41 @@ MonoBehaviour:
   itemName: Energy Blaster
   icon: {fileID: -4411314264719886262, guid: cd17d07179b9b0a48a2621723b456cfa, type: 3}
   price: 0
-  dropChance: 2.1
   itemEffects: []
   equipmentType: 0
+  Level: 1
   equipmentEffects:
   - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
-  FirePower: 10
+  Mods:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 989f5553375062744ac34fc51384be46, type: 2}
+  modSlotCount: 6
+  sFirePower: 45
   Agility: 0
-  Intelligence: 0
   Vitality: 0
   Damage: 0
   CriticalChance: 5
-  CriticalDamage: 0
+  CriticalDamage: 150
   MaxHP: 0
-  Armor: 0
+  sArmor: 0
   FireResistance: 0
   FrostResistance: 0
   LightingResistance: 0
   PoisonResistance: 0
-  FireDamage: 50
-  FrostDamage: 0
-  PoisonDamage: 0
-  LightningDamage: 0
+  sFireDamage: 0
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  xVelocity: 28
+  firingRate: 1
+  effectiveTime: 0.6
+  FirePower: 50
+  Armor: 7
+  FireDamage: 4
+  FrostDamage: 4
+  PoisonDamage: 4
+  LightningDamage: 4

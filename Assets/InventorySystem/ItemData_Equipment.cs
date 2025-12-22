@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +11,7 @@ public enum EquipmentType
     Armor,
     Amulet,
     item
+    
 }
 
 
@@ -17,17 +20,22 @@ public enum EquipmentType
 public class ItemData_Equipment : ItemData
 
 {
- 
-
-
     public EquipmentType equipmentType;
+
+    public int Level;
 
     public ItemEffect[] equipmentEffects;
 
+    public Mod[] Mods;
+
+    [Range(0, 6)]
+    public int modSlotCount ;
+
+
     [Header("Major Stats")]
-    public int FirePower;
+    public int sFirePower;
     public int Agility;
-    public int Intelligence;
+    //public int Intelligence;
     public int Vitality;
 
     [Header("Damage")]
@@ -37,24 +45,101 @@ public class ItemData_Equipment : ItemData
 
     [Header("Defensive Stats")]
     public int MaxHP;
-    public int Armor;
-    //public int Evasion;
+    public int sArmor;
     public int FireResistance;
     public int FrostResistance;
     public int LightingResistance;
     public int PoisonResistance;
 
     [Header("Element")]
+    public int sFireDamage;
+    public int sFrostDamage;
+    public int sPoisonDamage;
+    public int sLightningDamage;
+    
+    [Header("If it's weapon")]//control ammo info in the inspector of equipment
+    public float xVelocity;
+    public float firingRate;
+    public float effectiveTime;
+    [Header("Stats can be influenced by level")]
+    public int FirePower;
+    public int Armor;
     public int FireDamage;
     public int FrostDamage;
     public int PoisonDamage;
     public int LightningDamage;
 
-    public void ExecuteEquipmentEffect(Transform _position) 
+    public bool TryAddMod(Mod modItem)
+    {
+        
+
+        if (modItem == null) return false;
+        if (modItem.ItemType != ItemType.Mods) return false;
+
+        bool isFull = true;
+        for (int i = 0; i < Mods.Length; i++)
+        {
+            if (Mods[i] == null)
+            {
+                isFull = false;
+                break;
+            }
+        }
+
+        if (isFull) return false;
+
+
+        for (int i = 0; i < Mods.Length; i++)
+        {
+            if (Mods[i] == null)
+            {  Debug.Log(i);
+                Mods[i] = modItem;
+                return true;
+            }
+            
+        }
+
+        return false; // no empty slot
+    }
+    public bool TryRemoveModAt(int index, out Mod removed)
+    {
+        removed = null;
+
+        if (Mods == null || index < 0 || index >= Mods.Length) return false;
+        if (Mods[index] == null) return false;
+
+        removed = Mods[index];
+        Mods[index] = null;
+        return true;
+    }
+    private void OnValidate()//excute when data is changing in the inspector.
+    {
+        if (Mods == null || Mods.Length != modSlotCount)
+        {
+            System.Array.Resize(ref Mods, modSlotCount);
+        }
+
+        FirePower = sFirePower + 5 * Level;
+        Armor = sArmor + 7 * Level;
+        FireDamage = sFireDamage + 4 * Level;
+        FrostDamage = sFrostDamage + 4 * Level;
+        PoisonDamage = sPoisonDamage + 4 * Level;   
+        LightningDamage = sLightningDamage + 4 * Level;
+    }
+    public void ExecuteModEffect(Transform _position)
+    {
+        foreach (var effect in equipmentEffects)
+        {
+            effect.ApplyModEffect(_position);
+        }
+    }
+        
+
+    public void ExecuteEquipmentEffect(Transform _position,ItemData_Equipment data) 
     {
         foreach (var effect in equipmentEffects)
         { 
-        effect.ExecuteEffect(_position);
+        effect.ExecuteWeaponEffect(_position,data);
         }
     }
     public void AddModifiers() 
@@ -62,8 +147,7 @@ public class ItemData_Equipment : ItemData
        PlayerStats playerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
 
        playerStats.FirePower.AddModifier(FirePower);
-      // playerStats.Agility.AddModifier(Agility);    
-      // playerStats.Intelligence.AddModifier(Intelligence);
+    
        playerStats.Vitality.AddModifier(Vitality); 
 
        playerStats.Damage.AddModifier(Damage);
@@ -72,7 +156,7 @@ public class ItemData_Equipment : ItemData
 
         playerStats.MaxHP.AddModifier(MaxHP);
         playerStats.Armor.AddModifier(Armor);   
-       // playerStats.Evasion.AddModifier(Evasion);
+  
         playerStats.FireResistance.AddModifier(FireResistance);
         playerStats.FrostDamage.AddModifier(FrostDamage);
         playerStats.LightingResistance.AddModifier(LightingResistance);
@@ -83,7 +167,14 @@ public class ItemData_Equipment : ItemData
         playerStats.PoisonDamage.AddModifier(PoisonDamage);
         playerStats.LightningDamage.AddModifier(LightningDamage);
 
-
+        if (Mods != null)
+        {
+            foreach (var mod in Mods)
+            {
+                if (mod == null) continue;
+                mod.AddModifiers(playerStats);
+            }
+        }
     }
 
     public void RemoveModifiers()
@@ -92,8 +183,7 @@ public class ItemData_Equipment : ItemData
 
 
         playerStats.FirePower.RemoveModifier(FirePower);
-        //playerStats.Agility.RemoveModifier(Agility);
-        // playerStats.Intelligence.RemoveModifier(Intelligence);
+       
         playerStats.Vitality.RemoveModifier(Vitality);
 
         playerStats.Damage.RemoveModifier(Damage);
@@ -102,7 +192,7 @@ public class ItemData_Equipment : ItemData
 
         playerStats.MaxHP.RemoveModifier(MaxHP);
         playerStats.Armor.RemoveModifier(Armor);
-        // playerStats.Evasion.RemoveModifier(Evasion);s
+        
         playerStats.FireResistance.RemoveModifier(FireResistance);
         playerStats.FrostDamage.RemoveModifier(FrostDamage);
         playerStats.LightingResistance.RemoveModifier(LightingResistance);
@@ -113,7 +203,14 @@ public class ItemData_Equipment : ItemData
         playerStats.PoisonDamage.RemoveModifier(PoisonDamage);
         playerStats.LightningDamage.RemoveModifier(LightningDamage);
 
-
+        if (Mods != null)
+        {
+            foreach (var mod in Mods)
+            {
+                if (mod == null) continue;
+                mod.RemoveModifiers(playerStats);
+            }
+        }
 
 
 

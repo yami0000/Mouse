@@ -13,7 +13,7 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     [Header("UI")]
     [SerializeField] private Image skillImage;
-    [SerializeField] private Sprite normalSprite;
+    public Sprite normalSprite;
     public Sprite activeSprite;
 
     [Header("Skill Settings")]
@@ -22,9 +22,13 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     private Image dragImage;
     private Canvas canvas;
 
-    private bool isActivated = false;
+    [HideInInspector]public bool isActivated = false;
     private bool isHovered = false;
-    
+
+    [Header("Former Skill")]
+    [SerializeField] private Icon[] RequiredSkill;
+    [SerializeField] private RawImage line;
+    [SerializeField] private Color lineColor;
 
     #region  Drag Skills
     public void OnBeginDrag(PointerEventData eventData)
@@ -46,6 +50,10 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         // Check if we dropped on a SkillSlot
         if (eventData.pointerEnter != null && isActivated && ActiveSkill)
         {
+
+            SkillCoolDown.Instance.AssignSkill(this);
+
+
             SkillSlot slot = eventData.pointerEnter.GetComponent<SkillSlot>();
             if (slot != null)
             {
@@ -85,21 +93,30 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         isHovered = false;
         if (isActivated)
          return;
-       
+
+        foreach (var req in RequiredSkill)
+        {
+            if (req == null || !req.isActivated)
+            {
+                Debug.Log($"{skillName} cannot be activated ¡ª prerequisite not met.");
+                return;
+            }
+        }
 
         if (SK.Instance.Skill.HasEnoughPoints(cost))
-        {
-            ActivateSkill();
-            SK.Instance.Skill.SpendPoints(cost);
+            {
+                ActivateSkill();
+                SK.Instance.Skill.SpendPoints(cost);
 
-            if (!ActiveSkill)
-                SK.Instance.Skill.ActivatePassiveSkill(skillName);
-        }
-        else
-        {
-            Debug.Log("Not enough skill points!");
-             
-        }
+                if (!ActiveSkill)
+                    SK.Instance.Skill.ActivatePassiveSkill(skillName);
+            }
+            else
+            {
+                Debug.Log("Not enough skill points!");
+
+            }
+        
     }
 
     private void ActivateSkill()
@@ -108,7 +125,8 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         isActivated = true;
         if (activeSprite != null)
             skillImage.sprite = activeSprite;
-        
+        if(line != null)
+        line.color = lineColor;
     }
 
     #endregion
