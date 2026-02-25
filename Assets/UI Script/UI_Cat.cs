@@ -2,13 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Cat : MonoBehaviour
+
+public enum characterOrOther
 {
+Cat,
+Dog,
+Mary,
+Station
+
+
+
+
+}
+public class UI_NPC : MonoBehaviour
+{
+    public characterOrOther Who;
+    public FastTravelAni FT;
+    public bool isItInherited;
+
     [SerializeField] GameObject uiParent;
 
     bool isMenuOpen;
 
-    private void Start()
+
+    public virtual void Start()
     {
         uiParent.SetActive(false);
     }
@@ -18,12 +35,12 @@ public class UI_Cat : MonoBehaviour
         if (!isMenuOpen) return;
 
         if (Input.GetKeyUp(KeyCode.Escape) || Input.GetMouseButtonUp(1))
-        {
-            CloseMenu();
-        }
+            
+                CloseMenu();
+            
     }
 
-    public void OpenMenu() 
+    public virtual void OpenMenu() 
     {
         if (isMenuOpen) return;
 
@@ -33,7 +50,7 @@ public class UI_Cat : MonoBehaviour
         GM.Instance.GameManager.isUIOpened = true;
     }
 
-    public void CloseMenu()
+    public virtual void CloseMenu()
     {
         if (!isMenuOpen) return;
 

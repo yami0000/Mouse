@@ -9,7 +9,8 @@ public class Transition : DETECTION
 {
     public int Num;
     public bool respawn;
-    public bool enter;
+    public bool CanInteract;
+    public bool AutoLoad;
     public bool _walk;
     public float walktime;
 
@@ -34,8 +35,12 @@ public class Transition : DETECTION
     public override void Interact()
     {
         base.Interact();
+
+        if (CanInteract)
+        {
+            SceneManager.LoadSceneAsync(Num);
+        }
         
-        SceneManager.LoadSceneAsync(Num);
 
        
     }
@@ -71,7 +76,7 @@ public class Transition : DETECTION
     public override void Event()
     {
         base.Event();
-        if(enter)
+        if(AutoLoad)
         SceneManager.LoadSceneAsync(Num);
     }
 }

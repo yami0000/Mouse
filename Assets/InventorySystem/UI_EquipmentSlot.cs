@@ -26,12 +26,14 @@ public class UI_EquipmentSlot : UI_ItemSlot
         if (equipmentData.equipmentType == EquipmentType.Weapon)
         PlayerWeaponHolder.Instance.UnEquipWeapon();
         if (equipmentData.equipmentType == EquipmentType.Armor)
-        PlayerArmorHolder.Instance.UnEquipArmor();  
+        PlayerArmorHolder.Instance.UnEquipArmor();
+        if (equipmentData.equipmentType == EquipmentType.Companion)
+        PlayerCompanion.Instance.UnEquipCompanion();
 
-             
 
 
-            CleanUpSlot();
+
+        CleanUpSlot();
 
     }
 }

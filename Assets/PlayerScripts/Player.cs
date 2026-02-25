@@ -25,6 +25,8 @@ public class Player : Entity
     public Transform attackCheck;
     public float attackCheckRadius;
 
+    [HideInInspector]public float currentChargeTimer;
+
     [Header("move info")]
     public float movespeed = 12f;
     public float jumpforce;
@@ -150,6 +152,8 @@ public class Player : Entity
     protected override void Update()
     {
         base.Update();
+
+         
 
         if (!isAutoControl)
         {

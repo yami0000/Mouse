@@ -5,41 +5,49 @@ using UnityEngine;
 public class Effect_ShotgunAmmo : ItemEffect
 {
     [SerializeField] private GameObject AmmoPrefab;
-    [SerializeField] private float xVelocity;
-    [SerializeField] private float Range;
-    [SerializeField] private float speed;
+
+    private ItemData_Equipment Data;
+
     [SerializeField] private int pelletCount;
     [SerializeField] private float spreadAngle;
 
     private void Start()
     {
-        PlayerManager.Instance.player.Timer = speed;
+        GetPlayer().Timer = SK.Instance.Skill.EquippedSkill == "Reaper" && GetPlayer().UsingSkill ? Data.firingRate / 1.4f : Data.firingRate;
     }
 
-    public override void ExecuteEffect(Transform _position)
+    public override void ExecuteWeaponEffect(Transform _position,ItemData_Equipment data)
     {
-        if (PlayerManager.Instance.player.Timer > 0)
+        Data = data;
+        if (GetPlayer().Timer > 0)
             return;
 
-        Player player = PlayerManager.Instance.player;
+        Player player = GetPlayer();
 
-        
+        Vector2 D = GameManager.Instance.GetMouse();
+
+        float anglex = Mathf.Atan2(D.y, D.x) * Mathf.Rad2Deg;
+
+
         for (int i = 0; i < pelletCount; i++)
         {
-            // Pick a random angle within ¡À(spreadAngle/2)
             float angle = Random.Range(-spreadAngle / 2f, spreadAngle / 2f);
 
-            // Convert angle to direction vector
-            Vector2 direction = Quaternion.Euler(0, 0, angle) * Vector2.right * player.facingDir;
+            
+            Vector2 direction = Quaternion.Euler(0, 0, anglex+angle) * Vector2.right ;
 
             
             GameObject Ammo = Instantiate(AmmoPrefab, player.transform.position, Quaternion.identity);
-            Ammo.GetComponent<Rigidbody2D>().velocity = direction.normalized * xVelocity;
+            Ammo.GetComponent<Rigidbody2D>().velocity = direction.normalized * data.xVelocity;
 
-             
-            Destroy(Ammo, Range);
+            Destroy(Ammo, data.effectiveTime);
+
         }
 
-        PlayerManager.Instance.player.Timer = speed;
+        GetPlayer().Timer = SK.Instance.Skill.EquippedSkill == "Reaper" && GetPlayer().UsingSkill ? Data.firingRate / 1.4f : Data.firingRate;
+    }
+    private static Player GetPlayer()
+    {
+        return PlayerManager.Instance.player;
     }
 }

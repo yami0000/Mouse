@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5534225817575781609}
   - component: {fileID: 4402271011645646648}
+  - component: {fileID: 2909229129329051913}
   - component: {fileID: 1037650966963262999}
   m_Layer: 0
   m_Name: Lid Detect
@@ -50,8 +51,25 @@ MonoBehaviour:
   rb: {fileID: 8373690089969045805}
   ColliderForBody: {fileID: 3237789245264836181}
   upOffset: {x: 0, y: 0.35}
-  rightOffset: {x: 2, y: 0}
+  rightOffset: {x: 3, y: 0}
   RightSmoothTime: 0.2
+--- !u!114 &2909229129329051913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419676488629193464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed7138283fc8fa4ebadd142f6649445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTable:
+  - item: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
+    dropChance: 100
+    rollTimes: 10
+  dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
 --- !u!70 &1037650966963262999
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,9 +180,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -354062955
+  m_SortingLayer: 3
+  m_SortingOrder: -1
   m_Sprite: {fileID: -3720511427991949177, guid: 4f1c809d5411ad749a84987cc131dc73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -231,7 +249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5281978659794250955}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +266,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 45.1038, y: -10.16, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4816451, y: 1.4816451, z: 1.4816451}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5534225817575781609}
@@ -329,8 +347,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -354062955
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 4003563873750686401, guid: 4f1c809d5411ad749a84987cc131dc73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

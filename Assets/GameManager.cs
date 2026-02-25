@@ -15,16 +15,44 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public bool isMantisBossFightStarted;
     public bool isMantisAlive;
 
-
-
-
     private Animator ani;
-
 
     [HideInInspector] public int MantisHealth;
     [HideInInspector] public int MantisMaxHealth;
     [HideInInspector] public int ScorpionHealth;
     [HideInInspector] public int ScorpionMaxHealth;
+
+    public Vector2 GetMouse() 
+    {
+        if (PlayerManager.Instance.player != null)
+        {
+
+            Vector3 mouseScreenPos = Input.mousePosition;
+
+            mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+            Vector2 direction = (mouseWorldPos - PlayerManager.Instance.player.transform.position).normalized;
+
+
+
+            direction.x =PlayerManager.Instance.player.facingDir == 1 ? Mathf.Max(direction.x, 0.1f) : Mathf.Min(direction.x, -0.1f);
+
+            float ratio60Degrees = 1.732f;
+            float limit = Mathf.Abs(direction.x)* ratio60Degrees;
+            direction.y = Mathf.Clamp(direction.y, -limit, limit);
+
+            
+            direction = direction.normalized;
+
+
+
+            return direction;
+        }
+        else 
+            return Vector2.zero;
+    }
     private void Start()
     {
        

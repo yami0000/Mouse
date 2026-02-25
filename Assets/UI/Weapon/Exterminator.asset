@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: Exterminator
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  itemName: Exterminator
+  icon: {fileID: -1859413472361321337, guid: 7822f2976d9494347be7bdb97facef03, type: 3}
+  price: 0
+  itemEffects: []
+  equipmentType: 0
+  mechanism: 1
+  Level: 1
+  equipmentEffects:
+  - {fileID: 11400000, guid: 74ae3f9017b714244b450aee1260fc13, type: 2}
+  Mods:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  modSlotCount: 5
+  sFirePower: 30
+  Agility: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 10
+  CriticalDamage: 150
+  MaxHP: 0
+  sArmor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  sFireDamage: 5
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  xVelocity: 30
+  firingRate: 0.5
+  effectiveTime: 3
+  FirePower: 35
+  Armor: 7
+  FireDamage: 9
+  FrostDamage: 4
+  PoisonDamage: 4
+  LightningDamage: 4

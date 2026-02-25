@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: Bounce Weapon
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  itemName: Bounce Gun
+  icon: {fileID: -2321699996591856145, guid: 592bb988ce5ea2e41ace043fb2e1ade1, type: 3}
+  price: 0
+  itemEffects: []
+  equipmentType: 0
+  mechanism: 0
+  Level: 1
+  equipmentEffects:
+  - {fileID: 11400000, guid: 3397b0d98b3732946acfe5eb8cda5f63, type: 2}
+  Mods:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  modSlotCount: 3
+  sFirePower: 25
+  Agility: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  sArmor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  sFireDamage: 0
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  xVelocity: 15
+  firingRate: 0.45
+  effectiveTime: 3.5
+  FirePower: 30
+  Armor: 7
+  FireDamage: 4
+  FrostDamage: 4
+  PoisonDamage: 4
+  LightningDamage: 4

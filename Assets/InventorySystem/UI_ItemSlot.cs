@@ -85,8 +85,13 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
               PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
 
               if(equipmentData.equipmentType == EquipmentType.Armor)//装备护甲/帽子？
-              PlayerArmorHolder.Instance.EquipArmor(equipmentData); 
-            
+              PlayerArmorHolder.Instance.EquipArmor(equipmentData);
+
+            if (equipmentData.equipmentType == EquipmentType.Companion)
+              PlayerCompanion.Instance.EquipCompanion(equipmentData);
+
+
+
         }
 
         if (item == null || item.data == null)

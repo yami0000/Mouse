@@ -8,9 +8,7 @@ using UnityEngine.UI;
 public class PlayerWeaponHolder : MonoBehaviour
 {
 
-    [SerializeField] private TextMeshProUGUI WeaponName;
-    [SerializeField] private TextMeshProUGUI atk;
-    [SerializeField] private TextMeshProUGUI Level;
+ 
 
     public static PlayerWeaponHolder Instance;
 
@@ -31,16 +29,19 @@ public class PlayerWeaponHolder : MonoBehaviour
         else
             Instance = this;
     }
- 
 
+    private void Update()
+    {
+        Vector2 direction = GameManager.Instance.GetMouse();
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, PlayerManager.Instance.player.facingDir == 1 ? angle:180-angle);
+    }
     public void EquipWeapon(ItemData_Equipment weaponData)
     {
 
-        
-
         SpriteRenderer weapon = Weapon.GetComponent<SpriteRenderer>(); 
-
-         
 
         if (weapon != null  )
         {
@@ -48,12 +49,8 @@ public class PlayerWeaponHolder : MonoBehaviour
 
         }
 
-       
-
- 
         isHolding = true;   
-        
-    }
+        }
 
     public void UnEquipWeapon()
     {

@@ -105,9 +105,11 @@ public class EntityStats : MonoBehaviour
 
     }
 
-    public virtual void DoDamage(EntityStats _targetStats)
+    public virtual void DoDamage(EntityStats _targetStats, float damageMultiplier = 1.0f)
     {
         int baseDamage = Damage.GetValue() + FirePower.GetValue();
+
+        baseDamage = (int)(baseDamage*damageMultiplier); 
 
         if (CanCritical())
             baseDamage = CalculateCrit(baseDamage);

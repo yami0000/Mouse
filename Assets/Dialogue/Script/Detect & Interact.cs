@@ -49,8 +49,7 @@ public class Detect_Interact : MonoBehaviour
 
         if (npc.characterName == "Grandma")
             GM.Instance.GameManager.isInteractGrandma = true;
-
-        Debug.Log(GM.Instance.GameManager.isInteractGrandma);
+ 
         Debug.Log(CurrentNPC.characterName);
 
         dialogueRunner.StartDialogue(npc.talkToNode);

@@ -16,6 +16,28 @@ Rigel:I better not to bother him lol...
 
 title: Grandma
 ---
-Grandma: Oh...It's been a while since I saw a mammal...
-Grandma: Little mouse, do you want to buy some mushroom?
+<<declare $player_spoke_to_grandma = false>>
+
+<<if $player_spoke_to_grandma>>
+    Grandma: Hello! Little mouse!
+    Grandma: Interested in my wares?
+        -> Let me have a look...
+            Grandma:Please have a look!
+        -> Maybe next time...
+            Grandma:Save travel,little mouse!
+    Grandma: ...little mouse,you are a mammal,you must have been to the upper level right?
+    Grandma: Can you bring me some FLOWERS?
+    Grandma: You see, underground has no sun,all we can grow is mushrooms.
+    Grandma: I can give something valuable to you, if you can bring me some FLOWERS.
+    
+<<else>>
+    Grandma: Oh...It's been a while since I saw a mammal...
+   <<accept_quest "side_001">>
+    <<set $player_spoke_to_grandma = true>>
+    Grandma: Little mouse, do you want to buy some mushroom?
+        -> Let me have a look...
+            Grandma:Please have a look!
+        -> Maybe next time...
+            Grandma:Save travel,little mouse!
+<<endif>>
 ===

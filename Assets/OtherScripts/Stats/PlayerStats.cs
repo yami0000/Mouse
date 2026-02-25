@@ -16,6 +16,9 @@ public class PlayerStats  : EntityStats
     {
         base.TakeDamage(_damage);
 
+        if(_damage <= 0)
+            return;
+
         Player.damageEffect();
     }
 

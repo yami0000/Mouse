@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCchef : NPC
 {
-    public ChefIdleState idleState { get; private set; }
+    public ChefIdleState idleState { get; private set; } 
 
     public ChefGreetState greetState { get; private set; }
 

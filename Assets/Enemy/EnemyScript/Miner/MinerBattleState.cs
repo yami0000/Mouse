@@ -17,13 +17,13 @@ public class MinerBattleState : EnemyState
     {
         base.Enter();
         player = PlayerManager.Instance.player.transform;
-        Debug.Log("Battle");
+        
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("Exit Battle");
+       
     }
 
     public override void Update()

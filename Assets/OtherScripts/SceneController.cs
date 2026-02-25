@@ -24,27 +24,12 @@ public class SceneController : MonoBehaviour
         SceneManager.LoadSceneAsync(index);
     }
 
-    // Example wrappers
-    public void ToMainCity()
-    {
-        LoadSceneByIndex(1); // scene 0 in Build Settings
-    }
-
-    public void ToBugRegion()
-    {
-        LoadSceneByIndex(2); // scene 1 in Build Settings
-    }
-
-    public void ToLava()
-    {
-        LoadSceneByIndex(3); // scene 2 in Build Settings
-    }
-
-    public void ToBattleField()
-    {
-        LoadSceneByIndex(4); // scene 2 in Build Settings
-    }
-
+     
+    public void ToMainCity()  =>  LoadSceneByIndex(1);  
+    public void ToBugRegion() => LoadSceneByIndex(2);  
+    public void ToLava() => LoadSceneByIndex(3);  
+    public void ToBattleField() => LoadSceneByIndex(4);  
+  
 
 
 

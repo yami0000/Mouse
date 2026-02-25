@@ -18,6 +18,7 @@ MonoBehaviour:
   price: 0
   itemEffects: []
   equipmentType: 0
+  mechanism: 0
   Level: 1
   equipmentEffects:
   - {fileID: 11400000, guid: 9c26bf97d7216c24197de5305c4f161c, type: 2}
@@ -42,9 +43,9 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 0
   sLightningDamage: 0
-  xVelocity: 25
+  xVelocity: 30
   firingRate: 1
-  effectiveTime: 0.4
+  effectiveTime: 0.25
   FirePower: 20
   Armor: 7
   FireDamage: 4

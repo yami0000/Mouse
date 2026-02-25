@@ -30,6 +30,9 @@ public class EnemyStats : EntityStats
     {
         base.TakeDamage(_damage);
 
+        if (_damage <= 0)
+            return;
+
         enemy.damageEffect();
     }
 

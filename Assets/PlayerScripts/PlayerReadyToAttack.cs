@@ -26,15 +26,46 @@ public class PlayerReadyToAttack : PlayerState
         if (Input.GetKey(KeyCode.Mouse0) && !PlayerWeaponHolder.Instance.isHolding)
             stateMachine.ChangeState(player.attackState);//ÆÕÍ¨¹¥»÷£¨Åç»ð£©
 
-        if (Input.GetKey(KeyCode.Mouse0) && PlayerWeaponHolder.Instance.isHolding)
-        { 
+        if (PlayerWeaponHolder.Instance.isHolding)
+        {
             ItemData_Equipment weaponData = Inventory.Instance.GetEquipment(EquipmentType.Weapon);
-            Transform player = PlayerManager.Instance.player.transform;
+            if (weaponData == null) return;
 
-            if(weaponData != null ) 
-            weaponData.ExecuteEquipmentEffect(player.transform,weaponData);//Ç¹Ðµ¹¥»÷
+            Transform playerTransform = PlayerManager.Instance.player.transform;
 
 
+            if (weaponData.mechanism == Mechanism.common)
+            {
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    weaponData.ExecuteEquipmentEffect(playerTransform, weaponData);
+                }
+            }
+
+
+            else if (weaponData.mechanism == Mechanism.charge)
+            { if (PlayerManager.Instance.player.Timer <= 0)
+                {
+                    if (Input.GetKey(KeyCode.Mouse0))
+
+                    {
+
+                        PlayerManager.Instance.player.currentChargeTimer += Time.deltaTime;
+
+
+
+                    }
+
+                    if (Input.GetKeyUp(KeyCode.Mouse0))
+                    {
+
+
+                        weaponData.ExecuteEquipmentEffect(playerTransform, weaponData);
+
+                        
+                    }
+                }
+            }
         }
     }
 }

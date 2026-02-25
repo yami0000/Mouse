@@ -21,19 +21,26 @@ public class Effect_Ammo : ItemEffect
         if(GetPlayer().Timer > 0)
         return;
 
+         
 
-        
         Player  player = GetPlayer();
         GameObject Ammo = Instantiate(AmmoPrefab, player.transform.position, player.transform.rotation);
-         Ammo.GetComponent<Rigidbody2D>().velocity = new Vector2(data.xVelocity * player.facingDir,0);
-
-    
+        Ammo.GetComponent<Rigidbody2D>().velocity = GameManager.Instance.GetMouse() * data.xVelocity;
 
 
-            Destroy(Ammo, data.effectiveTime);
+
+
+
+
+        Destroy(Ammo, data.effectiveTime);
 
         GetPlayer().Timer = SK.Instance.Skill.EquippedSkill == "Reaper" && GetPlayer().UsingSkill ? Data.firingRate / 1.4f : Data.firingRate;
     }
+
+    
+
+    
+
     private static Player GetPlayer()
     {
         return PlayerManager.Instance.player;

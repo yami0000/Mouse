@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ChestOpen : DETECTION
 {
+    private ItemDrop dropSystem;
+
     [SerializeField]private Rigidbody2D rb;
     [SerializeField] private BoxCollider2D ColliderForBody;
     private Vector2 velocity = Vector2.zero;
@@ -20,6 +22,9 @@ public class ChestOpen : DETECTION
 
     private void Start()
     {
+
+        dropSystem = GetComponent<ItemDrop>();  
+
         rb.gravityScale =0;
         CanInteract = true;
     }
@@ -46,6 +51,9 @@ public class ChestOpen : DETECTION
         yield return StartCoroutine(MoveToPosition(targetPos, RightSmoothTime));
         ColliderForBody.enabled = true;
         rb.gravityScale = 1;
+
+        yield return new WaitForSeconds(0.2f);
+        dropSystem.GenerateDrop();
     }
 
     IEnumerator MoveToPosition(Vector2 target, float smoothTime)

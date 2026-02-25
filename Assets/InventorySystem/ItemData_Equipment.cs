@@ -10,17 +10,26 @@ public enum EquipmentType
     Weapon,
     Armor,
     Amulet,
+    Companion,
     item
     
 }
 
+public enum Mechanism 
+{
+    common,
+    charge
 
+
+}
 
 [CreateAssetMenu(fileName = "New Item Name", menuName = "Data/Equipment")]
 public class ItemData_Equipment : ItemData
 
 {
     public EquipmentType equipmentType;
+
+    public Mechanism mechanism;
 
     public int Level;
 
@@ -92,7 +101,7 @@ public class ItemData_Equipment : ItemData
         for (int i = 0; i < Mods.Length; i++)
         {
             if (Mods[i] == null)
-            {  Debug.Log(i);
+            {   
                 Mods[i] = modItem;
                 return true;
             }

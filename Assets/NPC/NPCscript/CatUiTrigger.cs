@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CatUiTrigger : MonoBehaviour
-{
+public class NPCUiTrigger : DETECTION 
+{ 
+    public characterOrOther character;
     [SerializeField] GameObject Prompt;
+
+    
 
     private bool canOpenMenu;
 
     private void Start()
     {
+        if(Prompt == null)
+            return;
+
         Prompt.SetActive(false);
     }
 
@@ -19,9 +25,10 @@ public class CatUiTrigger : MonoBehaviour
     {
         if (canOpenMenu)
         {
-            if (Input.GetKeyUp(KeyCode.E))
+            if (Input.GetKeyUp(KeyCode.E) && !GM.Instance.GameManager.isUIOpened)
             {
-                openUI();
+                openUI(character);
+                 
             }
         }
     }
@@ -30,8 +37,11 @@ public class CatUiTrigger : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            Prompt.SetActive(true);
             canOpenMenu = true;
+
+            if (Prompt == null)
+                return;
+            Prompt.SetActive(true);
         }
     }
 
@@ -39,13 +49,24 @@ public class CatUiTrigger : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            Prompt.SetActive(false);
             canOpenMenu = false;
+            if (Prompt == null)
+                return;
+            Prompt.SetActive(false);
         }
     }
 
-    private void openUI()
+    private void openUI(characterOrOther A)
     {
-        FindAnyObjectByType<UI_Cat>().OpenMenu();
+        UI_NPC[] allNPCs = FindObjectsByType<UI_NPC>(FindObjectsSortMode.None);
+
+        foreach (var npc in allNPCs)
+        {
+            if (npc.Who == A)
+            {
+                npc.OpenMenu();
+                return; 
+            }
+        }
     }
 }

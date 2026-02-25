@@ -31,6 +31,8 @@ public class ItemDropMovement : MonoBehaviour
     public void PickUpItem()
     {
         Inventory.Instance.AddItem(itemData);
+        GameEvents.OnItemCollected?.Invoke(itemData, 1);
         Destroy(gameObject);
+
     }
 }
