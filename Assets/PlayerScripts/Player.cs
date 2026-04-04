@@ -178,6 +178,29 @@ public class Player : Entity
         Timer -= Time.deltaTime;
 
         CheckForDashInput();
+
+        if(xInput == 0)
+        GetMouseP();
+    }
+
+    private void GetMouseP()
+    {
+
+        if (PlayerManager.Instance.player != null)
+        {
+
+            Vector3 mouseScreenPos = Input.mousePosition;
+
+            mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
+
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+            if (mouseWorldPos.x > transform.position.x && facingDir == -1)
+                Flip();
+            if (mouseWorldPos.x < transform.position.x && facingDir == 1)
+                Flip();
+
+        }
     }
 
     IEnumerator Reaper(int firepowerplus) 

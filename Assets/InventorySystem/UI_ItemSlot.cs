@@ -9,10 +9,11 @@ using Unity.VisualScripting;
 
 
 
-public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
+public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler, IPointerEnterHandler
 {
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
+    private bool isHovered = false;
 
     public InventoryItem item;
   
@@ -108,7 +109,14 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler
         }
     }
 
- 
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovered = true;
+        StartCoroutine(WaitTillShow());
+
+    }
+
 
 
 }

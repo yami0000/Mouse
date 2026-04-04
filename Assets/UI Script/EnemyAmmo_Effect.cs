@@ -9,6 +9,7 @@ public class EnemyAmmo_Effect : MonoBehaviour
     private EnemyStats EnemyStats;
     [HideInInspector] public SpriteRenderer sp;
     [SerializeField] private bool Bounce;
+    [SerializeField] private bool GroundProof;
 
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float minSpeed ;
@@ -53,8 +54,12 @@ public class EnemyAmmo_Effect : MonoBehaviour
 
         if (collision.CompareTag("Shield"))
             Destroy(gameObject);
+        if(!GroundProof)
+        if (collision.CompareTag("Ground"))
+            Destroy(gameObject);
 
-            if (Bounce)
+
+        if (Bounce)
         {
             if (collision.CompareTag("Ground"))
             {

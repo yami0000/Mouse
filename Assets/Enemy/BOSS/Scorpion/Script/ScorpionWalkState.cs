@@ -30,10 +30,10 @@ public class ScorpionWalkState : ScorpionGroundedState
         if (Vector2.Distance(boss.transform.position, GetPlayerPosition()) > 2)
         {
             boss.TurnToPlayer();
-            boss.Setvelocity(boss.moveSpeed * boss.moveDir, 0);
+            boss.Setvelocity(boss.moveSpeed * boss.facingDir, 0);
         }
         else
-            boss.Setvelocity(boss.moveSpeed * boss.moveDir, 0);
+            boss.Setvelocity(boss.moveSpeed * boss.facingDir, 0);
 
         if (boss.stateTimer_Scorpion <= 0 && R)
         {

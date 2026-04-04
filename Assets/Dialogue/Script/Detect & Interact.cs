@@ -13,7 +13,7 @@ public class Detect_Interact : MonoBehaviour
 
     public static NPCDialogue CurrentNPC { get; private set; }
 
-
+    
     private void Start()
     {
         dialogueRunner = FindObjectOfType<DialogueRunner>();

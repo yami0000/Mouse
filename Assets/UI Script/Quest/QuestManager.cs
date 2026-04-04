@@ -27,6 +27,8 @@ public class QuestManager : MonoBehaviour
         quest.OnQuestCompleted += HandleQuestCompleted;
 
         quest.Accept();
+
+        QuestUIManager.Instance.AddQuest(quest);
     }
 
     void HandleQuestCompleted(Quest quest)
@@ -35,8 +37,12 @@ public class QuestManager : MonoBehaviour
 
         quest.GiveReward();
 
+        QuestUIManager.Instance.RemoveQuest(quest);
+
         activeQuests.Remove(quest.questID);
 
         quest.OnQuestCompleted -= HandleQuestCompleted;
+
+
     }
 }

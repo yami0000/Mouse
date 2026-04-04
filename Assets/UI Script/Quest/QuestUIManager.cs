@@ -13,7 +13,7 @@ public class QuestUIManager : MonoBehaviour
     public GameObject questButtonPrefab;
 
     [Header("Right")]
-    public TMP_Text questNameText;
+   // public TMP_Text questNameText;
     public TMP_Text descriptionText;
     public TMP_Text rewardText;
 
@@ -39,12 +39,14 @@ public class QuestUIManager : MonoBehaviour
         {
             Destroy(button.gameObject);
             questButtons.Remove(quest.questID);
+            descriptionText.text = null;
+            rewardText.text = null;
         }
     }
 
     public void ShowDetail(Quest quest)
     {
-        questNameText.text = quest.data.questName;
+        //questNameText.text = quest.data.questName;
         descriptionText.text = quest.data.description;
 
         rewardText.text = "";

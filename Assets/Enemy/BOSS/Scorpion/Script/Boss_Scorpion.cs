@@ -7,7 +7,7 @@ using UnityEngine;
 public class Boss_Scorpion : Enemy
 
 {
-    public int moveDir;
+    
     private Transform player;
     [SerializeField] private float ammoCheckDistance;
 
@@ -125,20 +125,7 @@ public class Boss_Scorpion : Enemy
         stateMachine.ChangeState(deathState);
     }
 
-    public void TurnToPlayer()
-    {
-         
-
-        if (player.position.x > transform.position.x)
-            moveDir = 1;
-        else if (player.position.x < transform.position.x)
-            moveDir = -1;
-
-        if (IsGroundDetected())
-            Setvelocity(0.0000001f * moveDir, rb.velocity.y);
-        else
-            Setvelocity(0.0000001f * moveDir, rb.velocity.y);
-    }
+    
     public bool DetectAmmo()
     {
 
@@ -200,18 +187,18 @@ public class Boss_Scorpion : Enemy
      
     IEnumerator SummonProjectiles()
     {
-        float A = Random.Range(30, 50);
+        float A = Random.Range(30f, 50f);
         float B = Random.Range(40f, 65f);
 
 
         yield return new WaitForSeconds(prepareTimeforSummon);
 
-        float[] angles = { 0f, A*moveDir, B*moveDir};  
+        float[] angles = { 0f, A*facingDir, B*facingDir};  
 
         foreach (float angle in angles)
         {
             
-            Vector2 dir = Quaternion.Euler(0, 0, angle) * new Vector2(moveDir, 0);
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * new Vector2(facingDir, 0);
 
              
             GameObject Ammo = Instantiate(AmmoPrefab, _Transform.position, Quaternion.identity);
@@ -240,7 +227,7 @@ public class Boss_Scorpion : Enemy
         Vector2 playerPos = player.transform.position;
 
         
-        Vector2 targetPos = new Vector2 (playerPos.x,startPos.y) + new Vector2(-moveDir * dashFrontOffset, 0f);
+        Vector2 targetPos = new Vector2 (playerPos.x,startPos.y) + new Vector2(-facingDir * dashFrontOffset, 0f);
 
         float dashDuration = dashTime;  
         float elapsed = 0f;
@@ -278,7 +265,7 @@ public class Boss_Scorpion : Enemy
         Vector2 playerPos = player.transform.position;
 
 
-        Vector2 targetPos = new Vector2(playerPos.x, startPos.y) + new Vector2(-moveDir * dashFrontOffset, 0f);
+        Vector2 targetPos = new Vector2(playerPos.x, startPos.y) + new Vector2(-facingDir * dashFrontOffset, 0f);
 
         float dashDuration = sprintTime;
         float elapsed = 0f;

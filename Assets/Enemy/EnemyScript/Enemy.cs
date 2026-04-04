@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
-    [SerializeField] protected float playerCheckDistance;
+    public float playerCheckDistance;
 
     [Header("EXP")]
     public int EXP;
@@ -170,5 +170,30 @@ public class Enemy : Entity
 
         PlayerManager.Instance.player.Exp += EXP;
         Debug.Log(PlayerManager.Instance.player.Exp);
+    }
+
+    public void TurnToPlayer()
+    {
+
+
+        if (GetTransform().position.x > transform.position.x) 
+        {
+            if (facingDir == -1)
+                Flip();
+
+        }
+            
+        else if (GetTransform().position.x < transform.position.x)
+        {
+            if (facingDir == 1)
+                Flip();
+
+        }
+
+    }
+
+    private static Transform GetTransform()
+    {
+        return PlayerManager.Instance.player.transform;
     }
 }

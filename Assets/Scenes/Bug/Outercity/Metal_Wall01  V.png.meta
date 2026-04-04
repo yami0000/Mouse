@@ -103,13 +103,13 @@ TextureImporter:
       name: Metal_Wall01  V_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 12
         y: 0
-        width: 505
+        width: 495
         height: 790
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 2, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
@@ -123,14 +123,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 337b15b12ba598d4b9a244994213eacd
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Metal_Wall01  V_0: 1348058371408956027
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

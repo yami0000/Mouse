@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class QuestButtonUI : MonoBehaviour
+public class QuestButtonUI : MonoBehaviour, IPointerEnterHandler
 {
     public TMP_Text questNameText;
 

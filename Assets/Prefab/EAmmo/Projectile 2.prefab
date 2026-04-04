@@ -233,7 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sp: {fileID: 0}
   Bounce: 0
+  GroundProof: 1
   projectilePrefab: {fileID: 0}
   minSpeed: 5
   maxSpeed: 10

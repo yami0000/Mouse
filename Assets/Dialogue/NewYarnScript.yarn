@@ -1,19 +1,4 @@
-﻿title: Start
----
-Rigel:Captain!Is that you?!
-Captain:......
-Rigel:Captain!!!Can you hear me?
-Captain:......
-Rigel:Captain sacrificed during the war 7 years ago for sure.Probably it's the Hallucination caused by my cyberware...
-===
-
-title: Bear
----
-Rigel:How is your research going on, my friend?
-Bear:Metabolic angle: overweight, insulin resistant… NASH superimposed on autoimmune? Every finding opens more differentials. Need multidisciplinary discussion before next step.
-Rigel:I better not to bother him lol...
-===
-
+﻿
 title: Grandma
 ---
 <<declare $player_spoke_to_grandma = false>>
@@ -40,4 +25,24 @@ title: Grandma
         -> Maybe next time...
             Grandma:Save travel,little mouse!
 <<endif>>
+===
+
+
+title: Raccoon
+---
+Raccoon:Want a drink?
+===
+
+title:Worker
+---
+Worker: Get off,dirty mammal.
+===
+
+
+title: DefeatMantis
+---
+Rigel:( fierce panting ) Shit...
+Rigel:Even if they lost the war,their experimentals are getting much better than I last fought them.
+Rigel:Maybe after 5 years, I will have no chance against these monsters.
+Rigel:I have to do something.
 ===

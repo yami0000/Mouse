@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemType: 3
   itemName: BloodThirst
-  icon: {fileID: 780838874772296920, guid: 6b11b2fb34e786849a1ead2ec58b04db, type: 3}
+  icon: {fileID: 4663611227167251597, guid: 0a9422679fae36d4b84242402684fa46, type: 3}
   price: 0
   itemEffects: []
   FirePower: 20

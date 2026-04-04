@@ -18,6 +18,8 @@ public class MantisDeathState : EnemyState
         boss.cd.enabled = false;
 
         stateTimer = .1f;
+
+        NarrativeManager.Instance.RequestDialogue("DefeatMantis",3);
     }
 
     public override void Exit()
