@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerReadyToAttack
 {
+
+    private bool isJumping;
     public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -11,6 +13,9 @@ public class PlayerJumpState : PlayerReadyToAttack
     public override void Enter()
     {
         base.Enter();
+
+        player.jumpTimeCounter = player.jumpTime;
+        isJumping = true;
 
         rb.velocity = new Vector2(rb.velocity.x, player.jumpforce);
     }
@@ -24,7 +29,26 @@ public class PlayerJumpState : PlayerReadyToAttack
     {
         base.Update();
 
+        if (Input.GetKey(KeyCode.Space) && isJumping)
+        {
+            if (player.jumpTimeCounter > 0)
+            {
+                 
+                rb.velocity = new Vector2(rb.velocity.x, player.jumpforce);
+                player.jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                
+                isJumping = false;
+            }
+        }
+
         
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
 
         if (rb.velocity.y < 0)
             stateMachine.ChangeState(player.airState);

@@ -15,6 +15,7 @@ MonoBehaviour:
   ItemType: 2
   itemName: Potion
   icon: {fileID: 1412879414821883300, guid: c6b10de005dd38f49b76ea42f9a404f3, type: 3}
-  dropChance: 9.3
+  price: 0
+  Description: Heal 500 health.
   itemEffects:
   - {fileID: 11400000, guid: 188eaacac83cc414c8157268fa2062f9, type: 2}

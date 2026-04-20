@@ -2,20 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collide_BounceAmmo : MonoBehaviour
+public class Collide_BounceAmmo : AmmoEffect
 {
     private PlayerStats PlayerStats;
     protected Transform enemy;
-
     private Rigidbody2D rb;
+
+
     private Vector2 lastVelocity;
     private float initialSpeed;
-    private void Start()
+    
+
+     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+         rb = GetComponent<Rigidbody2D>();
         lastVelocity = rb.velocity;
         initialSpeed = rb.velocity.magnitude;
-        Debug.Log(initialSpeed);
+        
         PlayerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
     }
 
@@ -30,11 +33,13 @@ public class Collide_BounceAmmo : MonoBehaviour
 
 
             PlayerStats.DoDamage(enemyTarget);
-
+            finalDirection = ((Vector2)transform.position - lastFramePosition).normalized;
+            int Dmg = PlayerStats.DoDamage(enemyTarget);
+            _OnDestroy(finalDirection, Dmg);
             Destroy(gameObject);
         }
-        if (collision.CompareTag("Ground"))
-            Destroy(gameObject);
+        //if (collision.CompareTag("Ground"))
+           // Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

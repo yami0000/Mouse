@@ -50,6 +50,7 @@ public class PortraitDialogueUI : DialoguePresenterBase
         {
             //Debug.Log(line.CharacterName);
             portraitImage.sprite = portraitDict[line.CharacterName];
+            portraitImage.preserveAspect = true;
         }
         else
         {

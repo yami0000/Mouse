@@ -9,23 +9,37 @@ using Unity.VisualScripting;
 
 
 
-public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler, IPointerEnterHandler
+public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler,IPointerDownHandler
 {
+    [SerializeField] private InvDescription invDescription;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
     private bool isHovered = false;
 
     public InventoryItem item;
-  
+    [HideInInspector]public  ItemData_Equipment equip;
+
 
     public void Start()
     {
+       
     }
+    
     public void UpdateSlot(InventoryItem _newitem)
     {
         item = _newitem;
 
         itemImage.color = Color.white;  
+        itemImage.preserveAspect = true;
+
+        if(item.data is ItemData_Equipment equipmentData)
+        {
+            equip = equipmentData;
+            
+        }
+
+
+
 
         if (item != null)
         {
@@ -48,13 +62,22 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler, IPointerEnterHand
     public void CleanUpSlot()
     {
         item = null;
+        equip = null;
 
         itemImage.sprite = null;
         itemImage.color = Color.clear;
         itemText.text = "";
 
     }
+    private void OnDisable()
+    {
+        
+        isHovered = false;
 
+        invDescription?.Hide();
+        
+        StopAllCoroutines();
+    }//当UI被关掉时，说明栏也会随之消失
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         if (item == null || item.data == null)
@@ -91,15 +114,16 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler, IPointerEnterHand
             if (equipmentData.equipmentType == EquipmentType.Companion)
               PlayerCompanion.Instance.EquipCompanion(equipmentData);
 
+            if(equipmentData.equipmentType == EquipmentType.Throwable)
+            {
+                Inventory.Instance.RemoveAllItem(equipmentData);
+            }
+
 
 
         }
 
-        if (item == null || item.data == null)
-        {
-
-            return;
-        }
+        
         if (item.data.ItemType == ItemType.UsableObject)
         {
             ItemData data = item.data;
@@ -107,17 +131,38 @@ public class UI_ItemSlot : MonoBehaviour ,IPointerDownHandler, IPointerEnterHand
             data.ExecuteItemEffect(PlayerManager.Instance.player.transform);
              
         }
+        
+
     }
 
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
+
         isHovered = true;
+        if (item?.data == null) return;
+
         StartCoroutine(WaitTillShow());
 
     }
 
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        isHovered = false;
+        if (invDescription == null) return;
+        invDescription.Hide();
+    }
 
+
+    IEnumerator WaitTillShow()
+    {
+        yield return new WaitForSeconds(1f);
+        if (isHovered)
+            invDescription.Show(item,equip);
+           
+              
+
+    }
 
 }
 

@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 
 
 
-public class Button_Purchase : MonoBehaviour, IPointerDownHandler
+public class Purchase : MonoBehaviour ,IPointerDownHandler
 {
 
 
@@ -16,11 +16,14 @@ public class Button_Purchase : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
-        CheckCurrency();
-       
+        if (item != null)
+        CheckCurrency(item);
+
     }
-    private void CheckCurrency()
+
+
+    
+    public void CheckCurrency(ItemData I)
     {
         ItemData currency = null;
 
@@ -32,13 +35,21 @@ public class Button_Purchase : MonoBehaviour, IPointerDownHandler
         }
         
         
-        purchase(currency);
+        purchase(currency,I);
     }
 
-    private void purchase(ItemData currency) 
+    private void purchase(ItemData currency,ItemData item) 
     {
+
         if (currency == null)
         {
+
+            if (item.price <= 0)
+            {
+                Inventory.Instance.AddItem(item);
+                Debug.Log("Purchased " + item.name);
+            }
+            else
             Debug.Log("You can't afford " + item.name);
             return;
         }

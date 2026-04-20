@@ -19,7 +19,7 @@ public class Collide_Grenade : Collide_Ammo
         if (enemy != null)
             return;
         {
-            if (IsGroundDetected()|| IsWallDetected())
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
 
 

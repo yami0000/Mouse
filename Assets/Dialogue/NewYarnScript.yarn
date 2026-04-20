@@ -27,6 +27,36 @@ title: Grandma
 <<endif>>
 ===
 
+title: Police
+---
+<<declare $player_spoke_to_police_first = true>>
+
+<<if $player_spoke_to_police_first>>
+    Mic:Can we go back yet,Captain?
+    <<set $player_spoke_to_police_first = false>>
+    Sif:For bugs sake...NO,we have to wait for orders.
+    Rigel:What happened?
+    Mic:A MOUSE!He looks so different from the books!Can I touch your tail?Please!! 
+    Sif:Stop it,mic!
+    Sif:(whispers)A mammal,what an unlucky day...
+    Sif:None of your business,mammal.Leave.
+    Rigel:It seems there was a murder,a Cyberpsychosis,of course...
+    Sif:Ho...How do you know?We have already moved the body away!
+    Rigel:I have seem lots of scenes like this,trust me.
+    Mic:Can I touch your fluffy tail?Please!!
+    Sif:Please,mic!
+    Sif:You are right,this morning,we receieved a report that someone is murdered under plain sight.When I and my team reached here,the body was so awlful that I can barely recognize which spieces he was...
+    Sif:...It took some time for our specialist to know that the murder has Cyberpsychosis but you just took a glance...
+    Sif:You can't be some normal mammal as far as I can tell,so if you can help,We would be grateful.
+    Sif:Try heading west of the RUST CITY,some of my team has already traced there.
+    Rigel:It's so dangerous to let a Cyberpsychos on the run,I should move now.
+    Mic:(Looking at Rigel without a blink)
+
+<<else>>
+    Sif:Safty travel,little mammal.
+    Mic:Safe...traveling!
+<<endif>>
+===
 
 title: Raccoon
 ---

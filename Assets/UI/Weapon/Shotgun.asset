@@ -16,6 +16,8 @@ MonoBehaviour:
   itemName: Shotgun
   icon: {fileID: -5529709960281448441, guid: a6e391458d4ebb149a408ed1f0051061, type: 3}
   price: 0
+  Description: Shoot 3 ammos on firing.Extermely effective against enemy who dares
+    to approach.
   itemEffects: []
   equipmentType: 0
   mechanism: 0
@@ -41,14 +43,14 @@ MonoBehaviour:
   PoisonResistance: 0
   sFireDamage: 0
   sFrostDamage: 0
-  sPoisonDamage: 0
+  sPoisonDamage: 12
   sLightningDamage: 0
-  xVelocity: 30
-  firingRate: 1
-  effectiveTime: 0.25
+  xVelocity: 15
+  firingRate: 1.2
+  effectiveTime: 0.4
   FirePower: 20
   Armor: 7
-  FireDamage: 4
-  FrostDamage: 4
-  PoisonDamage: 4
-  LightningDamage: 4
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 16
+  LightningDamage: 0

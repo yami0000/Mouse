@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -45,8 +46,7 @@ public class Inventory : MonoBehaviour
     }
 
     private void Start()
-    {
-        //weaponHolder = PlayerManager.Instance.player.GetComponent<PlayerWeaponHolder>();//
+    { 
 
         inventory = new List<InventoryItem>();
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
@@ -171,6 +171,10 @@ public class Inventory : MonoBehaviour
 
     }
 
+
+
+
+
     public void RemoveItem(ItemData _item)
     {
         if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
@@ -201,6 +205,29 @@ public class Inventory : MonoBehaviour
 
         UpdateSlotUI();
      }
+
+    public int RemoveAllItem(ItemData _item) 
+    {
+        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            value.RemoveStack();
+            UpdateSlotUI();
+            return value.stackSize;
+        }
+
+        else if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
+        {
+            stashValue.RemoveStack();
+            UpdateSlotUI();
+            return stashValue.stackSize;
+        }
+        else return 0;
+       
+
+       
+    }
+
+
 
     public ItemData_Equipment GetEquipment(EquipmentType _type) 
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Yarn;
 
-public class Collide_SelfAimAmmo : MonoBehaviour
+public class Collide_SelfAimAmmo : AmmoEffect
 {
     private Rigidbody2D rb;
 
@@ -64,6 +64,10 @@ public class Collide_SelfAimAmmo : MonoBehaviour
 
 
             PlayerStats.DoDamage(enemyTarget);
+
+            finalDirection = ((Vector2)transform.position - lastFramePosition).normalized;
+            int Dmg = PlayerStats.DoDamage(enemyTarget);
+            _OnDestroy(finalDirection, Dmg);
 
             Destroy(gameObject);
         }

@@ -15,7 +15,7 @@ public class ItemEffect : ScriptableObject
     
     }
 
-    public virtual void ApplyModEffect(Transform _position) 
+    public virtual void ExecuteModEffect(Transform _position,ItemData_Equipment equip) 
     {
     
     }

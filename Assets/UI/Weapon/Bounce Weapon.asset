@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Bounce Gun
   icon: {fileID: -2321699996591856145, guid: 592bb988ce5ea2e41ace043fb2e1ade1, type: 3}
   price: 0
+  Description: Shoot ammo that can ricochet off the wall.
   itemEffects: []
   equipmentType: 0
   mechanism: 0
@@ -42,13 +43,13 @@ MonoBehaviour:
   sFireDamage: 0
   sFrostDamage: 0
   sPoisonDamage: 0
-  sLightningDamage: 0
+  sLightningDamage: 5
   xVelocity: 15
   firingRate: 0.45
   effectiveTime: 3.5
   FirePower: 30
   Armor: 7
-  FireDamage: 4
-  FrostDamage: 4
-  PoisonDamage: 4
-  LightningDamage: 4
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 9

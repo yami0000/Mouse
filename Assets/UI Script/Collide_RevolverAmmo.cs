@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collide_RevolverAmmo : MonoBehaviour
+public class Collide_RevolverAmmo : AmmoEffect
 {
     private PlayerStats PlayerStats;
     protected Transform enemy;
@@ -20,9 +20,14 @@ public class Collide_RevolverAmmo : MonoBehaviour
             EnemyStats enemyTarget = collision.GetComponent<EnemyStats>();
             enemy = collision.GetComponent<Enemy>().transform;
 
+            float damageMultiplier = Random.Range(0.8f, 1.40f);
+
+            PlayerStats.DoDamage(enemyTarget,damageMultiplier);
 
 
-            DoDamage(enemyTarget);
+            finalDirection = ((Vector2)transform.position - lastFramePosition).normalized;
+            int Dmg = PlayerStats.DoDamage(enemyTarget, damageMultiplier);
+            _OnDestroy(finalDirection,Dmg);
 
             Destroy(gameObject);
         }
@@ -30,24 +35,5 @@ public class Collide_RevolverAmmo : MonoBehaviour
             Destroy(gameObject);
 
     }
-    private  void DoDamage(EntityStats _targetStats)
-    {
-        // if (Avoid(_targetStats))
-        // return;
-
-        int totalDamage = Mathf.RoundToInt((PlayerStats.Damage.GetValue() + PlayerStats.FirePower.GetValue())*Random.Range(0.8f, 1.40f));
-
-        if (PlayerStats.CanCritical())
-            totalDamage = PlayerStats.CalculateCrit(totalDamage);
-
-        int absorbedDamage;
-        totalDamage = PlayerStats.ArmorSystem(_targetStats, totalDamage,out absorbedDamage);
-
-       // Debug.Log($"Final Damage: {totalDamage}, Absorbed: {absorbedDamage}");
-
-        _targetStats.TakeDamage(totalDamage);
-        PlayerStats.DoElementDamage(_targetStats);
-
-        
-    }//特性：造成80%-140%的伤害。此处因为特殊规则将伤害计算函数单独抽出使用。
+ 
 }

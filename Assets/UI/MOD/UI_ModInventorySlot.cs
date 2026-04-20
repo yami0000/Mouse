@@ -58,6 +58,8 @@ public class UI_ModInventorySlot : MonoBehaviour, IPointerDownHandler
         bool isEquipped = Inventory.Instance.equipmentDictionary.ContainsKey(UpgradePanel.Instance.Equipment);//ÒÆ³ýÊýÖµ
         if (isEquipped)
             E.AddModifiers(playerStats);
+        if (E.firingRate != 0)
+            E.AddModi(UpgradePanel.Instance.Equipment);
 
         Inventory.Instance.RemoveItem(E);
         UpgradeSystem.Instance.UpdateModSlot(UpgradePanel.Instance.Equipment);

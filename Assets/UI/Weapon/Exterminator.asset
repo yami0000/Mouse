@@ -16,6 +16,7 @@ MonoBehaviour:
   itemName: Exterminator
   icon: {fileID: -1859413472361321337, guid: 7822f2976d9494347be7bdb97facef03, type: 3}
   price: 0
+  Description: Hold left mouse to charge a powerful hit towards the enemy.
   itemEffects: []
   equipmentType: 0
   mechanism: 1

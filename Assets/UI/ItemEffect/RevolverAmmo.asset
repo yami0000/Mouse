@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: RevolverAmmo
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 3449193476524243985, guid: 77fb2d5dbfd751747942a6c9ae65e273, type: 3}
-  xVelocity: 25
-  Range: 0.7
-  speed: 0.8
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

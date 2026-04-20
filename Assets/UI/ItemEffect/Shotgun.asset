@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 7878448091121260419, guid: d5810450a5ca4024da13b177891f7e20, type: 3}
-  xVelocity: 30
-  Range: 0.15
-  speed: 1
   pelletCount: 5
   spreadAngle: 30
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

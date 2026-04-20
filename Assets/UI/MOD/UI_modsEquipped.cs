@@ -48,6 +48,8 @@ public class UI_modsEquipped : MonoBehaviour, IPointerDownHandler
         bool isEquipped = Inventory.Instance.equipmentDictionary.ContainsKey(panel.Equipment);//ÒÆ³ýÊýÖµ
         if (isEquipped)
             removedMod.RemoveModifiers(playerStats);
+        if(removedMod.firingRate != 0)
+        removedMod.RemoveModi(UpgradePanel.Instance.Equipment);
            
         Inventory.Instance.AddItem(removedMod);
 

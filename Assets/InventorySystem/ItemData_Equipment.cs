@@ -11,7 +11,8 @@ public enum EquipmentType
     Armor,
     Amulet,
     Companion,
-    item
+    item,
+    Throwable
     
 }
 
@@ -127,28 +128,30 @@ public class ItemData_Equipment : ItemData
         {
             System.Array.Resize(ref Mods, modSlotCount);
         }
+        int maxVal = Mathf.Max(new int[] { sFireDamage, sFrostDamage, sPoisonDamage, sLightningDamage });
 
         FirePower = sFirePower + 5 * Level;
         Armor = sArmor + 7 * Level;
-        FireDamage = sFireDamage + 4 * Level;
-        FrostDamage = sFrostDamage + 4 * Level;
-        PoisonDamage = sPoisonDamage + 4 * Level;   
-        LightningDamage = sLightningDamage + 4 * Level;
-    }
-    public void ExecuteModEffect(Transform _position)
-    {
-        foreach (var effect in equipmentEffects)
+
+        if (maxVal == 0)
         {
-            effect.ApplyModEffect(_position);
+            FireDamage = FrostDamage = PoisonDamage = LightningDamage = 0;
+            return;
         }
+
+        FireDamage = sFireDamage + (sFireDamage == maxVal ? 4 * Level : 0);
+        FrostDamage = sFrostDamage + (sFrostDamage == maxVal ? 4 * Level : 0);
+        PoisonDamage = sPoisonDamage + (sPoisonDamage == maxVal ? 4 * Level : 0);
+        LightningDamage = sLightningDamage + (sLightningDamage == maxVal ? 4 * Level : 0);
     }
+     
         
 
     public void ExecuteEquipmentEffect(Transform _position,ItemData_Equipment data) 
     {
         foreach (var effect in equipmentEffects)
         { 
-        effect.ExecuteWeaponEffect(_position,data);
+        effect.ExecuteWeaponEffect(_position,data);//实际上是子弹的效果
         }
     }
     public void AddModifiers() 

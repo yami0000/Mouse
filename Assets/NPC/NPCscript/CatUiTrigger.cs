@@ -6,54 +6,11 @@ using UnityEngine;
 public class NPCUiTrigger : DETECTION 
 { 
     public characterOrOther character;
-    [SerializeField] GameObject Prompt;
 
-    
-
-    private bool canOpenMenu;
-
-    private void Start()
+    public override void Interact()
     {
-        if(Prompt == null)
-            return;
-
-        Prompt.SetActive(false);
-    }
-
-
-    private void Update()
-    {
-        if (canOpenMenu)
-        {
-            if (Input.GetKeyUp(KeyCode.E) && !GM.Instance.GameManager.isUIOpened)
-            {
-                openUI(character);
-                 
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Player>(out Player player))
-        {
-            canOpenMenu = true;
-
-            if (Prompt == null)
-                return;
-            Prompt.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Player>(out Player player))
-        {
-            canOpenMenu = false;
-            if (Prompt == null)
-                return;
-            Prompt.SetActive(false);
-        }
+        base.Interact();
+        openUI(character);
     }
 
     private void openUI(characterOrOther A)

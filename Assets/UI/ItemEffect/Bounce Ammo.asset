@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Bounce Ammo
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 7878448091121260419, guid: 0cee2d4a6c3a6ae4c8f7b19b5eba9c46, type: 3}
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

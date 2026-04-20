@@ -8,7 +8,8 @@ public enum characterOrOther
 Cat,
 Dog,
 Mary,
-Station
+Station,
+Vendor
 
 
 

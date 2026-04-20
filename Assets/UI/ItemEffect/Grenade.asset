@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: Grenade
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 8072834841060317909, guid: 72dc411101938fb48aa917c02bad6bf3, type: 3}
-  xVelocity: 12
   yVelocity: 6
-  Range: 1.6
-  speed: 1
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

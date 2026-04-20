@@ -32,6 +32,7 @@ public class UpgradePanel : MonoBehaviour//UIÊÓ¾õ
     {
         Image.sprite = null;
         Image.color = Color.clear;
+        Equipment = null;
         Initialize();
 
     }

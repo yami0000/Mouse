@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_EquipmentSlot : UI_ItemSlot
+public class UI_EquipmentSlot : UI_ItemSlot 
 {
- public EquipmentType slotType;
-
+     public EquipmentType slotType;
+ 
     private void OnValidate()
     {
         gameObject.name = "Equipment Slot -" + slotType.ToString(); 
@@ -36,4 +37,15 @@ public class UI_EquipmentSlot : UI_ItemSlot
         CleanUpSlot();
 
     }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerExit(eventData);
+    }
+ 
 }

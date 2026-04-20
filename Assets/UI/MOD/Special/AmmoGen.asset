@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
+  m_Name: AmmoGen
+  m_EditorClassIdentifier: 
+  ItemType: 3
+  itemName: AmmoGeb
+  icon: {fileID: -7609786907305081198, guid: 55e68e6397bfcc040ad829b6e430f855, type: 3}
+  price: 0
+  Description: 
+  itemEffects:
+  - {fileID: 11400000, guid: 20efd2c91b8ba214ba5acd42e02db050, type: 2}
+  type: 1
+  FirePower: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  Armor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0
+  xVelocity: 0
+  firingRate: 0
+  effectiveTime: 0

@@ -41,11 +41,14 @@ public class Player : Entity
     private float defaultDashSpeed;    
     public float dashDir { get; private set; }
 
+    [Header("jump info")]
+    public float jumpTime;
+    [HideInInspector]public float jumpTimeCounter;
 
     [Header("Shield")]
     [SerializeField] Collider2D shieldcollider;
 
-    [HideInInspector] public float Timer;
+     public float Timer;
     [HideInInspector] public float SkillTimer;
 
     [HideInInspector] public float xInput;
@@ -58,6 +61,12 @@ public class Player : Entity
 
     [Header("Double Jump")]
     [HideInInspector] public bool CanDoubleJump;
+
+    [Header("Partical Effect")]
+    public GameObject Charging;
+    [HideInInspector]public GameObject _ChargingAni;
+    [Header("Character UI")]
+    public GameObject E;
 
 
     #region States
@@ -102,7 +111,7 @@ public class Player : Entity
         base.Start();
 
         
-
+        
         StateMachine.Initialize(idleState);
 
         defaultJumpForce =jumpforce;
@@ -296,8 +305,12 @@ public class Player : Entity
     }
 
     #endregion
-
-
+    public void ChargingAni() 
+    {
+        if (_ChargingAni != null) return;
+        _ChargingAni = Instantiate(Charging, transform);
+    }
+    public void DestroyChargingAni() => Destroy(_ChargingAni);
 
 
 

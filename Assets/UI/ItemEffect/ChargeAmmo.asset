@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: ChargeAmmo
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 40656258184260550, guid: ac07a0a7af144bc45ab4159483c5fdc5, type: 3}
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

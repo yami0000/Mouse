@@ -8,7 +8,8 @@ public enum ItemType
     Material,
     UsableObject,
     Mods,
-    Equipment
+    Equipment,
+    Throwable
 
 }
 
@@ -20,6 +21,8 @@ public class ItemData : ScriptableObject
     public string itemName;
     public Sprite icon;
     public int price;
+
+    [TextArea] public string Description;
 
     //[Range(0,100)]
     //public float dropChance;

@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="Mod",menuName ="Data/Mod/ModEffect")]
+public enum Type 
+{
+common,
+special
+
+}
+
+[CreateAssetMenu(fileName ="Mod",menuName ="Data/Mod/BasicMod")]
 public class Mod : ItemData
 {
-    
+    public Type type;
+
     [Header("Stat bonuses from this Mod")]
     public int FirePower;
     public int Vitality;
@@ -26,6 +34,20 @@ public class Mod : ItemData
     public int PoisonDamage;
     public int LightningDamage;
 
+    public float xVelocity;
+    public float firingRate;
+    public float effectiveTime;
+
+
+    public void ApplyModEffect(ItemData_Equipment equip) 
+    {
+     foreach(var effect in itemEffects)
+        {
+            effect.ExecuteModEffect(PlayerManager.Instance.player.transform,equip);
+            
+        }
+    
+    }
     public void AddModifiers(PlayerStats playerStats)
     {
         playerStats.FirePower.AddModifier(FirePower);
@@ -47,6 +69,16 @@ public class Mod : ItemData
         playerStats.FrostDamage.AddModifier(FrostDamage);
         playerStats.PoisonDamage.AddModifier(PoisonDamage);
         playerStats.LightningDamage.AddModifier(LightningDamage);
+    }
+
+    public void AddModi(ItemData_Equipment equip)
+    {
+        if(xVelocity !=0)
+        equip.xVelocity *= xVelocity;
+        if (firingRate != 0)
+            equip.firingRate *= firingRate;
+        equip.effectiveTime += effectiveTime;
+
     }
 
     public void RemoveModifiers(PlayerStats playerStats)
@@ -71,4 +103,16 @@ public class Mod : ItemData
         playerStats.PoisonDamage.RemoveModifier(PoisonDamage);
         playerStats.LightningDamage.RemoveModifier(LightningDamage);
     }
+
+    public void RemoveModi(ItemData_Equipment equip)
+    {
+        if (xVelocity != 0)
+        equip.xVelocity /= xVelocity;
+        if (firingRate != 0)
+            equip.firingRate /= firingRate;
+        equip.effectiveTime -= effectiveTime;
+
+    }
 }
+
+

@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: SelfAimAmmo
   m_EditorClassIdentifier: 
   AmmoPrefab: {fileID: 40656258184260550, guid: 72a109408e6c32b48845a2d6a23e8e77, type: 3}
-  xVelocity: 20
-  Range: 4
-  speed: 0.4
+  ShootEffect: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}

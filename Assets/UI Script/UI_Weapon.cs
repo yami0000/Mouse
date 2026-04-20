@@ -29,7 +29,7 @@ public class UI_Weapon : MonoBehaviour
             
             UI_weapon.sprite = UI_Weapon.sprite;
             UI_weapon.color = Color.white;
-
+            UI_weapon.preserveAspect = true;
         }
         
         if(!PlayerWeaponHolder.Instance.isHolding)

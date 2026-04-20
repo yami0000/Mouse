@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collide_ChargeAmmo : MonoBehaviour
+public class Collide_ChargeAmmo : AmmoEffect
 {
     [Header("Damage Settings")]
     [SerializeField] private AnimationCurve damageCurve;
@@ -16,7 +16,7 @@ public class Collide_ChargeAmmo : MonoBehaviour
         if(PlayerManager.Instance.player.currentChargeTimer>0)
         {
             ChargeTime = PlayerManager.Instance.player.currentChargeTimer;
-            Debug.Log(ChargeTime);
+           
             PlayerManager.Instance.player.currentChargeTimer = 0;
 
         }
@@ -37,6 +37,10 @@ public class Collide_ChargeAmmo : MonoBehaviour
 
             PlayerStats.DoDamage(enemyTarget, calculatedMultiplier);
             ChargeTime = 0;
+
+            finalDirection = ((Vector2)transform.position - lastFramePosition).normalized;
+            int Dmg = PlayerStats.DoDamage(enemyTarget, calculatedMultiplier);
+            _OnDestroy(finalDirection, Dmg);
 
             Destroy(gameObject);
         }
