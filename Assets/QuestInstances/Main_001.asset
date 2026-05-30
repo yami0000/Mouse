@@ -18,14 +18,16 @@ MonoBehaviour:
     me the bugs are researching something for the war.I need to infiltrate the lab
     in the RUST CITY,their industrial capital.
   objectives:
-  - type: 2
+  - objectiveID: 001
+    type: 2
     target: {fileID: 0}
     requiredAmount: 1
     dialogueKey: lab
     updatedDescription: I have reached Rust City.Now the good news is that the lab
       is at the center of the city,the bad news is I can't get in by using any "unformal
       methods".I need to collect some informations around the city...
-  - type: 2
+  - objectiveID: 
+    type: 2
     target: {fileID: 0}
     requiredAmount: 1
     dialogueKey: a

@@ -1,11 +1,8 @@
-﻿using NUnit.Framework.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public enum QuestState
 {
@@ -14,7 +11,8 @@ public enum QuestState
     Completed,
     Rewarded
 }
-public class Quest:MonoBehaviour
+
+public class Quest
 {
     public List<QuestObjective> objectives = new();
 
@@ -22,20 +20,18 @@ public class Quest:MonoBehaviour
     public QuestState State { get; private set; }
 
     public event Action<Quest> OnQuestCompleted;
-    public event Action<Quest> OnDescriptionUpdated;  
+    public event Action<Quest> OnDescriptionUpdated;
 
     public string questID => data.questID;
     public string description => data.description;
-
     public string CurrentDescription { get; private set; }
+
     public Quest(QuestData data)
     {
         this.data = data;
         CurrentDescription = data.description;
         CreateObjectives();
     }
-
-
 
     void CreateObjectives()
     {
@@ -46,6 +42,8 @@ public class Quest:MonoBehaviour
         }
     }
 
+    // ── Phases ───────────────────────────────────────────────────────────────
+
     public void Accept()
     {
         if (State != QuestState.NotStarted) return;
@@ -55,19 +53,18 @@ public class Quest:MonoBehaviour
         foreach (var objective in objectives)
         {
             objective.OnObjectiveProgressed += CheckCompletion;
-            objective.OnObjectiveProgressed += UpdateDescription; // NEW
+            objective.OnObjectiveProgressed += UpdateDescription;
             objective.Initialize();
         }
 
-        OnQuestStart();//...
+        GameEvents.OnQuestAccepted?.Invoke(questID);   // NEW — drives world events
+        OnQuestStart();
     }
 
     protected void CheckCompletion()
     {
         if (objectives.All(o => o.IsCompleted))
-        {
             Complete();
-        }
     }
 
     void Complete()
@@ -79,26 +76,24 @@ public class Quest:MonoBehaviour
         foreach (var objective in objectives)
         {
             objective.OnObjectiveProgressed -= CheckCompletion;
-            objective.OnObjectiveProgressed -= UpdateDescription; // NEW
+            objective.OnObjectiveProgressed -= UpdateDescription;
             objective.Dispose();
         }
 
-        OnQuestComplete();//...
-        GameEvents.OnQuestCompleted?.Invoke(questID); // NEW
+        GameEvents.OnQuestCompleted?.Invoke(questID);
+        OnQuestComplete();
         OnQuestCompleted?.Invoke(this);
     }
+
     void UpdateDescription()
     {
-        // Walk objectives in order — last completed one with a description wins
         foreach (var obj in objectives)
         {
             if (obj.IsCompleted && !string.IsNullOrEmpty(obj.data.updatedDescription))
-            {
                 CurrentDescription = obj.data.updatedDescription;
-            }
         }
 
-        OnDescriptionUpdated?.Invoke(this); // NEW — lets UI react
+        OnDescriptionUpdated?.Invoke(this);
     }
 
     public void GiveReward()
@@ -106,56 +101,49 @@ public class Quest:MonoBehaviour
         if (State != QuestState.Completed) return;
 
         State = QuestState.Rewarded;
-
-
-
-        GenerateDrop(); 
-
-        OnRewardGiven();//...
+        GenerateDrop();
+        OnRewardGiven();
     }
 
-    void OnQuestStart()
-    {
-        Debug.Log($"Quest {questID} started");
-    }
+    // ── Internal Logs ────────────────────────────────────────────────────────
 
-    void OnQuestComplete()
-    {
-        Debug.Log($"Quest {questID} completed");
-    }
+    void OnQuestStart() => Debug.Log($"[Quest] '{questID}' accepted.");
+    void OnQuestComplete() => Debug.Log($"[Quest] '{questID}' completed.");
+    void OnRewardGiven() => Debug.Log($"[Quest] Reward given for '{questID}'.");
 
-    void OnRewardGiven()
-    {
-        Debug.Log($"Reward given for {questID}");
-    }
+    // ── Rewards ──────────────────────────────────────────────────────────────
 
     private void GenerateDrop()
     {
         foreach (var entry in data.rewards)
-        {
             for (int i = 0; i < entry.amount; i++)
-            {
-
                 DropItem(entry.item);
-
-            }
-        }
     }
 
     public void DropItem(ItemData _itemData)
     {
-        Vector3 Player = PlayerManager.Instance.player.transform.position;
-        Player.x += PlayerManager.Instance.player.facingDir == 1 ? 2:-2;
+        Vector3 spawnPos = PlayerManager.Instance.player.transform.position;
+        spawnPos.x += PlayerManager.Instance.player.facingDir == 1 ? 2 : -2;
 
-       GameObject newDrop = Instantiate(QuestManager.Instance.Prefab,Player, Quaternion.identity);
-
+        GameObject newDrop = GameObject.Instantiate(QuestManager.Instance.Prefab, spawnPos, Quaternion.identity);
         Vector2 randomVelocity = new Vector2(UnityEngine.Random.Range(5, 10), UnityEngine.Random.Range(10, 15));
-
         newDrop.GetComponent<ItemDropMovement>().SetUpItem(_itemData, randomVelocity);
-
-    }//在角色面前生成奖励
+    }
 }
 
+// ── Game Events ───────────────────────────────────────────────────────────────
+
+public static class GameEvents
+{
+    public static Action<Enemy> OnEnemyKilled;
+    public static Action<ItemData, int> OnItemCollected;
+
+    public static Action<string> OnQuestAccepted;       // NEW — passes questID
+    public static Action<string> OnObjectiveCompleted;  // passes dialogueKey / objectiveID
+    public static Action<string> OnQuestCompleted;      // passes questID
+}
+
+// ── Objective Base ────────────────────────────────────────────────────────────
 
 public abstract class QuestObjective
 {
@@ -175,7 +163,7 @@ public abstract class QuestObjective
     protected void Progress()
     {
         if (IsCompleted)
-            GameEvents.OnObjectiveCompleted?.Invoke(data.dialogueKey); // NEW
+            GameEvents.OnObjectiveCompleted?.Invoke(data.objectiveID);
 
         OnObjectiveProgressed?.Invoke();
     }
@@ -184,31 +172,17 @@ public abstract class QuestObjective
     public abstract void Dispose();
 }
 
-public static class GameEvents
-{
-    public static Action<Enemy> OnEnemyKilled;
-    public static Action<ItemData, int> OnItemCollected;
-
-    public static Action<string> OnObjectiveCompleted;  // passes dialogueKey or objective ID
-    public static Action<string> OnQuestCompleted;      // passes questID
-
-
-}
+// ── Objective Types ───────────────────────────────────────────────────────────
 
 public class KillObjective : QuestObjective
 {
     private int currentAmount;
     private Enemy targetEnemy;
 
-    public KillObjective(ObjectiveData data, Quest quest)
-        : base(data, quest)
+    public KillObjective(ObjectiveData data, Quest quest) : base(data, quest)
     {
-        
-
         if (targetEnemy == null)
-        {
             Debug.LogError("KillObjective target is not EnemyData");
-        }
     }
 
     public override void Initialize()
@@ -220,40 +194,31 @@ public class KillObjective : QuestObjective
     private void OnEnemyKilled(Enemy enemy)
     {
         if (IsCompleted) return;
-
-        if (enemy != targetEnemy) return;   // 🔥 比较引用，不是字符串
+        if (enemy != targetEnemy) return;
 
         currentAmount++;
-
-        Debug.Log($"Kill {targetEnemy}: {currentAmount}/{data.requiredAmount}");
+        Debug.Log($"[Kill] {targetEnemy}: {currentAmount}/{data.requiredAmount}");
 
         if (currentAmount >= data.requiredAmount)
-        {
             IsCompleted = true;
-        }
 
         Progress();
     }
 
-    public override void Dispose()
-    {
-        GameEvents.OnEnemyKilled -= OnEnemyKilled;
-    }
+    public override void Dispose() => GameEvents.OnEnemyKilled -= OnEnemyKilled;
 }
+
 public class CollectObjective : QuestObjective
 {
     private int currentAmount;
     private ItemData targetItem;
 
-    public CollectObjective(ObjectiveData data, Quest quest)
-        : base(data, quest)
+    public CollectObjective(ObjectiveData data, Quest quest) : base(data, quest)
     {
         targetItem = data.target as ItemData;
 
         if (targetItem == null)
-        {
             Debug.LogError("CollectObjective target is not ItemData");
-        }
     }
 
     public override void Initialize()
@@ -265,25 +230,18 @@ public class CollectObjective : QuestObjective
     private void OnItemCollected(ItemData item, int amount)
     {
         if (IsCompleted) return;
-
-        if (item != targetItem) return;   // 🔥 引用比较
+        if (item != targetItem) return;
 
         currentAmount += amount;
-
-        Debug.Log($"Collect {targetItem.itemName}: {currentAmount}/{data.requiredAmount}");
+        Debug.Log($"[Collect] {targetItem.itemName}: {currentAmount}/{data.requiredAmount}");
 
         if (currentAmount >= data.requiredAmount)
-        {
             IsCompleted = true;
-        }
 
         Progress();
     }
 
-    public override void Dispose()
-    {
-        GameEvents.OnItemCollected -= OnItemCollected;
-    }
+    public override void Dispose() => GameEvents.OnItemCollected -= OnItemCollected;
 }
 
 public class TalkToNPCObjective : QuestObjective
@@ -292,22 +250,16 @@ public class TalkToNPCObjective : QuestObjective
 
     public string DialogueKey => data.dialogueKey;
 
-    public TalkToNPCObjective(ObjectiveData data, Quest quest)
-        : base(data, quest) { }
+    public TalkToNPCObjective(ObjectiveData data, Quest quest) : base(data, quest) { }
 
-    public override void Initialize()
-    {
-        currentAmount = 0;
-        // No event subscription — driven externally by Yarn commands
-    }
+    public override void Initialize() => currentAmount = 0;
 
-    // Called directly by YarnQuestCommands
     public void RecordTalk()
     {
         if (IsCompleted) return;
 
         currentAmount++;
-        Debug.Log($"Talk objective '{data.dialogueKey}': {currentAmount}/{data.requiredAmount}");
+        Debug.Log($"[Talk] '{data.dialogueKey}': {currentAmount}/{data.requiredAmount}");
 
         if (currentAmount >= data.requiredAmount)
             IsCompleted = true;
@@ -317,4 +269,3 @@ public class TalkToNPCObjective : QuestObjective
 
     public override void Dispose() { }
 }
-

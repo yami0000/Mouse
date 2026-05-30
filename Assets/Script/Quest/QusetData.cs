@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public enum ObjectiveType
     GoSomeWhere,
 }
 
+// ── Quest Data (ScriptableObject) ────────────────────────────────────────────
 
 [CreateAssetMenu(menuName = "Quest/Quest Data")]
 public class QuestData : ScriptableObject
@@ -24,24 +24,25 @@ public class QuestData : ScriptableObject
     public List<ObjectiveData> objectives = new();
 
     [Header("Rewards")]
-    public RewardData[] rewards ;
+    public RewardData[] rewards;
 
     [Header("Settings")]
     public bool isRepeatable = false;
-
-    [Tooltip("前置任务ID")]
     public List<QuestData> prerequisiteQuests;
 }
 
-
+// ── Objective Data ────────────────────────────────────────────────────────────
 
 [System.Serializable]
 public class ObjectiveData
 {
-    public ObjectiveType type;
+    [Header("Identity")]
+    [Tooltip("Unique ID for this objective. Used by QuestWorldEvent to react to it in any scene.")]
+    public string objectiveID;
 
-    [Header("Target")]
-    public ScriptableObject target;  // 可以是 EnemyData / ItemData / NPCData
+    [Header("Type & Target")]
+    public ObjectiveType type;
+    public ScriptableObject target;  // EnemyData / ItemData / NPCData
 
     [Min(1)]
     public int requiredAmount = 1;
@@ -52,23 +53,19 @@ public class ObjectiveData
 
     [Header("Quest Log")]
     [TextArea]
-    [Tooltip("Quest description shown after this objective completes")]
+    [Tooltip("Quest log description shown after this objective completes")]
     public string updatedDescription;
 }
 
+// ── Reward Data ───────────────────────────────────────────────────────────────
+
 [System.Serializable]
 public class RewardData
-{ 
-
+{
     public ItemData item;
     [Min(1)]
     public int amount;
-
-    
 }
 
 [System.Serializable]
-public class ItemReward
-{
-   
-}
+public class ItemReward { }
