@@ -31,25 +31,29 @@ public class ScorpionIdleState : ScorpionGroundedState
         
     }
 
-        public override void Update()
+    public override void Update()
     {
         base.Update();
-        if (boss.stateTimer_Scorpion <= 0 && R)
-        { 
-            boss.StateNum -= 1;
-            if(boss.StateNum == 2) 
+        if (boss.BattleState)
+        {
+            
+            if (boss.stateTimer_Scorpion <= 0 && R)
             {
-                stateMachine.ChangeState(boss.walkState);
+                boss.StateNum -= 1;
+                if (boss.StateNum == 2)
+                {
+                    stateMachine.ChangeState(boss.walkState);
+                }
+                if (boss.StateNum == 1)
+                {
+                    stateMachine.ChangeState(boss.walkState);
+                }
+                if (boss.StateNum == 0)
+                {
+                    boss.isMoving = false;
+                }
+                R = false;
             }
-            if (boss.StateNum == 1)
-            {
-                stateMachine.ChangeState(boss.walkState);
-            }
-            if (boss.StateNum == 0) 
-            {
-                boss.isMoving = false;
-            }
-            R = false;
         }
     }
          

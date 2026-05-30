@@ -10704,8 +10704,8 @@ Transform:
   m_GameObject: {fileID: 438919359}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.34, y: 0.2436, z: 0}
-  m_LocalScale: {x: 0.62745184, y: 0.62745184, z: 0.62745184}
+  m_LocalPosition: {x: 0.4053, y: 0.3089, z: 0}
+  m_LocalScale: {x: 0.6401891, y: 0.6401891, z: 0.6401891}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1089660533}
@@ -10819,7 +10819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
   character: 3
-  Prompt: {fileID: 0}
 --- !u!114 &459026257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11313,7 +11312,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vcam: {fileID: 760561100}
-  MantisPosition: {fileID: 0}
 --- !u!114 &760561099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14258,6 +14256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61055d869107a446ab7d80003dd85d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsReadyToInteract: 0
+  npc: {fileID: 0}
   characterName: Worker
   talkToNode: Worker
   scriptToLoad: {fileID: 7545569452688597077, guid: 8344a5f91503eed4cb81c7431caf231c, type: 3}
@@ -15478,6 +15478,7 @@ MonoBehaviour:
   attackCooldown: 2.5
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  BattleState: 0
   stateTimer_Mechanic: 0
   projectile: {fileID: 2135790009}
 --- !u!1001 &8202142306519554307

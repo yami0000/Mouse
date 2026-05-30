@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0d67c69a60dc9448159e570da66c85, type: 3}
+  m_Name: Main_00A
+  m_EditorClassIdentifier: 
+  questID: main_00A
+  questName: Vengeance
+  description: According to the lieutenant,CINDERTAIL is back.The one who killed
+    my captain and chopped my arm 7 years ago,I must find him,and end him once for
+    all.
+  objectives:
+  - type: 2
+    target: {fileID: 0}
+    requiredAmount: 0
+    dialogueKey: 
+    updatedDescription: 
+  rewards: []
+  isRepeatable: 0
+  prerequisiteQuests: []

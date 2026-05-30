@@ -26,6 +26,8 @@ public class Enemy : Entity
     public EnemyStateMachine stateMachine { get; private set; }
     public string lastAnimBoolName {  get; private set; }
 
+    [HideInInspector] public bool BattleState = false;//由外部因素进入战斗。
+
     public RaycastHit2D hit;
 
     protected override void Awake()

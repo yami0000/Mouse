@@ -131,6 +131,8 @@ public class ItemData_Equipment : ItemData
         int maxVal = Mathf.Max(new int[] { sFireDamage, sFrostDamage, sPoisonDamage, sLightningDamage });
 
         FirePower = sFirePower + 5 * Level;
+
+        if(equipmentType == EquipmentType.Armor)
         Armor = sArmor + 7 * Level;
 
         if (maxVal == 0)
@@ -144,9 +146,6 @@ public class ItemData_Equipment : ItemData
         PoisonDamage = sPoisonDamage + (sPoisonDamage == maxVal ? 4 * Level : 0);
         LightningDamage = sLightningDamage + (sLightningDamage == maxVal ? 4 * Level : 0);
     }
-     
-        
-
     public void ExecuteEquipmentEffect(Transform _position,ItemData_Equipment data) 
     {
         foreach (var effect in equipmentEffects)

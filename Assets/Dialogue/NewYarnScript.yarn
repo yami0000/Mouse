@@ -76,3 +76,141 @@ Rigel:Even if they lost the war,their experimentals are getting much better than
 Rigel:Maybe after 5 years, I will have no chance against these monsters.
 Rigel:I have to do something.
 ===
+
+title:Lion_Start
+---
+<<declare $player_spoke_to_Lion = false>>
+
+<<if $player_spoke_to_Lion is false>>
+    Lion:Good,you came.
+    Lion:Recently our intel team has captured an encrypted message that the bugs are doing large-scale experiment about military-grade cyberlimb.
+    Lion:We fear they are planning their next invasion.
+    Lion:In this situation,sending a diplomat team is not a wise choice.
+    Lion:So we are asking you to go on a private investigation.
+    <<set $player_spoke_to_Lion = true>>
+    <<jump Lion_Middle>>
+
+<<else>>
+    Lion:Good hunting,Rigel.
+<<endif>>
+===
+
+title:Lion_Middle
+---
+Lion:Any Qusetion?
+        -> Where are they doing this experiment?
+            Lion:According to our intel team,the main focus is in the RUST CITY,the heart of their industrial complex.
+            Lion:There should be a secret lab there,We need you to gather the information,and find a way to infiltrate.
+            <<jump Lion_Middle>>
+        -> What exactly are they working on?
+            Lion:We can't tell so far,but it seems they are developing BIOLOGICAL WEAPON for their soilders.
+            Lion:...that are capable to destroy mammal's biological structure in a second. 
+            <<jump Lion_Middle>>
+        -> I'm ready.
+            Lion:Good.
+Lion:We will provide you an ID card that will allow you to enter and exit RUST CITY at any time.
+Lion:Also,some money will be transferred to your account,use it wisely before the operation.
+Lion:And...
+Lion:...Maybe this is a bad time to mention...
+Lion:Rigel,do you remember "CINDERTAIL"?
+Rigel:How can I forget this name?I make bad dreams about him endlessly after the war.
+Lion:Yes,"Cindertail"...the bug who killed MEISSA,the captain of ORION.
+Lion:He reappeared...after a long disappearence since the end of the war.
+Rigel:I won't fail this time,I will clear my magzine through his throat...
+Rigel:I traced him for entire 7 years and he finally appeared...
+Lion:Clam down,young mouse.
+Lion:I understand your feeling,I lost my brother on the battlefield half century ago.
+Lion:But the lust of revenge,will only consume you,don't let it cloud your mind.
+Lion:Dismiss.
+ <<accept_quest "main_001">>
+ <<accept_quest "main_00A">>
+===
+
+title:Zig_Zag
+---
+Zig:STAND RIGHT THERE,mammal.
+Zig:Disarm all your Communication systems.RIGHT NOW.
+Zig:If I can see a single device transferring data with outside,my companion will shoot you to a hornet.
+Rigel:Okay,Okay!Relax,All comms down!
+Zig:Wise choice.You have been sniffing around the lab.Who are you,and what do you want?
+Rigel:Name's Sam,have been a chip trafficker for many years,you can check my ID.
+Rigel:And don't need to worry about me,I want to enter the lab same as your guys,we can collaborate.
+Zag:boss,How...
+Zig:Trafficker always know how to negotiate,eh?True,I am a humble merchant who "borrows" other's good ware too,same as you.
+Zig:Recently the lab is doing something big,very big.My boys told me thousands of valuable material are transported there everyday.
+Zig:It's risky,but if we can manage to "borrow" a tiny portion of it...I can't even imagine!!
+Zig:But business is business,to prove your capability,we need you to do something for us,and we can discuss more after that.
+Rigel:(Here we go again...)
+Zig:I need a special chip that can see through the wall of the lab,without it,it would be reckless to proceed.
+Zig:This can be circulated in the black market of your mammal country...
+Zig:...or you can "borrow" it from the leaders of the local gang in the deep sewers,one of them must have it.
+Zig:I will send you my code,contact me once you finished.
+Zig:Good Luck.
+===
+
+title:Zag_Comment
+---
+Zag:A word,boss?
+Zig:Zag,This is not the right time!
+Zag:It's about Sam,the way he fought,it's nothing I have seemed before.
+Zag:I have been in the army for a couple of years,and I saw lots of fights.This...This is something I have NEVER seem before.
+Zag:His movement,his way of using weapons and tactics...it's ART.
+Zag:Like playing a chess game,he can always kill opponent's general with the shortest steps.
+Zag:I dare to say that if we have someone like him during the war,maybe tide of the war would have been on our side.
+Zig:What the hell?!Zag,are you speaking for dirty mammals?
+Zig:But it does make sense.How can a trafficker fought so well?How did he know what we wanted to do at the first place?
+Zig:Things are getting more interesting,we just keep playing with him,I want to see how this ends...
+Zig:hehehehe...
+===
+
+title:Intro_CinderTail
+---
+CinderTail:Finally,you came.
+Rigel:Captain?Captain!!
+Captain:Run...Rigel...
+CinderTail:Looks like your Captain's life maintanence system is failing.
+CinderTail:His lung is broken and oxygen is running out.5 minutes.If you can beat me in 5 minutes,maybe your captain will live.
+CinderTail:Or you can walk away now,I will pretend nothing happened.
+Rigel:Captain!!Arhhhhhhhhh!!!!
+Captain:Run...
+CinderTail:Calm down,little mouse,anger can solve nothing.
+CinderTail:Let's dance.
+===
+
+title:Wake
+---
+Rigel:Captain!!!
+Rigel:......
+Rigel:Another bad dream...
+Rigel:Even the war is ended 7 years ago,the past is still torturing me.
+Rigel:Let's get up.
+===
+
+title:Past_Memory
+---
+Rigel:This photo is taken before the war...
+Rigel:ORION...A special force that consisted of nine best warriors from the country.I was one of them.
+Rigel:...and I am the only one who lived.
+Rigel:Every time I look at the picture,I feel like they are watching me from the hell.
+Rigel:This is a curse,and I have to live with that curse for the rest of my life...
+===
+
+title:Lab_First
+---
+Rigel:So the lab is still in the center of the city.
+Rigel:The lab is so big...stretching to the top of the underground strcture.
+Rigel:The lab itself is not hard to find,the question is,how do I get in?
+Rigel:I will run a scan around the site,see what can I find.
+ <<jump Lab_Second>>
+===
+
+title:Lab_Second
+---
+Rigel:...
+Rigel:I have to admit how astonishing their security system is,even the cutting-edge infiltration drone can't get in.
+Rigel:Since the material of the architecture,I can't even see through the wall.
+Rigel:So we can't get in by normal ways.
+Rigel:There must be some way to get in.
+Rigel:I will gather some information in the city.
+<<progress_objective "lab">>
+===

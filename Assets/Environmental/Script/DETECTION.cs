@@ -10,11 +10,7 @@ public class DETECTION : MonoBehaviour
   
     private GameObject e;
 
-    private void Start()
-    {
- 
-    }
-
+    
     private static Player GetPlayer()
     {
         return PlayerManager.Instance.player;

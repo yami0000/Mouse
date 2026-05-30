@@ -18,6 +18,7 @@ public class ScorpionSwingState : EnemyState
         base.Enter();
         boss.stateTimer_Scorpion = 1f;
         boss.Swing();
+        boss.Motion();
     }
 
     public override void Exit()

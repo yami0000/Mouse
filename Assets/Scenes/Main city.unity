@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
-  Num: 5
+  Num: 6
   respawn: 0
   CanInteract: 1
   AutoLoad: 0

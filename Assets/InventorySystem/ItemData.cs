@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public enum ItemType
 {
     Currency,
@@ -28,6 +29,8 @@ public class ItemData : ScriptableObject
     //public float dropChance;
 
     public ItemEffect[] itemEffects;
+    public PassiveEffectSO[] passiveEffects;
+
 
     public void ExecuteItemEffect(Transform _position)
     {

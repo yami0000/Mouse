@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: R-BackPack MK1
+  m_EditorClassIdentifier: 
+  ItemType: 4
+  itemName: R-BackPack MK1
+  icon: {fileID: -1914521585884198937, guid: afc644f38100ee14ba4af460cea9ac1b, type: 3}
+  price: 0
+  Description: 
+  itemEffects: []
+  passiveEffects:
+  - {fileID: 11400000, guid: 1071c581168d80f48bbb172d1085691c, type: 2}
+  equipmentType: 2
+  mechanism: 0
+  Level: 0
+  equipmentEffects: []
+  Mods: []
+  modSlotCount: 0
+  sFirePower: 0
+  Agility: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  sArmor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  sFireDamage: 0
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  xVelocity: 0
+  firingRate: 0
+  effectiveTime: 0
+  FirePower: 0
+  Armor: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0

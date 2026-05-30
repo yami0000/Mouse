@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Star
   m_EditorClassIdentifier: 
   ItemType: 1
-  itemName: STAR
+  itemName: STAR#01
   icon: {fileID: 2101603095417336908, guid: 39dd7b105a7e8fb48ad58e63525569b5, type: 3}
   price: 0
   Description: A fashion E-magazine about Sherry,a famous star idol in Neon city.

@@ -39,8 +39,9 @@ public class PortraitDialogueUI : DialoguePresenterBase
     {
         await Task.Delay(0);
 
-        string speaker = line.CharacterName;
+       //string speaker = line.CharacterName;
 
+         
 
        // string text = line.Text.Text;
 
@@ -48,7 +49,7 @@ public class PortraitDialogueUI : DialoguePresenterBase
 
         if (line.CharacterName != null)
         {
-            //Debug.Log(line.CharacterName);
+            Debug.Log(line.CharacterName);
             portraitImage.sprite = portraitDict[line.CharacterName];
             portraitImage.preserveAspect = true;
         }

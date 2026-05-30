@@ -19,15 +19,16 @@ MonoBehaviour:
   Description: Shoot 3 ammos on firing.Extermely effective against enemy who dares
     to approach.
   itemEffects: []
+  passiveEffects: []
   equipmentType: 0
   mechanism: 0
   Level: 1
   equipmentEffects:
   - {fileID: 11400000, guid: 9c26bf97d7216c24197de5305c4f161c, type: 2}
   Mods:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 64f313dce317a8f44b75bf977ab71de0, type: 2}
+  - {fileID: 11400000, guid: 46a8045424c524e4b9bfe4e403d0ea0c, type: 2}
+  - {fileID: 11400000, guid: 19ff857e1b908c5418dc05a55a33a9f6, type: 2}
   modSlotCount: 3
   sFirePower: 15
   Agility: 0
@@ -46,10 +47,10 @@ MonoBehaviour:
   sPoisonDamage: 12
   sLightningDamage: 0
   xVelocity: 15
-  firingRate: 1.2
+  firingRate: 0.90000004
   effectiveTime: 0.4
   FirePower: 20
-  Armor: 7
+  Armor: 0
   FireDamage: 0
   FrostDamage: 0
   PoisonDamage: 16

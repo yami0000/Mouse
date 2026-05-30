@@ -18,6 +18,7 @@ MonoBehaviour:
   price: 0
   Description: 
   itemEffects: []
+  passiveEffects: []
   equipmentType: 0
   mechanism: 0
   Level: 1
@@ -48,7 +49,7 @@ MonoBehaviour:
   firingRate: 0.8
   effectiveTime: 0.7
   FirePower: 45
-  Armor: 7
+  Armor: 0
   FireDamage: 0
   FrostDamage: 0
   PoisonDamage: 0

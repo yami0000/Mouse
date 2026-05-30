@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Star02
   m_EditorClassIdentifier: 
   ItemType: 1
-  itemName: Star(ANNE)
+  itemName: Star#02
   icon: {fileID: 7238169597462837005, guid: 9c16ae6460e116346871069ef101b074, type: 3}
   price: 0
   Description: A fashion E-magazine about Anne,a famous star idol in Neon city.

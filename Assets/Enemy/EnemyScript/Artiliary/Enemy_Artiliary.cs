@@ -12,18 +12,7 @@ public class Enemy_Artiliary : Enemy
 
     public float stateTimer_Artiliary;
 
-    // [SerializeField] private LayerMask whatIsEnemy;
-
-    //[SerializeField] private float enemyCheckDistance;
-
-    //public float followingDistance;
-
-    // public Enemy _enemy;
-
-    //[SerializeField] public HealAmmo healAmmo;
-    //[SerializeField] public EnemyAmmo ammo;
-
-    // [SerializeField] public Test ParticleSystem;
+ 
      public Projectile projectile;
     protected override void Awake()
     {

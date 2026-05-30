@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+
 using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
@@ -67,81 +69,234 @@ public class Inventory : MonoBehaviour
 
     private void AddStartingItems()
     {
-        for (int i = 0; i < startingEquipment.Count; i++)
-        {
-            AddItem(startingEquipment[i]);
-
-        }
+        foreach (ItemData item in startingEquipment)
+            AddItem(item);
     }
 
-    public void EquipItem(ItemData _item)
+    public ItemData_Equipment Throwable()
     {
-        ItemData_Equipment newEqipment = _item as ItemData_Equipment;//as的作用：如果 _item 是 ItemData_Equipment 或其派生类，转换成功，返回该对象。  如果 _item 不是 ItemData_Equipment 类型，返回 null（不会抛出异常）。
-
-        InventoryItem newItem = new InventoryItem(_item);
-
-        ItemData_Equipment oldEquipment = null;
-
-        ItemData_Equipment currentEquipment = null;//
-
-        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)//检查装备类型是否相同
-        {
-            if (item.Key.equipmentType == newEqipment.equipmentType)
-                oldEquipment = item.Key;
-
-        }
-        if(oldEquipment != null)//如果类型相同，则替换装备
-        {
-        UnequipItem(oldEquipment);
-        AddItem(oldEquipment);
-        }
-
-        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)//检查装备类型是否相同
-        {
-            if (item.Key.equipmentType == EquipmentType.Weapon)
-                currentEquipment = item.Key;
-           // if (currentEquipment.Mods != null)
-              //  currentEquipment.ExecuteModEffect(PlayerManager.Instance.player.transform);
-          
-
-        }
+        var entry = equipmentDictionary.FirstOrDefault(item => item.Key.equipmentType == EquipmentType.Throwable);
+        return entry.Key; // null if not found, FirstOrDefault handles it
+    }
+    public void EquipItem(ItemData _item, UI_EquipmentSlot targetSlot = null, bool transferAll = false)
+    {
+        ItemData_Equipment newEquipment = _item as ItemData_Equipment;
+        if (newEquipment == null)return;
  
-        equipment.Add(newItem);
-        equipmentDictionary.Add(newEqipment, newItem);
-        newEqipment.AddModifiers();
+        UI_EquipmentSlot slot = targetSlot
+            ?? GetFirstEmptySlotOfType(newEquipment.equipmentType)
+            ?? GetFirstSlotOfType(newEquipment.equipmentType);
 
-        RemoveItem(_item);
+        if (slot == null) return;
 
-        UpdateSlotUI();
-    }
-
-    public void UnequipItem(ItemData_Equipment itemToRemove)
-    {
-      
-
-        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value)&&value != null)
+        // Unequip whatever is already in that slot and return it to inventory
+        if (slot.currentItem?.data != null)
         {
-            equipment.Remove(value);
-            equipmentDictionary.Remove(itemToRemove);
-            itemToRemove.RemoveModifiers(); 
-
-        }
-    }
-
-    private void UpdateSlotUI() 
-    {
-         
-
-        for (int i = 0; i < equipmentSlot.Length;i++) 
-        {
-            foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+            ItemData_Equipment oldEquipment = slot.currentItem.data as ItemData_Equipment;
+            if (oldEquipment != null)
             {
-                if (item.Key.equipmentType == equipmentSlot[i].slotType)
-                    equipmentSlot[i].UpdateSlot(item.Value);
+                // Unequip and recover the full stack back to inventory in one pass
+                if (UnequipItem(oldEquipment, out int recoveredStack))
+                    AddItem(oldEquipment, recoveredStack);
 
+                slot.currentItem = null;
             }
         }
 
+        // Find source stack
+        if (!inventoryDictionary.TryGetValue(_item, out InventoryItem source))
+            stashDictionary.TryGetValue(_item, out source);
+
+        if (source == null)
+        {
+            Debug.LogError($"Item not found in inventory or stash: {_item?.name}");
+            return;
+        }
+
+        int stackToTransfer = transferAll ? source.stackSize : 1;
+
+        // Build the equipped item with the correct stack BEFORE removing from inventory
+        InventoryItem newItem = new InventoryItem(_item);
+        for (int i = 1; i < stackToTransfer; i++)
+            newItem.AddStack();
+
+        equipment.Add(newItem);
+        equipmentDictionary.Add(newEquipment, newItem);
+        slot.currentItem = newItem;
+
+        if (!transferAll)
+            newEquipment.AddModifiers(); // modifiers don't apply to consumables
+
+        // Safe to remove now that equipment is registered
+        if (transferAll)
+            RemoveItem(_item, removeAll: true);
+        else
+            RemoveItem(_item);
+
+        UpdateSlotUI();
+    }
+    public bool UnequipItem(ItemData_Equipment itemToRemove, out int stackSize)
+    {
+        stackSize = 0;
+        if (itemToRemove == null) return false;
+
+        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
+        {
+            stackSize = value.stackSize;
+            equipment.Remove(value);
+            equipmentDictionary.Remove(itemToRemove);
+            itemToRemove.RemoveModifiers();
+            return true;
+        }
+        return false;
+    }
+    public bool UnequipItem(ItemData_Equipment itemToRemove) => UnequipItem(itemToRemove, out _);
+    public int UnequipAllItem(ItemData_Equipment itemToRemove)
+    {
+        UnequipItem(itemToRemove, out int stackSize);
+        return stackSize;
+    }
+    public void RemoveEquipItem(ItemData _item, bool removeAll = false)
+    {
+        ItemData_Equipment E = _item as ItemData_Equipment;
+        if (E == null) return;
+
+        if (!equipmentDictionary.TryGetValue(E, out InventoryItem equipmentValue)) return;
+        if (E.equipmentType != EquipmentType.Throwable) return;
+
+        if (removeAll || equipmentValue.stackSize <= 1)
+        {
+            // Full removal: clear dictionary, list, and the slot that owns this item
+            equipment.Remove(equipmentValue);
+            equipmentDictionary.Remove(E);
+            E.RemoveModifiers();
+
+            UI_EquipmentSlot owningSlot = System.Array.Find(equipmentSlot,
+                s => s.currentItem == equipmentValue);
+            if (owningSlot != null)
+            {
+                owningSlot.currentItem = null;
+                owningSlot.CleanUpSlot();
+            }
+        }
+        else
+        {
+            equipmentValue.RemoveStack();
+        }
+
+        UpdateSlotUI();
+    }
+    public int RemoveItem(ItemData _item, bool removeAll = false)
+    {
+        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            int removed = removeAll ? value.stackSize : 1;
+            if (removeAll || value.stackSize <= 1)
+            {
+                inventory.Remove(value);
+                inventoryDictionary.Remove(_item);
+            }
+            else
+            {
+                value.RemoveStack();
+            }
+            UpdateSlotUI();
+            return removed;
+        }
+
+        if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
+        {
+            int removed = removeAll ? stashValue.stackSize : 1;
+            if (removeAll || stashValue.stackSize <= 1)
+            {
+                stash.Remove(stashValue);
+                stashDictionary.Remove(_item);
+            }
+            else
+            {
+                stashValue.RemoveStack();
+            }
+            UpdateSlotUI();
+            return removed;
+        }
+
+        return 0;
+    }
+    public void AddItem(ItemData _item, int count = 1)
+    {
+        if (count <= 0) return;
+
+        if (_item.ItemType == ItemType.Equipment)
+            AddToInventory(_item, count);
+        else
+            AddToStash(_item, count);
+
+        UpdateSlotUI();
+    }
+    private void AddToInventory(ItemData _item, int count = 1)
+    {
+        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            for (int i = 0; i < count; i++) value.AddStack();
+        }
+        else
+        {
+            InventoryItem newItem = new InventoryItem(_item);
+            for (int i = 1; i < count; i++) newItem.AddStack();  
+            inventory.Add(newItem);
+            inventoryDictionary.Add(_item, newItem);
+        }
+    }
+    private void AddToStash(ItemData _item, int count = 1)
+    {
+        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            for (int i = 0; i < count; i++) value.AddStack();
+        }
+        else
+        {
+            InventoryItem newItem = new InventoryItem(_item);
+            for (int i = 1; i < count; i++) newItem.AddStack();
+            stash.Add(newItem);
+            stashDictionary.Add(_item, newItem);
+        }
+    }
+
+    #region Slot and UI
+    private UI_EquipmentSlot GetFirstEmptySlotOfType(EquipmentType type)
+    {
+        return System.Array.Find(equipmentSlot,
+            s => s.slotType == type && s.currentItem.data == null);
+    }
+    private UI_EquipmentSlot GetFirstSlotOfType(EquipmentType type)
+    {
+        return System.Array.Find(equipmentSlot,
+            s => s.slotType == type);
+    }
+    public ItemData_Equipment GetEquipment(EquipmentType _type) 
+    {
+        ItemData_Equipment equipedItem = null;
+
+        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary) 
+        {
+            if (item.Key.equipmentType == _type)
+                equipedItem = item.Key;
+
+        }
+
+        return equipedItem;
+    }
+    private void UpdateSlotUI() 
+    {
+        foreach (UI_EquipmentSlot slot in equipmentSlot)
+        {
+            if (slot.currentItem != null)
+                slot.UpdateSlot(slot.currentItem);
+            else
+                slot.CleanUpSlot();
+        }
+
+        
         for (int i = 0; i < InventoryItemSlot.Length; i++)
         {
             InventoryItemSlot[i].CleanUpSlot();
@@ -170,118 +325,5 @@ public class Inventory : MonoBehaviour
 
 
     }
-
-
-
-
-
-    public void RemoveItem(ItemData _item)
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            if (value.stackSize <= 1)
-            {
-            inventory.Remove(value);
-            inventoryDictionary.Remove(_item);  
-            }
-            else
-                value.RemoveStack();
-        
-        
-        
-        }
-
-        if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
-        {
-        if(stashValue.stackSize <= 1)
-            {
-                stash.Remove(stashValue);   
-                stashDictionary.Remove(_item);  
-            }
-        else
-                stashValue.RemoveStack();    
-        }
-
-
-        UpdateSlotUI();
-     }
-
-    public int RemoveAllItem(ItemData _item) 
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.RemoveStack();
-            UpdateSlotUI();
-            return value.stackSize;
-        }
-
-        else if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
-        {
-            stashValue.RemoveStack();
-            UpdateSlotUI();
-            return stashValue.stackSize;
-        }
-        else return 0;
-       
-
-       
-    }
-
-
-
-    public ItemData_Equipment GetEquipment(EquipmentType _type) 
-    {
-        ItemData_Equipment equipedItem = null;
-
-        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary) 
-        {
-            if (item.Key.equipmentType == _type)
-                equipedItem = item.Key;
-
-        }
-
-        return equipedItem;
-    }
-     public void AddItem(ItemData _item)
-    {  if (_item.ItemType == ItemType.Equipment)
-       AddToInventory(_item);
-       else  
-       AddToStash(_item);
-
-       
-       UpdateSlotUI();
-
-    }
-
-    private void AddToStash(ItemData _item)
-    {
-        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.AddStack();
-
-        }
-        else
-        {
-            InventoryItem newitem = new InventoryItem(_item);
-            stash.Add(newitem);
-            stashDictionary.Add(_item, newitem);
-
-        }
-    }
-
-    private void AddToInventory(ItemData _item)
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.AddStack();
-
-        }
-        else
-        {
-            InventoryItem newitem = new InventoryItem(_item);
-            inventory.Add(newitem);
-            inventoryDictionary.Add(_item, newitem);
-
-        }
-    }
+    #endregion
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
   price: 0
   Description: Hold left mouse to charge a powerful hit towards the enemy.
   itemEffects: []
+  passiveEffects: []
   equipmentType: 0
   mechanism: 1
   Level: 1
@@ -50,8 +51,8 @@ MonoBehaviour:
   firingRate: 0.5
   effectiveTime: 3
   FirePower: 35
-  Armor: 7
+  Armor: 0
   FireDamage: 9
-  FrostDamage: 4
-  PoisonDamage: 4
-  LightningDamage: 4
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0

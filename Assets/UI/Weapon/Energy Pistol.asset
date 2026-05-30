@@ -16,8 +16,11 @@ MonoBehaviour:
   itemName: Energy Pistol
   icon: {fileID: -1435255028787470546, guid: 37562f3fc7c19e64cbc7754e5a5586b8, type: 3}
   price: 0
+  Description: 
   itemEffects: []
+  passiveEffects: []
   equipmentType: 0
+  mechanism: 0
   Level: 1
   equipmentEffects:
   - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
@@ -46,8 +49,8 @@ MonoBehaviour:
   firingRate: 0.5
   effectiveTime: 0.5
   FirePower: 22
-  Armor: 7
-  FireDamage: 4
-  FrostDamage: 4
-  PoisonDamage: 4
-  LightningDamage: 4
+  Armor: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0

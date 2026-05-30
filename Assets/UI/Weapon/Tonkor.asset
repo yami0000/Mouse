@@ -16,7 +16,9 @@ MonoBehaviour:
   itemName: Bone_Tonkor
   icon: {fileID: -3941375285955399018, guid: 9ebf1b2c617667e4ebddb24671fbb27b, type: 3}
   price: 0
+  Description: 
   itemEffects: []
+  passiveEffects: []
   equipmentType: 0
   mechanism: 0
   Level: 1
@@ -48,8 +50,8 @@ MonoBehaviour:
   firingRate: 1.8
   effectiveTime: 2
   FirePower: 155
-  Armor: 7
-  FireDamage: 4
-  FrostDamage: 4
+  Armor: 0
+  FireDamage: 0
+  FrostDamage: 0
   PoisonDamage: 24
-  LightningDamage: 4
+  LightningDamage: 0

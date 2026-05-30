@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 
@@ -18,45 +19,33 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
 
     public InventoryItem item;
     [HideInInspector]public  ItemData_Equipment equip;
-
+    
 
     public void Start()
     {
-       
+      
     }
     
-    public void UpdateSlot(InventoryItem _newitem)
+    public void UpdateSlot(InventoryItem _newItem)
     {
-        item = _newitem;
+        if (_newItem == null || _newItem.data == null)
+        {
+            CleanUpSlot();
+            return;
+        }
 
-        itemImage.color = Color.white;  
+        item = _newItem;
+        itemImage.color = Color.white;
         itemImage.preserveAspect = true;
+        itemImage.sprite = item.data.icon;
 
-        if(item.data is ItemData_Equipment equipmentData)
+        if (item.data is ItemData_Equipment equipmentData)
         {
             equip = equipmentData;
-            
         }
 
+        itemText.text = item.stackSize > 1 ? item.stackSize.ToString() : "";
 
-
-
-        if (item != null)
-        {
-            itemImage.sprite = item.data.icon;
-            if (item.stackSize > 1)
-            {
-                itemText.text = item.stackSize.ToString();
-            }
-            else
-            {
-                itemText.text = "";
-
-            }
-
-
-        }
-       
     }
 
     public void CleanUpSlot()
@@ -90,18 +79,18 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
         {
             ItemData_Equipment equipmentData = item.data as ItemData_Equipment;//这是件新的装备，但不一定是武器
 
-            ItemData_Equipment oldequipment = null;//检查装备槽里的装备
 
-            foreach(KeyValuePair<ItemData_Equipment,InventoryItem> item in Inventory.Instance.equipmentDictionary)//如果装备槽中有武器，找出并赋值“oldequipment”
+
+
+            if (equipmentData.equipmentType == EquipmentType.Throwable)
+                Inventory.Instance.EquipItem(item.data, transferAll: true);
+            else
             {
-                if (item.Key.equipmentType == EquipmentType.Weapon)
-                    oldequipment = item.Key;
-                else
-                    oldequipment = null ;
-
+                GetPlayer().GetComponent<PassiveSkillHandler>().RegisterItem(item.data);
+              
+                Inventory.Instance.EquipItem(item.data);
+            
             }
-
-            Inventory.Instance.EquipItem(item.data);
 
 
           
@@ -114,24 +103,21 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
             if (equipmentData.equipmentType == EquipmentType.Companion)
               PlayerCompanion.Instance.EquipCompanion(equipmentData);
 
-            if(equipmentData.equipmentType == EquipmentType.Throwable)
-            {
-                Inventory.Instance.RemoveAllItem(equipmentData);
-            }
+             
 
 
 
         }
 
         
-        if (item.data.ItemType == ItemType.UsableObject)
+        if (item?.data.ItemType == ItemType.UsableObject)
         {
             ItemData data = item.data;
             Inventory.Instance.RemoveItem(data);
-            data.ExecuteItemEffect(PlayerManager.Instance.player.transform);
-             
+            data.ExecuteItemEffect(GetPlayer().transform);
+
         }
-        
+
 
     }
 
@@ -145,24 +131,27 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
         StartCoroutine(WaitTillShow());
 
     }
-
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
         if (invDescription == null) return;
         invDescription.Hide();
     }
-
-
     IEnumerator WaitTillShow()
     {
         yield return new WaitForSeconds(1f);
+        if (item?.data == null) yield break;
         if (isHovered)
             invDescription.Show(item,equip);
            
               
 
     }
+    private static Player GetPlayer()
+    {
+        return PlayerManager.Instance.player;
+    }
 
+    
 }
 

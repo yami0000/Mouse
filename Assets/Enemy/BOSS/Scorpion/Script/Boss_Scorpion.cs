@@ -1,6 +1,6 @@
  
 using System.Collections;
- 
+using Unity.VisualScripting;
 using UnityEngine;
  
 
@@ -67,6 +67,9 @@ public class Boss_Scorpion : Enemy
     [HideInInspector] public float StateTime2;
     [HideInInspector] public float StateTime3;
     [HideInInspector] public bool isMoving;
+    [Header("Motion")]
+    [SerializeField] public GameObject motionPrefab;
+    [SerializeField] private Transform __Transform;
 
     protected override void Awake()
     {
@@ -330,5 +333,19 @@ public class Boss_Scorpion : Enemy
         Gizmos.DrawWireSphere(transform.position, ammoCheckDistance);
         Gizmos.DrawWireSphere(transform.position, swingdistance);
     }
+
+    public void Motion() => StartCoroutine(DestroyAfterAnimation());
+
+
+    private IEnumerator DestroyAfterAnimation()
+    {
+        yield return new WaitForSeconds(prepareTimeforSummon - 0.4f);
+        GameObject M = Instantiate(motionPrefab, __Transform.position, Quaternion.identity);
+        Animator anim = M.GetComponent<Animator>();
+        float duration = anim.GetCurrentAnimatorStateInfo(0).length;
+        Debug.Log(duration);
+        Destroy(M, duration);
+    }
+
 
 }
