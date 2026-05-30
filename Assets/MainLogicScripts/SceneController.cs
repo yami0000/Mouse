@@ -50,21 +50,38 @@ public class SceneController : MonoBehaviour
 
     private void RespawnPersistentObjects()
     {
-        if (QuestWorldState.Instance == null) return;
+        if (QuestWorldState.Instance == null)
+        {
+            Debug.LogWarning("[SceneController] QuestWorldState is null ！ skipping respawn.");
+            return;
+        }
 
         // Collect GUIDs of PersistentSpawnObjects already alive in this scene
         var aliveGUIDs = new System.Collections.Generic.HashSet<string>();
         foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))
+        {
             aliveGUIDs.Add(pso.SpawnGUID);
+            Debug.Log($"[SceneController] Alive PersistentSpawnObject found: '{pso.SpawnGUID}'");
+        }
+
+        var records = new System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, SpawnRecord>>(
+            QuestWorldState.Instance.GetAllSpawnRecords());
+
+        Debug.Log($"[SceneController] Total spawn records in QuestWorldState: {records.Count}");
 
         int respawned = 0;
-        foreach (var kv in QuestWorldState.Instance.GetAllSpawnRecords())
+        foreach (var kv in records)
         {
             string spawnGUID = kv.Key;
             SpawnRecord record = kv.Value;
 
-            // Already alive in scene ！ skip
-            if (aliveGUIDs.Contains(spawnGUID)) continue;
+            Debug.Log($"[SceneController] Checking record '{spawnGUID}' | SpawnPointID: '{record.SpawnPointID}' | Prefab: {(record.Prefab == null ? "NULL" : record.Prefab.name)}");
+
+            if (aliveGUIDs.Contains(spawnGUID))
+            {
+                Debug.Log($"[SceneController] '{spawnGUID}' already alive ！ skipping.");
+                continue;
+            }
 
             if (record.Prefab == null)
             {
@@ -72,9 +89,12 @@ public class SceneController : MonoBehaviour
                 continue;
             }
 
-            // Find the fixed anchor by ID ！ if not in this scene, skip silently
             QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
-            if (anchor == null) continue;
+            if (anchor == null)
+            {
+                Debug.Log($"[SceneController] No QuestSpawnPoint '{record.SpawnPointID}' in this scene ！ belongs elsewhere, skipping.");
+                continue;
+            }
 
             Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
             respawned++;
