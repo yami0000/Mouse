@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 346462264913726235}
   - component: {fileID: 185143828275370574}
   - component: {fileID: 5153366338029104857}
+  - component: {fileID: 156202798260853948}
   m_Layer: 7
   m_Name: Enemy_Police
   m_TagString: Untagged
@@ -154,7 +155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8908210960347513776}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9999619, z: -0, w: 0.008726652}
+  m_LocalRotation: {x: 0, y: 0.9999619, z: 0, w: 0.008726652}
   m_LocalPosition: {x: 280.15, y: 119.64, z: 0}
   m_LocalScale: {x: 0.69, y: 0.69, z: 0.69}
   m_ConstrainProportionsScale: 1
@@ -165,7 +166,7 @@ Transform:
   - {fileID: 8328210477358733108}
   - {fileID: 7340692747199091793}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 179, z: 0}
 --- !u!114 &2261749093179479118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +202,8 @@ MonoBehaviour:
   attackCooldown: 1.75
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  deathFate: 1
+  destroyDelay: 0.5
   BattleState: 0
   stateTimer_Police: 0
   s: 14
@@ -394,6 +397,19 @@ MonoBehaviour:
     dropChance: 100
     rollTimes: 5
   dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
+--- !u!114 &156202798260853948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8908210960347513776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7015f1a43aa974b93a19154064bc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: Enemy_Police_001
 --- !u!1 &8910873359841385162
 GameObject:
   m_ObjectHideFlags: 0

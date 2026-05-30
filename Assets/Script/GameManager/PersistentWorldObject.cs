@@ -1,23 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PersistentWorldObject : MonoBehaviour
 {
-    [SerializeField] private string guid; // set manually or auto-generate
+    [SerializeField] private string guid; // set manually in the Inspector ¡ª must be globally unique
 
-    void Start()
+    /// <summary>Exposes the GUID so SceneController can read it during culling.</summary>
+    public string GUID => guid;
+
+    private void Awake()
     {
-        // If this object was destroyed in a previous session, destroy it again
-        if (GameManager.Instance.WasDestroyed(guid))
+        if (string.IsNullOrEmpty(guid))
+        {
+            Debug.LogError($"[PersistentWorldObject] '{gameObject.name}' has no GUID set! " +
+                           "Assign a unique ID in the Inspector.", gameObject);
+            return;
+        }
+
+        // Awake-time check: cull immediately if already recorded as destroyed.
+        // This is a safety net ¡ª SceneController.CullDestroyedObjects() handles
+        // the bulk pass, but Awake catches objects spawned after scene load too.
+        if (GameManager.Instance != null && GameManager.Instance.WasDestroyed(guid))
         {
             Destroy(gameObject);
-            return;
         }
     }
 
+    /// <summary>
+    /// Permanently destroys this object. It will never appear again in any scene
+    /// or session as long as GameManager state persists.
+    /// </summary>
     public void DestroyPersistently()
     {
+        if (string.IsNullOrEmpty(guid))
+        {
+            Debug.LogError($"[PersistentWorldObject] Cannot permanently destroy '{gameObject.name}': no GUID set.");
+            return;
+        }
+
         GameManager.Instance.RecordDestroyed(guid);
         Destroy(gameObject);
     }

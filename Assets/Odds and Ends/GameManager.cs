@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn;
 using Yarn.Unity;
+
 [System.Serializable]
 public class GameState
 {
@@ -25,12 +26,12 @@ public class GameState
 
 public class GameManager : SingletonMonobehaviour<GameManager>
 {
-
     public GameState State { get; private set; } = new();
+
     [SerializeField] private int Num;
-   // private Rigidbody2D rb;
     private DialogueRunner DialogueRunner;
-    [HideInInspector]public bool isUIOpened;
+
+    [HideInInspector] public bool isUIOpened;
     [HideInInspector] public bool isInteract;
     [HideInInspector] public bool isInteractGrandma;
     public bool isMantisBossFightStarted;
@@ -43,22 +44,18 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [HideInInspector] public int ScorpionHealth;
     [HideInInspector] public int ScorpionMaxHealth;
 
-    public Vector2 GetMouse(bool restrict) 
+    public Vector2 GetMouse(bool restrict)
     {
         if (PlayerManager.Instance.player != null)
         {
-
             Vector3 mouseScreenPos = Input.mousePosition;
-
             mouseScreenPos.z = Mathf.Abs(Camera.main.transform.position.z);
-
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
             Vector2 direction = (mouseWorldPos - PlayerManager.Instance.player.transform.position).normalized;
 
-
-
-            direction.x =PlayerManager.Instance.player.facingDir == 1 ? Mathf.Max(direction.x, 0.1f) : Mathf.Min(direction.x, -0.1f);
+            direction.x = PlayerManager.Instance.player.facingDir == 1
+                ? Mathf.Max(direction.x, 0.1f)
+                : Mathf.Min(direction.x, -0.1f);
 
             if (restrict)
             {
@@ -67,53 +64,36 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 direction.y = Mathf.Clamp(direction.y, -limit, limit);
             }
 
-            
-            direction = direction.normalized;
-
-
-
-            return direction;
+            return direction.normalized;
         }
-        else 
+        else
             return Vector2.zero;
     }
+
     private void Start()
     {
-       
         isMantisAlive = true;
         SceneManager.LoadSceneAsync(Num);
         ani = PlayerManager.Instance.player.GetComponentInChildren<Animator>();
-        // SceneController.Instance.LoadScene("Scene name");
-
     }
 
     private void Update()
     {
-        
-
-
         DialogueRunner = FindObjectOfType<DialogueRunner>();
 
-         
-        
-           if (DialogueRunner != null && DialogueRunner.IsDialogueRunning || isUIOpened || isInteract)
-            {
-
-                Player playerScript = FindObjectOfType<Player>();
-                playerScript.enabled = false;
-                //ani.enabled = false ;    
-                 
-            }
-            else
-            {
-                Player playerScript = FindObjectOfType<Player>();
-                playerScript.enabled = true;
-                //ani.enabled = true;
+        if (DialogueRunner != null && DialogueRunner.IsDialogueRunning || isUIOpened || isInteract)
+        {
+            Player playerScript = FindObjectOfType<Player>();
+            playerScript.enabled = false;
         }
-         
+        else
+        {
+            Player playerScript = FindObjectOfType<Player>();
+            playerScript.enabled = true;
+        }
     }
 
-    // ©¤©¤ Quest State ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ©¤©¤ Quest State ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
     public void RecordObjectiveCompleted(string key)
     {
@@ -125,7 +105,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         if (!State.completedQuests.Contains(id))
             State.completedQuests.Add(id);
-
         State.activeQuests.Remove(id);
     }
 
@@ -139,14 +118,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public bool IsQuestCompleted(string id) => State.completedQuests.Contains(id);
     public bool IsQuestActive(string id) => State.activeQuests.Contains(id);
 
-    // ©¤©¤ World Flags ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
-    // General purpose ¡ª use for anything that doesn't fit elsewhere
-    // e.g. "met_elder", "bridge_destroyed", "dungeon_unlocked"
+    // ©¤©¤ World Flags ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
     public void SetFlag(string flag, bool value) => State.worldFlags[flag] = value;
     public bool GetFlag(string flag) => State.worldFlags.TryGetValue(flag, out bool v) && v;
 
-    // ©¤©¤ World Objects ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ©¤©¤ World Objects ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
     public void RecordDestroyed(string guid)
     {
@@ -163,7 +140,15 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public bool WasDestroyed(string guid) => State.destroyedObjects.Contains(guid);
     public bool WasSpawned(string guid) => State.spawnedObjects.Contains(guid);
 
-   
+    // ©¤©¤ Scene Loading ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
+    /// <summary>
+    /// Load a scene by index. SceneController should call this so GameManager
+    /// stays in the loop (future: pre-cull lists, save state before transition, etc.)
+    /// </summary>
+    public void LoadScene(int index)
+    {
+        State.currentScene = index.ToString();
+        SceneManager.LoadSceneAsync(index);
+    }
 }
-
-

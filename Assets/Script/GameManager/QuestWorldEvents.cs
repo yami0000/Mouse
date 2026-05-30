@@ -43,18 +43,11 @@ public class QuestWorldEvent : MonoBehaviour
     }
 
     void ApplyObjectiveConsequences()
-    {
-        if (objectivePrefabToSpawn != null)
-            Instantiate(objectivePrefabToSpawn, objectiveSpawnPoint.position, Quaternion.identity);
-        if (objectiveObjectToDestroy != null)
-            Destroy(objectiveObjectToDestroy);
+    { 
     }
 
     void ApplyQuestConsequences()
     {
-        if (questPrefabToSpawn != null)
-            Instantiate(questPrefabToSpawn, questSpawnPoint.position, Quaternion.identity);
-        if (questObjectToDestroy != null)
-            Destroy(questObjectToDestroy);
+        
     }
 }

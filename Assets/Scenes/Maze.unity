@@ -6191,13 +6191,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3180674525481005095, guid: 399621219dd98064dac2798cdebb3e94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313167881}
   m_SourcePrefab: {fileID: 100100000, guid: 399621219dd98064dac2798cdebb3e94, type: 3}
 --- !u!4 &313167879 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8757622261689664932, guid: 399621219dd98064dac2798cdebb3e94, type: 3}
   m_PrefabInstance: {fileID: 313167878}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &313167880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3180674525481005095, guid: 399621219dd98064dac2798cdebb3e94, type: 3}
+  m_PrefabInstance: {fileID: 313167878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &313167881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313167880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7015f1a43aa974b93a19154064bc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: Enemy_SelfDes_001
 --- !u!1001 &322483136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8524,6 +8545,72 @@ Transform:
   - {fileID: 844648277}
   m_Father: {fileID: 1294819608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &480522415
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1927143158}
+    m_Modifications:
+    - target: {fileID: 185143828275370574, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: MaxHP.BaseValue
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 291.70807
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 119.769806
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.008726652
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9999619
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908210960347513776, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+      propertyPath: m_Name
+      value: Enemy_Police
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+--- !u!4 &480522416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6793270443604147125, guid: b51d525bcf969a1429eda1bf0d1d42ea, type: 3}
+  m_PrefabInstance: {fileID: 480522415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &481778290
 GameObject:
   m_ObjectHideFlags: 0
@@ -28189,6 +28276,8 @@ MonoBehaviour:
   attackCooldown: 0
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  deathFate: 0
+  destroyDelay: 0.5
   BattleState: 0
   player: {fileID: 0}
   P: 0
@@ -33396,6 +33485,8 @@ MonoBehaviour:
   attackCooldown: 0.5
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  deathFate: 0
+  destroyDelay: 0.5
   BattleState: 0
   transitionDuration: 0.2
   moveDuration: 0.75
@@ -35253,6 +35344,7 @@ Transform:
   - {fileID: 632975229}
   - {fileID: 737490758}
   - {fileID: 313167879}
+  - {fileID: 480522416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1947272176
@@ -41385,6 +41477,8 @@ MonoBehaviour:
   attackCooldown: 0
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  deathFate: 0
+  destroyDelay: 0.5
   BattleState: 0
   stateTimer_Mantis: 0
   damageDetect: {fileID: 1061891160546847000}
