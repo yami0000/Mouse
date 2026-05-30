@@ -1,18 +1,19 @@
 using UnityEngine;
 
 /// <summary>
-/// Marker component. Place this on an empty GameObject in any scene
-/// to define a fixed spawn location for quest-driven prefabs.
+/// Fixed spawn anchor. Place one on an empty GameObject in each scene
+/// where a quest event needs to instantiate a prefab.
 ///
-/// QuestWorldEvent finds it at runtime by spawnPointID ¡ª no cross-scene
-/// dragging required. The ID just needs to match what you type in
-/// QuestWorldEvent's Inspector field.
+/// QuestWorldEvent holds a direct reference to this in the Inspector.
+/// QuestWorldState.SpawnRecord stores the spawnPointID string.
+/// SceneController uses QuestSpawnPoint.Find(spawnPointID) on scene reload
+/// to locate the anchor and re-instantiate persistent spawns.
 ///
 /// Example IDs: "MainCity_QuestSpawn_A", "BugRegion_BossArena_Spawn"
 /// </summary>
 public class QuestSpawnPoint : MonoBehaviour
 {
-    [Tooltip("Unique ID for this spawn point. Must match the spawnPointID field in QuestWorldEvent.")]
+    [Tooltip("Unique ID for this anchor. Must match what QuestWorldEvent passes to RegisterSpawned.")]
     public string spawnPointID;
 
     // ©¤©¤ Static Lookup ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
@@ -26,16 +27,16 @@ public class QuestSpawnPoint : MonoBehaviour
         if (string.IsNullOrEmpty(id)) return null;
 
         foreach (var point in FindObjectsByType<QuestSpawnPoint>(FindObjectsSortMode.None))
-        {
             if (point.spawnPointID == id)
                 return point;
-        }
 
-        Debug.LogWarning($"[QuestSpawnPoint] No spawn point found with ID '{id}' in scene '{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}'.");
+        Debug.LogWarning($"[QuestSpawnPoint] No spawn point with ID '{id}' found in scene " +
+                         $"'{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}'.");
         return null;
     }
 
-    // Draw a visible gizmo in the editor so you can see spawn points
+    // ©¤©¤ Gizmos ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.2f, 0.9f, 0.4f, 0.8f);
@@ -43,7 +44,7 @@ public class QuestSpawnPoint : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up * 0.6f);
 
 #if UNITY_EDITOR
-        UnityEditor.Handles.Label(transform.position + Vector3.up * 0.7f,
+        UnityEditor.Handles.Label(transform.position + Vector3.up * 0.75f,
             string.IsNullOrEmpty(spawnPointID) ? "(no ID)" : spawnPointID);
 #endif
     }

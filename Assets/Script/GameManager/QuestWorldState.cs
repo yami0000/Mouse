@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Singleton that persists across scenes and remembers which quests/objectives
-/// have been accepted, completed, etc. QuestWorldEvent reads from this on
-/// scene load to retroactively apply world consequences.
+/// DontDestroyOnLoad singleton. Remembers which quests/objectives
+/// were accepted/completed, and which prefab spawn GUIDs have been
+/// instantiated ¡ª including the prefab and spawnPointID needed to
+/// re-instantiate them when a scene reloads.
 /// </summary>
 public class QuestWorldState : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class QuestWorldState : MonoBehaviour
     private HashSet<string> completedObjectives = new();
     private HashSet<string> completedQuests = new();
 
-    // Tracks GUIDs of quest-spawned prefabs so they're never double-spawned
-    private HashSet<string> spawnedPrefabGUIDs = new();
+    // Stores full spawn records so SceneController can re-instantiate on reload
+    private Dictionary<string, SpawnRecord> spawnRecords = new();
 
-    // Named delegates so we can unsubscribe cleanly
+    // Named delegates for clean unsubscription
     private System.Action<string> onQuestAccepted;
     private System.Action<string> onObjectiveCompleted;
     private System.Action<string> onQuestCompleted;
@@ -26,7 +27,7 @@ public class QuestWorldState : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
-         
+        DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()
@@ -47,20 +48,50 @@ public class QuestWorldState : MonoBehaviour
         GameEvents.OnQuestCompleted -= onQuestCompleted;
     }
 
+    // ©¤©¤ Quest / Objective State ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
     public bool IsQuestAccepted(string id) => acceptedQuests.Contains(id);
     public bool IsObjectiveCompleted(string key) => completedObjectives.Contains(key);
     public bool IsQuestCompleted(string id) => completedQuests.Contains(id);
 
-    // ©¤©¤ Spawn GUID Tracking ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ©¤©¤ Spawn Record Tracking ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
     /// <summary>
-    /// Returns true if this spawn GUID has already been instantiated.
-    /// Prevents double-spawning when a scene reloads after the event fired.
+    /// Returns true if this spawnGUID has been registered (spawned at least once).
     /// </summary>
-    public bool WasSpawned(string spawnGUID) => spawnedPrefabGUIDs.Contains(spawnGUID);
+    public bool WasSpawned(string spawnGUID) => spawnRecords.ContainsKey(spawnGUID);
 
     /// <summary>
-    /// Records a spawn GUID as done. Called by QuestWorldEvent after spawning.
+    /// Registers a spawn record. Called by QuestWorldEvent the first time
+    /// a prefab is instantiated. Stores the prefab + spawnPointID so
+    /// SceneController can re-instantiate it on scene reload.
     /// </summary>
-    public void RegisterSpawned(string spawnGUID) => spawnedPrefabGUIDs.Add(spawnGUID);
+    public void RegisterSpawned(string spawnGUID, GameObject prefab, string spawnPointID)
+    {
+        if (!spawnRecords.ContainsKey(spawnGUID))
+            spawnRecords[spawnGUID] = new SpawnRecord(prefab, spawnPointID);
+    }
+
+    /// <summary>
+    /// Returns all spawn records ¡ª used by SceneController to re-instantiate
+    /// any persistent spawns that are no longer alive in the current scene.
+    /// </summary>
+    public IEnumerable<KeyValuePair<string, SpawnRecord>> GetAllSpawnRecords() => spawnRecords;
+}
+
+// ©¤©¤ Spawn Record ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
+/// <summary>
+/// Everything needed to re-instantiate a persistent quest spawn on scene reload.
+/// </summary>
+public class SpawnRecord
+{
+    public GameObject Prefab { get; }
+    public string SpawnPointID { get; }
+
+    public SpawnRecord(GameObject prefab, string spawnPointID)
+    {
+        Prefab = prefab;
+        SpawnPointID = spawnPointID;
+    }
 }

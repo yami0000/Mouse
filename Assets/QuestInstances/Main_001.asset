@@ -18,7 +18,7 @@ MonoBehaviour:
     me the bugs are researching something for the war.I need to infiltrate the lab
     in the RUST CITY,their industrial capital.
   objectives:
-  - objectiveID: 001
+  - objectiveID: main_001-1
     type: 2
     target: {fileID: 0}
     requiredAmount: 1

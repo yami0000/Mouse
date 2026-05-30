@@ -8,9 +8,7 @@ public class SceneController : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
         else
         {
             Destroy(gameObject);
@@ -20,31 +18,22 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        // Every time a scene loads, immediately destroy any objects
-        // that were permanently destroyed in a previous session.
         CullDestroyedObjects();
+        RespawnPersistentObjects();
     }
 
-    // ©¤©¤ Persistent Object Culling ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ©¤©¤ Cull permanently destroyed objects ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
-    /// <summary>
-    /// Finds every PersistentWorldObject in the scene and destroys any
-    /// whose GUID is recorded as destroyed in GameManager.
-    /// Called automatically on Start so you never see a "dead" object flicker.
-    /// </summary>
     private void CullDestroyedObjects()
     {
         if (GameManager.Instance == null)
         {
-            Debug.LogWarning("[SceneController] GameManager not found ¡ª skipping persistent object cull.");
+            Debug.LogWarning("[SceneController] GameManager not found ¡ª skipping cull.");
             return;
         }
 
-        PersistentWorldObject[] allObjects =
-            FindObjectsByType<PersistentWorldObject>(FindObjectsSortMode.None);
-
         int culled = 0;
-        foreach (PersistentWorldObject obj in allObjects)
+        foreach (var obj in FindObjectsByType<PersistentWorldObject>(FindObjectsSortMode.None))
         {
             if (GameManager.Instance.WasDestroyed(obj.GUID))
             {
@@ -57,12 +46,52 @@ public class SceneController : MonoBehaviour
             Debug.Log($"[SceneController] Culled {culled} permanently destroyed object(s).");
     }
 
+    // ©¤©¤ Re-spawn persistent quest objects ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
+    /// <summary>
+    /// On every scene load, checks QuestWorldState for registered spawn GUIDs.
+    /// Any that are not currently alive in the scene get re-instantiated at
+    /// their QuestSpawnPoint anchor.
+    ///
+    /// This is the fix for prefabs disappearing after revisiting a scene ¡ª
+    /// runtime instances are gone after a scene reload, so we bring them back.
+    /// </summary>
+    private void RespawnPersistentObjects()
+    {
+        if (QuestWorldState.Instance == null) return;
+
+        // Build a set of GUIDs currently alive in this scene
+        var aliveGUIDs = new System.Collections.Generic.HashSet<string>();
+        foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))
+            aliveGUIDs.Add(pso.SpawnGUID);
+
+        int respawned = 0;
+        foreach (var kv in QuestWorldState.Instance.GetAllSpawnRecords())
+        {
+            string spawnGUID = kv.Key;
+            SpawnRecord record = kv.Value;
+
+            // Already alive in scene ¡ª skip
+            if (aliveGUIDs.Contains(spawnGUID)) continue;
+
+            // Find the fixed anchor in this scene
+            QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
+
+            // Anchor not in this scene ¡ª this spawn belongs to a different scene, skip
+            if (anchor == null) continue;
+
+            Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
+            respawned++;
+            Debug.Log($"[SceneController] Respawned '{spawnGUID}' at '{record.SpawnPointID}'.");
+        }
+
+        if (respawned > 0)
+            Debug.Log($"[SceneController] Respawned {respawned} persistent object(s).");
+    }
+
     // ©¤©¤ Scene Loading ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
-    public void LoadSceneByIndex(int index)
-    {
-        GameManager.Instance.LoadScene(index);
-    }
+    public void LoadSceneByIndex(int index) => GameManager.Instance.LoadScene(index);
 
     public void ToMainCity() => LoadSceneByIndex(1);
     public void ToBugRegion() => LoadSceneByIndex(2);

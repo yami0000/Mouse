@@ -27836,7 +27836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1536643315}
-  - component: {fileID: 1536643314}
+  - component: {fileID: 1536643316}
   m_Layer: 0
   m_Name: WorldEvent
   m_TagString: Untagged
@@ -27844,35 +27844,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1536643314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1536643313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f41f36a26d200c4fa1be57dd3d0696f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questID: main_001
-  objectiveID: 001
-  acceptSceneName: Maze
-  acceptSpawnPrefab: {fileID: 8753916063235530748, guid: c94560b399cd51a4d9d3fe86594cfe8a, type: 3}
-  acceptSpawnPointID: main_001_001
-  acceptSpawnGUID: main_001_001_S
-  acceptDestroyGUID: ' '
-  objectiveSceneName: Maze
-  objectiveSpawnPrefab: {fileID: 7932031238012099093, guid: 786f9fb673349104eb3aa63eb4da127e, type: 3}
-  objectiveSpawnPointID: main_001_002
-  objectiveSpawnGUID: main_001_002_S
-  objectiveDestroyGUID: main_001_001_D
-  questSceneName: 
-  questSpawnPrefab: {fileID: 0}
-  questSpawnPointID: 
-  questSpawnGUID: 
-  questDestroyGUID: 
 --- !u!4 &1536643315
 Transform:
   m_ObjectHideFlags: 0
@@ -27890,6 +27861,31 @@ Transform:
   - {fileID: 1987496875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536643316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536643313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f41f36a26d200c4fa1be57dd3d0696f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onQuestAccepted:
+  - questID: main_001
+    spawnPrefab: {fileID: 8753916063235530748, guid: c94560b399cd51a4d9d3fe86594cfe8a, type: 3}
+    spawnPoint: {fileID: 1952383196629455886}
+    spawnGUID: main_001_S1
+    destroyGUID: ' '
+  onObjectiveCompleted:
+  - objectiveID: main_001-1
+    spawnPrefab: {fileID: 7932031238012099093, guid: 786f9fb673349104eb3aa63eb4da127e, type: 3}
+    spawnPoint: {fileID: 1987496876}
+    spawnGUID: main_001_S2
+    destroyGUID: main_001_D1
+  onQuestCompleted: []
 --- !u!1 &1541294914
 GameObject:
   m_ObjectHideFlags: 0
@@ -35321,7 +35317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7cf468fe0410409868b2be740360f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPointID: main_001_002
+  spawnPointID: main_001_S2
 --- !u!1 &1996750290
 GameObject:
   m_ObjectHideFlags: 0
@@ -39565,7 +39561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7cf468fe0410409868b2be740360f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPointID: main_001_001
+  spawnPointID: main_001_S1
 --- !u!1 &2310366594617707141
 GameObject:
   m_ObjectHideFlags: 0
