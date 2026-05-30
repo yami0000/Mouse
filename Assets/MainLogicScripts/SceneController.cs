@@ -48,19 +48,11 @@ public class SceneController : MonoBehaviour
 
     // ©¤©¤ Re-spawn persistent quest objects ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
-    /// <summary>
-    /// On every scene load, checks QuestWorldState for registered spawn GUIDs.
-    /// Any that are not currently alive in the scene get re-instantiated at
-    /// their QuestSpawnPoint anchor.
-    ///
-    /// This is the fix for prefabs disappearing after revisiting a scene ¡ª
-    /// runtime instances are gone after a scene reload, so we bring them back.
-    /// </summary>
     private void RespawnPersistentObjects()
     {
         if (QuestWorldState.Instance == null) return;
 
-        // Build a set of GUIDs currently alive in this scene
+        // Collect GUIDs of PersistentSpawnObjects already alive in this scene
         var aliveGUIDs = new System.Collections.Generic.HashSet<string>();
         foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))
             aliveGUIDs.Add(pso.SpawnGUID);
@@ -71,17 +63,23 @@ public class SceneController : MonoBehaviour
             string spawnGUID = kv.Key;
             SpawnRecord record = kv.Value;
 
-            // Already alive in scene ¡ª skip
+            // Already alive ¡ª skip
             if (aliveGUIDs.Contains(spawnGUID)) continue;
 
-            // Find the fixed anchor in this scene
-            QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
+            // Prefab asset went missing ¡ª this means self-registration
+            // was used (passed a live instance instead of prefab asset).
+            if (record.Prefab == null)
+            {
+                Debug.LogError($"[SceneController] Cannot respawn '{spawnGUID}' ¡ª " +
+                               "prefab reference is null. Make sure QuestWorldEvent.spawnPrefab " +
+                               "is a prefab asset, not a scene object.");
+                continue;
+            }
 
-            // Anchor not in this scene ¡ª this spawn belongs to a different scene, skip
+            // No anchor in this scene ¡ª belongs to a different scene, skip silently
+            QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
             if (anchor == null) continue;
 
-            // Record already exists in QuestWorldState from the original spawn,
-            // so PersistentSpawnObject.Awake() will see WasSpawned() = true.
             Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
             respawned++;
             Debug.Log($"[SceneController] Respawned '{spawnGUID}' at '{record.SpawnPointID}'.");
@@ -89,6 +87,8 @@ public class SceneController : MonoBehaviour
 
         if (respawned > 0)
             Debug.Log($"[SceneController] Respawned {respawned} persistent object(s).");
+        else
+            Debug.Log($"[SceneController] Nothing to respawn in '{SceneManager.GetActiveScene().name}'.");
     }
 
     // ©¤©¤ Scene Loading ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
