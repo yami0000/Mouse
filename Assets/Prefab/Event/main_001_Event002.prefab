@@ -462,6 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnGUID: main_001_S2
+  spawnPointID: main_001_2
 --- !u!1 &9112510273450548729
 GameObject:
   m_ObjectHideFlags: 0

@@ -80,6 +80,8 @@ public class SceneController : MonoBehaviour
             // Anchor not in this scene ¡ª this spawn belongs to a different scene, skip
             if (anchor == null) continue;
 
+            // Record already exists in QuestWorldState from the original spawn,
+            // so PersistentSpawnObject.Awake() will see WasSpawned() = true.
             Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
             respawned++;
             Debug.Log($"[SceneController] Respawned '{spawnGUID}' at '{record.SpawnPointID}'.");

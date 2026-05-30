@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnGUID: main_001_S1
+  spawnPointID: main_001_1

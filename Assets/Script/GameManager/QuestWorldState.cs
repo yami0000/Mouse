@@ -1,12 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// DontDestroyOnLoad singleton. Remembers which quests/objectives
-/// were accepted/completed, and which prefab spawn GUIDs have been
-/// instantiated ¡ª including the prefab and spawnPointID needed to
-/// re-instantiate them when a scene reloads.
-/// </summary>
 public class QuestWorldState : MonoBehaviour
 {
     public static QuestWorldState Instance { get; private set; }
@@ -15,10 +9,9 @@ public class QuestWorldState : MonoBehaviour
     private HashSet<string> completedObjectives = new();
     private HashSet<string> completedQuests = new();
 
-    // Stores full spawn records so SceneController can re-instantiate on reload
+    // Full spawn records ¡ª prefab asset + spawnPointID ¡ª for scene-reload respawning
     private Dictionary<string, SpawnRecord> spawnRecords = new();
 
-    // Named delegates for clean unsubscription
     private System.Action<string> onQuestAccepted;
     private System.Action<string> onObjectiveCompleted;
     private System.Action<string> onQuestCompleted;
@@ -56,15 +49,11 @@ public class QuestWorldState : MonoBehaviour
 
     // ©¤©¤ Spawn Record Tracking ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
-    /// <summary>
-    /// Returns true if this spawnGUID has been registered (spawned at least once).
-    /// </summary>
     public bool WasSpawned(string spawnGUID) => spawnRecords.ContainsKey(spawnGUID);
 
     /// <summary>
-    /// Registers a spawn record. Called by QuestWorldEvent the first time
-    /// a prefab is instantiated. Stores the prefab + spawnPointID so
-    /// SceneController can re-instantiate it on scene reload.
+    /// Called by QuestWorldEvent on first spawn ¡ª stores the prefab asset
+    /// and spawnPointID needed for scene-reload respawning.
     /// </summary>
     public void RegisterSpawned(string spawnGUID, GameObject prefab, string spawnPointID)
     {
@@ -72,18 +61,11 @@ public class QuestWorldState : MonoBehaviour
             spawnRecords[spawnGUID] = new SpawnRecord(prefab, spawnPointID);
     }
 
-    /// <summary>
-    /// Returns all spawn records ¡ª used by SceneController to re-instantiate
-    /// any persistent spawns that are no longer alive in the current scene.
-    /// </summary>
     public IEnumerable<KeyValuePair<string, SpawnRecord>> GetAllSpawnRecords() => spawnRecords;
 }
 
 // ©¤©¤ Spawn Record ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 
-/// <summary>
-/// Everything needed to re-instantiate a persistent quest spawn on scene reload.
-/// </summary>
 public class SpawnRecord
 {
     public GameObject Prefab { get; }

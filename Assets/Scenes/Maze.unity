@@ -35317,7 +35317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7cf468fe0410409868b2be740360f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPointID: main_001_S2
+  spawnPointID: main_001_2
 --- !u!1 &1996750290
 GameObject:
   m_ObjectHideFlags: 0
@@ -39561,7 +39561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c7cf468fe0410409868b2be740360f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPointID: main_001_S1
+  spawnPointID: main_001_1
 --- !u!1 &2310366594617707141
 GameObject:
   m_ObjectHideFlags: 0
