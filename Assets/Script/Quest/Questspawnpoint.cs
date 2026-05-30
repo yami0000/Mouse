@@ -13,8 +13,19 @@ using UnityEngine;
 /// </summary>
 public class QuestSpawnPoint : MonoBehaviour
 {
-    [Tooltip("Unique ID for this anchor. Must match what QuestWorldEvent passes to RegisterSpawned.")]
+    [Tooltip("Unique ID for this anchor. Defaults to the GameObject name if left empty.")]
     public string spawnPointID;
+
+    private void Awake()
+    {
+        // Auto-assign from GameObject name if not set ¡ª prevents silent empty-ID bugs
+        if (string.IsNullOrEmpty(spawnPointID))
+        {
+            spawnPointID = gameObject.name;
+            Debug.LogWarning($"[QuestSpawnPoint] No ID set ¡ª using GameObject name '{spawnPointID}'. " +
+                             "Set a proper ID in the Inspector to avoid name-change bugs.");
+        }
+    }
 
     // ©¤©¤ Static Lookup ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
 

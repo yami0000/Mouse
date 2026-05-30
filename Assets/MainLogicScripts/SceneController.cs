@@ -63,20 +63,16 @@ public class SceneController : MonoBehaviour
             string spawnGUID = kv.Key;
             SpawnRecord record = kv.Value;
 
-            // Already alive ！ skip
+            // Already alive in scene ！ skip
             if (aliveGUIDs.Contains(spawnGUID)) continue;
 
-            // Prefab asset went missing ！ this means self-registration
-            // was used (passed a live instance instead of prefab asset).
             if (record.Prefab == null)
             {
-                Debug.LogError($"[SceneController] Cannot respawn '{spawnGUID}' ！ " +
-                               "prefab reference is null. Make sure QuestWorldEvent.spawnPrefab " +
-                               "is a prefab asset, not a scene object.");
+                Debug.LogError($"[SceneController] Cannot respawn '{spawnGUID}' ！ prefab is null.");
                 continue;
             }
 
-            // No anchor in this scene ！ belongs to a different scene, skip silently
+            // Find the fixed anchor by ID ！ if not in this scene, skip silently
             QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
             if (anchor == null) continue;
 
