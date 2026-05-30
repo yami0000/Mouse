@@ -7,13 +7,16 @@ public class SceneController : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
+        // SceneController is NOT DontDestroyOnLoad ¡ª a fresh one lives in every scene.
+        // If somehow two exist in the same scene, destroy the duplicate.
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
+
+        instance = this;
+        // Do NOT call DontDestroyOnLoad here.
     }
 
     private void Start()
@@ -50,38 +53,20 @@ public class SceneController : MonoBehaviour
 
     private void RespawnPersistentObjects()
     {
-        if (QuestWorldState.Instance == null)
-        {
-            Debug.LogWarning("[SceneController] QuestWorldState is null ¡ª skipping respawn.");
-            return;
-        }
+        if (QuestWorldState.Instance == null) return;
 
         // Collect GUIDs of PersistentSpawnObjects already alive in this scene
         var aliveGUIDs = new System.Collections.Generic.HashSet<string>();
         foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))
-        {
             aliveGUIDs.Add(pso.SpawnGUID);
-            Debug.Log($"[SceneController] Alive PersistentSpawnObject found: '{pso.SpawnGUID}'");
-        }
-
-        var records = new System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, SpawnRecord>>(
-            QuestWorldState.Instance.GetAllSpawnRecords());
-
-        Debug.Log($"[SceneController] Total spawn records in QuestWorldState: {records.Count}");
 
         int respawned = 0;
-        foreach (var kv in records)
+        foreach (var kv in QuestWorldState.Instance.GetAllSpawnRecords())
         {
             string spawnGUID = kv.Key;
             SpawnRecord record = kv.Value;
 
-            Debug.Log($"[SceneController] Checking record '{spawnGUID}' | SpawnPointID: '{record.SpawnPointID}' | Prefab: {(record.Prefab == null ? "NULL" : record.Prefab.name)}");
-
-            if (aliveGUIDs.Contains(spawnGUID))
-            {
-                Debug.Log($"[SceneController] '{spawnGUID}' already alive ¡ª skipping.");
-                continue;
-            }
+            if (aliveGUIDs.Contains(spawnGUID)) continue;
 
             if (record.Prefab == null)
             {
@@ -89,12 +74,9 @@ public class SceneController : MonoBehaviour
                 continue;
             }
 
+            // No anchor in this scene ¡ª belongs to a different scene, skip silently
             QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
-            if (anchor == null)
-            {
-                Debug.Log($"[SceneController] No QuestSpawnPoint '{record.SpawnPointID}' in this scene ¡ª belongs elsewhere, skipping.");
-                continue;
-            }
+            if (anchor == null) continue;
 
             Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
             respawned++;
@@ -103,8 +85,6 @@ public class SceneController : MonoBehaviour
 
         if (respawned > 0)
             Debug.Log($"[SceneController] Respawned {respawned} persistent object(s).");
-        else
-            Debug.Log($"[SceneController] Nothing to respawn in '{SceneManager.GetActiveScene().name}'.");
     }
 
     // ©¤©¤ Scene Loading ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
