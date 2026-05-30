@@ -20,7 +20,7 @@ public class QuestWorldState : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     void OnEnable()

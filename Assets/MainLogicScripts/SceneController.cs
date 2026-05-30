@@ -55,6 +55,8 @@ public class SceneController : MonoBehaviour
     {
         if (QuestWorldState.Instance == null) return;
 
+        Debug.Log("Running Respawn");
+
         // Collect GUIDs of PersistentSpawnObjects already alive in this scene
         var aliveGUIDs = new System.Collections.Generic.HashSet<string>();
         foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))

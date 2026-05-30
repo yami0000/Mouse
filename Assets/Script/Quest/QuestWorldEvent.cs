@@ -134,7 +134,14 @@ public class QuestWorldEvent : MonoBehaviour
     {
         if (prefab == null || spawnPoint == null) return;
 
-        // Already registered ！ SceneController will handle respawn on scene reload
+        if (QuestWorldState.Instance == null)
+        {
+            Debug.LogError("[QuestWorldEvent] QuestWorldState not found ！ " +
+                           "make sure it exists in your bootstrap scene.");
+            return;
+        }
+
+        // Already registered ！ SceneController will respawn it on scene reload
         if (!string.IsNullOrEmpty(spawnGUID) && QuestWorldState.Instance.WasSpawned(spawnGUID))
         {
             Debug.Log($"[QuestWorldEvent] '{spawnGUID}' already registered ！ skipping.");
@@ -142,7 +149,6 @@ public class QuestWorldEvent : MonoBehaviour
         }
 
         // Register BEFORE Instantiate so PersistentSpawnObject.Awake() sees it
-        // and doesn't warn. Awake fires synchronously inside Instantiate.
         if (!string.IsNullOrEmpty(spawnGUID))
             QuestWorldState.Instance.RegisterSpawned(spawnGUID, prefab, spawnPoint.spawnPointID);
 

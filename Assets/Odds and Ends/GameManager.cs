@@ -151,4 +151,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         State.currentScene = index.ToString();
         SceneManager.LoadSceneAsync(index);
     }
+
+    public void LoadSceneByIndex(int index) => LoadScene(index);
+
+    public void ToMainCity() => LoadSceneByIndex(1);
+    public void ToBugRegion() => LoadSceneByIndex(2);
+    public void ToLava() => LoadSceneByIndex(3);
+    public void ToBattleField() => LoadSceneByIndex(4);
 }
