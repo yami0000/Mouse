@@ -8049,8 +8049,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 871780450}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 948861393}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: ToMainCity
         m_Mode: 1
         m_Arguments:
@@ -15673,6 +15673,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941262542}
   m_CullTransparentMesh: 1
+--- !u!114 &948861393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5320761385392426688, guid: cde8510da4bd3f145b54b10c585e355e, type: 3}
+  m_PrefabInstance: {fileID: 979915536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f109519807172458544b96dba69184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &949232222
 GameObject:
   m_ObjectHideFlags: 0
@@ -21519,8 +21530,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 871780450}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 948861393}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: ToBugRegion
         m_Mode: 1
         m_Arguments:
@@ -38927,8 +38938,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 871780450}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 948861393}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: ToLava
         m_Mode: 1
         m_Arguments:

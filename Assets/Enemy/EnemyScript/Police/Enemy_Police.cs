@@ -163,7 +163,7 @@ public class Enemy_Police : Enemy
         GameObject M = Instantiate(motionPrefab, __Transform.position, Quaternion.identity);
         Animator anim = M.GetComponent<Animator>();
         float duration = anim.GetCurrentAnimatorStateInfo(0).length;
-        Debug.Log(duration);
+         
         Destroy(M,duration);
         yield return null;
     }

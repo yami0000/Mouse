@@ -44,6 +44,89 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [HideInInspector] public int ScorpionHealth;
     [HideInInspector] public int ScorpionMaxHealth;
 
+    private void Awake()
+    {
+        // Ensure GameManager persists across all scene loads
+        if (FindObjectsByType<GameManager>(FindObjectsSortMode.None).Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// Fires every time a new scene finishes loading.
+    /// Culls permanently destroyed objects and respawns persistent quest objects.
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        CullDestroyedObjects();
+        RespawnPersistentObjects();
+    }
+
+    private void CullDestroyedObjects()
+    {
+        int culled = 0;
+        foreach (var obj in FindObjectsByType<PersistentWorldObject>(FindObjectsSortMode.None))
+        {
+            if (WasDestroyed(obj.GUID))
+            {
+                Destroy(obj.gameObject);
+                culled++;
+            }
+        }
+
+        if (culled > 0)
+            Debug.Log($"[GameManager] Culled {culled} permanently destroyed object(s).");
+    }
+
+    private void RespawnPersistentObjects()
+    {
+        if (QuestWorldState.Instance == null) return;
+
+        Debug.Log("ReSpawned");
+
+        var aliveGUIDs = new HashSet<string>();
+        foreach (var pso in FindObjectsByType<PersistentSpawnObject>(FindObjectsSortMode.None))
+            aliveGUIDs.Add(pso.SpawnGUID);
+
+        int respawned = 0;
+        foreach (var kv in QuestWorldState.Instance.GetAllSpawnRecords())
+        {
+            string spawnGUID = kv.Key;
+            SpawnRecord record = kv.Value;
+
+            if (aliveGUIDs.Contains(spawnGUID)) continue;
+
+            if (record.Prefab == null)
+            {
+                Debug.LogError($"[GameManager] Cannot respawn '{spawnGUID}' ¡ª prefab is null.");
+                continue;
+            }
+
+            QuestSpawnPoint anchor = QuestSpawnPoint.Find(record.SpawnPointID);
+            if (anchor == null) continue;
+
+            Instantiate(record.Prefab, anchor.transform.position, anchor.transform.rotation);
+            respawned++;
+            Debug.Log($"[GameManager] Respawned '{spawnGUID}' at '{record.SpawnPointID}'.");
+        }
+
+        if (respawned > 0)
+            Debug.Log($"[GameManager] Respawned {respawned} persistent object(s).");
+    }
+
     public Vector2 GetMouse(bool restrict)
     {
         if (PlayerManager.Instance.player != null)
@@ -151,11 +234,4 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         State.currentScene = index.ToString();
         SceneManager.LoadSceneAsync(index);
     }
-
-    public void LoadSceneByIndex(int index) => LoadScene(index);
-
-    public void ToMainCity() => LoadSceneByIndex(1);
-    public void ToBugRegion() => LoadSceneByIndex(2);
-    public void ToLava() => LoadSceneByIndex(3);
-    public void ToBattleField() => LoadSceneByIndex(4);
 }
