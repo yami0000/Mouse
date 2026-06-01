@@ -14,6 +14,9 @@ public class SheepSoilderWalkState : NPCstate
     public override void Enter()
     {
         base.Enter();
+
+        // New random stopping gap for this follow run, so it doesn't always park at the same distance.
+        sheep.PickNewStopDistance();
     }
 
     public override void Exit()
@@ -33,32 +36,25 @@ public class SheepSoilderWalkState : NPCstate
 
         float dist = sheep.XDistanceToPlayer();
 
-        // Reached the inner ring -> stop following.
-        // The gap between stopDistanceX and followStartDistanceX prevents start/stop jitter.
-        if (dist <= sheep.stopDistanceX)
+        // Reached the (randomised) stopping gap -> hand off to idle, which eases the rest of the speed off.
+        if (dist <= sheep.currentStopDistance)
         {
             stateMachine.ChangeState(sheep.idleState);
             return;
         }
 
-        int dir = sheep.DirectionToPlayerX();
-
-        // Ledge / wall safety: do not walk off platforms or push into walls.
-        // Since platform-jumping is intentionally ignored, the sheep just waits at the edge.
-        if (sheep.useLedgeAndWallSafety && (sheep.IsWallDetected() || !sheep.IsGroundDetected()))
+        // Ledge / wall safety: wait at the edge instead of falling off or grinding into a wall.
+        if (sheep.IsBlockedAhead())
         {
-            sheep.Setvelocity(0f, rb.velocity.y);
+            sheep.DecelerateToStop();
             sheep.FacePlayer();
-            sheep.TryWarpToPlayer(); // optional rescue if it is stuck and far away
+            sheep.TryWarpToPlayer(); // optional rescue if stuck and far away
             return;
         }
 
-        // Smoothly ramp toward the target speed instead of snapping to it.
-        // MoveTowards from the current velocity gives the follow a slight weight/lag.
-        float targetVelX = dir * sheep.CurrentFollowSpeed();
-        float newVelX = Mathf.MoveTowards(rb.velocity.x, targetVelX, sheep.acceleration * Time.deltaTime);
-
-        // Setvelocity also auto-flips the sprite based on the sign of newVelX.
-        sheep.Setvelocity(newVelX, rb.velocity.y);
+        // Aim for a point currentStopDistance short of the player; MoveTowardsX eases in as it arrives.
+        int dir = sheep.DirectionToPlayerX();
+        float targetX = sheep.Player.position.x - dir * sheep.currentStopDistance;
+        sheep.MoveTowardsX(targetX, sheep.CurrentFollowSpeed());
     }
 }

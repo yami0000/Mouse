@@ -6,6 +6,7 @@ public class NPC_SheepSoilder : NPC
 {
     public SheepSoilderIdleState idleState { get; private set; }
     public SheepSoilderWalkState walkState { get; private set; }
+    public SheepSoilderWanderState wanderState { get; private set; }
     public SheepSoilderDeathState deathState { get; private set; }
 
     [HideInInspector] public float stateTimer_SheepSoilder;
@@ -15,25 +16,43 @@ public class NPC_SheepSoilder : NPC
     public bool isFollowing = true;
     [Tooltip("Outer X distance. If the player gets farther than this on the X axis, the sheep starts following.")]
     public float followStartDistanceX = 3f;
-    [Tooltip("Inner X distance. The sheep stops once it gets this close. MUST be smaller than followStartDistanceX (this gap is the 'circle' the sheep can relax in).")]
-    public float stopDistanceX = 1.5f;
-    [Tooltip("Seconds the sheep waits after the player leaves the follow range before reacting. This is the natural 'lag'.")]
+    [Tooltip("Minimum gap the sheep stops at. Each follow run a random gap between min and max is chosen so it never parks at the exact same spot.")]
+    public float stopDistanceXMin = 1.2f;
+    [Tooltip("Maximum gap the sheep stops at. Keep this smaller than followStartDistanceX.")]
+    public float stopDistanceXMax = 2.2f;
+    [Tooltip("Seconds the sheep waits after the player leaves the follow range before reacting. This is the natural reaction 'lag'.")]
     public float reactionDelay = 0.25f;
 
     [Header("Follow Movement")]
     public float followSpeed = 6f;
-    [Tooltip("How fast the sheep ramps its speed up/down. High = snappy, low = floaty/heavy. This smoothing is the second source of natural lag.")]
+    [Tooltip("How fast the sheep ramps speed up / eases speed down while moving. High = snappy, low = floaty.")]
     public float acceleration = 30f;
+    [Tooltip("How fast the sheep bleeds off speed when stopping. Lower = longer, smoother glide to a halt.")]
+    public float deceleration = 18f;
+    [Tooltip("Distance from the target at which the sheep starts slowing down (arrival easing). Larger = earlier, gentler braking.")]
+    public float arrivalDistance = 1.5f;
     [Tooltip("If the player gets this far in X, the sheep speeds up so it does not get left behind forever.")]
     public float catchUpDistanceX = 8f;
     public float catchUpSpeedMultiplier = 1.6f;
 
+    [Header("Idle Wander")]
+    [Tooltip("After staying near the player this long (a random value between min and max), the sheep starts wandering freely.")]
+    public float idleBeforeWanderMin = 1.5f;
+    public float idleBeforeWanderMax = 3.5f;
+    [Tooltip("Slow stroll speed used while wandering.")]
+    public float wanderSpeed = 2f;
+    [Tooltip("How far from the player (in X) the sheep is allowed to wander. Keep smaller than followStartDistanceX so it stays inside the ring.")]
+    public float wanderRange = 2.5f;
+
     [Header("Follow Safety")]
-    [Tooltip("If true, the sheep stops at ledges and walls instead of falling off / pushing into them. Requires groundCheck and wallCheck to be assigned on the prefab.")]
+    [Tooltip("If true, the sheep stops at ledges and walls instead of falling off / pushing into them. Requires groundCheck and wallCheck on the prefab.")]
     public bool useLedgeAndWallSafety = true;
     [Tooltip("If true, the sheep teleports near the player when hopelessly far (e.g. stuck across platforms it cannot jump to).")]
     public bool allowWarp = false;
     public float warpDistanceX = 20f;
+
+    // Chosen per follow run so the stopping gap varies.
+    [HideInInspector] public float currentStopDistance;
 
     private Transform player;
 
@@ -43,6 +62,7 @@ public class NPC_SheepSoilder : NPC
 
         idleState = new SheepSoilderIdleState(this, stateMachine, "Idle", this);
         walkState = new SheepSoilderWalkState(this, stateMachine, "Walk", this);
+        wanderState = new SheepSoilderWanderState(this, stateMachine, "Walk", this);
         deathState = new SheepSoilderDeathState(this, stateMachine, "Idle", this);
     }
 
@@ -53,6 +73,7 @@ public class NPC_SheepSoilder : NPC
         if (PlayerManager.Instance != null && PlayerManager.Instance.player != null)
             player = PlayerManager.Instance.player.transform;
 
+        currentStopDistance = stopDistanceXMin;
         stateMachine.Initialize(idleState);
     }
 
@@ -96,14 +117,49 @@ public class NPC_SheepSoilder : NPC
     public float CurrentFollowSpeed()
         => XDistanceToPlayer() > catchUpDistanceX ? followSpeed * catchUpSpeedMultiplier : followSpeed;
 
-    // Last-resort rescue when the sheep is stuck and the player is very far (different platform, etc.).
+    // Pick a fresh random stopping gap so the sheep does not always halt at the same distance.
+    public void PickNewStopDistance()
+        => currentStopDistance = Random.Range(stopDistanceXMin, stopDistanceXMax);
+
+    public bool IsBlockedAhead()
+        => useLedgeAndWallSafety && (IsWallDetected() || !IsGroundDetected());
+
+    // Drive horizontal velocity toward a world-space X, easing down near the target (arrival behaviour).
+    public void MoveTowardsX(float targetX, float maxSpeed)
+    {
+        if (IsBlockedAhead())
+        {
+            DecelerateToStop();
+            return;
+        }
+
+        float toTarget = targetX - transform.position.x;
+        float dist = Mathf.Abs(toTarget);
+        int dir = toTarget >= 0f ? 1 : -1;
+
+        // Scale the target speed down as we approach so we ease in instead of snapping.
+        float arrive = arrivalDistance > 0f ? Mathf.Clamp01(dist / arrivalDistance) : 1f;
+        float targetVelX = dir * maxSpeed * arrive;
+
+        float newVelX = Mathf.MoveTowards(rb.velocity.x, targetVelX, acceleration * Time.deltaTime);
+        Setvelocity(newVelX, rb.velocity.y); // Setvelocity auto-flips by the sign of newVelX
+    }
+
+    // Smoothly bleed horizontal speed to zero (the deceleration / glide-to-stop).
+    public void DecelerateToStop()
+    {
+        float newVelX = Mathf.MoveTowards(rb.velocity.x, 0f, deceleration * Time.deltaTime);
+        Setvelocity(newVelX, rb.velocity.y);
+    }
+
+    // Last-resort rescue when the sheep is stuck and the player is very far.
     public void TryWarpToPlayer()
     {
         if (!allowWarp || player == null) return;
         if (XDistanceToPlayer() <= warpDistanceX) return;
 
         Vector3 p = player.position;
-        p.x -= DirectionToPlayerX() * stopDistanceX; // land just behind the player
+        p.x -= DirectionToPlayerX() * currentStopDistance; // land just behind the player
         transform.position = p;
     }
 

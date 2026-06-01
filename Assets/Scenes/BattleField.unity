@@ -5778,7 +5778,7 @@ Transform:
   m_GameObject: {fileID: 797286301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 0}
+  m_LocalPosition: {x: 1.81, y: -0.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5809,7 +5809,7 @@ Transform:
   m_GameObject: {fileID: 812804627}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31528,7 +31528,7 @@ GameObject:
   - component: {fileID: 1677048839}
   - component: {fileID: 1677048841}
   - component: {fileID: 1677048840}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ani
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31544,7 +31544,7 @@ Transform:
   m_GameObject: {fileID: 1677048838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8176, y: 0.7976, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.63323355, y: 0.63323355, z: 0.63323355}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31614,7 +31614,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: f77ceb8e3c1cdf643ace76fbd41f7f1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -31801,7 +31801,7 @@ Transform:
   m_GameObject: {fileID: 1700870615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.36, y: -1.58, z: 0}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31871,8 +31871,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.7393265, y: 0.63931656}
-  m_Size: {x: 2.9403534, y: 4.591362}
+  m_Offset: {x: -0.18625641, y: -0.10472107}
+  m_Size: {x: 2.9862518, y: 4.480179}
   m_Direction: 0
 --- !u!114 &1700870619
 MonoBehaviour:
@@ -31889,26 +31889,34 @@ MonoBehaviour:
   knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
   groundCheck: {fileID: 797286302}
-  groundCheckDistance: 2.29
+  groundCheckDistance: 2.37
   wallCheck: {fileID: 812804628}
-  wallCheckDistance: 3.01
+  wallCheckDistance: 2.32
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
   facingDir: 1
   isBackingup: 0
   stateTimer_SheepSoilder: 0
-  isFollowing: 1
-  followStartDistanceX: 9
-  stopDistanceX: 7
+  isFollowing: 0
+  followStartDistanceX: 10
+  stopDistanceXMin: 7.5
+  stopDistanceXMax: 9
   reactionDelay: 0.15
   followSpeed: 10
   acceleration: 40
+  deceleration: 18
+  arrivalDistance: 1.5
   catchUpDistanceX: 15
   catchUpSpeedMultiplier: 1.6
+  idleBeforeWanderMin: 1.5
+  idleBeforeWanderMax: 3.5
+  wanderSpeed: 2
+  wanderRange: 3
   useLedgeAndWallSafety: 1
   allowWarp: 1
   warpDistanceX: 25
+  currentStopDistance: 0
 --- !u!1 &1778561722
 GameObject:
   m_ObjectHideFlags: 0
