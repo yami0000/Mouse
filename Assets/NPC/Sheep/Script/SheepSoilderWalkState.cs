@@ -24,5 +24,6 @@ public class SheepSoilderWalkState : NPCstate
     public override void Update()
     {
         base.Update();
+        
     }
 }

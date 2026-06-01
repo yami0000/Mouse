@@ -31478,7 +31478,7 @@ Transform:
   m_GameObject: {fileID: 1607154484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 168.606, y: -90.291855, z: 0.5744282}
+  m_LocalPosition: {x: 168.606, y: -90.291855, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31528,7 +31528,7 @@ GameObject:
   - component: {fileID: 1677048839}
   - component: {fileID: 1677048841}
   - component: {fileID: 1677048840}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ani
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31544,8 +31544,8 @@ Transform:
   m_GameObject: {fileID: 1677048838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.02, z: 0}
-  m_LocalScale: {x: 0.47355184, y: 0.47355184, z: 0.47355184}
+  m_LocalPosition: {x: 0.8176, y: 0.7976, z: 0}
+  m_LocalScale: {x: 0.63323355, y: 0.63323355, z: 0.63323355}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1700870616}
@@ -31785,7 +31785,7 @@ GameObject:
   - component: {fileID: 1700870619}
   - component: {fileID: 1700870618}
   - component: {fileID: 1700870617}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31801,7 +31801,7 @@ Transform:
   m_GameObject: {fileID: 1700870615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.36, y: -1.33, z: -0.17544705}
+  m_LocalPosition: {x: 5.36, y: -1.58, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31871,8 +31871,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.111465454, y: -0.08758545}
-  m_Size: {x: 2.1879578, y: 3.4522858}
+  m_Offset: {x: 0.7393265, y: 0.63931656}
+  m_Size: {x: 2.9403534, y: 4.591362}
   m_Direction: 0
 --- !u!114 &1700870619
 MonoBehaviour:
