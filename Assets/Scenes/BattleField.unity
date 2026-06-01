@@ -5778,7 +5778,7 @@ Transform:
   m_GameObject: {fileID: 797286301}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31836,7 +31836,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &1700870618
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -31889,15 +31889,26 @@ MonoBehaviour:
   knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
   groundCheck: {fileID: 797286302}
-  groundCheckDistance: 0
+  groundCheckDistance: 2.29
   wallCheck: {fileID: 812804628}
-  wallCheckDistance: 0
+  wallCheckDistance: 3.01
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   facingDir: 1
   isBackingup: 0
   stateTimer_SheepSoilder: 0
+  isFollowing: 1
+  followStartDistanceX: 9
+  stopDistanceX: 7
+  reactionDelay: 0.15
+  followSpeed: 10
+  acceleration: 40
+  catchUpDistanceX: 15
+  catchUpSpeedMultiplier: 1.6
+  useLedgeAndWallSafety: 1
+  allowWarp: 1
+  warpDistanceX: 25
 --- !u!1 &1778561722
 GameObject:
   m_ObjectHideFlags: 0
