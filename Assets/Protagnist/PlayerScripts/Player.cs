@@ -77,6 +77,9 @@ public class Player : Entity
     public int numPoints = 30;
     public float timeBetweenPoints = 0.1f;
 
+    [Header("REVIVE UI")]
+    [SerializeField] private GameObject ReviveUI;
+
     #region States
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
@@ -157,9 +160,18 @@ public class Player : Entity
         base.Die();
 
         StateMachine.ChangeState(deathState);
+
+        UI_Active UI = ReviveUI.GetComponent<UI_Active>();
+        UI.OpenMenu();
     }
 
 
+    public void Revive()
+    {
+        stats.Revive();                                   
+        GM.Instance.GameManager.isUIOpened = false;       
+        StateMachine.ChangeState(idleState);              
+    }
     protected new virtual void OnDrawGizmos()
     {
 
@@ -383,4 +395,5 @@ public class Player : Entity
 
     }
 
+  
 }

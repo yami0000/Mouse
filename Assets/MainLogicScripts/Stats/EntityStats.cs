@@ -107,6 +107,7 @@ public class EntityStats : MonoBehaviour
 
    
 
+
     public virtual int DoDamage(EntityStats _targetStats, float damageMultiplier = 1.0f)
     {
        
@@ -142,6 +143,23 @@ public class EntityStats : MonoBehaviour
     public virtual void HealEntity(int HealAmount) 
     {
     
+    }
+
+    public virtual void Revive()
+    {
+        Dead = false;
+        CurrentHP = GetMaxHealth();
+
+        // clear lingering status effects so the player doesn't revive still on fire/poisoned
+        isIgnited = false;
+        isFrosted = false;
+        isShocked = false;
+        isPoisoned = false;
+
+        fireMeter = 0;
+        frostMeter = 0;
+        shockMeter = 0;
+        poisonMeter = 0;
     }
 
     public virtual void DoElementDamage(EntityStats _targetStats)

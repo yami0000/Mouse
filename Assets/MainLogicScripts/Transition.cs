@@ -11,8 +11,12 @@ public class Transition : DETECTION
     public bool respawn;
     public bool CanInteract;
     public bool AutoLoad;
+    [Tooltip("Rigel will walk automatically when entered")]
     public bool _walk;
+    [Tooltip("How long will character walk")]
     public float walktime;
+    [Tooltip("Direction")]
+    public float Dir;
 
     private void Start()
     {
@@ -60,7 +64,7 @@ public class Transition : DETECTION
         {
             t -= Time.deltaTime;
 
-            PlayerManager.Instance.player.xInput = -1;
+            PlayerManager.Instance.player.xInput = Dir;
 
             
 

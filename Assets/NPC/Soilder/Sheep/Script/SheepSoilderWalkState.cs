@@ -42,13 +42,14 @@ public class SheepSoilderWalkState : NPCstate
             stateMachine.ChangeState(sheep.idleState);
             return;
         }
+        else 
+        Debug.Log($"Distance to player: {dist}, stopping gap: {sheep.currentStopDistance}");
 
-        // Ledge / wall safety: wait at the edge instead of falling off or grinding into a wall.
+        // Ledge / wall ahead -> hand off to Idle so it WAITS in the idle pose (not the walk animation).
+        // Idle will resume the chase automatically once the path is clear.
         if (sheep.IsBlockedAhead())
         {
-            sheep.DecelerateToStop();
-            sheep.FacePlayer();
-            sheep.TryWarpToPlayer(); // optional rescue if stuck and far away
+            stateMachine.ChangeState(sheep.idleState);
             return;
         }
 

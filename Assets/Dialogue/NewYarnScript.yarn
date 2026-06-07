@@ -121,9 +121,26 @@ Rigel:I traced him for entire 7 years and he finally appeared...
 Lion:Clam down,young mouse.
 Lion:I understand your feeling,I lost my brother on the battlefield half century ago.
 Lion:But the lust of revenge,will only consume you,don't let it cloud your mind.
-Lion:Dismiss.
+Lion:Tell me when you are ready,Dismiss.
  <<accept_quest "main_001">>
  <<accept_quest "main_00A">>
+===
+
+title:Lion_Last
+---
+Lion:How's the preparation?
+        -> I need more time. 
+            Lion:Take your time,little mouse.
+            <<jump Lion_Middle>>
+        -> I'm ready for the mission.
+            Lion:Good.
+            Lion:We can't send you into the rust city officially,but we can send you near the city.
+            Rigel:And I have to find a way into the city,right?
+            Lion:That's correct.As always.
+            Lion:This way.
+            <<jump Lion_Middle>>
+
+
 ===
 
 title:Zig_Zag
@@ -213,4 +230,102 @@ Rigel:So we can't get in by normal ways.
 Rigel:There must be some way to get in.
 Rigel:I will gather some information in the city.
 <<progress_objective "lab">>
+===
+
+title:First_Scene_01
+---
+Rigel:Everyone,Keep pushing,we are closing to the fort.
+Meissa:Rigel,can you hear me?
+Rigel:Yes,Captain.
+Meissa:Me and Bear are moving close to the fort.ETA in 10 minutes.
+Meissa:Enemy's fire power is stronger on your side,so proceed with caution.
+Rigel:Roger that.
+Rigel:Let's move to the coordination.
+===
+
+title:First_Scene_02
+---
+Meissa:(Scream and Gunfire)
+Meissa:something is not right here,we have been sent to the trap!
+Meissa:We are being ambushed,Rigel,don't go to that coordination!I repeat...
+Rigel:Captain,you are okay?
+Rigel:Captain!
+Rigel:We have to save him!
+Soilder A:This is suicide,we have to retreat!
+Soilder B:We didn't rest since last night.I can't..,
+Rigel:This is an order!Captain always treats you well,this is how you repay him?
+Soilder A:But...
+Rigel:I said,this is an ORDER.Follow me.
+===
+
+title:Plant_Shop_01
+---
+Simon:Uncle Rigel!
+Rigel:Simon? It's 9 P.M. you should be at school!
+Simon:But I don't want to go there!All we do in the class is hearing teacher repeating the E-books!
+Simon:Please,uncle rigel!!! Let me stay at your shop!
+Simon:You told me you escape from class at my age,right?
+Rigel:Yes,my elder brother was very mad at me...
+Simon:See?You don't have the right to tell me to go to the school.
+Rigel:But escape from school is not right,only this time,and don't tell anyone,okay?
+Simon:Uncle Rigel!You are the best!
+Rigel:There's a huge update in "Star Farer", Let's play.
+===
+
+title:Plant_Shop_02
+---
+Simon:Uncle Rigel,you have an elder brother?
+Rigel:Yes...but we don't have any blood ties,he's a rabbit.
+Simon:Cool!So you are in the same school?
+Rigel:Yes...in some ways.
+Rigel:He was good at almost everything,but your uncle Rigel...He skipped classes.
+Simon:As am I,now we are on the same boat,uncle Rigel!
+Simon:So is your brother doing fine?Can I meet him?
+Rigel:He...diappeared during the war,I tried to find him...but with no avail.
+Simon:Oh...I'm sorry to hear that,uncle Rigel.
+Rigel:It's okay...Hey,there's a boss fight ahead,no sad words!
+Simon:Roger that,uncle Rigel!
+===
+
+title:Plant_Shop_03
+---
+Simon:WOW!Uncle Rigel!You just shoot the boss down from the sky,how did you do that?
+Rigel:I have talent in shooting,I was in the shooting club back in the school.
+Simon:That's so cool!I can't beat the boss with my other 3 friends with the legendary equipment, but you can do it singlehandly with a common gun!
+Rigel:Well...I have been playing shooting games for a long time...
+Simon's Mom:Simon?
+Simon:Coming,Mom!
+Simon's Mom:Rigel,thank you again for taking care of Simon while I am working,is he doing fine?
+Rigel:Y...Yes,he told me he got first place at the swimming lesson today.
+Simon:(Wink at Rigel)Yes,it was tense!
+Simon's Mom:That is my good boy!
+Regel:How is your new job in neon city,Mrs. Simon?
+Simon's Mom:Well...My boss is a good mammal,he is very kind to me and I am learning a lot from him.Thanks for asking.
+Rigel:That's good to hear.See you tomorrow!
+Simon:Bye,uncle Rigel!See you tomorrow!
+Rigel:It's 6 P.M. already,I will close the shop and grab a drink at the bar,the nightmare was so real...
+===
+
+title:Bar_01
+---
+Raccoon:A Neon Legend?
+Rigel:With L size.
+Raccoon:Had a nightmare again,hadn't you?
+Rigel:Yes,But this time was so real,it's just like the dream is extracted from my memory.
+Raccoon:It's about MEISSA,right?
+Rigel:Yeah...I saw the life ran out his eyes slowly but I couldn't do anything.
+Rigel:And that wrong coordination,captain is always cautious...how did he walked into that trap?
+Raccoon:But he's not certainly dead,is he?Official announced his death after 3 years of searching but didn't find his BODY.
+Rigel:I searched everywhere I can but didn't find a single clue.
+Raccoon:You want to hear my opinion?
+Rigel;What's that?
+Raccoon:I believe he's still alive,I think there's a reason that he didn't come out.
+Raccoon:I was served at A01 Battalion during the war,I saw how he fight in the battlefield.
+Raccoon:He's always calm and cunning,and planted with cutting-edge implants,he can't die that easily.
+Raccoon:If the bugs got him,they would propogate this in their media,but they didn't,which is werid.
+Rigel:Yeah,you are right...
+Raccoon:Holding up,Rigel.Meissa don't want to see you like this.
+Raccoon:After all,you are the last member of the ORION.The hero of mammal country.
+Rigel:...
+Rigel:It's late now,better go home...
 ===

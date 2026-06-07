@@ -31,6 +31,8 @@ public class NPC_SheepSoilder : NPC
     public float deceleration = 18f;
     [Tooltip("Distance from the target at which the sheep starts slowing down (arrival easing). Larger = earlier, gentler braking.")]
     public float arrivalDistance = 1.5f;
+    [Tooltip("Lowest speed kept while easing in. Stops the sheep from stalling just short of its target. Keep it small and below followSpeed/wanderSpeed.")]
+    public float minArriveSpeed = 1f;
     [Tooltip("If the player gets this far in X, the sheep speeds up so it does not get left behind forever.")]
     public float catchUpDistanceX = 8f;
     public float catchUpSpeedMultiplier = 1.6f;
@@ -137,9 +139,13 @@ public class NPC_SheepSoilder : NPC
         float dist = Mathf.Abs(toTarget);
         int dir = toTarget >= 0f ? 1 : -1;
 
-        // Scale the target speed down as we approach so we ease in instead of snapping.
-        float arrive = arrivalDistance > 0f ? Mathf.Clamp01(dist / arrivalDistance) : 1f;
-        float targetVelX = dir * maxSpeed * arrive;
+        // Ease the speed down as we approach, but lerp toward a small MINIMUM speed
+        // (not zero) so the sheep actually reaches the target instead of stalling
+        // just short of it. The final glide to a full stop happens in the Idle state.
+        float minS = Mathf.Min(minArriveSpeed, maxSpeed);
+        float eased = arrivalDistance > 0f ? Mathf.Clamp01(dist / arrivalDistance) : 1f;
+        float speed = Mathf.Lerp(minS, maxSpeed, eased);
+        float targetVelX = dir * speed;
 
         float newVelX = Mathf.MoveTowards(rb.velocity.x, targetVelX, acceleration * Time.deltaTime);
         Setvelocity(newVelX, rb.velocity.y); // Setvelocity auto-flips by the sign of newVelX

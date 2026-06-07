@@ -46,11 +46,20 @@ public class SheepSoilderIdleState : NPCstate
         if (!sheep.isFollowing || sheep.Player == null)
             return;
 
-        // Player left the outer ring -> count the reaction delay, then chase.
+        // Player is outside the follow ring.
         if (sheep.XDistanceToPlayer() > sheep.followStartDistanceX)
         {
             reactionTimer += Time.deltaTime;
 
+            // If something is in the way (ledge/wall), keep WAITING in idle instead of
+            // bouncing into the walk state. Optionally warp if hopelessly far.
+            if (sheep.IsBlockedAhead())
+            {
+                sheep.TryWarpToPlayer();
+                return;
+            }
+
+            // Path is clear and the reaction lag has elapsed -> start following.
             if (reactionTimer >= sheep.reactionDelay)
                 stateMachine.ChangeState(sheep.walkState);
 
@@ -60,9 +69,10 @@ public class SheepSoilderIdleState : NPCstate
         // Player is comfortably inside the ring.
         reactionTimer = 0f;
 
-        // After a short, randomised pause, start wandering freely to look alive.
+        // After a short, randomised pause, start wandering freely to look alive
+        // (only if the path isn't blocked).
         idleTimer += Time.deltaTime;
-        if (idleTimer >= wanderDelay)
+        if (idleTimer >= wanderDelay && !sheep.IsBlockedAhead())
             stateMachine.ChangeState(sheep.wanderState);
     }
 }

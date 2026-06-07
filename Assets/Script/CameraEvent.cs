@@ -12,7 +12,10 @@ public enum ActionType
 public class CameraEvent : DETECTION
 {
     [SerializeField] private string DialogueName;
+
+    [Tooltip("Dialogue starts after t seconds")]
     [SerializeField] private float t;
+
     [SerializeField] private List<EventAction> actions = new List<EventAction>();
     private bool _hasTriggered = false;
     private Collider2D cd;

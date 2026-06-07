@@ -42,4 +42,9 @@ public class PlayerStats  : EntityStats
         Player.Die();
     }
 
+    public override void Revive()
+    {
+        base.Revive();
+        OnHealthChanged?.Invoke();
+    }
 }
