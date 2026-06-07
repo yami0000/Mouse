@@ -25,4 +25,5 @@ public class SceneController : MonoBehaviour
     public void ToBugRegion() => LoadSceneByIndex(2);
     public void ToLava() => LoadSceneByIndex(3);
     public void ToBattleField() => LoadSceneByIndex(4);
+
 }

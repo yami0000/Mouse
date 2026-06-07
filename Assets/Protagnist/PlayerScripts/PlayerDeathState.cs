@@ -19,6 +19,12 @@ public class PlayerDeathState : PlayerState
 
         if (player.inScriptedDefeat)
         {
+
+            UI_Active UI = player.ReviveUI.GetComponent<UI_Active>();
+
+            if (!player.inScriptedDefeat)
+                UI.OpenMenu();
+
             player.NotifyScriptedDefeat();
             return;
         }

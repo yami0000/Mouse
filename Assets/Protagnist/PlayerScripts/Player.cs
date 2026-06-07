@@ -78,8 +78,8 @@ public class Player : Entity
     public float timeBetweenPoints = 0.1f;
 
     [Header("REVIVE UI")]
-    [SerializeField] private GameObject ReviveUI;
-    [HideInInspector] public bool inScriptedDefeat;   // true for the whole intro boss fight (player is meant to lose)
+    [SerializeField] public GameObject ReviveUI;
+    [HideInInspector] public bool inScriptedDefeat=false;   // true for the whole intro boss fight (player is meant to lose)
     public event System.Action OnScriptedDefeat;       // fires when the player dies while inScriptedDefeat is true
 
     public void NotifyScriptedDefeat() => OnScriptedDefeat?.Invoke();
@@ -165,8 +165,7 @@ public class Player : Entity
 
         StateMachine.ChangeState(deathState);
 
-        UI_Active UI = ReviveUI.GetComponent<UI_Active>();
-        UI.OpenMenu();
+        
     }
 
 
@@ -186,7 +185,7 @@ public class Player : Entity
     {
         base.Update();
 
-
+        Debug.Log(inScriptedDefeat);
 
         if (!isAutoControl)
         {

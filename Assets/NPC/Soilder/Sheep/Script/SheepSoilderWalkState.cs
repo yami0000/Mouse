@@ -43,7 +43,7 @@ public class SheepSoilderWalkState : NPCstate
             return;
         }
         else 
-        Debug.Log($"Distance to player: {dist}, stopping gap: {sheep.currentStopDistance}");
+      
 
         // Ledge / wall ahead -> hand off to Idle so it WAITS in the idle pose (not the walk animation).
         // Idle will resume the chase automatically once the path is clear.

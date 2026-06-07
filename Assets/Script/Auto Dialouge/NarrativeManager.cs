@@ -52,14 +52,8 @@ public class NarrativeManager : MonoBehaviour
 
     private void HandleDialogueFinished()
     {
-        
-        if (currentAfterDialogueAction != null)
-        {
-            currentAfterDialogueAction.Invoke();
-
- 
+            currentAfterDialogueAction?.Invoke();
             currentAfterDialogueAction = null;
-        }
     }
  
 }

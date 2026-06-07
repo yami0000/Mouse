@@ -246,6 +246,7 @@ MonoBehaviour:
   t: 1
   actions:
   - actionType: 1
+  - actionType: 2
   E: {fileID: 756503374}
 --- !u!1 &24151895
 GameObject:
@@ -5849,6 +5850,8 @@ MonoBehaviour:
   isMoving: 0
   motionPrefab: {fileID: 7842162000815211155, guid: b4cb3b7b1dd54374193844243edc2222, type: 3}
   __Transform: {fileID: 2063164701}
+  DialogueName: First_Scene_04
+  t: 1.5
 --- !u!114 &756503375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5880,7 +5883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   absorbedDAMAGE: 0
   FirePower:
-    BaseValue: 200
+    BaseValue: 250
     modifiers: 
   Damage:
     BaseValue: 0
@@ -5895,10 +5898,10 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   MaxHP:
-    BaseValue: 5000
+    BaseValue: 50000
     modifiers: 
   Armor:
-    BaseValue: 10
+    BaseValue: 100
     modifiers: 
   FireResistance:
     BaseValue: 0

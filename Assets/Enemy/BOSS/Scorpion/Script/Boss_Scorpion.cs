@@ -70,6 +70,9 @@ public class Boss_Scorpion : Enemy
     [Header("Motion")]
     [SerializeField] public GameObject motionPrefab;
     [SerializeField] private Transform __Transform;
+    [Header("Dialougue After Rigel is Dead")]
+    [SerializeField] private string DialogueName;
+    [SerializeField] private float t;
 
     protected override void Awake()
     {
@@ -94,7 +97,9 @@ public class Boss_Scorpion : Enemy
         GM.Instance.GameManager.ScorpionMaxHealth =  stats.MaxHP.GetValue();  
         stateMachine.Initialize(idleState);
 
-        
+
+        PlayerManager.Instance.player.OnScriptedDefeat += HandlePlayerDefeated;
+
         OriFirePower = stats.FirePower.BaseValue;
 
         player = PlayerManager.Instance.player.transform;
@@ -128,6 +133,19 @@ public class Boss_Scorpion : Enemy
         stateMachine.ChangeState(deathState);
     }
 
+    private void HandlePlayerDefeated()
+    {
+        
+        stateMachine.ChangeState(idleState);
+        BattleState = false;
+        NarrativeManager.Instance.RequestDialogue(DialogueName, t ,() => ExecuteActions());
+    }
+
+    private void ExecuteActions()
+    {
+        PlayerManager.Instance.player.Revive();
+        SceneController.instance.LoadSceneByIndex(5);
+    }
     
     public bool DetectAmmo()
     {
