@@ -5,8 +5,9 @@ using UnityEngine;
 public enum ActionType
 {
    
-    DisableCamera,
+    CameraFollowPlayer,
     EnterBattleMode,
+    InScriptDeath,
     
 }
 public class CameraEvent : DETECTION
@@ -16,6 +17,7 @@ public class CameraEvent : DETECTION
     [Tooltip("Dialogue starts after t seconds")]
     [SerializeField] private float t;
 
+    [Tooltip("Actions after the dialogue")]
     [SerializeField] private List<EventAction> actions = new List<EventAction>();
     private bool _hasTriggered = false;
     private Collider2D cd;
@@ -57,7 +59,7 @@ public class EventAction
     {
         switch (actionType)
         {
-            case ActionType.DisableCamera:
+            case ActionType.CameraFollowPlayer:
                 CameraSetter.Instance.DisablePosition();
                 break;
 
@@ -65,6 +67,23 @@ public class EventAction
                 Enemy enemy = E as Enemy;
                 enemy.BattleState = true;
                 break;
+            case ActionType.InScriptDeath:
+                GetPlayer().inScriptedDefeat = true;
+                GetPlayer().OnScriptedDefeat += HandleDefeat;
+                break;
         }
-    } 
+    }
+
+
+    private void HandleDefeat()
+    {
+        GetPlayer().OnScriptedDefeat -= HandleDefeat;
+        GetPlayer().inScriptedDefeat = false;           // leaving scripted mode
+
+        
+    }
+    private static Player GetPlayer()
+    {
+        return PlayerManager.Instance.player;
+    }
 }

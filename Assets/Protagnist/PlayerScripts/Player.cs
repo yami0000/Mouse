@@ -79,6 +79,10 @@ public class Player : Entity
 
     [Header("REVIVE UI")]
     [SerializeField] private GameObject ReviveUI;
+    [HideInInspector] public bool inScriptedDefeat;   // true for the whole intro boss fight (player is meant to lose)
+    public event System.Action OnScriptedDefeat;       // fires when the player dies while inScriptedDefeat is true
+
+    public void NotifyScriptedDefeat() => OnScriptedDefeat?.Invoke();
 
     #region States
     public PlayerStateMachine StateMachine { get; private set; }

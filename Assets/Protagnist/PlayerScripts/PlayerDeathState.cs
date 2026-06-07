@@ -16,6 +16,13 @@ public class PlayerDeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        if (player.inScriptedDefeat)
+        {
+            player.NotifyScriptedDefeat();
+            return;
+        }
+
         GM.Instance.GameManager.isUIOpened = true;
     }
 
