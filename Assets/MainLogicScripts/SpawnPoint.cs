@@ -21,35 +21,47 @@ public class SpawnPoint : DETECTION
        
     }
 
-    private void Walk() => StartCoroutine(walk());
+    private Coroutine walkRoutine;
+
+    private void Walk() => walkRoutine = StartCoroutine(walk());
 
     IEnumerator walk()
     {
-        PlayerManager.Instance.player.isAutoControl = true;
-
-        float t = walktime;
-
-
-
-        while (t > 0)
+        Player p = PlayerManager.Instance.player;
+        if (p == null) yield break;
+        try
         {
-            t -= Time.deltaTime;
-
-            PlayerManager.Instance.player.xInput = Dir;
-
-
-
-            yield return null;
+            p.isAutoControl = true;
+            float t = walktime;
+            while (t > 0f)
+            {
+                t -= Time.deltaTime;
+                p.xInput = Dir;
+                yield return null;
+            }
         }
-        PlayerManager.Instance.player.xInput = 0;
+        finally   // runs on normal end AND when the coroutine is stopped/disposed
+        {
+            p.xInput = 0f;
+            p.isAutoControl = false;
+            walkRoutine = null;
+        }
+    }
 
-        PlayerManager.Instance.player.isAutoControl = false;
-
-
+    private void OnDisable()
+    {
+        all.Remove(this);
+        if (walkRoutine != null)        // we were driving the player and got disabled
+        {
+            StopCoroutine(walkRoutine);
+            walkRoutine = null;
+            Player p = PlayerManager.Instance != null ? PlayerManager.Instance.player : null;
+            if (p != null) { p.xInput = 0f; p.isAutoControl = false; }
+        }
     }
 
     private void OnEnable() => all.Add(this);
-    private void OnDisable() => all.Remove(this);
+   
 
     public static SpawnPoint Find(string id)
     {
