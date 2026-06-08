@@ -14735,6 +14735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Num: 4
+  ID: 06-01
   isUIOpened: 0
   isInteract: 0
   isInteractGrandma: 0
@@ -43378,6 +43379,7 @@ MonoBehaviour:
   numPoints: 20
   timeBetweenPoints: 0.1
   ReviveUI: {fileID: 1915220139}
+  inScriptedDefeat: 0
 --- !u!222 &2958262985799860056
 CanvasRenderer:
   m_ObjectHideFlags: 0

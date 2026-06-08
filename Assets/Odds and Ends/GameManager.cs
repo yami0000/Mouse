@@ -29,6 +29,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     public GameState State { get; private set; } = new();
 
     [SerializeField] private int Num;
+    public string ID;
     private DialogueRunner DialogueRunner;
 
     [HideInInspector] public bool isUIOpened;
@@ -44,6 +45,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [HideInInspector] public int ScorpionHealth;
     [HideInInspector] public int ScorpionMaxHealth;
 
+    public string PendingSpawnId { get; private set; }
     private void Awake()
     {
         // Ensure GameManager persists across all scene loads
@@ -69,12 +71,42 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     /// Fires every time a new scene finishes loading.
     /// Culls permanently destroyed objects and respawns persistent quest objects.
     /// </summary>
+    /// 
+
+    public void LoadScene(int index, string spawnId = null)
+    {
+        PendingSpawnId = spawnId;
+        State.currentScene = index.ToString();
+        SceneManager.LoadSceneAsync(index);
+    }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CullDestroyedObjects();
         RespawnPersistentObjects();
+        PlacePlayerAtPendingSpawn();
     }
 
+    private void PlacePlayerAtPendingSpawn()
+    {
+        if (string.IsNullOrEmpty(PendingSpawnId)) return;
+
+        SpawnPoint sp = SpawnPoint.Find(PendingSpawnId);
+        if (sp == null)
+        {
+            Debug.LogWarning($"[GameManager] No SpawnPoint with id '{PendingSpawnId}' in this scene.");
+            PendingSpawnId = null;
+            return;
+        }
+
+            PlayerManager.Instance.player.transform.position = sp.transform.position;
+
+            Player p = PlayerManager.Instance.player;
+            if (p != null && p.facingDir != sp.Dir)
+                p.Flip();
+         
+
+        PendingSpawnId = null;    
+    }
     private void CullDestroyedObjects()
     {
         int culled = 0;
@@ -156,7 +188,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void Start()
     {
         isMantisAlive = true;
-        SceneManager.LoadSceneAsync(Num);
+        LoadScene(Num,ID);
         ani = PlayerManager.Instance.player.GetComponentInChildren<Animator>();
     }
 

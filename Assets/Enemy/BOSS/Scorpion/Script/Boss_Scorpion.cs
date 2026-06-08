@@ -73,6 +73,7 @@ public class Boss_Scorpion : Enemy
     [Header("Dialougue After Rigel is Dead")]
     [SerializeField] private string DialogueName;
     [SerializeField] private float t;
+    [SerializeField] private string ID;
 
     protected override void Awake()
     {
@@ -144,7 +145,7 @@ public class Boss_Scorpion : Enemy
     private void ExecuteActions()
     {
         PlayerManager.Instance.player.Revive();
-        SceneController.instance.LoadSceneByIndex(5);
+        GameManager.Instance.LoadScene(5, ID);
     }
     
     public bool DetectAmmo()
