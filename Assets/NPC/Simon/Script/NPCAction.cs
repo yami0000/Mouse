@@ -22,6 +22,10 @@ public abstract class NPCAction
 
     /// <summary>Called once when the action finishes.</summary>
     public virtual void OnExit(NPC_All npc) { }
+
+    /// <summary>One-line description shown in the Inspector list / Scene gizmo.
+    /// Runtime-safe (no editor APIs). Override per action.</summary>
+    public virtual string Summary => GetType().Name;
 }
 
 /// <summary>
@@ -45,6 +49,11 @@ public class ActionRunner
     private bool finished = false;
 
     public bool IsFinished => finished;
+
+    // Read-only live state, used by the editor / gizmos to show what's running.
+    public int CurrentIndex => index;
+    public NPCAction CurrentAction =>
+        (actions != null && index >= 0 && index < actions.Count) ? actions[index] : null;
 
     public void Reset()
     {

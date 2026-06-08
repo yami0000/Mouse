@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum Type 
+public enum _Type 
 {
 common,
 special
@@ -13,7 +13,7 @@ special
 [CreateAssetMenu(fileName ="Mod",menuName ="Data/Mod/BasicMod")]
 public class Mod : ItemData
 {
-    public Type type;
+    public _Type type;
 
     [Header("Stat bonuses from this Mod")]
     public int FirePower;

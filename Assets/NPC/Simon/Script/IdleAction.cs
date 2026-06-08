@@ -25,6 +25,8 @@ public class IdleAction : NPCAction
         timer -= Time.deltaTime;
         return timer <= 0f;
     }
+
+    public override string Summary => duration <= 0f ? "Idle (hold)" : $"Idle {duration:0.##}s";
 }
 
 /// <summary>Walk for a while (or until blocked). Direction can follow current facing or be forced.</summary>
@@ -65,6 +67,16 @@ public class WalkAction : NPCAction
         }
         return false;
     }
+
+    public override string Summary
+    {
+        get
+        {
+            string dir = useCurrentFacing ? "forward" : (direction < 0 ? "left" : "right");
+            string dur = duration > 0f ? $"{duration:0.##}s" : "until blocked";
+            return $"Walk {dir} ({dur}) @ {speed:0.##}";
+        }
+    }
 }
 
 /// <summary>Walk toward a target Transform until within a horizontal threshold (X-axis only).</summary>
@@ -97,6 +109,8 @@ public class WalkToTargetAction : NPCAction
 
         return false;
     }
+
+    public override string Summary => $"\u2192 {(target ? target.name : "<no target>")} @ {speed:0.##}";
 }
 
 /// <summary>Trigger a Yarn/Narrative dialogue node, optionally waiting for it to finish.</summary>
@@ -135,6 +149,9 @@ public class DialogueAction : NPCAction
         if (!waitForFinish) return true;
         return finished;
     }
+
+    public override string Summary =>
+        $"Say \"{(string.IsNullOrEmpty(nodeName) ? "?" : nodeName)}\"{(waitForFinish ? "" : " (no wait)")}";
 }
 
 /// <summary>Flip the NPC to face the other direction.</summary>
@@ -146,6 +163,8 @@ public class FlipAction : NPCAction
         npc.Flip();
         return true;
     }
+
+    public override string Summary => "Flip facing";
 }
 
 /// <summary>
@@ -162,4 +181,16 @@ public class GroupAction : NPCAction
 
     public override void OnEnter(NPC_All npc) => sequence.Reset();
     public override bool Tick(NPC_All npc) => sequence.Tick(npc);
+
+    public override string Summary
+    {
+        get
+        {
+            int count = sequence != null && sequence.actions != null ? sequence.actions.Count : 0;
+            string mode = sequence != null && sequence.loop
+                ? (sequence.repeatCount > 0 ? $"x{sequence.repeatCount}" : "loop")
+                : "once";
+            return $"Group [{count}] {mode}";
+        }
+    }
 }

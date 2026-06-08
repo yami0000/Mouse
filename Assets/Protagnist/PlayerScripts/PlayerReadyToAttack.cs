@@ -117,12 +117,12 @@ public class PlayerReadyToAttack : PlayerState
 
     public void _TriggerModEffect(ItemData_Equipment equip)
     {
-        if (equip.Mods != null && equip.Mods.Any(m => m?.type == Type.special))
+        if (equip.Mods != null && equip.Mods.Any(m => m?.type == _Type.special))
         {
             // At least one mod is "Special", trigger the effects
             foreach (var mod in equip.Mods)
             {
-                if (mod?.type == Type.special)
+                if (mod?.type == _Type.special)
                 {
                     mod.ApplyModEffect(equip);
                 }

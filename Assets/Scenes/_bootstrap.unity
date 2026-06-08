@@ -42345,6 +42345,8 @@ MonoBehaviour:
     portrait: {fileID: 21300000, guid: f77ceb8e3c1cdf643ace76fbd41f7f1f, type: 3}
   - characterName: Soilder B
     portrait: {fileID: 21300000, guid: 682729f66f156fd4d8ca2b9d19cdc789, type: 3}
+  - characterName: Simon
+    portrait: {fileID: 21300000, guid: 56bee9d94b0d4b64da1473b7460fc45d, type: 3}
 --- !u!1 &2132208120
 GameObject:
   m_ObjectHideFlags: 0

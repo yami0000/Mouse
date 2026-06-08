@@ -69,4 +69,69 @@ public class NPCController : MonoBehaviour
         running = false;
         if (npc != null) npc.EnterIdle();
     }
+
+    // ---- Introspection used by the editor + Scene gizmos ----
+
+    /// <summary>Human-readable description of what the NPC is doing right now (Play mode).</summary>
+    public string CurrentActionDescription()
+    {
+        if (!Application.isPlaying) return "(edit mode)";
+        if (!running) return routine.IsFinished ? "Finished \u2014 idle" : "Stopped";
+        NPCAction a = DeepCurrent(routine);
+        return a != null ? a.Summary : "(waiting for requirement)";
+    }
+
+    // Drills into a running GroupAction to find the deepest active action.
+    private static NPCAction DeepCurrent(ActionRunner r)
+    {
+        NPCAction a = r.CurrentAction;
+        if (a is GroupAction g)
+        {
+            NPCAction inner = DeepCurrent(g.sequence);
+            return inner ?? a;
+        }
+        return a;
+    }
+
+    // Gathers every WalkToTarget destination (recursing into groups) in order.
+    private static void CollectTargets(ActionRunner r, System.Collections.Generic.List<Transform> outList)
+    {
+        if (r == null || r.actions == null) return;
+        foreach (NPCAction a in r.actions)
+        {
+            if (a is WalkToTargetAction w && w.target != null) outList.Add(w.target);
+            else if (a is GroupAction g) CollectTargets(g.sequence, outList);
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (routine == null) return;
+
+        var targets = new System.Collections.Generic.List<Transform>();
+        CollectTargets(routine, targets);
+
+        // Patrol path: spheres at each destination, joined in order.
+        Gizmos.color = new Color(0.25f, 0.8f, 1f, 0.9f);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            Vector3 p = targets[i].position;
+            Gizmos.DrawWireSphere(p, 0.2f);
+            UnityEditor.Handles.Label(p + Vector3.up * 0.4f, $"{i + 1}. {targets[i].name}");
+            if (i > 0) Gizmos.DrawLine(targets[i - 1].position, p);
+        }
+
+        // Live state while playing.
+        if (Application.isPlaying)
+        {
+            if (DeepCurrent(routine) is WalkToTargetAction cur && cur.target != null)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(transform.position, cur.target.position);
+            }
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 1.2f, CurrentActionDescription());
+        }
+    }
+#endif
 }

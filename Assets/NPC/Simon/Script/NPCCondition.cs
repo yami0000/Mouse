@@ -9,6 +9,9 @@ using UnityEngine;
 public abstract class NPCCondition
 {
     public abstract bool IsMet(NPC_All npc);
+
+    /// <summary>One-line description for the Inspector list. Runtime-safe.</summary>
+    public virtual string Summary => GetType().Name;
 }
 
 /// <summary>True when the player is within (or, if inverted, outside) a horizontal distance.</summary>
@@ -28,6 +31,8 @@ public class PlayerWithinXCondition : NPCCondition
         bool near = dx <= distance;
         return invert ? !near : near;
     }
+
+    public override string Summary => invert ? $"player > {distance:0.##}" : $"player \u2264 {distance:0.##}";
 }
 
 /// <summary>True when the NPC is currently blocked by a wall ahead (or, inverted, when the path is clear).</summary>
@@ -41,6 +46,8 @@ public class PathBlockedCondition : NPCCondition
         bool blocked = npc.IsWallDetected() || !npc.IsGroundDetected();
         return invert ? !blocked : blocked;
     }
+
+    public override string Summary => invert ? "path clear" : "path blocked";
 }
 
 /// <summary>Rolls a random chance the first time it is checked, then sticks with that result.</summary>
@@ -61,5 +68,6 @@ public class ChanceCondition : NPCCondition
         }
         return result;
     }
-}
 
+    public override string Summary => $"{Mathf.RoundToInt(probability * 100f)}% chance";
+}
