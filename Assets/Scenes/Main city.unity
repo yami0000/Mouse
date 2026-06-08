@@ -238,33 +238,14 @@ GameObject:
   m_Component:
   - component: {fileID: 58315994}
   - component: {fileID: 58315993}
-  - component: {fileID: 58315992}
+  - component: {fileID: 58315995}
   m_Layer: 0
-  m_Name: Go Home (1)
+  m_Name: Station
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &58315992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 58315991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3281155da68c17a4ba5ec76a2b478c25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsReadyToInteract: 0
-  Num: 5
-  respawn: 1
-  CanInteract: 0
-  AutoLoad: 0
-  _walk: 0
-  walktime: 0
 --- !u!61 &58315993
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -326,6 +307,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58315995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58315991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9986972467c6049b85d84fd29ba417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsReadyToInteract: 0
+  id: 01-01
+  _walk: 1
+  walktime: 0.1
+  Dir: 1
 --- !u!1 &113018882
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,6 +421,7 @@ GameObject:
   - component: {fileID: 113244511}
   - component: {fileID: 113244510}
   - component: {fileID: 113244509}
+  - component: {fileID: 113244512}
   m_Layer: 0
   m_Name: Go Home
   m_TagString: Untagged
@@ -443,12 +442,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
-  Num: 6
-  respawn: 0
+  Num: 5
+  targetSpawnId: 05-01
   CanInteract: 1
   AutoLoad: 0
-  _walk: 0
-  walktime: 0
 --- !u!61 &113244510
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -510,6 +507,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &113244512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113244508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9986972467c6049b85d84fd29ba417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsReadyToInteract: 0
+  id: 01-02
+  _walk: 0
+  walktime: 0.1
+  Dir: 1
 --- !u!1 &281729103
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +684,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: f3595e2518cc81f4cacdc39d17971cb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -10796,8 +10796,8 @@ GameObject:
   m_Component:
   - component: {fileID: 459026259}
   - component: {fileID: 459026258}
-  - component: {fileID: 459026257}
   - component: {fileID: 459026256}
+  - component: {fileID: 459026260}
   m_Layer: 0
   m_Name: Go Home
   m_TagString: Untagged
@@ -10819,25 +10819,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
   character: 3
---- !u!114 &459026257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459026255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3281155da68c17a4ba5ec76a2b478c25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsReadyToInteract: 0
-  Num: 5
-  respawn: 1
-  CanInteract: 0
-  AutoLoad: 0
-  _walk: 0
-  walktime: 0
 --- !u!61 &459026258
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10899,6 +10880,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459026260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459026255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9986972467c6049b85d84fd29ba417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsReadyToInteract: 0
+  id: 03-01
+  _walk: 0
+  walktime: 0.1
+  Dir: 1
 --- !u!1 &476215364
 GameObject:
   m_ObjectHideFlags: 0
@@ -12354,11 +12352,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
   Num: 0
-  respawn: 1
+  targetSpawnId: 
   CanInteract: 0
   AutoLoad: 0
-  _walk: 0
-  walktime: 0
 --- !u!212 &1180071589
 SpriteRenderer:
   m_ObjectHideFlags: 0

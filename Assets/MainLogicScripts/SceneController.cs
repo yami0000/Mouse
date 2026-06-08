@@ -19,11 +19,11 @@ public class SceneController : MonoBehaviour
         instance = this;
     }
 
-    public void LoadSceneByIndex(int index) => GameManager.Instance.LoadScene(index);
+    public void LoadSceneByIndex(int index,string ID) => GameManager.Instance.LoadScene(index,ID);
 
-    public void ToMainCity() => LoadSceneByIndex(1);
-    public void ToBugRegion() => LoadSceneByIndex(2);
-    public void ToLava() => LoadSceneByIndex(3);
-    public void ToBattleField() => LoadSceneByIndex(4);
+    public void ToMainCity() => LoadSceneByIndex(1,"01-01");
+    public void ToBugRegion() => LoadSceneByIndex(2, "02-01");
+    public void ToLava() => LoadSceneByIndex(3, "03-01");
+    public void ToBattleField() => LoadSceneByIndex(4, "04-01");
 
 }

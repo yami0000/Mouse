@@ -62,11 +62,11 @@ public class SpawnPoint : DETECTION
     {
 
         base.Event();
-        if (!IfWalked)
-            if (_walk && IsReadyToInteract)
+        
+            if (!IfWalked && _walk && IsReadyToInteract)
             { 
                 Walk();
-                IfWalked = false;
+                IfWalked = true;
             }
     }
 }

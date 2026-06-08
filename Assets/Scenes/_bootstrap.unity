@@ -14735,7 +14735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Num: 4
-  ID: 06-01
+  ID: 04-01
   isUIOpened: 0
   isInteract: 0
   isInteractGrandma: 0
@@ -15429,6 +15429,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8adb13e2cdb61ed4db307a9589bce9df, type: 2}
   - {fileID: 11400000, guid: 0b3e9e96d9045cf4d9e5298d036f8a73, type: 2}
   - {fileID: 11400000, guid: db6829fb0cb7b4c4896b40bf36008d43, type: 2}
+  - {fileID: 11400000, guid: 9a48b6fdce8eb7349ae0a460a24eea98, type: 2}
 --- !u!114 &910746473
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,10 +84,13 @@ public class WalkAction : NPCAction
 public class WalkToTargetAction : NPCAction
 {
     public Transform target;
+    public bool IsTargetPlayer;
     public float speed = 2f;
     [Min(0.01f)] public float arriveThreshold = 0.15f;
     [Tooltip("Give up if the path is blocked by a wall or ledge.")]
     public bool stopIfBlocked = true;
+
+
 
     public override void OnEnter(NPC_All npc)
     {
@@ -97,7 +100,9 @@ public class WalkToTargetAction : NPCAction
 
     public override bool Tick(NPC_All npc)
     {
-        if (target == null) return true;
+        if (target == null¡¡&& !IsTargetPlayer) return true;
+        if(IsTargetPlayer) 
+            target = PlayerManager.Instance.player.transform;
 
         float dx = target.position.x - npc.transform.position.x;
         if (Mathf.Abs(dx) <= arriveThreshold) return true;

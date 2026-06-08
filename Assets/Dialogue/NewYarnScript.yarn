@@ -209,6 +209,7 @@ Rigel:......
 Rigel:Another bad dream...
 Rigel:Even the war is ended 7 years ago,the past is still torturing me.
 Rigel:Let's get up.
+<<accept_quest "Intro_001">>
 ===
 
 title:Past_Memory

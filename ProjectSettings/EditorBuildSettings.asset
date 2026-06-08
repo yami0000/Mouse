@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Main city.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Maze.unity
+    path: Assets/Scenes/Rust City.unity
     guid: 752b4cfe30c11cc4582f250e3059e90a
   - enabled: 1
     path: Assets/Scenes/Lava.unity
