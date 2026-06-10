@@ -1,4 +1,4 @@
-﻿{
+{
   "projectFileVersion": 3,
   "sourceFiles": [
     "**/*.yarn"
@@ -7,8 +7,10 @@
     "**/*~/*",
     "./Samples/Yarn Spinner*/*"
   ],
-  "localisation": {},
-  "baseLanguage": "zh-CHS",
+  "localisation": {
+    "zh-CHS": {}
+  },
+  "baseLanguage": "en",
   "compilerOptions": {},
   "definitionsFiles": []
 }

@@ -1,80 +1,81 @@
-﻿
-title: Grandma
+﻿ 
+title: side_02_001_01
 ---
 <<declare $player_spoke_to_grandma = false>>
 
 <<if $player_spoke_to_grandma>>
-    Grandma: Hello! Little mouse!
-    Grandma: Interested in my wares?
-        -> Let me have a look...
-            Grandma:Please have a look!
-        -> Maybe next time...
-            Grandma:Save travel,little mouse!
-    Grandma: ...little mouse,you are a mammal,you must have been to the upper level right?
-    Grandma: Can you bring me some FLOWERS?
-    Grandma: You see, underground has no sun,all we can grow is mushrooms.
-    Grandma: I can give something valuable to you, if you can bring me some FLOWERS.
+    Grandma: Hello! Little mouse! #line:0e01903 
+    Grandma: Interested in my wares? #line:09c762a 
+        -> Let me have a look... #line:0650d70 
+            Grandma:Please have a look! #line:04a0946 
+        -> Maybe next time... #line:0d123a0 
+            Grandma:Save travel,little mouse! #line:01c384a 
+    Grandma: ...little mouse,you are a mammal,you must have been to the upper level right? #line:0db00c0 
+    Grandma: Can you bring me some FLOWERS? #line:00fad50 
+    Grandma: You see, underground has no sun,all we can grow is mushrooms. #line:099f3c3 
+    Grandma: I can give something valuable to you, if you can bring me some FLOWERS. #line:03523d3 
     
 <<else>>
-    Grandma: Oh...It's been a while since I saw a mammal...
-   <<accept_quest "side_001">>
+    Grandma: Oh...It's been a while since I saw a mammal... #line:070c734 
+   <<accept_quest "side_02_001">>
     <<set $player_spoke_to_grandma = true>>
-    Grandma: Little mouse, do you want to buy some mushroom?
-        -> Let me have a look...
-            Grandma:Please have a look!
-        -> Maybe next time...
-            Grandma:Save travel,little mouse!
+    Grandma: Little mouse, do you want to buy some mushroom? #line:0d0562c 
+        -> Let me have a look... #line:0502793 
+            Grandma:Please have a look! #line:015319e 
+        -> Maybe next time... #line:0cb70fb 
+            Grandma:Save travel,little mouse! #line:012eb7a 
 <<endif>>
 ===
 
-title: Police
+title: side_02_002_01
 ---
 <<declare $player_spoke_to_police_first = true>>
 
 <<if $player_spoke_to_police_first>>
-    Mic:Can we go back yet,Captain?
+    Mic:Can we go back yet,Captain? #line:0a6a177 
     <<set $player_spoke_to_police_first = false>>
-    Sif:For bugs sake...NO,we have to wait for orders.
-    Rigel:What happened?
-    Mic:A MOUSE!He looks so different from the books!Can I touch your tail?Please!! 
-    Sif:Stop it,mic!
-    Sif:(whispers)A mammal,what an unlucky day...
-    Sif:None of your business,mammal.Leave.
-    Rigel:It seems there was a murder,a Cyberpsychosis,of course...
-    Sif:Ho...How do you know?We have already moved the body away!
-    Rigel:I have seem lots of scenes like this,trust me.
-    Mic:Can I touch your fluffy tail?Please!!
-    Sif:Please,mic!
-    Sif:You are right,this morning,we receieved a report that someone is murdered under plain sight.When I and my team reached here,the body was so awlful that I can barely recognize which spieces he was...
-    Sif:...It took some time for our specialist to know that the murder has Cyberpsychosis but you just took a glance...
-    Sif:You can't be some normal mammal as far as I can tell,so if you can help,We would be grateful.
-    Sif:Try heading west of the RUST CITY,some of my team has already traced there.
-    Rigel:It's so dangerous to let a Cyberpsychos on the run,I should move now.
-    Mic:(Looking at Rigel without a blink)
+    Sif:For bugs sake...NO,we have to wait for orders. #line:0c36bc3 
+    Rigel:What happened? #line:05f525d 
+    Mic:A MOUSE!He looks so different from the books!Can I touch your tail?Please!!  #line:013dc0c 
+    Sif:Stop it,mic! #line:0ca6ce6 
+    Sif:(whispers)A mammal,what an unlucky day... #line:0501dd6 
+    Sif:None of your business,mammal.Leave. #line:0eb9163 
+    Rigel:It seems there was a murder,a Cyberpsychosis,of course... #line:0764ced 
+    Sif:Ho...How do you know?We have already moved the body away! #line:0a4ead5 
+    Rigel:I have seem lots of scenes like this,trust me. #line:02b4ad5 
+    Mic:Can I touch your fluffy tail?Please!! #line:0f0ee46 
+    Sif:Please,mic! #line:080aca5 
+    Sif:You are right,this morning,we receieved a report that someone is murdered under plain sight.When I and my team reached here,the body was so awlful that I can barely recognize which spieces he was... #line:0e2bf3b 
+    Sif:...It took some time for our specialist to know that the murder has Cyberpsychosis but you just took a glance... #line:09023bb 
+    Sif:You can't be some normal mammal as far as I can tell,so if you can help,We would be grateful. #line:0f7cd1e 
+    Sif:Try heading EAST of the RUST CITY,some of my team has already traced there. #line:05c212e 
+    Rigel:It's so dangerous to let a Cyberpsychos on the run,I should move now. #line:0347f24 
+    Mic:(Looking at Rigel without a blink) #line:0234889 
+    <<accept_quest "Side_02_002">>
 
 <<else>>
-    Sif:Safty travel,little mammal.
-    Mic:Safe...traveling!
+    Sif:Safty travel,little mammal. #line:0ecb6b9 
+    Mic:Safe...traveling! #line:0c1780d 
 <<endif>>
 ===
 
 title: Raccoon
 ---
-Raccoon:Want a drink?
+Raccoon:Want a drink? #line:08d20a3 
 ===
 
 title:Worker
 ---
-Worker: Get off,dirty mammal.
+Worker: Get off,dirty mammal. #line:09082f1 
 ===
 
 
 title: DefeatMantis
 ---
-Rigel:( fierce panting ) Shit...
-Rigel:Even if they lost the war,their experimentals are getting much better than I last fought them.
-Rigel:Maybe after 5 years, I will have no chance against these monsters.
-Rigel:I have to do something.
+Rigel:( fierce panting ) Shit... #line:062a0c0 
+Rigel:Even if they lost the war,their experimentals are getting much better than I last fought them. #line:091afbe 
+Rigel:Maybe after 5 years, I will have no chance against these monsters. #line:0dfd67e 
+Rigel:I have to do something. #line:0a385a4 
 ===
 
 title:Lion_Start
@@ -82,62 +83,62 @@ title:Lion_Start
 <<declare $player_spoke_to_Lion = false>>
 
 <<if $player_spoke_to_Lion is false>>
-    Lion:Good,you came.
-    Lion:Recently our intel team has captured an encrypted message that the bugs are doing large-scale experiment about military-grade cyberlimb.
-    Lion:We fear they are planning their next invasion.
-    Lion:In this situation,sending a diplomat team is not a wise choice.
-    Lion:So we are asking you to go on a private investigation.
+    Lion:Good,you came. #line:00ce04a 
+    Lion:Recently our intel team has captured an encrypted message that the bugs are doing large-scale experiment about military-grade cyberlimb. #line:0c7da74 
+    Lion:We fear they are planning their next invasion. #line:0781f64 
+    Lion:In this situation,sending a diplomat team is not a wise choice. #line:06cfcb1 
+    Lion:So we are asking you to go on a private investigation. #line:09092dd 
     <<set $player_spoke_to_Lion = true>>
     <<jump Lion_Middle>>
 
 <<else>>
-    Lion:Good hunting,Rigel.
+    Lion:Good hunting,Rigel. #line:0334cc2 
 <<endif>>
 ===
 
 title:Lion_Middle
 ---
-Lion:Any Qusetion?
-        -> Where are they doing this experiment?
-            Lion:According to our intel team,the main focus is in the RUST CITY,the heart of their industrial complex.
-            Lion:There should be a secret lab there,We need you to gather the information,and find a way to infiltrate.
+Lion:Any Qusetion? #line:08410a3 
+        -> Where are they doing this experiment? #line:006f37f 
+            Lion:According to our intel team,the main focus is in the RUST CITY,the heart of their industrial complex. #line:0871780 
+            Lion:There should be a secret lab there,We need you to gather the information,and find a way to infiltrate. #line:0fdd81d 
             <<jump Lion_Middle>>
-        -> What exactly are they working on?
-            Lion:We can't tell so far,but it seems they are developing BIOLOGICAL WEAPON for their soilders.
-            Lion:...that are capable to destroy mammal's biological structure in a second. 
+        -> What exactly are they working on? #line:07cd1a6 
+            Lion:We can't tell so far,but it seems they are developing BIOLOGICAL WEAPON for their soilders. #line:036b7ee 
+            Lion:...that are capable to destroy mammal's biological structure in a second.  #line:0cea460 
             <<jump Lion_Middle>>
-        -> I'm ready.
-            Lion:Good.
-Lion:We will provide you an ID card that will allow you to enter and exit RUST CITY at any time.
-Lion:Also,some money will be transferred to your account,use it wisely before the operation.
-Lion:And...
-Lion:...Maybe this is a bad time to mention...
-Lion:Rigel,do you remember "CINDERTAIL"?
-Rigel:How can I forget this name?I make bad dreams about him endlessly after the war.
-Lion:Yes,"Cindertail"...the bug who killed MEISSA,the captain of ORION.
-Lion:He reappeared...after a long disappearence since the end of the war.
-Rigel:I won't fail this time,I will clear my magzine through his throat...
-Rigel:I traced him for entire 7 years and he finally appeared...
-Lion:Clam down,young mouse.
-Lion:I understand your feeling,I lost my brother on the battlefield half century ago.
-Lion:But the lust of revenge,will only consume you,don't let it cloud your mind.
-Lion:Tell me when you are ready,Dismiss.
+        -> I'm ready. #line:08ffb2d 
+            Lion:Good. #line:0b0e4c6 
+Lion:We will provide you an ID card that will allow you to enter and exit RUST CITY at any time. #line:0eec082 
+Lion:Also,some money will be transferred to your account,use it wisely before the operation. #line:0a51e70 
+Lion:And... #line:0a5d8cb 
+Lion:...Maybe this is a bad time to mention... #line:02b4a03 
+Lion:Rigel,do you remember "CINDERTAIL"? #line:05a541b 
+Rigel:How can I forget this name?I make bad dreams about him endlessly after the war. #line:02cee14 
+Lion:Yes,"Cindertail"...the bug who killed MEISSA,the captain of ORION. #line:009d008 
+Lion:He reappeared...after a long disappearence since the end of the war. #line:03d56b4 
+Rigel:I won't fail this time,I will clear my magzine through his throat... #line:014a605 
+Rigel:I traced him for entire 7 years and he finally appeared... #line:09bd707 
+Lion:Clam down,young mouse. #line:02cdf0a 
+Lion:I understand your feeling,I lost my brother on the battlefield half century ago. #line:0287ae5 
+Lion:But the lust of revenge,will only consume you,don't let it cloud your mind. #line:009f8ed 
+Lion:Tell me when you are ready,Dismiss. #line:085cad6 
  <<accept_quest "main_001">>
  <<accept_quest "main_00A">>
 ===
 
 title:Lion_Last
 ---
-Lion:How's the preparation?
-        -> I need more time. 
-            Lion:Take your time,little mouse.
+Lion:How's the preparation? #line:0161e86 
+        -> I need more time.  #line:060cb02 
+            Lion:Take your time,little mouse. #line:0cda29e 
             <<jump Lion_Middle>>
-        -> I'm ready for the mission.
-            Lion:Good.
-            Lion:We can't send you into the rust city officially,but we can send you near the city.
-            Rigel:And I have to find a way into the city,right?
-            Lion:That's correct.As always.
-            Lion:This way.
+        -> I'm ready for the mission. #line:034058d 
+            Lion:Good. #line:026e742 
+            Lion:We can't send you into the rust city officially,but we can send you near the city. #line:0433d8b 
+            Rigel:And I have to find a way into the city,right? #line:023b6ef 
+            Lion:That's correct.As always. #line:0fe2d88 
+            Lion:This way. #line:037ee24 
             <<jump Lion_Middle>>
 
 
@@ -145,196 +146,335 @@ Lion:How's the preparation?
 
 title:Zig_Zag
 ---
-Zig:STAND RIGHT THERE,mammal.
-Zig:Disarm all your Communication systems.RIGHT NOW.
-Zig:If I can see a single device transferring data with outside,my companion will shoot you to a hornet.
-Rigel:Okay,Okay!Relax,All comms down!
-Zig:Wise choice.You have been sniffing around the lab.Who are you,and what do you want?
-Rigel:Name's Sam,have been a chip trafficker for many years,you can check my ID.
-Rigel:And don't need to worry about me,I want to enter the lab same as your guys,we can collaborate.
-Zag:boss,How...
-Zig:Trafficker always know how to negotiate,eh?True,I am a humble merchant who "borrows" other's good ware too,same as you.
-Zig:Recently the lab is doing something big,very big.My boys told me thousands of valuable material are transported there everyday.
-Zig:It's risky,but if we can manage to "borrow" a tiny portion of it...I can't even imagine!!
-Zig:But business is business,to prove your capability,we need you to do something for us,and we can discuss more after that.
-Rigel:(Here we go again...)
-Zig:I need a special chip that can see through the wall of the lab,without it,it would be reckless to proceed.
-Zig:This can be circulated in the black market of your mammal country...
-Zig:...or you can "borrow" it from the leaders of the local gang in the deep sewers,one of them must have it.
-Zig:I will send you my code,contact me once you finished.
-Zig:Good Luck.
+Zig:STAND RIGHT THERE,mammal. #line:09ab7f7 
+Zig:Disarm all your Communication systems.RIGHT NOW. #line:0bda183 
+Zig:If I can see a single device transferring data with outside,my companion will shoot you to a hornet. #line:0fc9c01 
+Rigel:Okay,Okay!Relax,All comms down! #line:0dbcbbb 
+Zig:Wise choice.You have been sniffing around the lab.Who are you,and what do you want? #line:0090c3a 
+Rigel:Name's Sam,have been a chip trafficker for many years,you can check my ID. #line:0f9f500 
+Rigel:And don't need to worry about me,I want to enter the lab same as your guys,we can collaborate. #line:0df4f88 
+Zag:boss,How... #line:0fdc736 
+Zig:Trafficker always know how to negotiate,eh?True,I am a humble merchant who "borrows" other's good ware too,same as you. #line:054a429 
+Zig:Recently the lab is doing something big,very big.My boys told me thousands of valuable material are transported there everyday. #line:05cbb8c 
+Zig:It's risky,but if we can manage to "borrow" a tiny portion of it...I can't even imagine!! #line:0109347 
+Zig:But business is business,to prove your capability,we need you to do something for us,and we can discuss more after that. #line:09e6021 
+Rigel:(Here we go again...) #line:0eb6480 
+Zig:I need a special chip that can see through the wall of the lab,without it,it would be reckless to proceed. #line:0bcc7f5 
+Zig:This can be circulated in the black market of your mammal country... #line:06665ba 
+Zig:...or you can "borrow" it from the leaders of the local gang in the deep sewers,one of them must have it. #line:0858262 
+Zig:I will send you my code,contact me once you finished. #line:076978f 
+Zig:Good Luck. #line:0031041 
 ===
 
 title:Zag_Comment
 ---
-Zag:A word,boss?
-Zig:Zag,This is not the right time!
-Zag:It's about Sam,the way he fought,it's nothing I have seemed before.
-Zag:I have been in the army for a couple of years,and I saw lots of fights.This...This is something I have NEVER seem before.
-Zag:His movement,his way of using weapons and tactics...it's ART.
-Zag:Like playing a chess game,he can always kill opponent's general with the shortest steps.
-Zag:I dare to say that if we have someone like him during the war,maybe tide of the war would have been on our side.
-Zig:What the hell?!Zag,are you speaking for dirty mammals?
-Zig:But it does make sense.How can a trafficker fought so well?How did he know what we wanted to do at the first place?
-Zig:Things are getting more interesting,we just keep playing with him,I want to see how this ends...
-Zig:hehehehe...
+Zag:A word,boss? #line:08a83bf 
+Zig:Zag,This is not the right time! #line:063795e 
+Zag:It's about Sam,the way he fought,it's nothing I have seemed before. #line:0d125a9 
+Zag:I have been in the army for a couple of years,and I saw lots of fights.This...This is something I have NEVER seem before. #line:063b3d3 
+Zag:His movement,his way of using weapons and tactics...it's ART. #line:00ad1dd 
+Zag:Like playing a chess game,he can always kill opponent's general with the shortest steps. #line:07a17b6 
+Zag:I dare to say that if we have someone like him during the war,maybe tide of the war would have been on our side. #line:08128a9 
+Zig:What the hell?!Zag,are you speaking for dirty mammals? #line:070f8fa 
+Zig:But it does make sense.How can a trafficker fought so well?How did he know what we wanted to do at the first place? #line:09d0d1a 
+Zig:Things are getting more interesting,we just keep playing with him,I want to see how this ends... #line:0af2f07 
+Zig:hehehehe... #line:002b260 
 ===
 
 title:Intro_CinderTail
 ---
-CinderTail:Finally,you came.
-Rigel:Captain?Captain!!
-Captain:Run...Rigel...
-CinderTail:Looks like your Captain's life maintanence system is failing.
-CinderTail:His lung is broken and oxygen is running out.5 minutes.If you can beat me in 5 minutes,maybe your captain will live.
-CinderTail:Or you can walk away now,I will pretend nothing happened.
-Rigel:Captain!!Arhhhhhhhhh!!!!
-Captain:Run...
-CinderTail:Calm down,little mouse,anger can solve nothing.
-CinderTail:Let's dance.
+CinderTail:Finally,you came. #line:0a7bd1e 
+Rigel:Captain?Captain!! #line:04cbda1 
+Captain:Run...Rigel... #line:08d2dd7 
+CinderTail:Looks like your Captain's life maintanence system is failing. #line:0f092f9 
+CinderTail:His lung is broken and oxygen is running out.5 minutes.If you can beat me in 5 minutes,maybe your captain will live. #line:06d304b 
+CinderTail:Or you can walk away now,I will pretend nothing happened. #line:00b20d3 
+Rigel:Captain!!Arhhhhhhhhh!!!! #line:06da880 
+Captain:Run... #line:05db81a 
+CinderTail:Calm down,little mouse,anger can solve nothing. #line:0512258 
+CinderTail:Let's dance. #line:000c3ce 
 ===
 
 title:First_Scene_04
 ---
-CinderTail:Not bad,not bad at all.
-CinderTail:You almost got me,little mouse.Almost.
-CinderTail:Looks like there are valuable implants in you.
-CinderTail:Preparing for a throughal autopsy,little mouse,hehehe....
+CinderTail:Not bad,not bad at all. #line:04361b4 
+CinderTail:You almost got me,little mouse.Almost. #line:035567d 
+CinderTail:Looks like there are valuable implants in you. #line:09e0fd1 
+CinderTail:Preparing for a throughal autopsy,little mouse,hehehe.... #line:0d83ae0 
 ===
 
 title:Wake
 ---
-Rigel:Captain!!!
-Rigel:......
-Rigel:Another bad dream...
-Rigel:Even the war is ended 7 years ago,the past is still torturing me.
-Rigel:Let's get up.
+Rigel:Captain!!! #line:0cbbf58 
+Rigel:...... #line:0f965a5 
+Rigel:Another bad dream... #line:0e76ab5 
+Rigel:Even the war is ended 7 years ago,the past is still torturing me. #line:02aba05 
+Rigel:Let's get up. #line:0a4030d 
 <<accept_quest "Intro_001">>
 ===
 
 title:Past_Memory
 ---
-Rigel:This photo is taken before the war...
-Rigel:ORION...A special force that consisted of nine best warriors from the country.I was one of them.
-Rigel:...and I am the only one who lived.
-Rigel:Every time I look at the picture,I feel like they are watching me from the hell.
-Rigel:This is a curse,and I have to live with that curse for the rest of my life...
+Rigel:This photo is taken before the war... #line:0673ce4 
+Rigel:ORION...A special force that consisted of nine best warriors from the country.I was one of them. #line:0ae832b 
+Rigel:...and I am the only one who lived. #line:0b04fb2 
+Rigel:Every time I look at the picture,I feel like they are watching me from the hell. #line:0402d4a 
+Rigel:This is a curse,and I have to live with that curse for the rest of my life... #line:099332f 
 ===
 
 title:Lab_First
 ---
-Rigel:So the lab is still in the center of the city.
-Rigel:The lab is so big...stretching to the top of the underground strcture.
-Rigel:The lab itself is not hard to find,the question is,how do I get in?
-Rigel:I will run a scan around the site,see what can I find.
+Rigel:So the lab is still in the center of the city. #line:09ab42a 
+Rigel:The lab is so big...stretching to the top of the underground strcture. #line:066c87b 
+Rigel:The lab itself is not hard to find,the question is,how do I get in? #line:0370424 
+Rigel:I will run a scan around the site,see what can I find. #line:0b2cfa5 
  <<jump Lab_Second>>
 ===
 
 title:Lab_Second
 ---
-Rigel:...
-Rigel:I have to admit how astonishing their security system is,even the cutting-edge infiltration drone can't get in.
-Rigel:Since the material of the architecture,I can't even see through the wall.
-Rigel:So we can't get in by normal ways.
-Rigel:There must be some way to get in.
-Rigel:I will gather some information in the city.
+Rigel:... #line:082844a 
+Rigel:I have to admit how astonishing their security system is,even the cutting-edge infiltration drone can't get in. #line:05aa312 
+Rigel:Since the material of the architecture,I can't even see through the wall. #line:098133f 
+Rigel:So we can't get in by normal ways. #line:05ce7e5 
+Rigel:There must be some way to get in. #line:0302081 
+Rigel:I will gather some information in the city. #line:0fb14d5 
 <<progress_objective "lab">>
 ===
 
 title:First_Scene_01
 ---
-Rigel:Everyone,Keep pushing,we are closing to the fort.
-Meissa:Rigel,can you hear me?
-Rigel:Yes,Captain.
-Meissa:Me and Bear are moving close to the fort.ETA in 10 minutes.
-Meissa:Enemy's fire power is stronger on your side,so proceed with caution.
-Rigel:Roger that.
-Rigel:Let's move to the coordination.
+Rigel:Everyone,Keep pushing,we are closing to the fort. #line:0ace70b 
+Meissa:Rigel,can you hear me? #line:00ffdeb 
+Rigel:Yes,Captain. #line:0836570 
+Meissa:Me and Bear are moving close to the fort.ETA in 10 minutes. #line:0adcd27 
+Meissa:Enemy's fire power is stronger on your side,so proceed with caution. #line:07e3434 
+Rigel:Roger that. #line:0b1a722 
+Rigel:Let's move to the coordination. #line:0f8bd3a 
 ===
 
 title:First_Scene_02
 ---
-Meissa:(Scream and Gunfire)
-Meissa:something is not right here,we have been sent to the trap!
-Meissa:We are being ambushed,Rigel,don't go to that coordination!I repeat...
-Rigel:Captain,you are okay?
-Rigel:Captain!
-Rigel:We have to save him!
-Soilder A:This is suicide,we have to retreat!
-Soilder B:We didn't rest since last night.I can't..,
-Rigel:This is an order!Captain always treats you well,this is how you repay him?
-Soilder A:But...
-Rigel:I said,this is an ORDER.Follow me.
+Meissa:(Scream and Gunfire) #line:027ca48 
+Meissa:something is not right here,we have been sent to the trap! #line:0257536 
+Meissa:We are being ambushed,Rigel,don't go to that coordination!I repeat... #line:0024c73 
+Rigel:Captain,you are okay? #line:047220b 
+Rigel:Captain! #line:02e22e1 
+Rigel:We have to save him! #line:03315d7 
+Soilder A:This is suicide,we have to retreat! #line:08b78f2 
+Soilder B:We didn't rest since last night.I can't.., #line:03f1285 
+Rigel:This is an order!Captain always treats you well,this is how you repay him? #line:080b210 
+Soilder A:But... #line:099bdf4 
+Rigel:I said,this is an ORDER.Follow me. #line:0463ef4 
 ===
 
 title:Plant_Shop_01
 ---
-Simon:Uncle Rigel!
-Rigel:Simon? It's 9 P.M. you should be at school!
-Simon:But I don't want to go there!All we do in the class is hearing teacher repeating the E-books!
-Simon:Please,uncle rigel!!! Let me stay at your shop!
-Simon:You told me you escape from class at my age,right?
-Rigel:Yes,my elder brother was very mad at me...
-Simon:See?You don't have the right to tell me to go to the school.
-Rigel:But escape from school is not right,only this time,and don't tell anyone,okay?
-Simon:Uncle Rigel!You are the best!
-Rigel:There's a huge update in "Star Farer", Let's play.
+Simon:Uncle Rigel! #line:0f90a0d 
+Rigel:Simon? It's 9 P.M. you should be at school! #line:047f223 
+Simon:But I don't want to go there!All we do in the class is hearing teacher repeating the E-books! #line:0542f35 
+Simon:Please,uncle rigel!!! Let me stay at your shop! #line:0f76d6b 
+Simon:You told me you escape from class at my age,right? #line:00c9056 
+Rigel:Yes,my elder brother was very mad at me... #line:0f3faa7 
+Simon:See?You don't have the right to tell me to go to the school. #line:055decf 
+Rigel:But escape from school is not right,only this time,and don't tell anyone,okay? #line:00667d0 
+Simon:Uncle Rigel!You are the best! #line:0d41cae 
+Rigel:There's a huge update in "Star Farer", Let's play. #line:0bad8db 
 ===
 
 title:Plant_Shop_02
 ---
-Simon:Uncle Rigel,you have an elder brother?
-Rigel:Yes...but we don't have any blood ties,he's a rabbit.
-Simon:Cool!So you are in the same school?
-Rigel:Yes...in some ways.
-Rigel:He was good at almost everything,but your uncle Rigel...He skipped classes.
-Simon:As am I,now we are on the same boat,uncle Rigel!
-Simon:So is your brother doing fine?Can I meet him?
-Rigel:He...diappeared during the war,I tried to find him...but with no avail.
-Simon:Oh...I'm sorry to hear that,uncle Rigel.
-Rigel:It's okay...Hey,there's a boss fight ahead,no sad words!
-Simon:Roger that,uncle Rigel!
+Simon:Uncle Rigel,you have an elder brother? #line:0db33cf 
+Rigel:Yes...but we don't have any blood ties,he's a rabbit. #line:0f67f46 
+Simon:Cool!So you are in the same school? #line:068b08e 
+Rigel:Yes...in some ways. #line:0e679ce 
+Rigel:He was good at almost everything,but your uncle Rigel...He skipped classes. #line:00535fb 
+Simon:As am I,now we are on the same boat,uncle Rigel! #line:0a2fafb 
+Simon:So is your brother doing fine?Can I meet him? #line:02b53d5 
+Rigel:He...diappeared during the war,I tried to find him...but with no avail. #line:0bbc16d 
+Simon:Oh...I'm sorry to hear that,uncle Rigel. #line:0760035 
+Rigel:It's okay...Hey,there's a boss fight ahead,no sad words! #line:0399d8e 
+Simon:Roger that,uncle Rigel! #line:0ac85d1 
 ===
 
 title:Plant_Shop_03
 ---
-Simon:WOW!Uncle Rigel!You just shoot the boss down from the sky,how did you do that?
-Rigel:I have talent in shooting,I was in the shooting club back in the school.
-Simon:That's so cool!I can't beat the boss with my other 3 friends with the legendary equipment, but you can do it singlehandly with a common gun!
-Rigel:Well...I have been playing shooting games for a long time...
-Simon's Mom:Simon?
-Simon:Coming,Mom!
-Simon's Mom:Rigel,thank you again for taking care of Simon while I am working,is he doing fine?
-Rigel:Y...Yes,he told me he got first place at the swimming lesson today.
-Simon:(Wink at Rigel)Yes,it was tense!
-Simon's Mom:That is my good boy!
-Regel:How is your new job in neon city,Mrs. Simon?
-Simon's Mom:Well...My boss is a good mammal,he is very kind to me and I am learning a lot from him.Thanks for asking.
-Rigel:That's good to hear.See you tomorrow!
-Simon:Bye,uncle Rigel!See you tomorrow!
-Rigel:It's 6 P.M. already,I will close the shop and grab a drink at the bar,the nightmare was so real...
+Simon:WOW!Uncle Rigel!You just shoot the boss down from the sky,how did you do that? #line:0f25bea 
+Rigel:I have talent in shooting,I was in the shooting club back in the school. #line:06e7fa9 
+Simon:That's so cool!I can't beat the boss with my other 3 friends with the legendary equipment, but you can do it singlehandly with a common gun! #line:086b8e2 
+Rigel:Well...I have been playing shooting games for a long time... #line:08ada7c 
+Simon's Mom:Simon? #line:03de0d6 
+Simon:Coming,Mom! #line:0521123 
+Simon's Mom:Rigel,thank you again for taking care of Simon while I am working,is he doing fine? #line:06c9148 
+Rigel:Y...Yes,he told me he got first place at the swimming lesson today. #line:033b2a3 
+Simon:(Wink at Rigel)Yes,it was tense! #line:0ab8b32 
+Simon's Mom:That is my good boy! #line:073bd20 
+Regel:How is your new job in neon city,Mrs. Simon? #line:001d23a 
+Simon's Mom:Well...My boss is a good mammal,he is very kind to me and I am learning a lot from him.Thanks for asking. #line:0c0e51e 
+Rigel:That's good to hear.See you tomorrow! #line:051d44a 
+Simon:Bye,uncle Rigel!See you tomorrow! #line:063ddd7 
+Rigel:It's 6 P.M. already,I will close the shop and grab a drink at the bar,the nightmare was so real... #line:0e82e5e 
 ===
 
 title:Bar_01
 ---
-Raccoon:A Neon Legend?
-Rigel:With L size.
-Raccoon:Had a nightmare again,hadn't you?
-Rigel:Yes,But this time was so real,it's just like the dream is extracted from my memory.
-Raccoon:It's about MEISSA,right?
-Rigel:Yeah...I saw the life ran out his eyes slowly but I couldn't do anything.
-Rigel:And that wrong coordination,captain is always cautious...how did he walked into that trap?
-Raccoon:But he's not certainly dead,is he?Official announced his death after 3 years of searching but didn't find his BODY.
-Rigel:I searched everywhere I can but didn't find a single clue.
-Raccoon:You want to hear my opinion?
-Rigel;What's that?
-Raccoon:I believe he's still alive,I think there's a reason that he didn't come out.
-Raccoon:I was served at A01 Battalion during the war,I saw how he fight in the battlefield.
-Raccoon:He's always calm and cunning,and planted with cutting-edge implants,he can't die that easily.
-Raccoon:If the bugs got him,they would propogate this in their media,but they didn't,which is werid.
-Rigel:Yeah,you are right...
-Raccoon:Holding up,Rigel.Meissa don't want to see you like this.
-Raccoon:After all,you are the last member of the ORION.The hero of mammal country.
-Rigel:...
-Rigel:It's late now,better go home...
+Raccoon:A Neon Legend? #line:0a6e5a0 
+Rigel:With L size. #line:0b5799f 
+Raccoon:Had a nightmare again,hadn't you? #line:0036d94 
+Rigel:Yes,But this time was so real,it's just like the dream is extracted from my memory. #line:08f6ac8 
+Raccoon:It's about MEISSA,right? #line:057ee57 
+Rigel:Yeah...I saw the life ran out his eyes slowly but I couldn't do anything. #line:077cc64 
+Rigel:And that wrong coordination,captain is always cautious...how did he walked into that trap? #line:0dd8a74 
+Raccoon:But he's not certainly dead,is he?Official announced his death after 3 years of searching but didn't find his BODY. #line:03de45f 
+Rigel:I searched everywhere I can but didn't find a single clue. #line:04c9679 
+Raccoon:You want to hear my opinion? #line:02ef5ef 
+Rigel;What's that? #line:0999be5 
+Raccoon:I believe he's still alive,I think there's a reason that he didn't come out. #line:060a83d 
+Raccoon:I was served at A01 Battalion during the war,I saw how he fight in the battlefield. #line:028ece5 
+Raccoon:He's always calm and cunning,and planted with cutting-edge implants,he can't die that easily. #line:0901adc 
+Raccoon:If the bugs got him,they would propogate this in their media,but they didn't,which is werid. #line:060251c 
+Rigel:Yeah,you are right... #line:0835117 
+Raccoon:Holding up,Rigel.Meissa don't want to see you like this. #line:00ab1db 
+Raccoon:After all,you are the last member of the ORION.The hero of mammal country. #line:0602066 
+Rigel:... #line:099b923 
+Rigel:It's late now,better go home... #line:006ae23 
+===
+
+title:Side_02_002_02
+---
+Rigel:The body has been dealt with,but I can still take a look.
+Rigel:There's some body tissue sticked on the ground.
+Rigel:The victim was beat down by the suspect,and stomped to death.There are something alongside the tissue...
+Rigel:Nano fiber...So the victim was an elite soilder.Only they can wear these things.
+Rigel:This is getting more interesting.
+===
+
+title:Side_02_002_03
+---
+Rigel:There's blood spilled on the ground,I come to the right direction.
+Rigel:Let me take a sample...
+Rigel:Looks like there's stimulant in the blood.
+Rigel:Strange,when someone is on the verge of collapsing,they should inject tranquilizer...
+Rigel:He's making himself higher,Why?
+===
+
+title:Side_02_002_04
+---
+Police:Don't come any closer,mammal!
+Police:Wait...you are the one Officer Sif told us on the comms.
+Police:We follow the trace,and found the psycho dumping something in the trash bin...
+Police:And he found us,ran into the building straightly. 
+Police:There's no exit except the door in the strcture,so there is no escape for him.
+Rigel:How was his mental state when you spot him?
+Police:He seems rather...calm.We are in the department of Cyberpsychosis so we are familiar with it.That's strange.
+Rigel:Yes,Let me talk with him.
+Police:Are you out of your mind? You can get yourself killed!
+Rigel:This is more complicated than we think,If I run into any trouble,I will call you.
+Police:Fine...but that's all we can do.
+===
+
+title:Side_02_002_05
+---
+Rigel:There're something in the trash bin.
+Rigel:Lab Equipment,the description on it says it's from...
+Rigel:Central Lab of Rust City!
+Rigel:!!!
+Rigel:We are getting somewhere.
+===
+
+title:Side_02_002_06
+---
+???:A mammal? So they are sending a mammal to kill me...
+Rigel:I'm not one of them.And I'm not with the police too,I mean no harm.
+???:So who are you?
+Rigel:You are not a Cyberpsychosis.someone MADE you that.Am I right?
+???:...
+???:Come here,we will talk.
+===
+
+
+title:Side_02_002_07
+---
+Rigel:Nice trap you got there.
+???:Flattered,Name's cole,an formal engineer.
+Cole:You were right at the entrance.
+Rigel:Tell me everything.
+Cole:A few days ago,A commission posted on the net that an experiment is recuirting for volunteer...with a decent price.
+Rigel:So you signed up.
+Cole:Correct.
+Cole:At the day of the experiment,some armed soilders knocked my door,blindfolded my eyes and took me onto a car.
+Cole:And they took us to a lab,where each of us was locked into an isolation room.
+Cole:Then they started to inject something to us.
+Cole:After about 2 minutes,I heard someone is screaming in agony next to my room,and then gunfire.
+Cole:Shortly after that,I blacked out.
+Rigel:After you come back to sense,you found yourself covered in blood,with lab equipment attached to your body.
+Rigel:And a couple of armed forces tried to kill you, but you fought back, which is the body that sticked to the ground in front of the restaurant in rust city.
+Cole:Exactly,how did you know that? Who are you exactly?
+Rigel:A private detective who loves to meddle in others' affairs,nothing more.
+<<jump Side_02_002_08>>
+===
+
+title:Side_02_002_08
+---
+Rigel:Let me sort things out for a little bit.
+Rigel:So Lion lieutenant was right,the central lab is developing a method to trigger Cyberpsychosis, which can largely improve target's physical capability.
+Rigel:The power is strong enough to let Cole,a weak engineer to kill an elite soilder with ease.
+Rigel:But for the side effect,cole also lost his senses,making him an uncontrollable beast.
+Rigel:Which means the experiment didn't go well,so they are going to do anything to cover this up.
+Rigel:This is not good for cole,but a good change for me to gain access to the lab.
+===
+
+title:Side_02_002_09
+---
+Rigel:You get yourself into a quiet big trouble,man.
+Rigel:This is the central lab's experiment,and the lab works mainly on important projects for the government and the country.
+Rigel:They would do everything to hold back the Cyberpsychosis experiment,which means you are their primary target.
+Cole:Please!You have to help me!!
+Sif:Little mouse,Have you found the psycho?
+Sif:Me and my team is gathering outside the building,we are ready to strike at any time.
+Rigel:No need,I found he has already burnt himself into a pile of ash.
+Rigel:With a cyber arm...
+Sif:Oh...Nice job,after getting out,me and my team will deal with the rest.
+Sif:We owe you.
+Rigel:Hand me your left limb,and your data chip,if you want to live.
+Rigel:Shut down all your devices and cyber addons.Find something that can hide your face and sneak out at night.
+Rigel:Go to the location in the sewer,There's a man who called himself Zig,find him,tell him Sam sent you,and you know something about the lab. 
+Cole:Thanks!Sam,I won't forget this!
+Cole:I don't need this anyway,take this as a token of gratitude.
+===
+
+title:Side_02_002_10
+---
+Rigel:Poor cole.
+Rigel:What he doesn't know is that the lab will match the ash to his DNA to comfirm his death.
+Rigel:In 24 hours,they will find this is a fake body and Cole will be the guy who has the most bounty on their list.
+Rigel:Sorry,cole.This is this the most I can do.
+===
+
+title:Side_02_002_11
+---
+Rigel:Poor cole.
+Rigel:What he doesn't know is that the lab will match the ash to his DNA to comfirm his death.
+Rigel:In 24 hours,they will find this is a fake body and Cole will be the guy who has the most bounty on their list.
+Rigel:Sorry,cole.This is this the most I can do.
+===
+
+title:Side_02_002_12
+---
+Mic:You come back!
+Mic:Thanks for helping us,you've been much help to us.
+Mic:If you got time,can you stop by the police station sometimes?
+Mic:I have so much to ask but we have to work now...
+Rigel:Of course,I will!
+Sif:Stop bothering others!Mic!
+===
+
+title:Side_02_003_01
+---
+Mic:You are back,my hero!
+Mic:Thanks for helping us,you've been much help to us.
+Mic:If you got time,can you stop by the police station sometimes?
+Mic:I have so much to ask but we have to work now...
+Rigel:Of course!I will!
+Sif:Stop bothering others!Mic!
 ===

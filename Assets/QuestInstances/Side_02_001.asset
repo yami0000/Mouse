@@ -10,16 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b0d67c69a60dc9448159e570da66c85, type: 3}
-  m_Name: Flower
+  m_Name: Side_02_001
   m_EditorClassIdentifier: 
-  questID: side_001
+  questID: side_02_001
   questName: Flower from another world
   description: Grandma Mary says she want Flower from the upper level,maybe I can
     find it at the Neon City or somewhere...
   objectives:
-  - type: 1
+  - objectiveID: 
+    type: 1
     target: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     requiredAmount: 10
+    dialogueKey: 
+    updatedDescription: 
   rewards:
   - item: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     amount: 10
