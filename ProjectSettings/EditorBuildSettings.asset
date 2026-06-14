@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Military room.unity
     guid: 4243ad43cf698d549bcac063e0a56c26
+  - enabled: 1
+    path: Assets/Scenes/Side_02_002.unity
+    guid: 8efe37ff90bb406458719612d0a40ca3
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

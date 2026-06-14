@@ -20,8 +20,24 @@ public class Transition : DETECTION
             GameManager.Instance.LoadScene(Num, targetSpawnId);
      }
 
+    private void Awake()
+    {
+        if (AutoLoad)
+        {
+            AutoLoad = false;
+            StartCoroutine(Hide());
+        }
+    }
+
     
-   
+    IEnumerator Hide() 
+    {
+       
+       
+        yield return new WaitForSeconds(0.3f);
+        AutoLoad =true;
+    }
+
     public override void Event()
     {
         base.Event();

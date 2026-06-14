@@ -6,11 +6,13 @@ public class DETECTION : MonoBehaviour
 {
 
 
-    [HideInInspector]public bool IsReadyToInteract = false;
-  
+    [HideInInspector] public bool IsReadyToInteract = false;
+
     private GameObject e;
 
-    
+    // Subclasses can turn off the floating E prompt (defaults to true = old behavior)
+    protected virtual bool ShowPrompt => true;
+
     private static Player GetPlayer()
     {
         return PlayerManager.Instance.player;
@@ -20,8 +22,9 @@ public class DETECTION : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-           IsReadyToInteract = true;
-            if(e == null)e = Instantiate(GetPlayer().E, GetPlayer().transform.position, Quaternion.identity);
+            IsReadyToInteract = true;
+            if (ShowPrompt && e == null) e = Instantiate(GetPlayer().E, GetPlayer().transform.position, Quaternion.identity);
+            OnPlayerEnter();
         }
     }
 
@@ -30,35 +33,42 @@ public class DETECTION : MonoBehaviour
         if (collision.TryGetComponent<Player>(out Player player))
         {
             IsReadyToInteract = false;
-            if(e!=null)Destroy(e);
+            if (e != null) Destroy(e);
+            OnPlayerExit();
         }
     }
 
     private void Update()
     {
-        Vector3 V= new Vector3(GetPlayer().transform.position.x,
-                              GetPlayer().transform.position.y+2.5f,
+        Vector3 V = new Vector3(GetPlayer().transform.position.x,
+                              GetPlayer().transform.position.y + 2.5f,
                               GetPlayer().transform.position.z);
 
-        if(e!=null)e.transform.position =V;  
-          
+        if (e != null) e.transform.position = V;
+
         if (IsReadyToInteract)
         {
-                Event();
+            Event();
             if (Input.GetKeyDown(KeyCode.E))
                 Interact();
         }
-        
+
     }
 
-    public virtual void Interact() 
+    public virtual void Interact()
     {
 
 
     }
 
-    public virtual void Event() 
+    public virtual void Event()
     {
-     
+
     }
+
+    // New optional hooks ¡ª base implementations are empty, so existing
+    // subclasses (CameraEvent, ChestOpen, NPCDialogue, ...) are unaffected.
+    protected virtual void OnPlayerEnter() { }
+
+    protected virtual void OnPlayerExit() { }
 }

@@ -371,6 +371,7 @@ Rigel:Yes,Let me talk with him.
 Police:Are you out of your mind? You can get yourself killed!
 Rigel:This is more complicated than we think,If I run into any trouble,I will call you.
 Police:Fine...but that's all we can do.
+<<progress_objective "Side_02_002*01">>
 ===
 
 title:Side_02_002_05
@@ -390,6 +391,7 @@ Rigel:I'm not one of them.And I'm not with the police too,I mean no harm.
 Rigel:You are not a Cyberpsychosis.someone MADE you that.Am I right?
 ???:...
 ???:Come here,we will talk.
+<<progress_objective "Side_02_002*02">>
 ===
 
 
@@ -421,7 +423,7 @@ Rigel:So Lion lieutenant was right,the central lab is developing a method to tri
 Rigel:The power is strong enough to let Cole,a weak engineer to kill an elite soilder with ease.
 Rigel:But for the side effect,cole also lost his senses,making him an uncontrollable beast.
 Rigel:Which means the experiment didn't go well,so they are going to do anything to cover this up.
-Rigel:This is not good for cole,but a good change for me to gain access to the lab.
+Rigel:This is not good for cole,but a good chance for me to gain access to the lab.
 ===
 
 title:Side_02_002_09
@@ -452,14 +454,6 @@ Rigel:Sorry,cole.This is this the most I can do.
 ===
 
 title:Side_02_002_11
----
-Rigel:Poor cole.
-Rigel:What he doesn't know is that the lab will match the ash to his DNA to comfirm his death.
-Rigel:In 24 hours,they will find this is a fake body and Cole will be the guy who has the most bounty on their list.
-Rigel:Sorry,cole.This is this the most I can do.
-===
-
-title:Side_02_002_12
 ---
 Mic:You come back!
 Mic:Thanks for helping us,you've been much help to us.

@@ -408,10 +408,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onQuestAccepted:
   - questID: Intro_001
-    spawnPrefab: {fileID: 9114292519887007498, guid: 3ae10fc4292876f41873a214438e11af, type: 3}
-    spawnPoint: {fileID: 1677089500}
-    spawnGUID: Intro_001_S1
-    destroyGUID: 
+    spawns:
+    - spawnPrefab: {fileID: 9114292519887007498, guid: 3ae10fc4292876f41873a214438e11af, type: 3}
+      spawnPoint: {fileID: 1677089500}
+      spawnGUID: Intro_001_S1
+    destroyGUIDs: []
   onObjectiveCompleted: []
   onQuestCompleted: []
 --- !u!4 &229385465

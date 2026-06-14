@@ -17,17 +17,16 @@ public class PlayerDeathState : PlayerState
     {
         base.Enter();
 
+        UI_Active UI = player.ReviveUI.GetComponent<UI_Active>();
+
         if (player.inScriptedDefeat)
         {
-
-            UI_Active UI = player.ReviveUI.GetComponent<UI_Active>();
-
-            if (!player.inScriptedDefeat)
-                UI.OpenMenu();
 
             player.NotifyScriptedDefeat();
             return;
         }
+        else 
+            UI.OpenMenu();
 
         GM.Instance.GameManager.isUIOpened = true;
     }

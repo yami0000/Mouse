@@ -15,13 +15,24 @@ public class SpawnPoint : DETECTION
     private bool IfWalked = false;
 
     private static readonly List<SpawnPoint> all = new();
+    private Coroutine walkRoutine;
 
     private void Start()
     {
-       
+        StartCoroutine(Hide());
     }
 
-    private Coroutine walkRoutine;
+    IEnumerator Hide() 
+    {
+        if (_walk)
+        {
+            yield return new WaitForSeconds(0.2f);
+            _walk = false;
+        }
+        else
+           yield return null;
+    }
+
 
     private void Walk() => walkRoutine = StartCoroutine(walk());
 

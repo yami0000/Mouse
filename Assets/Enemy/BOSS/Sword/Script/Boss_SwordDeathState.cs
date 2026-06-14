@@ -14,6 +14,12 @@ public class Boss_SwordDeathState : EnemyState
     public override void Enter()
     {
         base.Enter();
+
+        boss.anim.SetBool(boss.lastAnimBoolName, true);
+        boss.anim.speed = 0;
+        boss.cd.enabled = false;
+
+        stateTimer = .1f;
     }
 
     public override void Exit()
@@ -24,5 +30,8 @@ public class Boss_SwordDeathState : EnemyState
     public override void Update()
     {
         base.Update();
+
+        if (stateTimer > 0)
+            rb.velocity = new Vector2(0, 5);
     }
 }

@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// ©¤©¤ Serializable event entries ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+// ---- Serializable event entries ----------------------------------------------
 
+/// <summary>
+/// One prefab spawn. A quest/objective entry can hold any number of these.
+/// </summary>
 [System.Serializable]
-public class QuestEventEntry
+public class SpawnEntry
 {
-    [Tooltip("Must match QuestData.questID.")]
-    public string questID;
-
-    [Header("Spawn")]
     [Tooltip("Prefab to instantiate when this quest event fires.")]
     public GameObject spawnPrefab;
 
@@ -20,10 +19,19 @@ public class QuestEventEntry
     [Tooltip("Unique ID for this spawn. Must match the spawnGUID on the prefab's " +
              "PersistentSpawnObject component. E.g. 'spawn_quest001_npc'")]
     public string spawnGUID;
+}
 
-    [Header("Destroy")]
-    [Tooltip("GUID of the PersistentWorldObject in this scene to permanently destroy.")]
-    public string destroyGUID;
+[System.Serializable]
+public class QuestEventEntry
+{
+    [Tooltip("Must match QuestData.questID.")]
+    public string questID;
+
+    [Header("Spawns - one element per prefab to instantiate")]
+    public List<SpawnEntry> spawns = new();
+
+    [Header("Destroys - GUIDs of PersistentWorldObjects to permanently destroy")]
+    public List<string> destroyGUIDs = new();
 }
 
 [System.Serializable]
@@ -32,41 +40,36 @@ public class ObjectiveEventEntry
     [Tooltip("Must match ObjectiveData.objectiveID.")]
     public string objectiveID;
 
-    [Header("Spawn")]
-    public GameObject spawnPrefab;
-    public QuestSpawnPoint spawnPoint;
+    [Header("Spawns - one element per prefab to instantiate")]
+    public List<SpawnEntry> spawns = new();
 
-    [Tooltip("Unique ID for this spawn. Must match the spawnGUID on the prefab's " +
-             "PersistentSpawnObject component.")]
-    public string spawnGUID;
-
-    [Header("Destroy")]
-    [Tooltip("GUID of the PersistentWorldObject in this scene to permanently destroy.")]
-    public string destroyGUID;
+    [Header("Destroys - GUIDs of PersistentWorldObjects to permanently destroy")]
+    public List<string> destroyGUIDs = new();
 }
 
-// ©¤©¤ QuestWorldEvent ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+// ---- QuestWorldEvent ---------------------------------------------------------
 
 /// <summary>
 /// ONE per scene. Reacts to quest/objective events and applies world
-/// consequences (spawn prefabs, permanently destroy objects).
+/// consequences (spawn prefabs, permanently destroy objects). Each entry can
+/// now declare any number of spawns and any number of destroy targets.
 ///
-/// On scene reload, SceneController.RespawnPersistentObjects() re-instantiates
-/// any registered spawns that are no longer alive ¡ª using QuestSpawnPoint as
-/// the fixed anchor.
+/// On scene reload, GameManager.RespawnPersistentObjects() re-instantiates any
+/// registered spawns that are no longer alive - using QuestSpawnPoint as the
+/// fixed anchor.
 /// </summary>
 public class QuestWorldEvent : MonoBehaviour
 {
-    [Header("On Quest Accepted ¡ª one entry per quest")]
+    [Header("On Quest Accepted - one entry per quest")]
     [SerializeField] private List<QuestEventEntry> onQuestAccepted = new();
 
-    [Header("On Objective Completed ¡ª one entry per objective")]
+    [Header("On Objective Completed - one entry per objective")]
     [SerializeField] private List<ObjectiveEventEntry> onObjectiveCompleted = new();
 
-    [Header("On Quest Completed ¡ª one entry per quest")]
+    [Header("On Quest Completed - one entry per quest")]
     [SerializeField] private List<QuestEventEntry> onQuestCompleted = new();
 
-    // ©¤©¤ Lifecycle ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ---- Lifecycle -----------------------------------------------------------
 
     void OnEnable()
     {
@@ -74,22 +77,22 @@ public class QuestWorldEvent : MonoBehaviour
         GameEvents.OnObjectiveCompleted += HandleObjectiveCompleted;
         GameEvents.OnQuestCompleted += HandleQuestCompleted;
 
-        // Retroactive apply ¡ª if events already fired before this scene loaded,
-        // apply consequences now. Skip re-spawn here ¡ª SceneController handles
-        // that separately so we don't double-instantiate.
+        // Retroactive apply - if events already fired before this scene loaded,
+        // apply consequences now. Skip re-spawn here - GameManager handles that
+        // separately so we don't double-instantiate.
         if (QuestWorldState.Instance == null) return;
 
         foreach (var entry in onQuestAccepted)
             if (QuestWorldState.Instance.IsQuestAccepted(entry.questID))
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
 
         foreach (var entry in onObjectiveCompleted)
             if (QuestWorldState.Instance.IsObjectiveCompleted(entry.objectiveID))
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
 
         foreach (var entry in onQuestCompleted)
             if (QuestWorldState.Instance.IsQuestCompleted(entry.questID))
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
     }
 
     void OnDisable()
@@ -99,35 +102,38 @@ public class QuestWorldEvent : MonoBehaviour
         GameEvents.OnQuestCompleted -= HandleQuestCompleted;
     }
 
-    // ©¤©¤ Event Handlers ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ---- Event Handlers ------------------------------------------------------
 
     void HandleQuestAccepted(string id)
     {
         foreach (var entry in onQuestAccepted)
             if (entry.questID == id)
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
     }
 
     void HandleObjectiveCompleted(string id)
     {
         foreach (var entry in onObjectiveCompleted)
             if (entry.objectiveID == id)
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
     }
 
     void HandleQuestCompleted(string id)
     {
         foreach (var entry in onQuestCompleted)
             if (entry.questID == id)
-                ApplyEntry(entry.spawnPrefab, entry.spawnPoint, entry.spawnGUID, entry.destroyGUID);
+                ApplyEntry(entry.spawns, entry.destroyGUIDs);
     }
 
-    // ©¤©¤ Core Application ©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+    // ---- Core Application ----------------------------------------------------
 
-    void ApplyEntry(GameObject prefab, QuestSpawnPoint spawnPoint, string spawnGUID, string destroyGUID)
+    void ApplyEntry(List<SpawnEntry> spawns, List<string> destroyGUIDs)
     {
-        Spawn(prefab, spawnPoint, spawnGUID);
-        DestroyByGUID(destroyGUID);
+        if (spawns != null)
+            foreach (var s in spawns)
+                Spawn(s.spawnPrefab, s.spawnPoint, s.spawnGUID);
+
+        DestroyByGUIDs(destroyGUIDs);
     }
 
     void Spawn(GameObject prefab, QuestSpawnPoint spawnPoint, string spawnGUID)
@@ -136,15 +142,15 @@ public class QuestWorldEvent : MonoBehaviour
 
         if (QuestWorldState.Instance == null)
         {
-            Debug.LogError("[QuestWorldEvent] QuestWorldState not found ¡ª " +
+            Debug.LogError("[QuestWorldEvent] QuestWorldState not found - " +
                            "make sure it exists in your bootstrap scene.");
             return;
         }
 
-        // Already registered ¡ª SceneController will respawn it on scene reload
+        // Already registered - GameManager will respawn it on scene reload
         if (!string.IsNullOrEmpty(spawnGUID) && QuestWorldState.Instance.WasSpawned(spawnGUID))
         {
-            Debug.Log($"[QuestWorldEvent] '{spawnGUID}' already registered ¡ª skipping.");
+            Debug.Log($"[QuestWorldEvent] '{spawnGUID}' already registered - skipping.");
             return;
         }
 
@@ -157,17 +163,25 @@ public class QuestWorldEvent : MonoBehaviour
         Debug.Log($"[QuestWorldEvent] Spawned '{prefab.name}' at '{spawnPoint.spawnPointID}' (GUID: {spawnGUID}).");
     }
 
-    void DestroyByGUID(string destroyGUID)
+    void DestroyByGUIDs(List<string> destroyGUIDs)
     {
-        if (string.IsNullOrEmpty(destroyGUID)) return;
+        if (destroyGUIDs == null || destroyGUIDs.Count == 0) return;
+
+        // Collect the non-empty targets, then do a single scene scan so multiple
+        // destroys don't each trigger their own FindObjectsByType pass.
+        var targets = new HashSet<string>();
+        foreach (var guid in destroyGUIDs)
+            if (!string.IsNullOrEmpty(guid))
+                targets.Add(guid);
+
+        if (targets.Count == 0) return;
 
         foreach (var pwo in FindObjectsByType<PersistentWorldObject>(FindObjectsSortMode.None))
         {
-            if (pwo.GUID == destroyGUID)
+            if (targets.Contains(pwo.GUID))
             {
                 pwo.DestroyPersistently();
-                Debug.Log($"[QuestWorldEvent] Permanently destroyed '{destroyGUID}'.");
-                return;
+                Debug.Log($"[QuestWorldEvent] Permanently destroyed '{pwo.GUID}'.");
             }
         }
     }
