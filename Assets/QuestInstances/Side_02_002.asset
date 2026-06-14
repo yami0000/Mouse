@@ -35,6 +35,12 @@ MonoBehaviour:
     requiredAmount: 1
     dialogueKey: Side_02_002*03
     updatedDescription: 
+  - objectiveID: Side_02_002-4
+    type: 2
+    target: {fileID: 0}
+    requiredAmount: 1
+    dialogueKey: Side_02_002*03
+    updatedDescription: 
   rewards: []
   isRepeatable: 0
   prerequisiteQuests: []

@@ -397,10 +397,9 @@ Rigel:You are not a Cyberpsychosis.someone MADE you that.Am I right?
 
 title:Side_02_002_07
 ---
-Rigel:Nice trap you got there.
-???:Flattered,Name's cole,an formal engineer.
+???:You are my life-saver!Name's cole,an formal engineer.
+Rigel:Sam.Tell me everything.
 Cole:You were right at the entrance.
-Rigel:Tell me everything.
 Cole:A few days ago,A commission posted on the net that an experiment is recuirting for volunteer...with a decent price.
 Rigel:So you signed up.
 Cole:Correct.
@@ -424,6 +423,7 @@ Rigel:The power is strong enough to let Cole,a weak engineer to kill an elite so
 Rigel:But for the side effect,cole also lost his senses,making him an uncontrollable beast.
 Rigel:Which means the experiment didn't go well,so they are going to do anything to cover this up.
 Rigel:This is not good for cole,but a good chance for me to gain access to the lab.
+<<jump Side_02_002_09>>
 ===
 
 title:Side_02_002_09
@@ -443,6 +443,7 @@ Rigel:Shut down all your devices and cyber addons.Find something that can hide y
 Rigel:Go to the location in the sewer,There's a man who called himself Zig,find him,tell him Sam sent you,and you know something about the lab. 
 Cole:Thanks!Sam,I won't forget this!
 Cole:I don't need this anyway,take this as a token of gratitude.
+<<jump Side_02_002_10>>
 ===
 
 title:Side_02_002_10
@@ -451,6 +452,7 @@ Rigel:Poor cole.
 Rigel:What he doesn't know is that the lab will match the ash to his DNA to comfirm his death.
 Rigel:In 24 hours,they will find this is a fake body and Cole will be the guy who has the most bounty on their list.
 Rigel:Sorry,cole.This is this the most I can do.
+<<progress_objective "Side_02_002*03">>
 ===
 
 title:Side_02_002_11

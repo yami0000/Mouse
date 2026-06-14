@@ -37405,6 +37405,12 @@ MonoBehaviour:
     portrait: {fileID: 21300000, guid: 682729f66f156fd4d8ca2b9d19cdc789, type: 3}
   - characterName: Simon
     portrait: {fileID: 21300000, guid: 56bee9d94b0d4b64da1473b7460fc45d, type: 3}
+  - characterName: Police
+    portrait: {fileID: 21300000, guid: 3703a6152d3ade0448d07e944c1b4aaf, type: 3}
+  - characterName: Cole
+    portrait: {fileID: 21300000, guid: b93eb32b7803be54897c31789dfa478d, type: 3}
+  - characterName: ???
+    portrait: {fileID: 2984615224879501125, guid: 4512bcd80d17be247adb633cd5fd343c, type: 3}
 --- !u!1 &2132208120
 GameObject:
   m_ObjectHideFlags: 0

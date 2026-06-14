@@ -18,7 +18,7 @@ public class IdleAction : NPCAction
         timer = duration;
         npc.EnterIdle();
     }
-
+    public override void OnResume(NPC_All npc) => npc.EnterIdle();
     public override bool Tick(NPC_All npc)
     {
         if (duration <= 0f) return false; // park forever
@@ -54,7 +54,12 @@ public class WalkAction : NPCAction
         npc.SetMoveSpeed(speed);
         npc.EnterWalk();
     }
-
+    public override void OnResume(NPC_All npc)
+    {
+        if (!useCurrentFacing) npc.SetFacing(direction);
+        npc.SetMoveSpeed(speed);
+        npc.EnterWalk();
+    }
     public override bool Tick(NPC_All npc)
     {
         if (stopAtWall && npc.IsWallDetected()) return true;

@@ -317,6 +317,15 @@ MonoBehaviour:
     - rid: 2578899210410131635
     loop: 0
     repeatCount: 0
+  interrupts:
+  - id: 
+    trigger:
+      rid: -2
+    body:
+      actions: []
+      loop: 0
+      repeatCount: 0
+    parkInIdleOnEnter: 1
   playOnStart: 1
   references:
     version: 2
@@ -328,6 +337,7 @@ MonoBehaviour:
       data:
         startCondition:
           rid: -2
+        blockInterrupts: 0
         target: {fileID: 0}
         IsTargetPlayer: 1
         speed: 6
@@ -338,6 +348,7 @@ MonoBehaviour:
       data:
         startCondition:
           rid: 2578899210410131592
+        blockInterrupts: 0
         nodeName: Plant_Shop_01
         delay: 0.3
         goIdleWhileTalking: 1
@@ -352,6 +363,7 @@ MonoBehaviour:
       data:
         startCondition:
           rid: -2
+        blockInterrupts: 0
         sequence:
           actions:
           - rid: 2578899210410131636
@@ -363,6 +375,7 @@ MonoBehaviour:
       data:
         startCondition:
           rid: -2
+        blockInterrupts: 0
         useCurrentFacing: 0
         direction: 1
         speed: 2
@@ -374,6 +387,7 @@ MonoBehaviour:
       data:
         startCondition:
           rid: -2
+        blockInterrupts: 0
         useCurrentFacing: 0
         direction: -1
         speed: 2

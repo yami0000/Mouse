@@ -12,6 +12,10 @@ public abstract class NPCAction
     // null => no requirement. Picked in the Inspector via the SerializeReference type dropdown.
     [SerializeReference] public NPCCondition startCondition;
 
+    [Tooltip("If true, interrupts can NOT preempt this action while it runs " +
+             "(e.g. a scripted/cutscene step that must finish). Default false = interruptible.")]
+    public bool blockInterrupts = false;
+
     public bool CanStart(NPC_All npc) => startCondition == null || startCondition.IsMet(npc);
 
     /// <summary>Called once when the action becomes active. Reset internal state here.</summary>
@@ -22,6 +26,14 @@ public abstract class NPCAction
 
     /// <summary>Called once when the action finishes.</summary>
     public virtual void OnExit(NPC_All npc) { }
+
+    /// <summary>
+    /// Called when the action is RESUMED after an interrupt, instead of OnEnter,
+    /// so its progress is not lost. The default re-establishes FSM state by calling
+    /// OnEnter (which for a WalkAction restarts that leg's timer). Override if your
+    /// action must resume without resetting its timer.
+    /// </summary>
+    public virtual void OnResume(NPC_All npc) => OnEnter(npc);
 
     /// <summary>One-line description shown in the Inspector list / Scene gizmo.
     /// Runtime-safe (no editor APIs). Override per action.</summary>
@@ -61,6 +73,19 @@ public class ActionRunner
         loopsDone = 0;
         actionStarted = false;
         finished = false;
+    }
+
+    /// <summary>
+    /// Re-establish the currently-running action's state after an interrupt handed
+    /// control back. Does nothing if nothing was mid-flight (the next Tick will
+    /// OnEnter the next action cleanly). Recurses into nested groups via OnResume.
+    /// </summary>
+    public void ReEnterCurrent(NPC_All npc)
+    {
+        if (finished || actions == null) return;
+        if (index < 0 || index >= actions.Count) return;
+        if (!actionStarted) return; // nothing was running yet
+        actions[index]?.OnResume(npc);
     }
 
     /// <summary>Advance the routine by one frame. Returns true once the whole runner is finished.</summary>

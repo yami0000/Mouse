@@ -16,15 +16,17 @@ public class Entity : MonoBehaviour
 
     public CapsuleCollider2D cd{ get; private set; }
 
-    [Header("Knockback info")]
-    [SerializeField] protected Vector2 knockbackDirection;
-    [SerializeField] protected float knockbackDuration;
-    protected bool isKnocked;
+   // [Header("Knockback info")]
+    [HideInInspector] protected Vector2 knockbackDirection;
+    [HideInInspector] protected float knockbackDuration;
+    [HideInInspector]protected bool isKnocked;
+
+    [Header("Death consequences")]
+    [Tooltip("What happens when this entity dies. Extend by adding ActionTypes in EventAction.")]
+    [SerializeField] private List<EventAction> deathActions = new List<EventAction>();
 
     #endregion
     [Header("Collision info")]
-    //public Transform attackCheck;
-    //public float attackCheckRadius;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected float groundCheckDistance;
     [SerializeField] protected Transform wallCheck;
@@ -35,6 +37,10 @@ public class Entity : MonoBehaviour
     private bool facingRight = true;
 
     [HideInInspector]public bool isBackingup;
+
+    public event System.Action<Entity> OnDied;
+    public bool IsDead { get; private set; }
+
 
     protected virtual void Awake()
     {
@@ -149,6 +155,11 @@ public class Entity : MonoBehaviour
 
     public virtual void Die() 
     {
-    
+        if (IsDead) return;   // never fire twice
+        IsDead = true;
+        OnDied?.Invoke(this);
+
+        for (int i = 0; i < deathActions.Count; i++)
+            deathActions[i]?.Execute(this);
     }
 }
