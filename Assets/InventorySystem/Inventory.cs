@@ -33,7 +33,7 @@ public class Inventory : MonoBehaviour
     private UI_EquipmentSlot[] equipmentSlot;
 
     public event System.Action OnInventoryUIUpdated;
-
+    public event System.Action<ItemData, int> OnItemAdded;
     private void Awake()
     {
 
@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
     private void AddStartingItems()
     {
         foreach (ItemData item in startingEquipment)
-            AddItem(item);
+            AddItem(item, 1, notify: false);
     }
 
     public ItemData_Equipment Throwable()
@@ -93,11 +93,13 @@ public class Inventory : MonoBehaviour
         if (slot.currentItem?.data != null)
         {
             ItemData_Equipment oldEquipment = slot.currentItem.data as ItemData_Equipment;
+
+
             if (oldEquipment != null)
             {
                 // Unequip and recover the full stack back to inventory in one pass
                 if (UnequipItem(oldEquipment, out int recoveredStack))
-                    AddItem(oldEquipment, recoveredStack);
+                    AddItem(oldEquipment, recoveredStack, notify: false);
 
                 slot.currentItem = null;
             }
@@ -222,7 +224,7 @@ public class Inventory : MonoBehaviour
 
         return 0;
     }
-    public void AddItem(ItemData _item, int count = 1)
+    public void AddItem(ItemData _item, int count = 1, bool notify = true)
     {
         if (count <= 0) return;
 
@@ -230,6 +232,9 @@ public class Inventory : MonoBehaviour
             AddToInventory(_item, count);
         else
             AddToStash(_item, count);
+
+        if (notify)
+            OnItemAdded?.Invoke(_item, count);
 
         UpdateSlotUI();
     }
