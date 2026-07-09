@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28d2aa326e5d1d469ed4e610beadbc6, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: 
-  ItemType: 0
+  itemID: 0001
   itemName: coin
+  ItemType: 0
   icon: {fileID: 2480277500300789144, guid: 72a3acec836325e4e8c6bd0b891c13d3, type: 3}
   price: 0
   Description: Most common currency in the country of mammal.
   itemEffects: []
+  passiveEffects: []

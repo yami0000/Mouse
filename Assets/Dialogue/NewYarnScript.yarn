@@ -2,29 +2,51 @@
 title: side_02_001_01
 ---
 <<declare $player_spoke_to_grandma = false>>
+<<declare $side_02_001_accepted = false>>
 
 <<if $player_spoke_to_grandma>>
     Grandma: Hello! Little mouse! #line:0e01903 
     Grandma: Interested in my wares? #line:09c762a 
         -> Let me have a look... #line:0650d70 
             Grandma:Please have a look! #line:04a0946 
+            <<open_shop "Mary">>
         -> Maybe next time... #line:0d123a0 
             Grandma:Save travel,little mouse! #line:01c384a 
-    Grandma: ...little mouse,you are a mammal,you must have been to the upper level right? #line:0db00c0 
-    Grandma: Can you bring me some FLOWERS? #line:00fad50 
-    Grandma: You see, underground has no sun,all we can grow is mushrooms. #line:099f3c3 
-    Grandma: I can give something valuable to you, if you can bring me some FLOWERS. #line:03523d3 
-    
+    <<if not $side_02_001_accepted>>
+        Grandma: ...little mouse,you are a mammal,you must have been to the upper level right? #line:0db00c0 
+        Grandma: Can you bring me some FLOWERS? #line:00fad50 
+        Grandma: You see, underground has no sun,all we can grow is mushrooms. #line:099f3c3 
+        Grandma: I can give something valuable to you, if you can bring me some FLOWERS. #line:03523d3 
+        <<accept_quest "side_02_001">>
+        <<set $side_02_001_accepted = true>>
+        <<jump side_02_001_02>>
+    <<endif>>
+
 <<else>>
     Grandma: Oh...It's been a while since I saw a mammal... #line:070c734 
-   <<accept_quest "side_02_001">>
     <<set $player_spoke_to_grandma = true>>
     Grandma: Little mouse, do you want to buy some mushroom? #line:0d0562c 
         -> Let me have a look... #line:0502793 
             Grandma:Please have a look! #line:015319e 
+            <<open_shop "Mary">>
         -> Maybe next time... #line:0cb70fb 
             Grandma:Save travel,little mouse! #line:012eb7a 
 <<endif>>
+===
+
+title: side_02_001_02
+---
+Rigel:I have some Lilies in my shop,let me take some for grandma.
+===
+
+title: side_02_001_03
+---
+Rigel:Let's bring this to grandma.
+===
+
+title: side_02_001_04
+---
+Rigel:Let's bring this to grandma.
 ===
 
 title: side_02_002_01
@@ -62,6 +84,7 @@ title: side_02_002_01
 title: Raccoon
 ---
 Raccoon:Want a drink? #line:08d20a3 
+<<open_shop "Raccoon">>
 ===
 
 title:Worker
@@ -179,6 +202,23 @@ Zig:What the hell?!Zag,are you speaking for dirty mammals? #line:070f8fa
 Zig:But it does make sense.How can a trafficker fought so well?How did he know what we wanted to do at the first place? #line:09d0d1a 
 Zig:Things are getting more interesting,we just keep playing with him,I want to see how this ends... #line:0af2f07 
 Zig:hehehehe... #line:002b260 
+===
+
+title:Main_001_05
+---
+CinderTail:Well,well,well,looks who's here.
+CinderTail:Few tiny little bugs dare to infiltrate the lab.
+CinderTail:And what do  Looks like an arm isn't enough to teach you a lesson,eh?
+Zig:What the... Sam? You met before?
+Rigel:...
+CinderTail:Sam? HAHAHAHAAAAAAAAA!!!
+CinderTail:A cute nickname you picked for yourself...RIGEL.
+Zig&Zag:What???
+Zig:So you are telling me we are doing business with the "DEMON" all the time?
+Zag:...you...you are alive?
+Rigel:Listen,whatever my identity is,we have to save our life first!
+CinderTail:Hahahahaha!!You'd better listen to him!
+
 ===
 
 title:Intro_CinderTail
@@ -442,7 +482,8 @@ Rigel:Hand me your left limb,and your data chip,if you want to live.
 Rigel:Shut down all your devices and cyber addons.Find something that can hide your face and sneak out at night.
 Rigel:Go to the location in the sewer,There's a man who called himself Zig,find him,tell him Sam sent you,and you know something about the lab. 
 Cole:Thanks!Sam,I won't forget this!
-Cole:I don't need this anyway,take this as a token of gratitude.
+Cole:Wait,take this as a token of gratitude,it can help improve your weapon's rate of fire.
+<<get_item "0002">>
 <<jump Side_02_002_10>>
 ===
 
@@ -457,20 +498,67 @@ Rigel:Sorry,cole.This is this the most I can do.
 
 title:Side_02_002_11
 ---
-Mic:You come back!
-Mic:Thanks for helping us,you've been much help to us.
-Mic:If you got time,can you stop by the police station sometimes?
+Mic:You are back!!
+Mic:You are so cool!If you got time,can you stop by the police station sometimes?
 Mic:I have so much to ask but we have to work now...
-Rigel:Of course,I will!
-Sif:Stop bothering others!Mic!
+Rigel:Of course!I will!
+Sif:Glad to see you in one piece,now me and my team will handle the rest.
+Sif:Please take these,as a gratitude.
+<<get_item "0003">>
+Sif:One more thing to ask...
+Sif:You see...Mic is my apprentice but recently crime rate is going up and I'm too busy with the cases.
+Sif:If you got time...Can you teach Mic your way of handling things?You can see him patrol on the streets...
+Rigel:Sure...I will come by if I got time.
+Mic:Captain,What you are saying with Sam?
+Sif:Nothing...
+<<progress_objective "Side_02_002*04">>
 ===
 
 title:Side_02_003_01
 ---
-Mic:You are back,my hero!
-Mic:Thanks for helping us,you've been much help to us.
-Mic:If you got time,can you stop by the police station sometimes?
-Mic:I have so much to ask but we have to work now...
-Rigel:Of course!I will!
-Sif:Stop bothering others!Mic!
+Rigel:Hey!Mic,how's your patrol going!
+Mic:Sam!I was going to ask you for advice.
+Mic:Few minutes ago,there was a report that  blood is leaked out of door,I asked captian for help but he was engaging with a large crime group...
+Rigel:Busy man,isn't him...?
+Mic:I'm checking the equipment,Can you go with me?
+        -> Sure!
+            Mic:You are so nice! Let's go!
+        -> I have other things to attend to...
+            Mic:No worry...I think I can handle myself...
+===
+
+title:Side_02_003_01_
+---
+Rigel:Mic is to small to handle this kind of case,I'd better lend a hand.
+Mic:You are back Sam!
+        -> Let's go!
+            Mic:What a relieve!Let's depart!
+        -> I have other things to attend to...
+            Mic:No worry...I think I can handle myself...
+===
+
+title:Side_02_003_02
+---
+Rigel:...
+Mic:!!!!
+Rigel:Mic,you okay?
+Mic:I...want to puke...
+Rigel:Take your time, I will take a look around.
+===
+
+title:Side_02_003_02_01
+---
+Rigel:Intestine is ripped from the body,they didn't even stand a chance...
+===
+
+title:Side_02_003_02_02
+---
+Rigel:Interesting...
+Rigel:Window is sealed,door is locked...How did they get out?
+===
+
+title:Side_02_003_02_03
+---
+Rigel:What's this?
+Rigel:
 ===

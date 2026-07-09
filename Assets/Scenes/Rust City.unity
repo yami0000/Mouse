@@ -9617,6 +9617,7 @@ GameObject:
   - component: {fileID: 557559141}
   - component: {fileID: 557559145}
   - component: {fileID: 557559143}
+  - component: {fileID: 557559146}
   m_Layer: 9
   m_Name: Grandma
   m_TagString: Untagged
@@ -9819,6 +9820,23 @@ MonoBehaviour:
   facingDir: 1
   isBackingup: 0
   defaultMoveSpeed: 2
+--- !u!114 &557559146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557559139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c586f97d31e7549ada5280e010ee93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  merchantID: Mary
+  itemsForSale:
+  - {fileID: 11400000, guid: 9337fec58b8c229428a9832db32eda31, type: 2}
+  - {fileID: 11400000, guid: 0a7965371bb23ce41bab4390ef708212, type: 2}
+  - {fileID: 11400000, guid: 0fa1243957ffda9488988836d56be8f0, type: 2}
 --- !u!1 &561513227
 GameObject:
   m_ObjectHideFlags: 0
@@ -16297,7 +16315,7 @@ Transform:
   m_GameObject: {fileID: 902346405}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 226.332, y: 7.9693527, z: -0.043443725}
+  m_LocalPosition: {x: 226.332, y: 7.9693527, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19585,7 +19603,7 @@ Transform:
   m_GameObject: {fileID: 1107335898}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.42511, y: 1.3454742, z: 0.13948904}
+  m_LocalPosition: {x: 13.42511, y: 1.3454742, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20982,7 +21000,7 @@ Transform:
   m_GameObject: {fileID: 1170145020}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.89227295, y: 0.3928833, z: 1.1538372}
+  m_LocalPosition: {x: 0.89227295, y: 0.3928833, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23931,7 +23949,7 @@ Transform:
   m_GameObject: {fileID: 1347529276}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.61, y: 0.18173218, z: 0.13948904}
+  m_LocalPosition: {x: 28.12, y: 0.18173218, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -40167,7 +40185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7015f1a43aa974b93a19154064bc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guid: Side_02_002_S7
+  guid: Side_02_002_D6
 --- !u!1 &7073890150251759495
 GameObject:
   m_ObjectHideFlags: 0
@@ -40690,7 +40708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccacfcb0744b5249b859cc10dab6a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnGUID: Side_02_002_S7
+  spawnGUID: Side_02_002_S6
 --- !u!4 &8263722018950188999
 Transform:
   m_ObjectHideFlags: 0

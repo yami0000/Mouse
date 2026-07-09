@@ -13,6 +13,7 @@ public class YarnQuestCommands : MonoBehaviour
         runner.AddCommandHandler<string>("accept_quest", AcceptQuest);
         runner.AddCommandHandler<string>("progress_objective", ProgressObjective);
         runner.AddCommandHandler<string>("get_item", GetItem);
+        runner.AddCommandHandler<string>("open_shop", OpenShop);
     }
 
     void AcceptQuest(string questID)
@@ -43,5 +44,18 @@ public class YarnQuestCommands : MonoBehaviour
         }
 
         Inventory.Instance.AddItem(item);
+    }
+
+    void OpenShop(string merchantID)
+    {
+        MerchantStock merchant = MerchantStock.Find(merchantID);
+
+        if (merchant == null)
+        {
+            Debug.LogError("Merchant not found: " + merchantID);
+            return;
+        }
+
+        merchant.OpenShop();
     }
 }

@@ -185,7 +185,7 @@ public class Player : Entity
     {
         base.Update();
 
-        Debug.Log(inScriptedDefeat);
+     
 
         if (!isAutoControl)
         {

@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
   m_Name: Velocity01
   m_EditorClassIdentifier: 
-  ItemType: 3
+  itemID: 0002
   itemName: MissileLauncher
+  ItemType: 3
   icon: {fileID: 21300000, guid: bfdc173346649784989fbd92610d81d0, type: 3}
   price: 0
   Description: Increase firing rate by 25%.
   itemEffects: []
+  passiveEffects: []
+  type: 0
   FirePower: 0
   Vitality: 0
   Damage: 0
