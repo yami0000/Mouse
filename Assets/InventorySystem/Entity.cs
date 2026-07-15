@@ -25,6 +25,9 @@ public class Entity : MonoBehaviour
     [Tooltip("What happens when this entity dies. Extend by adding ActionTypes in EventAction.")]
     [SerializeField] private List<EventAction> deathActions = new List<EventAction>();
 
+    [Header("Facing")]
+    [SerializeField] private bool spriteFacesLeft;
+    [SerializeField] private bool startFacingLeft;
     #endregion
     [Header("Collision info")]
     [SerializeField] protected Transform groundCheck;
@@ -56,12 +59,17 @@ public class Entity : MonoBehaviour
         stats = GetComponent<EntityStats>();
         cd = GetComponent<CapsuleCollider2D>();
 
-        if (Mathf.Approximately(transform.eulerAngles.y, 180f))
+      /*  if (Mathf.Approximately(transform.eulerAngles.y, 180f))
         {
             facingDir = -1;
             facingRight = false;
             
-        }
+        }*/
+        if (spriteFacesLeft && anim != null && anim.transform != transform)
+            anim.transform.Rotate(0f, 180f, 0f);
+
+        if (startFacingLeft && facingRight)
+            Flip();
     }
 
     protected virtual void Update() 

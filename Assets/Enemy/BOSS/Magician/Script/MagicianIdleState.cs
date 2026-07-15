@@ -12,7 +12,7 @@ public class MagicianIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        boss.StateTimer_Magician = 1f;
+        boss.StateTimer_Magician = Random.Range(0.5f,1.5f);
     }
     public override void Exit()
     {
@@ -22,6 +22,13 @@ public class MagicianIdleState : EnemyState
     {
         base.Update();
         boss.zerovelocity();
-  
+        if (boss.StateTimer_Magician <= 0)
+        {
+            if(Random.value<0.5f)
+            stateMachine.ChangeState(boss.walkState);
+            else
+                stateMachine.ChangeState(Random.value<0.5f? boss.spikeState:boss.barrageState);
+        }
+
     }
 }

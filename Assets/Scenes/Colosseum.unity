@@ -1071,7 +1071,7 @@ Transform:
   m_GameObject: {fileID: 542273802}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0099983215, y: 0.03999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1421,6 +1421,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &623436408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623436409}
+  m_Layer: 7
+  m_Name: BarragePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &623436409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623436408}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6, y: 3.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1109263701}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652668259
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,6 +2408,9 @@ GameObject:
   - component: {fileID: 1109263703}
   - component: {fileID: 1109263702}
   - component: {fileID: 1109263704}
+  - component: {fileID: 1109263705}
+  - component: {fileID: 1109263706}
+  - component: {fileID: 1109263707}
   m_Layer: 7
   m_Name: Magician
   m_TagString: Untagged
@@ -2393,13 +2427,14 @@ Transform:
   m_GameObject: {fileID: 1109263700}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.95, y: -0.11, z: 0}
+  m_LocalPosition: {x: 18.3, y: -0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1742671495}
   - {fileID: 542273803}
   - {fileID: 1855661749}
+  - {fileID: 623436409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1109263702
@@ -2436,8 +2471,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.47631907}
-  m_Size: {x: 3.1823153, y: 6.3060822}
+  m_Offset: {x: 0.056415558, y: 0.2873602}
+  m_Size: {x: 2.8367538, y: 6.2829666}
   m_Direction: 0
 --- !u!114 &1109263703
 MonoBehaviour:
@@ -2452,6 +2487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathActions: []
+  spriteFacesLeft: 1
+  startFacingLeft: 1
   groundCheck: {fileID: 542273803}
   groundCheckDistance: 3.28
   wallCheck: {fileID: 1855661749}
@@ -2464,18 +2501,42 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCheckDistance: 0
+  playerCheckDistance: 20
   EXP: 0
-  moveSpeed: 0
+  moveSpeed: 5
   idleTime: 0
   battleTime: 0
   attackDistance: 0
   attackCooldown: 0
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
-  deathFate: 0
-  destroyDelay: 0.5
+  deathFate: 1
+  destroyDelay: 5
   BattleState: 0
+  spikePrefab: {fileID: 3476427879464625738, guid: 6b26b8bed65ef7546bd7efa692cf4481, type: 3}
+  spikeCount: 3
+  spikeStartOffset: 5
+  spikeSpacing: 5
+  spikeInterval: 0.75
+  spikeLifetime: 1.66
+  snapToGround: 1
+  groundRayHeight: 3
+  groundRayLength: 10
+  barragePrefab: {fileID: 5684604123885511909, guid: aca294f0d0f28f14ba03a460676ce32b, type: 3}
+  barrageFirePoint: {fileID: 623436409}
+  barrageCount: 3
+  barrageFireInterval: 0.3
+  barrageAngle: 45
+  barrageFireSpeed: 20
+  barrageFireTime: 0.5
+  barrageLerpTime: 1.5
+  rectCenterOffset: {x: 0, y: 6}
+  rectSize: {x: 6, y: 4}
+  floatWaitMin: 6
+  floatWaitMax: 10
+  launchInterval: 0.5
+  launchSpeed: 20
+  barrageLifetime: 6
   StateTimer_Magician: 0
 --- !u!50 &1109263704
 Rigidbody2D:
@@ -2504,6 +2565,116 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1109263705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109263700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c620d2d36c4c164993a88c20d55bf8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sr: {fileID: 0}
+  hitMat: {fileID: 2100000, guid: 2cb24316c4682ff46b54002ceb94e644, type: 2}
+  Special: 0
+  freezeColor:
+  - {r: 0.23602703, g: 0.40683788, b: 0.9811321, a: 1}
+  - {r: 0.3726415, g: 0.7418257, b: 1, a: 1}
+  igniteColor:
+  - {r: 0.9764151, g: 0.27173817, b: 0.33423147, a: 1}
+  - {r: 0.9292453, g: 0.6136525, b: 0.6136525, a: 1}
+  poisonColor:
+  - {r: 0.7299724, g: 0.9198113, b: 0.27334014, a: 1}
+  - {r: 0.35457456, g: 0.9056604, b: 0.37383252, a: 1}
+  shockColor:
+  - {r: 0.94292784, g: 0.9716981, b: 0.25667495, a: 1}
+  - {r: 0.9386792, g: 0.84855276, b: 0.33650768, a: 1}
+--- !u!114 &1109263706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109263700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a65da7e30377a42ac2b88edc36e42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  absorbedDAMAGE: 0
+  FirePower:
+    BaseValue: 0
+    modifiers: 
+  Damage:
+    BaseValue: 250
+    modifiers: 
+  CriticalChance:
+    BaseValue: 0
+    modifiers: 
+  CriticalDamage:
+    BaseValue: 0
+    modifiers: 
+  Vitality:
+    BaseValue: 0
+    modifiers: 
+  MaxHP:
+    BaseValue: 12000
+    modifiers: 
+  Armor:
+    BaseValue: 0
+    modifiers: 
+  FireResistance:
+    BaseValue: 0
+    modifiers: 
+  FrostResistance:
+    BaseValue: 0
+    modifiers: 
+  PoisonResistance:
+    BaseValue: 0
+    modifiers: 
+  LightingResistance:
+    BaseValue: 0
+    modifiers: 
+  FireDamage:
+    BaseValue: 100
+    modifiers: 
+  FrostDamage:
+    BaseValue: 0
+    modifiers: 
+  PoisonDamage:
+    BaseValue: 0
+    modifiers: 
+  LightningDamage:
+    BaseValue: 0
+    modifiers: 
+  HealPower:
+    BaseValue: 0
+    modifiers: 
+  CurrentHP: 0
+  Fire_THRESHOLD: 200
+  Frost_THRESHOLD: 200
+  Lighting_THRESHOLD: 200
+  Poison_THRESHOLD: 200
+--- !u!114 &1109263707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109263700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed7138283fc8fa4ebadd142f6649445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropTable:
+  - item: {fileID: 11400000, guid: 01142b040dadf914db2fafc74ba0cd13, type: 2}
+    dropChance: 100
+    rollTimes: 1
+  dropPrefab: {fileID: 4730275522324444897, guid: 32712599858bf784e9d2027764daba81, type: 3}
 --- !u!1 &1136638695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,7 +3835,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3705,7 +3876,7 @@ Transform:
   m_GameObject: {fileID: 1742671492}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.25, y: 1.55, z: 0}
+  m_LocalPosition: {x: 0.01, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3943,7 +4114,7 @@ Transform:
   m_GameObject: {fileID: 1855661748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0099983215, y: 0.03999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
