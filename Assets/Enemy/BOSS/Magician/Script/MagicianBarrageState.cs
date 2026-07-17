@@ -15,7 +15,7 @@ public class MagicianBarrageState : EnemyState
         boss.TurnToPlayer();
         boss.zerovelocity();
         boss.Barrage();
-        boss.StateTimer_Magician = 1.5833f;
+        boss.StateTimer_Magician = 1.666f;
     }
 
 

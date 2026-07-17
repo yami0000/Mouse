@@ -29,7 +29,7 @@ public class UI_Active : MonoBehaviour
 
 
         if (!isMenuOpen) return;
-        if (Input.GetKeyUp(KeyCode.Escape) )
+        if (Input.GetKeyUp(KeyCode.Escape)|| Input.GetKeyUp(KeyCode.Mouse1))
         {
             CloseMenu();
             canOpenMenu = true;

@@ -29,18 +29,7 @@ public class EnemyState
         this.animBoolName = _animBoolName;
     }
 
-    public virtual void Update() 
-    {
-        stateTimer -= Time.deltaTime;
-        stateTimer_Bee -= Time.deltaTime;
-        stateTimer_SelfDes -= Time.deltaTime;
-        stateTimer_Laser -= Time.deltaTime;
-
-
-
-    }
-
-    public virtual void Enter()
+public virtual void Enter()
     { 
     triggerCalled = false;
     ReadyToAttack = false;
@@ -50,7 +39,7 @@ public class EnemyState
     ReadyToAttack_Medic = false ;
 
 
-                rb = enemyBase.rb;
+    rb = enemyBase.rb;
     enemyBase.anim.SetBool(animBoolName,true);
     
     }
@@ -59,6 +48,17 @@ public class EnemyState
     {
     enemyBase.anim.SetBool(animBoolName,false);
     enemyBase.AssignLastBoolName(animBoolName);
+    }
+    
+    public virtual void Update() 
+    {
+        stateTimer -= Time.deltaTime;
+        stateTimer_Bee -= Time.deltaTime;
+        stateTimer_SelfDes -= Time.deltaTime;
+        stateTimer_Laser -= Time.deltaTime;
+
+
+
     }
 
     public virtual void AnimationFinishTrigger()

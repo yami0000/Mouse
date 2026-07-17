@@ -2513,30 +2513,39 @@ MonoBehaviour:
   deathFate: 1
   destroyDelay: 5
   BattleState: 0
+  EnterStageTwo: 0
   spikePrefab: {fileID: 3476427879464625738, guid: 6b26b8bed65ef7546bd7efa692cf4481, type: 3}
   spikeCount: 3
   spikeStartOffset: 5
   spikeSpacing: 5
   spikeInterval: 0.75
   spikeLifetime: 1.66
-  snapToGround: 1
   groundRayHeight: 3
   groundRayLength: 10
   barragePrefab: {fileID: 5684604123885511909, guid: aca294f0d0f28f14ba03a460676ce32b, type: 3}
   barrageFirePoint: {fileID: 623436409}
   barrageCount: 3
   barrageFireInterval: 0.3
-  barrageAngle: 45
+  barrageAngleMin: 30
+  barrageAngleMax: 60
   barrageFireSpeed: 20
-  barrageFireTime: 0.5
-  barrageLerpTime: 1.5
-  rectCenterOffset: {x: 0, y: 6}
-  rectSize: {x: 6, y: 4}
-  floatWaitMin: 6
-  floatWaitMax: 10
-  launchInterval: 0.5
-  launchSpeed: 20
+  barrageTravelTime: 0.8
+  orbitRadius: 4
+  orbitSpeed: 75
+  orbitCenterOffset: {x: 0, y: 0}
+  redistributeStrength: 4
+  maxCatchUpSpeed: 180
+  launchCheckInterval: 1.5
+  launchChance: 30
+  launchStartSpeed: 2
+  launchAcceleration: 30
+  launchMaxSpeed: 25
   barrageLifetime: 6
+  sideDashTime: 0.25
+  sideDashDistance: 4
+  ghostInterval: 0.03
+  ghostFadeTime: 0.25
+  ghostTint: {r: 1, g: 1, b: 1, a: 0.5}
   StateTimer_Magician: 0
 --- !u!50 &1109263704
 Rigidbody2D:
@@ -2621,7 +2630,7 @@ MonoBehaviour:
     BaseValue: 0
     modifiers: 
   MaxHP:
-    BaseValue: 12000
+    BaseValue: 1200
     modifiers: 
   Armor:
     BaseValue: 0
