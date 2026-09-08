@@ -46,7 +46,15 @@ public class Collider : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-
+        if (collision.CompareTag("Shield"))
+        {
+            if (SK.Instance.Skill.Metabolism)
+            {
+                PlayerManager.Instance.player.stats.CurrentHP += (int)(0.015 * PlayerManager.Instance.player.stats.GetMaxHealth());
+                Mathf.Clamp(PlayerManager.Instance.player.stats.CurrentHP, -100, PlayerManager.Instance.player.stats.GetMaxHealth());
+            }
+            Destroy(gameObject);
+        }
 
         if (collision.GetComponent<Player>() != null)
         {

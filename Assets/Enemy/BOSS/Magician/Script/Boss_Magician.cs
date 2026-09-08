@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class Boss_Magician : Enemy
 {
+    #region Presets
     private Transform player;
     public MagicianStartState startState { get; private set; }
     public MagicianPrepareState prepareState { get; private set; }
@@ -14,9 +17,18 @@ public class Boss_Magician : Enemy
     public MagicianBarrageState barrageState { get; private set; }
     public MagicianSwitchState switchState { get; private set; }
     public MagicianChopState chopState { get; private set; }
+    public MagicianLightChopState lightChopState { get; private set; }
+    public MagicianDeathState deathState { get; private set; }
 
     private EnemyStats es;
     public bool EnterStageTwo = false;
+    [Header("Pattern")]
+    [Range(0f, 1f)]
+    public float SpikeChance;
+    [Range(0f, 1f)]
+    public float BarrageChance;
+    [Range(0f, 1f)]
+    public float ChopChance;
 
     [Header("Skill_Spike")]
     [SerializeField] private GameObject spikePrefab;
@@ -68,11 +80,21 @@ public class Boss_Magician : Enemy
 
     [Header("Side Dash")]
     [SerializeField] private float sideDashTime = 0.25f;        // t: dash duration
+    [SerializeField] private float sideDashTime_Light;
     [SerializeField] private float sideDashDistance = 2f;       // X: gap to the player on the x axis
     [Header("Side Dash - Afterimage")]
     [SerializeField] private float ghostInterval = 0.03f;       // seconds between ghost snapshots
     [SerializeField] private float ghostFadeTime = 0.25f;       // how long each ghost lingers
     [SerializeField] private Color ghostTint = new Color(1f, 1f, 1f, 0.5f);
+    [SerializeField] private GameObject ColliderPrefab;
+
+    [Header("Wave")]
+    [SerializeField] private GameObject wavePrefab;
+    [SerializeField] private Transform waveFirePoint;
+    [SerializeField] private float waveStartSpeed = 3f;      // V1
+    [SerializeField] private float waveMaxSpeed = 12f;       // V2
+    [SerializeField] private float waveAcceleration = 15f;   // A
+    [SerializeField] private float waveLifetime = 4f;
 
     [HideInInspector] public float StateTimer_Magician;
 
@@ -88,6 +110,8 @@ public class Boss_Magician : Enemy
         barrageState = new MagicianBarrageState(this, stateMachine, "Barrage", this);
         switchState = new MagicianSwitchState(this, stateMachine, "Switch", this);
         chopState = new MagicianChopState(this, stateMachine, "Chop", this);
+        deathState = new MagicianDeathState(this, stateMachine, "Idle", this);
+        lightChopState = new MagicianLightChopState(this, stateMachine, "Chop_Light", this);
     }
     protected override void Start()
     {
@@ -104,7 +128,7 @@ public class Boss_Magician : Enemy
         base.Update();
         StateTimer_Magician -= Time.deltaTime;
     }
-
+    #endregion  
     // Returns true and outputs the ground y under nearPos.x. Casts from well above
     // the given position so a jumping player can't out-range the ray.
     private bool TryGetGroundY(Vector2 nearPos, out float groundY)
@@ -117,7 +141,13 @@ public class Boss_Magician : Enemy
         return hit.collider != null;
     }
 
-    public void Spike() => StartCoroutine(Random.value > 0.5f ? Spike1Coroutine() : Spike2Coroutine());
+    public void Spike() 
+    {  
+        if(Mathf.Abs(player.transform.position.x - transform.position.x)<spikeStartOffset+spikeSpacing*(spikeCount-1))//spikeCount >=1
+        StartCoroutine(Random.value > 0.5f ? Spike1Coroutine() : Spike2Coroutine());
+        else
+            StartCoroutine (Spike2Coroutine());
+    }
     IEnumerator Spike1Coroutine()
     {
         // Lock in position and direction at trigger time so the wave
@@ -350,9 +380,9 @@ public class Boss_Magician : Enemy
             Destroy(proj.gameObject);
     }
 
-    public void SideDash() => StartCoroutine(SideDashCoroutine());
+    public void SideDash() => StartCoroutine(SideDashCoroutine1());
 
-    IEnumerator SideDashCoroutine()
+    IEnumerator SideDashCoroutine1()
     {
         TurnToPlayer();
 
@@ -387,9 +417,101 @@ public class Boss_Magician : Enemy
         }
         TurnToPlayer();
         zerovelocity();
+        yield return new WaitForSeconds(0.01666f);
 
+        InstantiateAxeCollider();
 
+        yield return new WaitForSeconds(0.1667f);
+        Wave();
+         
+
+        yield return null;
     }
+    public void LightDash() => StartCoroutine(SideDashCoroutine2());
+    IEnumerator SideDashCoroutine2()
+    {
+        TurnToPlayer();
+
+        yield return new WaitForSeconds(0.665f);
+        InstantiateAxeCollider();
+        yield return new WaitForSeconds(1.5f-0.665f-sideDashTime_Light);
+        TurnToPlayer();
+
+        Vector2 startPos = transform.position;
+
+        Vector2 targetPos = new Vector2(player.position.x - sideDashDistance * facingDir, startPos.y);
+
+
+
+        float elapsed = 0f;
+        float ghostTimer = 0f;
+
+        while (elapsed < sideDashTime_Light)
+        {
+            elapsed += Time.deltaTime;
+            float easedT = Mathf.SmoothStep(0f, 1f, elapsed / sideDashTime_Light);
+            transform.position = Vector2.Lerp(startPos, targetPos, easedT);
+
+            // afterimage trail = the 2D "motion blur"
+            ghostTimer -= Time.deltaTime;
+            if (ghostTimer <= 0f)
+            {
+                SpawnGhosts();
+                ghostTimer = ghostInterval;
+            }
+
+            yield return null;
+        }
+       
+        zerovelocity();
+        yield return new WaitForSeconds(0.0833f);
+
+        InstantiateAxeCollider();
+
+        yield return null;
+    }
+
+    private void InstantiateAxeCollider()
+    {
+        GameObject collider = Instantiate(ColliderPrefab, transform.position, Quaternion.identity);
+        collider.GetComponent<Collider>().Initialize(this);
+        Destroy(collider, 0.167f);
+         
+    }
+
+    public void Wave()
+    {
+        StartCoroutine(DriveWave(Vector2.right));
+        StartCoroutine(DriveWave(Vector2.left));
+    }
+
+    IEnumerator DriveWave(Vector2 dir)
+    {
+        // face the travel direction (mirror the sprite for the left-mover)
+        Quaternion rot = dir.x < 0f ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
+
+        GameObject wave = Instantiate(wavePrefab, waveFirePoint.position, rot);
+        wave.GetComponent<Collider>()?.Initialize(this);
+
+        float speed = waveStartSpeed;
+        float elapsed = 0f;
+
+        while (elapsed < waveLifetime)
+        {
+            if (wave == null) yield break;
+
+            speed = Mathf.Min(speed + waveAcceleration * Time.deltaTime, waveMaxSpeed);
+            wave.transform.position += (Vector3)(dir * speed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (wave != null)
+            Destroy(wave);
+    }
+
+
+
 
     // Snapshot every SpriteRenderer under the boss into a fading ghost copy
     private void SpawnGhosts()
@@ -416,11 +538,52 @@ public class Boss_Magician : Enemy
     public bool StageChange()
     { 
         
-        return es.CurrentHP / es.GetMaxHealth() <= 0.6f ? true : false; 
+        return (float)es.CurrentHP / es.GetMaxHealth() <= 0.6f ? true : false; 
     }
     public override void Die()
     {
         base.Die();
-        //stateMachine.ChangeState(deathState);
+        stateMachine.ChangeState(deathState);
+    }
+    public void RandomPattern()
+    {
+        if (!EnterStageTwo)
+        {
+            if (StageChange())
+            {
+
+                stateMachine.ChangeState(switchState);
+
+            }
+            else
+            {
+                if (Random.value < 0.5f)
+                    stateMachine.ChangeState(walkState);
+                else
+                    stateMachine.ChangeState(Random.value < 0.5f ? spikeState : barrageState);
+            }
+        }
+        else
+        {
+
+            if (Random.value <= 0.7f && Mathf.Abs(transform.position.x - PlayerManager.Instance.player.transform.position.x) < 7)
+                stateMachine.ChangeState(lightChopState);
+            else
+            {
+                float attackRoll = Random.value;
+                if (attackRoll < SpikeChance)
+                    stateMachine.ChangeState(spikeState);
+                else if (attackRoll < BarrageChance + SpikeChance)
+                    stateMachine.ChangeState(barrageState);
+                else
+                    stateMachine.ChangeState(chopState);
+            }
+        }
+
+
+
+
+     
+
     }
 }

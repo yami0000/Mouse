@@ -19,6 +19,12 @@ public class SpawnPoint : DETECTION
 
     private void Start()
     {
+
+        if (!IfWalked && _walk )
+        {
+            Walk();
+            IfWalked = true;
+        }
         StartCoroutine(Hide());
     }
 
@@ -28,6 +34,7 @@ public class SpawnPoint : DETECTION
         {
             yield return new WaitForSeconds(0.2f);
             _walk = false;
+           
         }
         else
            yield return null;
@@ -86,10 +93,5 @@ public class SpawnPoint : DETECTION
 
         base.Event();
         
-            if (!IfWalked && _walk && IsReadyToInteract)
-            { 
-                Walk();
-                IfWalked = true;
-            }
     }
 }

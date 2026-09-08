@@ -15,7 +15,7 @@ public class MagicianWalkState : EnemyState
         base.Enter();
         boss.TurnToPlayer();
 
-        boss.StateTimer_Magician = Random.Range(0.5f, 2);
+        boss.StateTimer_Magician = boss.EnterStageTwo ? Random.Range(0.3f, 1f):Random.Range(0.5f, 1.6f);
     }
 
     public override void Exit()
@@ -29,12 +29,9 @@ public class MagicianWalkState : EnemyState
         base.Update();
         boss.Setvelocity(boss.moveSpeed * boss.facingDir, 0);
         if (boss.StateTimer_Magician <= 0)
-        {
-            if (Random.value < 0.5f)
-                stateMachine.ChangeState(Random.value < 0.5f ? boss.spikeState : boss.barrageState);
-            else
-               stateMachine.ChangeState(boss.idleState); 
-        }
+            boss.RandomPattern();
+
+
     }
 
     

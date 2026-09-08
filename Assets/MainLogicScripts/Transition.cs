@@ -22,11 +22,14 @@ public class Transition : DETECTION
 
     private void Awake()
     {
+        Collider2D cd = GetComponent<Collider2D>();
+
         if (AutoLoad)
         {
             AutoLoad = false;
             StartCoroutine(Hide());
         }
+         
     }
 
     

@@ -14,6 +14,7 @@ public class MagicianChopState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        boss.zerovelocity();
         boss.SideDash();
         boss.StateTimer_Magician = 2.66f;
     }

@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Colosseum.unity
     guid: 730b6d02002682347bdfe8ce6140f9af
+  - enabled: 1
+    path: Assets/Scenes/Lab Entrance.unity
+    guid: 55587ebc711678b4e899dbfabf20c514
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

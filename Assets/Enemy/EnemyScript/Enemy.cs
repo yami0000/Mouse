@@ -201,4 +201,16 @@ public class Enemy : Entity
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)DirectionToPlayer() * playerCheckDistance);
         }
     }
+
+    public bool CanAttack()
+    {
+        if (Time.time >= lastTimeAttacked + attackCooldown)
+        {
+
+            return true;
+        }
+
+        return false;
+
+    }
 }

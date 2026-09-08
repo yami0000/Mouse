@@ -5831,7 +5831,7 @@ PrefabInstance:
       objectReference: {fileID: 5790250874815600607}
     - target: {fileID: 8654470384789978404, guid: b5408623d9d5a514d84330384f347d05, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8654470384789978404, guid: b5408623d9d5a514d84330384f347d05, type: 3}
       propertyPath: m_IsGlobal
@@ -5840,8 +5840,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2446200920937095911, guid: b5408623d9d5a514d84330384f347d05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 282204851}
   m_SourcePrefab: {fileID: 100100000, guid: b5408623d9d5a514d84330384f347d05, type: 3}
+--- !u!1 &282204850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2446200920937095911, guid: b5408623d9d5a514d84330384f347d05, type: 3}
+  m_PrefabInstance: {fileID: 282204849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &282204851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282204850}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 953b8c72997faf04491f1c3d557fea43, type: 2}
 --- !u!1 &289014375
 GameObject:
   m_ObjectHideFlags: 0
@@ -14822,8 +14847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317b40ee95109034c889ff1e23722adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Num: 8
-  ID: 08-01
+  Num: 9
+  ID: 09-01
   isUIOpened: 0
   isInteract: 0
   isInteractGrandma: 0
@@ -17347,9 +17372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "On EntryContainer's Vertical Layout Group: Child Force Expand Width \u2713,
-    Height \u2717, spacing ~10. Add a Content Size Fitter (Vertical Fit: Preferred
-    Size) if you later want it scrollable inside a Scroll Rect."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -28304,7 +28327,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -30808,7 +30831,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734235013}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
   m_Name: 
@@ -30816,9 +30839,9 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.6
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.7
+  m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000956de5eaa99e9a5db355ba606dd4a95c074d9fd1cffb739d
@@ -30838,7 +30861,7 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
     m_Center: {x: -0.00024986267, y: -0.0001001358, z: 0}
-    m_Extent: {x: 30.50045, y: 30.5009, z: 0}
+    m_Extent: {x: 12.50045, y: 12.5009, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -30846,7 +30869,7 @@ MonoBehaviour:
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 30
+  m_ShapeLightFalloffSize: 12
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
   - {x: -0.5, y: -0.5, z: 0}
@@ -39496,7 +39519,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 100
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -39778,6 +39801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathActions: []
+  spriteFacesLeft: 0
+  startFacingLeft: 0
   groundCheck: {fileID: 3104993390163186222}
   groundCheckDistance: 0.95
   wallCheck: {fileID: 724591493335185406}
@@ -42399,7 +42424,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: b4a866fa75d9dcf47b1688fcd76ad7a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -42578,7 +42603,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653343281
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Positions: []
   m_Parameters:

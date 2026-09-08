@@ -63,17 +63,7 @@ public class Enemy_Police : Enemy
         stateMachine.ChangeState(deathState);
     }
 
-    public bool CanAttack()
-    {
-        if (Time.time >= lastTimeAttacked + attackCooldown)
-        {
-
-            return true;
-        }
-
-        return false;
-
-    }
+ 
     public void BackDown() => StartCoroutine(MoveInDirection(-facingDir, s, t));
     private IEnumerator MoveInDirection(int direction, float speed, float duration)
     {
