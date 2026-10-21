@@ -46,6 +46,18 @@ public class QuestManager : MonoBehaviour
 
     }
 
+    // Completes an accepted quest on the spot, rewards included, whatever its objectives say.
+    public void CompleteQuest(string questID)
+    {
+        if (activeQuests.TryGetValue(questID, out Quest quest))
+        {
+            quest.ForceComplete();
+            return;
+        }
+
+        Debug.LogWarning($"Can't complete quest '{questID}': it isn't active.");
+    }
+
     public void ProgressTalkObjective(string dialogueKey)
     {
         foreach (var quest in activeQuests.Values)

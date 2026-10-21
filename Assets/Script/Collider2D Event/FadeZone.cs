@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -19,11 +20,22 @@ public class FadeZone : DETECTION
     [Tooltip("Seconds for a full 0% <-> 100% fade.")]
     [SerializeField] private float fadeDuration = 0.5f;
 
+    [Tooltip("Once entered, stay invisible forever - even after leaving and coming back from other scenes.")]
+    [SerializeField] private bool disappearForever = false;
+
+    [Tooltip("Optional unique ID for remembering this zone. Leave empty to use scene name + hierarchy path.")]
+    [SerializeField] private string persistentId;
+
+    // Zones that have been permanently revealed this play session.
+    // Static, so it survives scene loads.
+    private static readonly HashSet<string> goneForever = new HashSet<string>();
+
     // No floating E prompt for a passive zone
     protected override bool ShowPrompt => false;
 
     private Coroutine fadeRoutine;
     private float currentAlpha = 1f;
+    private bool isGone;
 
     private void Awake()
     {
@@ -32,11 +44,39 @@ public class FadeZone : DETECTION
 
         if (shapeTargets == null || shapeTargets.Length == 0)
             shapeTargets = GetComponentsInChildren<SpriteShapeRenderer>();
+
+        if (disappearForever && goneForever.Contains(GetKey()))
+        {
+            isGone = true;
+            SetAlpha(0f);
+        }
     }
 
-    protected override void OnPlayerEnter() => StartFade(0f);
+    protected override void OnPlayerEnter()
+    {
+        if (disappearForever && !isGone)
+        {
+            isGone = true;
+            goneForever.Add(GetKey());
+        }
+        StartFade(0f);
+    }
 
-    protected override void OnPlayerExit() => StartFade(1f);
+    protected override void OnPlayerExit()
+    {
+        if (isGone) return;
+        StartFade(1f);
+    }
+
+    private string GetKey()
+    {
+        if (!string.IsNullOrEmpty(persistentId)) return persistentId;
+
+        string path = name;
+        for (Transform t = transform.parent; t != null; t = t.parent)
+            path = t.name + "/" + path;
+        return gameObject.scene.name + ":" + path;
+    }
 
     private void StartFade(float targetAlpha)
     {

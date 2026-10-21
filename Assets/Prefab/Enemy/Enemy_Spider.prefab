@@ -84,8 +84,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b8a084ae3014643a24c8db1fc06636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackDirection: {x: 7, y: 3}
-  knockbackDuration: 0.1
+  deathConsequences:
+    consequences: 0
+    battleTarget: {fileID: 0}
+    rewards: []
+    rewardOrigin: {fileID: 0}
+    burstSideways: 6
+    burstUp: {x: 10, y: 15}
+    questToAccept: {fileID: 0}
+    objectiveKey: 
+    questToComplete: {fileID: 0}
+    move:
+      target: {fileID: 0}
+      mode: 0
+      destination: {fileID: 0}
+      offset: {x: 0, y: 0}
+      duration: 1
+      smooth: 1
+    dialogueName: 
+  spriteFacesLeft: 0
+  startFacingLeft: 0
   groundCheck: {fileID: 3797581395339858354}
   groundCheckDistance: 1.14
   wallCheck: {fileID: 7815753032130870532}
@@ -93,11 +111,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  facingDir: 1
   isBackingup: 0
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCheckDistance: 20
+  playerCheckDistance: 30
+  behindCheckDistance: 8
+  battleMoveAnimBool: Walk
+  battleIdleAnimBool: Idle
   EXP: 3
   moveSpeed: 2.8
   idleTime: 0.8
@@ -106,6 +128,9 @@ MonoBehaviour:
   attackCooldown: 0.8
   lastTimeAttacked: 0
   lastTimeAttacked_Bee: 0
+  deathFate: 0
+  destroyDelay: 0.5
+  BattleState: 0
   attackCheck: {fileID: 1457327441451632520}
   attackCheckRadius: 1.46
 --- !u!50 &697456388072350344
@@ -360,7 +385,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1570414249
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 10
   m_Sprite: {fileID: -2775964678536148537, guid: ad8690047a87f6447a97e30dbf4e4d41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

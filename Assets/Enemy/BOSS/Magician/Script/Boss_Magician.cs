@@ -162,10 +162,10 @@ public class Boss_Magician : Enemy
             if (TryGetGroundY(spawnPos, out float groundY))
                 spawnPos.y = groundY;
             else
-                continue; // no ground under this x (pit/ledge) ¡ª skip this spike
+                continue; // no ground under this x (pit/ledge) ï¿½ï¿½ skip this spike
 
             GameObject spike = Instantiate(spikePrefab, spawnPos, Quaternion.identity);
-            spike.GetComponent<Collider>()?.Initialize(this);
+            spike.GetComponent<AmmoBehaviour>()?.Initialize(this);
 
             if (spikeLifetime > 0f)
                 Destroy(spike, spikeLifetime);
@@ -181,10 +181,10 @@ public class Boss_Magician : Enemy
         if (TryGetGroundY(spawnPos, out float groundY))
             spawnPos.y = groundY;
         else
-            yield break; // player is over a pit ¡ª no spike rather than a floating one
+            yield break; // player is over a pit ï¿½ï¿½ no spike rather than a floating one
 
         GameObject spike = Instantiate(spikePrefab, spawnPos, Quaternion.identity);
-        spike.GetComponent<Collider>()?.Initialize(this);
+        spike.GetComponent<AmmoBehaviour>()?.Initialize(this);
 
         if (spikeLifetime > 0f)
             Destroy(spike, spikeLifetime);
@@ -218,7 +218,7 @@ public class Boss_Magician : Enemy
             GameObject proj = Instantiate(barragePrefab, barrageFirePoint.position,
                 Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, fireDir)));
 
-            Collider ammo = proj.GetComponent<Collider>();
+            AmmoBehaviour ammo = proj.GetComponent<AmmoBehaviour>();
             if (ammo != null)
                 ammo.Initialize(this);
 
@@ -359,7 +359,7 @@ public class Boss_Magician : Enemy
 
     IEnumerator LaunchAtPlayer(Transform proj)
     {
-        proj.GetComponent<Collider>()?.SetColliderEnabled(true); // force-arm regardless of A/B window
+        proj.GetComponent<AmmoBehaviour>()?.SetColliderEnabled(true); // force-arm regardless of the arm/disarm window
 
         Vector2 dir = ((Vector2)player.position - (Vector2)proj.position).normalized;
         proj.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, dir));
@@ -474,7 +474,7 @@ public class Boss_Magician : Enemy
     private void InstantiateAxeCollider()
     {
         GameObject collider = Instantiate(ColliderPrefab, transform.position, Quaternion.identity);
-        collider.GetComponent<Collider>().Initialize(this);
+        collider.GetComponent<AmmoBehaviour>().Initialize(this);
         Destroy(collider, 0.167f);
          
     }
@@ -491,7 +491,7 @@ public class Boss_Magician : Enemy
         Quaternion rot = dir.x < 0f ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
 
         GameObject wave = Instantiate(wavePrefab, waveFirePoint.position, rot);
-        wave.GetComponent<Collider>()?.Initialize(this);
+        wave.GetComponent<AmmoBehaviour>()?.Initialize(this);
 
         float speed = waveStartSpeed;
         float elapsed = 0f;

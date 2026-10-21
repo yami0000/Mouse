@@ -21,9 +21,9 @@ public class HealAmmo : MonoBehaviour
 
 
 
-        HealAmmo_Effect _healammo = healammo.GetComponent<HealAmmo_Effect>();  
+        AmmoBehaviour _healammo = healammo.GetComponent<AmmoBehaviour>();  
         if (_healammo != null )
-            _healammo.initialize(enemy);
+            _healammo.Initialize(enemy);
 
         Destroy(healammo,DestroyTime);
 

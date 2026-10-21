@@ -94,10 +94,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
+  eventType: 0
+  lockCamera: 1
+  restrictPlayer: 0
   DialogueName: Side_02_002_04
   t: 1
-  actions:
-  - actionType: 0
+  waves: []
+  offscreenMargin: 1.5
+  walkInDistance: 3
+  walkInSpeed: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  onComplete:
+    consequences: 1
+    battleTarget: {fileID: 0}
+    rewards: []
+    rewardOrigin: {fileID: 0}
+    burstSideways: 6
+    burstUp: {x: 10, y: 15}
+    questToAccept: {fileID: 0}
+    objectiveKey: 
+    questToComplete: {fileID: 0}
+  actions: []
   E: {fileID: 0}
 --- !u!114 &4703402871596953202
 MonoBehaviour:

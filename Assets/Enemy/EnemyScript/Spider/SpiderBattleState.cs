@@ -47,7 +47,9 @@ public class SpiderBattleState : EnemyState
         }
         else {
            // Debug.Log("player is not detected");
-            if (stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position)>6)
+            // Spiders forced into battle (boss summons, enemy waves, Enter Battle Mode) never give up the chase.
+            if (!enemy.BattleState &&
+                (stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position)>6))
                 stateMachine.ChangeState(enemy.idleState);
         }
         

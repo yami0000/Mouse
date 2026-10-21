@@ -10,25 +10,6 @@ public class HealthBarMantis : MonoBehaviour
 
     public Image fill;
 
-    void Update()
-    {
-        float currentHealth = 0f;
-        float maxHealth = 1f;
-
-        switch (creatureType)
-        {
-            case CreatureType.Mantis:
-                currentHealth = GM.Instance.GameManager.MantisHealth;
-                maxHealth = GM.Instance.GameManager.MantisMaxHealth;
-                break;
-
-            case CreatureType.Scorpion:
-                currentHealth = GM.Instance.GameManager.ScorpionHealth;
-                maxHealth = GM.Instance.GameManager.ScorpionMaxHealth;
-                break;
-        }
-
-        fill.fillAmount = currentHealth / maxHealth;
-    }
+   
 
 }

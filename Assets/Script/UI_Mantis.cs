@@ -7,8 +7,8 @@ public class UI_Mantis : MonoBehaviour
 {   
     [SerializeField] GameObject Mantis1;
     [SerializeField] GameObject Mantis2;
-    [SerializeField] GameObject Health;
-    [SerializeField] GameObject MantisHP;
+   
+    
  
      
     bool UIshowed;
@@ -17,26 +17,16 @@ public class UI_Mantis : MonoBehaviour
          
         Mantis1.SetActive(false);
         Mantis2.SetActive(false);
-        MantisHP.SetActive(false);
+       
         UIshowed = true;
     }
     private void Update()
     {
         
 
-        if (GM.Instance.GameManager.isMantisBossFightStarted)
-        {
-            if (UIshowed)
-            {
-                UIshowed = false;
-                StartCoroutine(ShowIntro());
-            }
+     
 
-
-        }
-
-        if(!GM.Instance.GameManager.isMantisBossFightStarted)
-            MantisHP.SetActive(false);
+       
     }
 
     IEnumerator ShowIntro()
@@ -44,7 +34,7 @@ public class UI_Mantis : MonoBehaviour
         float M = 0f;
 
         
-        Health.SetActive(false);
+      
         
         while (!PlayerManager.Instance.player.IsGroundDetected())
         {
@@ -80,10 +70,10 @@ public class UI_Mantis : MonoBehaviour
         M = 0f;
 
         GM.Instance.GameManager.isUIOpened = false;
-        Health.SetActive (true);
+       
         Mantis1.SetActive(false);
         Mantis2.SetActive(false);
-        MantisHP.SetActive (true);
+      
 
 
     }

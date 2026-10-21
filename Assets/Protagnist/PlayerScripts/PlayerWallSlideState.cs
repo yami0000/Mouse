@@ -29,13 +29,24 @@ public class PlayerWallSlideState : PlayerState
 
         }
 
+        if (!player.IsWallDetected())
+        {
+            stateMachine.ChangeState(player.airState);
+            return;
+        }
+
         if (player.xInput != 0 && player.facingDir != player.xInput)
+        {
             stateMachine.ChangeState(player.idleState);
+            return;
+        }
 
         if (player.yInput < 0)
             rb.velocity = new Vector2(0,rb.velocity.y);
         else
             rb.velocity = new Vector2(0,rb.velocity.y* 0.6f);
+
+        player.CreateWallDust(player.wallSlideDustInterval);
         
         if(player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);

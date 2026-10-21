@@ -31,8 +31,10 @@ public class Grenade : MonoBehaviour
 
         ParticleSystem ps = effect.GetComponent<ParticleSystem>();
 
-        Explode_Grenade G = effect.GetComponent<Explode_Grenade>();
-        G.Initialize(stats);
+        // Any IExplosionEffect on the spawned prefab, so swapping the explosion for a
+        // poison cloud needs no change here.
+        foreach (IExplosionEffect G in effect.GetComponents<IExplosionEffect>())
+            G.Initialize(stats);
 
         if (ps != null)
         {

@@ -105,7 +105,7 @@ public class WalkToTargetAction : NPCAction
 
     public override bool Tick(NPC_All npc)
     {
-        if (target == null¡¡&& !IsTargetPlayer) return true;
+        if (target == null && !IsTargetPlayer) return true;
         if(IsTargetPlayer) 
             target = PlayerManager.Instance.player.transform;
 
@@ -162,6 +162,89 @@ public class DialogueAction : NPCAction
 
     public override string Summary =>
         $"Say \"{(string.IsNullOrEmpty(nodeName) ? "?" : nodeName)}\"{(waitForFinish ? "" : " (no wait)")}";
+}
+
+/// <summary>
+/// Play an NPC-exclusive animation by turning on its Animator bool.
+///   chance = 1   -> always plays (100%)
+///   chance < 1   -> rolls each time the routine reaches it; on a miss it is skipped instantly
+/// Finishes after 'duration' seconds, or when the clip's Animation Event calls
+/// AnimationTrigger() (see NPCAnimationEvents).
+/// </summary>
+[System.Serializable]
+public class SpecialAction : NPCAction
+{
+    public enum FinishMode { Duration, AnimationEvent }
+
+    [Tooltip("Exact name of the bool parameter in this NPC's Animator (case-sensitive).")]
+    public string animBoolName = "";
+
+    [Tooltip("Chance to play each time the routine reaches this action. 1 = always (100%). " +
+             "If the roll fails, the action is skipped and the routine moves on immediately.")]
+    [Range(0f, 1f)] public float chance = 1f;
+
+    [Tooltip("Duration = end after 'duration' seconds.\n" +
+             "AnimationEvent = end when the clip calls AnimationTrigger() (add an Animation Event at the clip's last frame).")]
+    public FinishMode finishOn = FinishMode.Duration;
+
+    [Tooltip("Duration mode: seconds to play (<= 0 = hold forever).\n" +
+             "AnimationEvent mode: safety timeout in case the event never fires (<= 0 = no timeout).")]
+    public float duration = 2f;
+
+    [Tooltip("Keep walking forward at the current move speed while the animation plays. Off = stand still.")]
+    public bool moveWhilePlaying = false;
+
+    private bool skipped;
+    private float timer;
+    private NPCSpecialState state;
+
+    public override void OnEnter(NPC_All npc)
+    {
+        timer = duration;
+        state = null;
+        skipped = chance < 1f && Random.value >= chance;
+        if (skipped) return;
+
+        if (!npc.HasAnimBool(animBoolName))
+        {
+            Debug.LogWarning($"[SpecialAction] '{npc.name}' has no Animator bool named \"{animBoolName}\". Skipping.", npc);
+            skipped = true;
+            return;
+        }
+
+        state = npc.EnterSpecial(animBoolName, moveWhilePlaying);
+    }
+
+    // Re-enter the same special after an interrupt, without re-rolling the chance or resetting the timer.
+    public override void OnResume(NPC_All npc)
+    {
+        if (!skipped) state = npc.EnterSpecial(animBoolName, moveWhilePlaying);
+    }
+
+    public override bool Tick(NPC_All npc)
+    {
+        if (skipped) return true;
+
+        if (finishOn == FinishMode.AnimationEvent && state != null && state.AnimationFinished)
+            return true;
+
+        if (duration <= 0f) return false; // hold forever / no timeout
+        timer -= Time.deltaTime;
+        return timer <= 0f;
+    }
+
+    public override string Summary
+    {
+        get
+        {
+            string name = string.IsNullOrEmpty(animBoolName) ? "?" : animBoolName;
+            string end = finishOn == FinishMode.AnimationEvent
+                ? "until anim end"
+                : (duration > 0f ? $"{duration:0.##}s" : "hold");
+            string odds = chance < 1f ? $"  {Mathf.RoundToInt(chance * 100f)}%" : "";
+            return $"Special \"{name}\" ({end}){odds}";
+        }
+    }
 }
 
 /// <summary>Flip the NPC to face the other direction.</summary>

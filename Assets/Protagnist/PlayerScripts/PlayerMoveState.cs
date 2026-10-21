@@ -27,6 +27,8 @@ public class PlayerMoveState : PlayerGroundedState
 
         player.Setvelocity(player.xInput*player.movespeed, rb.velocity.y);
 
+        player.CreateDust(player.runDustInterval);
+
         if (player.xInput == 0)
             stateMachine.ChangeState(player.idleState);
     }

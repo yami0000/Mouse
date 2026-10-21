@@ -6,11 +6,21 @@ using UnityEngine;
 
 using static UnityEditor.Progress;
 
-public class Inventory : MonoBehaviour
+[System.Serializable]
+public class StartingItem
+{
+    public ItemData item;
+    [Min(1)] public int amount = 1;
+}
+
+public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
 {
     public static Inventory Instance;
 
-    public List<ItemData> startingEquipment;
+    public List<StartingItem> startingItems = new List<StartingItem>();
+
+    // Old item-only list, folded into startingItems (amount 1) on load.
+    [SerializeField, HideInInspector] private List<ItemData> startingEquipment = new List<ItemData>();
 
     public List<InventoryItem> inventory;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
@@ -69,8 +79,27 @@ public class Inventory : MonoBehaviour
 
     private void AddStartingItems()
     {
+        foreach (StartingItem entry in startingItems)
+        {
+            if (entry == null || entry.item == null) continue;
+
+            // A fresh list element can come in at 0, which would add nothing.
+            AddItem(entry.item, Mathf.Max(1, entry.amount), notify: false);
+        }
+    }
+
+    public void OnBeforeSerialize() { }
+
+    public void OnAfterDeserialize()
+    {
+        if (startingEquipment == null || startingEquipment.Count == 0) return;
+
+        startingItems ??= new List<StartingItem>();
+
         foreach (ItemData item in startingEquipment)
-            AddItem(item, 1, notify: false);
+            startingItems.Add(new StartingItem { item = item, amount = 1 });
+
+        startingEquipment.Clear();
     }
 
     public ItemData_Equipment Throwable()

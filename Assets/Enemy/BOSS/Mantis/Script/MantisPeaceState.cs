@@ -19,8 +19,8 @@ public class MantisPeaceState : EnemyState
     public override void Update()
     {
         base.Update();
-        if(GM.Instance.GameManager.isMantisBossFightStarted)
-            stateMachine.ChangeState(boss.prepareState);
+         
+           
     }
     public override void Exit()
     {

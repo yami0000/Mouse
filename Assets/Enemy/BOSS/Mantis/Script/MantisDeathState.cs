@@ -19,7 +19,7 @@ public class MantisDeathState : EnemyState
 
         stateTimer = .1f;
 
-        NarrativeManager.Instance.RequestDialogue("DefeatMantis",3);
+      
     }
 
     public override void Exit()
@@ -33,7 +33,7 @@ public class MantisDeathState : EnemyState
         if (stateTimer > 0)
         {
             rb.velocity = new Vector2(0, 5);
-            GM.Instance.GameManager.isMantisAlive = false;
+            
         }
     }
 }

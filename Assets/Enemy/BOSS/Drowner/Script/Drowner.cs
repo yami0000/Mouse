@@ -255,7 +255,7 @@ public class Boss_Drowner : Enemy
             if (rb != null)
                 rb.velocity = new Vector2(xVelocity * moveDir, 0);
 
-            EnemyAmmo_Effect effect = ammo.GetComponent<EnemyAmmo_Effect>();
+            AmmoBehaviour effect = ammo.GetComponent<AmmoBehaviour>();
             if (effect != null)
                 effect.Initialize(enemy);
 

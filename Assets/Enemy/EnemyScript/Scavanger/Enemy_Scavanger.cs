@@ -276,7 +276,7 @@ public class Enemy_Scavanger : Enemy
                 }
 
 
-                EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+                AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
             if (_Ammo != null)
             {
                 if(energy>=3 && energy<5)

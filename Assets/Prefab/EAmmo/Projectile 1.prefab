@@ -145,7 +145,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -778089209
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.9657169, b: 0.42452818, a: 1}
@@ -230,14 +230,90 @@ MonoBehaviour:
   m_GameObject: {fileID: 5811174512350889996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbaf46395323c34c9dd8454851cb081, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d2f686c49fa94db5c893a6743c51d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 0
+  impactMode: 0
+  hitOnce: 1
+  destroyOnHit: 1
+  impactPrefab: {fileID: 0}
+  impactPrefabLifeTime: 0.85
+  damageMode: 0
+  damageMultiplierMin: 0.8
+  damageMultiplierMax: 1.4
+  damageCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  homingMode: 0
+  slowDownRate: 2
+  homingDelay: 0.5
+  homingAcceleration: 10
+  maxSpeed: 15
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyCheckDistance: 10
+  destroyOnGround: 0
+  ricochetOffGround: 0
+  splitOnGround: 1
+  splitPrefab: {fileID: 5811174512350889996, guid: 00e01d7a9902f5f45ae01db073c03b93, type: 3}
+  splitCount: 2
+  splitMinSpeed: 14
+  splitMaxSpeed: 20
+  splitMinAngle: 45
+  splitMaxAngle: 75
+  splitLifeTime: 5
+  useColliderWindow: 0
+  armTime: 0
+  disarmTime: 0
+  lifeTime: 5
+  splashEffectPrefab: {fileID: 0}
+  damageToParticleCount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  finalDirection: {x: 0, y: 0}
+  lastFramePosition: {x: 0, y: 0}
   sp: {fileID: 0}
-  Bounce: 1
-  GroundProof: 1
-  projectilePrefab: {fileID: 5811174512350889996, guid: 00e01d7a9902f5f45ae01db073c03b93, type: 3}
-  minSpeed: 14
-  maxSpeed: 20
-  minAngle: 45
-  maxAngle: 75

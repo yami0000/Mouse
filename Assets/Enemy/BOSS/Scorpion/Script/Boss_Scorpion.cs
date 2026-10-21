@@ -95,7 +95,7 @@ public class Boss_Scorpion : Enemy
         isWaiting = true;
         isMoving = true;
         canBlock = 0;
-        GM.Instance.GameManager.ScorpionMaxHealth =  stats.MaxHP.GetValue();  
+        
         stateMachine.Initialize(idleState);
 
 
@@ -112,7 +112,7 @@ public class Boss_Scorpion : Enemy
     {
         base.Update();
 
-        GM.Instance.GameManager.ScorpionHealth = stats.CurrentHP;
+        
 
         stateTimer_Scorpion -= Time.deltaTime;
 
@@ -229,7 +229,7 @@ public class Boss_Scorpion : Enemy
             Ammo.GetComponent<Rigidbody2D>().velocity = dir.normalized * Mathf.Abs(xVelocity);
 
             
-            Collide_SelfAimAmmoEnemy _Ammo = Ammo.GetComponent<Collide_SelfAimAmmoEnemy>();
+            AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
             if (_Ammo != null)
                 _Ammo.Initialize(enemy);
 

@@ -35,5 +35,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lab Entrance.unity
     guid: 55587ebc711678b4e899dbfabf20c514
+  - enabled: 1
+    path: Assets/Scenes/Botanic Garden.unity
+    guid: 05b51a0dfda1e3842aa65b2b588e5f97
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

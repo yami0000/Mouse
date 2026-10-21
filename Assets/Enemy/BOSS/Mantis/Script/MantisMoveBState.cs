@@ -26,7 +26,8 @@ public class MantisMoveBState : EnemyState
     public override void Update()
     {
         base.Update();
-        boss.Setvelocity(boss.moveSpeed * boss.facingDir, rb.velocity.y);
+        // Back away: move opposite to the facing direction (isBackingup stops Setvelocity from flipping the boss).
+        boss.Setvelocity(boss.moveSpeed * -boss.facingDir, rb.velocity.y);
         if (boss.stateTimer_Mantis <= 0)
             boss.DecideMove();
     }

@@ -22,8 +22,12 @@ public class Entity : MonoBehaviour
     [HideInInspector]protected bool isKnocked;
 
     [Header("Death consequences")]
-    [Tooltip("What happens when this entity dies. Extend by adding ActionTypes in EventAction.")]
-    [SerializeField] private List<EventAction> deathActions = new List<EventAction>();
+    [Tooltip("What happens when this entity dies. Tick as many Consequences as needed.")]
+    [SerializeField] private EventAction deathConsequences = new EventAction();
+
+    [Header("State FX")]
+    [Tooltip("Effects spawned when this entity enters a state. Several can share a state.")]
+    [SerializeField] private List<StateFX> stateFX = new List<StateFX>();
 
     [Header("Facing")]
     [SerializeField] private bool spriteFacesLeft;
@@ -36,7 +40,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float wallCheckDistance;
     [SerializeField] protected LayerMask whatIsGround;
 
-    public int facingDir  = 1;
+    [HideInInspector]public int facingDir  = 1;
     private bool facingRight = true;
 
     [HideInInspector]public bool isBackingup;
@@ -72,10 +76,72 @@ public class Entity : MonoBehaviour
             Flip();
     }
 
-    protected virtual void Update() 
+    protected virtual void Update()
     {
-
+        UpdateStateFX();
     }
+
+    #region State FX
+
+    private object lastState;
+    // Bumped on every state change, so a delayed effect knows whether its state has ended meanwhile.
+    private int stateVisit;
+    private readonly List<GameObject> untilStateEnds = new List<GameObject>();
+
+    // Watches the state machine rather than hooking each state, so it works for any entity unchanged.
+    private void UpdateStateFX()
+    {
+        if (stateFX.Count == 0) return;
+
+        object current = StateLookup.CurrentState(this);
+        if (current == lastState) return;
+
+        lastState = current;
+        stateVisit++;
+        EndStateFX();
+
+        if (current == null) return;
+
+        foreach (StateFX entry in stateFX)
+        {
+            if (entry == null || StateLookup.GetState(this, entry.state) != current) continue;
+
+            if (entry.delay > 0f)
+                StartCoroutine(SpawnStateFXLater(entry, stateVisit));
+            else
+                SpawnStateFX(entry);
+        }
+    }
+
+    private IEnumerator SpawnStateFXLater(StateFX _entry, int _visit)
+    {
+        yield return new WaitForSeconds(_entry.delay);
+
+        if (_visit == stateVisit)
+            SpawnStateFX(_entry);
+    }
+
+    private void SpawnStateFX(StateFX _entry)
+    {
+        GameObject spawned = _entry.Spawn(transform);
+
+        if (spawned != null && _entry.lifetime == StateFX.Lifetime.UntilStateEnds)
+            untilStateEnds.Add(spawned);
+    }
+
+    private void EndStateFX()
+    {
+        foreach (GameObject spawned in untilStateEnds)
+            if (spawned != null)
+                Destroy(spawned);
+
+        untilStateEnds.Clear();
+    }
+
+    // Until State Ends effects that don't follow the entity would otherwise outlive it.
+    protected virtual void OnDestroy() => EndStateFX();
+
+    #endregion
 
     public virtual void SlowEntityBy(float _SlowPercentage,float _SlowDuration)
     {
@@ -167,7 +233,6 @@ public class Entity : MonoBehaviour
         IsDead = true;
         OnDied?.Invoke(this);
 
-        for (int i = 0; i < deathActions.Count; i++)
-            deathActions[i]?.Execute(this);
+        deathConsequences?.Execute(this, transform);
     }
 }

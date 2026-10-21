@@ -25,7 +25,7 @@ public class EnemyAmmo :MonoBehaviour
         Ammo.GetComponent<Rigidbody2D>().velocity = direction * speed;
 
 
-        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
         if (_Ammo != null)
             _Ammo.Initialize(enemy);
         

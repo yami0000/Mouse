@@ -270,7 +270,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -4
   m_Sprite: {fileID: 1127102070073755556, guid: 6f7bd21006dc97f49a4f5bf195ea3cc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -379,7 +379,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1622824371
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -5
   m_Sprite: {fileID: -7140769347374734817, guid: 722c9ac6f05473f4187012bcaf5765f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -536,8 +536,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsReadyToInteract: 0
+  eventType: 1
+  lockCamera: 1
+  restrictPlayer: 0
   DialogueName: Side_02_002_11
   t: 0.5
-  actions:
-  - actionType: 0
+  waves: []
+  spawnMargin: 1.5
+  walkInDistance: 3
+  walkInSpeed: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  onComplete:
+    consequences: 1
+    battleTarget: {fileID: 0}
+    rewards: []
+    rewardOrigin: {fileID: 0}
+    burstSideways: 6
+    burstUp: {x: 10, y: 15}
+    questToAccept: {fileID: 0}
+    objectiveKey: 
+    questToComplete: {fileID: 0}
+  actions: []
   E: {fileID: 0}

@@ -48,6 +48,44 @@ public class NPC_All : NPC
             stateMachine.ChangeState(walkState);
     }
 
+    // ---- Special actions (NPC-exclusive animations driven by an Animator bool) ----
+
+    private readonly Dictionary<string, NPCSpecialState> specialStates = new Dictionary<string, NPCSpecialState>();
+
+    public bool IsInSpecial => stateMachine.currentState is NPCSpecialState;
+
+    /// <summary>True if this NPC's Animator has a bool parameter with this exact name.</summary>
+    public bool HasAnimBool(string boolName)
+    {
+        if (anim == null || string.IsNullOrEmpty(boolName)) return false;
+        foreach (AnimatorControllerParameter p in anim.parameters)
+            if (p.type == AnimatorControllerParameterType.Bool && p.name == boolName)
+                return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Switch to the special state for this Animator bool (created on first use).
+    /// If already in that exact state, the animation restarts from the beginning.
+    /// </summary>
+    public NPCSpecialState EnterSpecial(string animBoolName, bool moveWhilePlaying = false)
+    {
+        if (!specialStates.TryGetValue(animBoolName, out NPCSpecialState state))
+        {
+            state = new NPCSpecialState(this, stateMachine, animBoolName, this);
+            specialStates[animBoolName] = state;
+        }
+
+        state.moveWhilePlaying = moveWhilePlaying;
+
+        if (stateMachine.currentState != state)
+            stateMachine.ChangeState(state);
+        else
+            state.Restart();
+
+        return state;
+    }
+
     public void SetMoveSpeed(float speed) => moveSpeed = speed;
 
     /// <summary>Face the given horizontal direction (-1 left, +1 right).</summary>

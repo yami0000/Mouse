@@ -167,6 +167,17 @@ Lion:How's the preparation? #line:0161e86
 
 ===
 
+title:Lion_Weapon
+---
+Lion:Rigel,see that? You know what to do.
+Rigel:A cyber-spider! In the sewer?
+Lion:We gave you several weapons before the trip,you can have a try on them.
+Lion:Each weapon has its own trait.For example,shotgun is good at close range,but the bullet won't reach far; while assault rifle is good at middle range.
+Lion:Check your invnentory.
+
+
+===
+
 title:Zig_Zag
 ---
 Zig:STAND RIGHT THERE,mammal. #line:09ab7f7 
@@ -561,4 +572,74 @@ title:Side_02_003_02_03
 ---
 Rigel:What's this?
 Rigel:
+===
+
+title:Side_02_004_01
+---
+<<declare $player_paid_arena_fee = false>>
+<<declare $player_talked_to_receptionist = false>>
+
+<<if $player_talked_to_receptionist is false && $player_paid_arena_fee is false>>
+    Receptionist:Little Mammal,Welcome to the Central Arena of Rust City!
+    Rigel:Central Arena? Everybody fights here?
+    Receptionist:Yes,we basically have fights every day,from one-to-one to group battles and solo battles, with same rules but different prizes.
+    Rigel:What's the rules here?
+    Receptionist:Simple.Participants can use any weapons and cyberlimbs, but no chemical drugs or stimulants are allowed.
+    Receptionist:Also, don't think about using CyberDream,there's an signal jammer in the arena space. 
+    Rigel:What about the prize?
+    Receptionist:The arena is part sponsored by the aristocrats from upper level, so it's a lucrative business.Plus, the aristocrats like watching the poor fighting for their lives to get the money in their hand, if you are lucky enough, you can be chosen as their bodyguard and earn a decent salary.
+    Rigel:Arisocrats? Can you ellaborate?
+    Receptionist:They are from the most influential part of this country,from government officials to military officers.Scientists from that mysterious lab will come here too.After all,this is the best place to test their "Prototypes".
+    Receptionist:You know you are fucked if you are faced with an opponent sent by them.
+    Rigel:Scientists are hiring bodyguards or experimental subjects?
+    Receptionist:They do, only if you perform youself well in the arena.
+    Rigel:(This maybe a way to get me into that lab!)
+    <<accept_quest "Side_02_004">>
+    <<set $player_talked_to_receptionist = true>>
+    <<jump Side_02_004_02>>
+
+<<elseif $player_talked_to_receptionist is true && $player_paid_arena_fee is false>>
+    <<jump Side_02_004_02>>
+
+<<else>>
+    <<jump Side_02_004_03>>
+<<endif>>
+===
+
+title:Side_02_004_02
+---
+Receptionist:Any Qusetions?  
+        -> Have been working here for a long time?
+            Receptionist:Really a long time, before the eclipse war.During the war,the arena was temporarily "borrowed" as a military training ground,I tend to the soldiers and I was lucky not to get conscripted. 
+            Rigel:You are really lucky...
+            <<jump Side_02_004_02>>
+        -> I want to fight in the arena.
+            Receptionist:The audience will be pleased to see something new!But to test your fighting skills,we have an intry fight first,if you win,you can fight in the arena.We can't vouch for your safety and you have to bear the consequences of the outcome of the fight.
+            Rigel:This sounds so "Arena"!I will fight.
+            Receptionist:Good!But first,you have to pay the entry fee(15),don't worry,you will earn more than that if you win.
+                    -> Pay the fee(15)
+                       <<if has_item("0001", 15)>> 
+                          <<remove_item 0001 15>>
+                           Receptionist:Before you fight, please make some preparations.Tell me when you are ready.
+                           <<set $player_paid_arena_fee = true>>
+                                   ->I can fight now.
+                                          Receptionist:Good luck!
+                                          <<change_scene 8 08-01>>
+                                   ->I will prepare and come back later.
+                                          Receptionist:You can take a look around, there are many weapon or equipment shop in rust city! 
+                       <<else>>
+                           Receptionist:Come back when you have enough money.
+                       <<endif>>
+                    -> I will come back later.
+                           Receptionist:Take your time!
+===
+
+title:Side_02_004_03
+---
+Receptionist:Welcome back!Are you ready for the fight?
+        -> I can fight now.
+            Receptionist:Good luck!
+            <<change_scene 8 08-01>>
+        -> I will prepare and come back later.
+            Receptionist:You can take a look around, there are many weapon or equipment shop in rust city!
 ===

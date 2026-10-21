@@ -67,6 +67,8 @@ public class Quest
             Complete();
     }
 
+    public void ForceComplete() => Complete();
+
     void Complete()
     {
         if (State != QuestState.InProgress) return;

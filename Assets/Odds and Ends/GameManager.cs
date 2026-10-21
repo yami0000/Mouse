@@ -28,24 +28,19 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 {
     public GameState State { get; private set; } = new();
 
-    [SerializeField] private int Num;
     public string ID;
     private DialogueRunner DialogueRunner;
 
     [HideInInspector] public bool isUIOpened;
     [HideInInspector] public bool isInteract;
     [HideInInspector] public bool isInteractGrandma;
-    public bool isMantisBossFightStarted;
-    public bool isMantisAlive;
-
+ 
     private Animator ani;
 
-    [HideInInspector] public int MantisHealth;
-    [HideInInspector] public int MantisMaxHealth;
-    [HideInInspector] public int ScorpionHealth;
-    [HideInInspector] public int ScorpionMaxHealth;
+ 
 
     public string PendingSpawnId { get; private set; }
+    private bool isLoadingScene;   // AutoLoad doors call LoadScene every frame; ignore repeats until the scene has loaded
     private void Awake()
     {
         // Ensure GameManager persists across all scene loads
@@ -75,12 +70,36 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     public void LoadScene(int index, string spawnId = null)
     {
+        if (isLoadingScene) return;
+        isLoadingScene = true;
         PendingSpawnId = spawnId;
         State.currentScene = index.ToString();
         SceneManager.LoadSceneAsync(index);
     }
+
+    // Load the scene whose build index is the AA part of an "AA-BB" spawn ID.
+    public void LoadScene(string spawnId)
+    {
+        if (!TryGetSceneIndex(spawnId, out int index))
+        {
+            Debug.LogError($"[GameManager] Spawn ID '{spawnId}' is not in the AA-BB format.");
+            return;
+        }
+        LoadScene(index, spawnId);
+    }
+
+    // "02-03" -> 2, "10-01" -> 10
+    public static bool TryGetSceneIndex(string spawnId, out int index)
+    {
+        index = -1;
+        if (string.IsNullOrEmpty(spawnId)) return false;
+        int dash = spawnId.IndexOf('-');
+        return dash > 0 && int.TryParse(spawnId.Substring(0, dash), out index);
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        isLoadingScene = false;
         CullDestroyedObjects();
         RespawnPersistentObjects();
         PlacePlayerAtPendingSpawn();
@@ -187,8 +206,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
     private void Start()
     {
-        isMantisAlive = true;
-        LoadScene(Num,ID);
+        
+        LoadScene(ID);
         ani = PlayerManager.Instance.player.GetComponentInChildren<Animator>();
     }
 
@@ -263,6 +282,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     /// </summary>
     public void LoadScene(int index)
     {
+        if (isLoadingScene) return;
+        isLoadingScene = true;
         State.currentScene = index.ToString();
         SceneManager.LoadSceneAsync(index);
     }

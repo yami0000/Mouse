@@ -18,7 +18,7 @@ public class MantisPrepareState : EnemyState
 
     public override void Exit()
     {   
-        boss.transform.rotation = Quaternion.Euler(0, 180, 0);
+        
         base.Exit();
         
     }

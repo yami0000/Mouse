@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explode_Grenade : MonoBehaviour
+public class Explode_Grenade : MonoBehaviour, IExplosionEffect
 {
     private EntityStats Stats;
-     
+
     private HashSet<GameObject> hitEnemies = new HashSet<GameObject>();
     public void Initialize(EntityStats stats)
     {
@@ -14,6 +14,9 @@ public class Explode_Grenade : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        // Spawned without Initialize, so there is nobody to credit the damage to.
+        if (Stats == null) return;
+
         if (hitEnemies.Contains(collision.gameObject)) return;
 
         if (collision.TryGetComponent<Enemy>(out Enemy enemyComponent))

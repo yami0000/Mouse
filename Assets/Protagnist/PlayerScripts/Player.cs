@@ -66,6 +66,14 @@ public class Player : Entity
     [Header("Partical Effect")]
     public GameObject Charging;
     [HideInInspector] public GameObject _ChargingAni;
+    [Header("Dust")]
+    public GameObject dustPrefab;
+    public float runDustInterval = 0.15f;
+    public float dashDustInterval = 0.05f;
+    public float wallSlideDustInterval = 0.1f;
+    [Tooltip("X = player speed, Y = dust density multiplier (2 = twice as much dust, 0 = no dust)")]
+    public AnimationCurve dustDensityBySpeed = new AnimationCurve(new Keyframe(0, 0), new Keyframe(12, 1), new Keyframe(25, 2));
+    private float dustTimer;
     [Header("Character UI")]
     public GameObject E;//E»¥¶¯ui
     [Header("Throwable")]
@@ -211,7 +219,7 @@ public class Player : Entity
 
         CheckForDashInput();
 
-        if (xInput == 0)
+        if (xInput == 0 && StateMachine.currentState != wallSlideState)
             GetMouseP();
     }
 
@@ -334,6 +342,40 @@ public class Player : Entity
         _ChargingAni = Instantiate(Charging, transform);
     }
     public void DestroyChargingAni() => Destroy(_ChargingAni);
+
+    public void CreateDust(float _interval)
+    {
+        RaycastHit2D groundHit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
+        SpawnDust(groundHit, _interval);
+    }
+
+    public void CreateWallDust(float _interval)
+    {
+        RaycastHit2D wallHit = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
+        SpawnDust(wallHit, _interval);
+    }
+
+    private void SpawnDust(RaycastHit2D _hit, float _interval)
+    {
+        dustTimer -= Time.deltaTime;
+
+        if (dustTimer > 0 || dustPrefab == null || _hit.collider == null)
+            return;
+
+        float density = dustDensityBySpeed.Evaluate(rb.velocity.magnitude);
+        if (density <= 0)
+            return;
+
+        dustTimer = _interval / density;//faster = shorter wait = more dust
+
+        //the prefab is made for flat ground (dust goes up), so turn its "up" to the surface normal
+        Quaternion rotation = Quaternion.FromToRotation(Vector3.up, _hit.normal);
+        GameObject dust = Instantiate(dustPrefab, _hit.point, rotation);
+
+        ParticleSystem ps = dust.GetComponent<ParticleSystem>();
+        float lifetime = ps != null ? ps.main.duration + ps.main.startLifetime.constantMax : 1f;
+        Destroy(dust, lifetime);
+    }
 
     public void DrawProjection(Vector2 direction)
     {

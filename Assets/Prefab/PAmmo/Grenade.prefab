@@ -104,7 +104,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653343281
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: -154307144589177471, guid: 4d917211b7a4d3445b4e5425fcf61228, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -194,20 +194,93 @@ MonoBehaviour:
   m_GameObject: {fileID: 8072834841060317909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72dd104d9546f5a498f2f37ac43505df, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d2f686c49fa94db5c893a6743c51d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackDirection: {x: 0, y: 0}
-  knockbackDuration: 0
-  groundCheck: {fileID: 2928325980709827311}
-  groundCheckDistance: 0.2
-  wallCheck: {fileID: 3123339730493230497}
-  wallCheckDistance: 0.2
-  whatIsGround:
+  side: 0
+  impactMode: 2
+  hitOnce: 1
+  destroyOnHit: 1
+  impactPrefab: {fileID: 7847338911366339399, guid: f02e417b2d4b8124cb46927fad804b63, type: 3}
+  impactPrefabLifeTime: 0.85
+  damageMode: 0
+  damageMultiplierMin: 0.8
+  damageMultiplierMax: 1.4
+  damageCurve:
     serializedVersion: 2
-    m_Bits: 8
-  isBackingup: 0
-  explode: {fileID: 7847338911366339399, guid: f02e417b2d4b8124cb46927fad804b63, type: 3}
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  homingMode: 0
+  slowDownRate: 2
+  homingDelay: 0.5
+  homingAcceleration: 10
+  maxSpeed: 15
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 128
+  enemyCheckDistance: 10
+  destroyOnGround: 1
+  ricochetOffGround: 0
+  splitOnGround: 0
+  splitPrefab: {fileID: 0}
+  splitCount: 2
+  splitMinSpeed: 5
+  splitMaxSpeed: 10
+  splitMinAngle: 30
+  splitMaxAngle: 60
+  splitLifeTime: 5
+  useColliderWindow: 0
+  armTime: 0
+  disarmTime: 0
+  lifeTime: 10
+  splashEffectPrefab: {fileID: 0}
+  damageToParticleCount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  finalDirection: {x: 0, y: 0}
+  lastFramePosition: {x: 0, y: 0}
+  sp: {fileID: 0}
 --- !u!61 &8539222167797160394
 BoxCollider2D:
   m_ObjectHideFlags: 0

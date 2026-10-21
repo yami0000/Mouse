@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,6 @@ public class Boss_Mantis : Enemy
 
     
     private Transform player;
-    private int moveDir;
     public MantisPeaceState peaceState { get; private set; }
     public MantisPrepareState prepareState { get; private set; }
     public MantisStaticState staticState { get; private set; }
@@ -51,10 +50,25 @@ public class Boss_Mantis : Enemy
 
     [Header("Data for Summon")]
     [SerializeField] private float prepareTimeforSummon;
-    [SerializeField] private Enemy enemy;
-    [SerializeField] private float Range;
-    [SerializeField] private GameObject AmmoPrefab;
-    [SerializeField] private float xVelocity;
+    [Tooltip("Enemy that the summon spawns.")]
+    [SerializeField] private Enemy summonPrefab;
+    [Tooltip("Summoned enemies spawn just outside this collider's left / right edge, then walk in.")]
+    [SerializeField] private Collider2D summonArea;
+    [Tooltip("Enemies spawned per summon (capped by Max Summons).")]
+    [Min(1)][SerializeField] private int summonCount = 1;
+    [Tooltip("Summon is banned while this many summoned enemies are still alive.")]
+    [Min(1)][SerializeField] private int maxSummons = 3;
+    [Tooltip("How far outside the collider's left / right edge enemies spawn.")]
+    [SerializeField] private float summonMargin = 1.5f;
+    [Tooltip("How far inside the collider's edge enemies walk before their own AI takes over.")]
+    [SerializeField] private float summonWalkInDistance = 3f;
+    [Tooltip("Spawn height above the ground. Raise it for flying enemies.")]
+    [SerializeField] private float summonHeightOffset = 0.5f;
+    [Tooltip("Ground layers. Each spawn drops onto the ground found below the player's height at the spawn X. " +
+             "Nothing = spawn level with the player.")]
+    [SerializeField] private LayerMask summonGroundLayer;
+    private const float SummonWalkInTimeout = 8f;
+    private readonly List<Enemy> summoned = new List<Enemy>();
 
     #endregion
 
@@ -89,12 +103,6 @@ public class Boss_Mantis : Enemy
         base.Update();
         stateTimer_Mantis -= Time.deltaTime;
 
-        if (GM.Instance.GameManager.isMantisBossFightStarted)
-        {
-            GM.Instance.GameManager.MantisHealth = this.stats.CurrentHP;
-
-            GM.Instance.GameManager.MantisMaxHealth = stats.GetMaxHealth();
-        }
     }
 
     public override void Die()
@@ -116,15 +124,17 @@ public class Boss_Mantis : Enemy
                 stateMachine.ChangeState(doubleSlashState);
             else if (M >= 80 && M <= 90)
                 stateMachine.ChangeState(jumpAttackState);
-            else
+            else if (CanSummon())
                 stateMachine.ChangeState(summonState);
+            else // summon banned: too many summons alive
+                stateMachine.ChangeState(doubleSlashState);
         }
         if ( D >= Melee)
         {
              
             if ( M < 35)
                 stateMachine.ChangeState(jumpAttackState);
-            else if (M >= 35 && M <= 65)
+            else if (M >= 35 && M <= 65 && CanSummon())
                 stateMachine.ChangeState(summonState);
             else
                 stateMachine.ChangeState(dashSlashState);
@@ -134,7 +144,7 @@ public class Boss_Mantis : Enemy
 
 
 
-    }//¸ù¾ÝÎ»ÖÃ¾ö¶¨ÐÐ¶¯
+    }//æ ¹æ®ä½ç½®å†³å®šè¡ŒåŠ¨
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -143,9 +153,9 @@ public class Boss_Mantis : Enemy
 
         //Gizmos.color = Color.yellow;
         //Gizmos.DrawWireSphere(transform.position, Long);
-    }//¾àÀë¿ÉÊÓ»¯
+    }//è·ç¦»å¯è§†åŒ–
 
-    public void TurnToPlayer()
+   /* public void TurnToPlayer()
     {
         if (player.position.x > transform.position.x)
             moveDir = 1;
@@ -156,7 +166,7 @@ public class Boss_Mantis : Enemy
             Setvelocity(0.0000001f * moveDir, rb.velocity.y);
         else
             Setvelocity(0.0000001f * moveDir, rb.velocity.y);
-    }
+    }*/
 
     #region DoubleSlash
     public void StartDash()
@@ -167,20 +177,11 @@ public class Boss_Mantis : Enemy
 
     private IEnumerator DashSequence()
     {
-        if (moveDir == 1)
-        {
-            yield return new WaitForSeconds(dash1Time);
-            damageDetect.EnableDashHitbox();
-            yield return StartCoroutine(Dash(Vector2.right));
-            damageDetect.DisableDashHitbox();
-        }
-        else
-        {
-            yield return new WaitForSeconds(dash1Time);
-            damageDetect.EnableDashHitbox();
-            yield return StartCoroutine(Dash(Vector2.left));
-            damageDetect.DisableDashHitbox();
-        }
+        // The state already turned the boss to the player, so dash the way it faces.
+        yield return new WaitForSeconds(dash1Time);
+        damageDetect.EnableDashHitbox();
+        yield return StartCoroutine(Dash(Vector2.right * facingDir));
+        damageDetect.DisableDashHitbox();
 
         // Recalculate direction after first dash
         TurnToPlayer();
@@ -188,7 +189,7 @@ public class Boss_Mantis : Enemy
         // dash again in the new direction
         yield return new WaitForSeconds(dash2Time - dash1Time);
         damageDetect.EnableDashHitbox();
-        yield return StartCoroutine(Dash(moveDir == 1 ? Vector2.right : Vector2.left));
+        yield return StartCoroutine(Dash(Vector2.right * facingDir));
         damageDetect.DisableDashHitbox();
 
 
@@ -245,7 +246,7 @@ public class Boss_Mantis : Enemy
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / jumpDuration);
-            float curvedT = jumpCurve.Evaluate(t); // curve 0¡ú1
+            float curvedT = jumpCurve.Evaluate(t); // curve 0â†’1
 
             float newY = Mathf.Lerp(startPos.y, highestY, curvedT);
             rb.MovePosition(new Vector2(startPos.x, newY));
@@ -299,7 +300,7 @@ public class Boss_Mantis : Enemy
         TurnToPlayer();
 
          
-        target = playerPos - new Vector2(moveDir * jumpAheadDistance, 0f);
+        target = playerPos - new Vector2(facingDir * jumpAheadDistance, 0f);
         
 
         float elapsed = 0f;
@@ -332,30 +333,77 @@ public class Boss_Mantis : Enemy
     #endregion
 
 
-    public void Summon() 
+    #region Summon
+    // Destroyed or dead summons no longer count, so killing one frees a slot.
+    private int AliveSummons()
     {
-        StartCoroutine(SummonProjectiles());
-    
+        summoned.RemoveAll(e => e == null || e.IsDead);
+        return summoned.Count;
     }
-    IEnumerator SummonProjectiles()
+
+    public bool CanSummon() => summonPrefab != null && summonArea != null && AliveSummons() < maxSummons;
+
+    public void Summon()
     {
+        StartCoroutine(SummonEnemies());
+    }
 
-
+    private IEnumerator SummonEnemies()
+    {
         yield return new WaitForSeconds(prepareTimeforSummon);
 
-
-        GameObject Ammo = Instantiate(AmmoPrefab, transform.position, Quaternion.identity);
-
-        Ammo.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity * moveDir, 0);
-
-        Collide_SelfAimAmmoEnemy _Ammo = Ammo.GetComponent<Collide_SelfAimAmmoEnemy>();
-        if (_Ammo != null)
-            _Ammo.Initialize(enemy);
-
-        Destroy(Ammo, Range);
-
-
+        // Checked again after the wait, in case the cap was reached meanwhile.
+        int count = Mathf.Min(summonCount, maxSummons - AliveSummons());
+        for (int i = 0; i < count; i++)
+            summoned.Add(SpawnSummon());
     }
+
+    private Enemy SpawnSummon()
+    {
+        Bounds area = summonArea.bounds;
+        bool fromLeft = Random.value < 0.5f;
+
+        // Just outside the collider's left / right edge.
+        float x = fromLeft ? area.min.x - summonMargin : area.max.x + summonMargin;
+        float y = FindGroundY(x) + summonHeightOffset;
+
+        Enemy e = Instantiate(summonPrefab, new Vector3(x, y, transform.position.z), summonPrefab.transform.rotation);
+
+        float targetX = fromLeft ? area.min.x + summonWalkInDistance : area.max.x - summonWalkInDistance;
+        e.WalkIn(targetX, 0f, SummonWalkInTimeout);
+
+        return e;
+    }
+
+    private float FindGroundY(float x)
+    {
+        float playerY = PlayerManager.Instance.player.transform.position.y;
+
+        if (summonGroundLayer.value == 0)
+            return playerY;
+
+        // Cast from a little above the player so platforms and ceilings higher up are skipped.
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(x, playerY + 2f), Vector2.down, 30f, summonGroundLayer);
+        return hit ? hit.point.y : playerY;
+    }
+
+    // Marks where summons spawn (red) and where they stop walking in (yellow) while selected.
+    private void OnDrawGizmosSelected()
+    {
+        if (summonArea == null) return;
+
+        Bounds b = summonArea.bounds;
+        float y = b.center.y;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(new Vector3(b.min.x - summonMargin, y), 0.4f);
+        Gizmos.DrawWireSphere(new Vector3(b.max.x + summonMargin, y), 0.4f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(new Vector3(b.min.x + summonWalkInDistance, b.min.y), new Vector3(b.min.x + summonWalkInDistance, b.max.y));
+        Gizmos.DrawLine(new Vector3(b.max.x - summonWalkInDistance, b.min.y), new Vector3(b.max.x - summonWalkInDistance, b.max.y));
+    }
+    #endregion
 
 
 }

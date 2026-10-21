@@ -229,7 +229,7 @@ public class Boss_Sword : Enemy
         Ammo.GetComponent<Rigidbody2D>().velocity = dir.normalized * Mathf.Abs(xVelocity);
 
 
-        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
         if (_Ammo != null)
             _Ammo.Initialize(enemy);
 
@@ -371,7 +371,7 @@ public class Boss_Sword : Enemy
         Ammo.GetComponent<Rigidbody2D>().velocity = dir.normalized * Mathf.Abs(xVelocity);
 
 
-        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
         if (_Ammo != null)
             _Ammo.Initialize(enemy);
 

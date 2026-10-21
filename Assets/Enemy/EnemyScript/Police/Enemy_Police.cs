@@ -105,7 +105,7 @@ public class Enemy_Police : Enemy
 
         Ammo.GetComponent<Rigidbody2D>().velocity = dir.normalized * Mathf.Abs(xVelocity)*facingDir;
 
-        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
         if (_Ammo != null)
             _Ammo.Initialize(this);
 
@@ -136,7 +136,7 @@ public class Enemy_Police : Enemy
             Ammo.GetComponent<Rigidbody2D>().velocity = dir.normalized * Mathf.Abs(_xVelocity);
 
 
-            EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+            AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
             if (_Ammo != null)
                 _Ammo.Initialize(this);
 

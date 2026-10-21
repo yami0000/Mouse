@@ -139,9 +139,93 @@ MonoBehaviour:
   m_GameObject: {fileID: 7878448091121260419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5748b09bb39ed3945bfb2e42d0dc1fd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d2f686c49fa94db5c893a6743c51d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  side: 0
+  impactMode: 1
+  hitOnce: 1
+  destroyOnHit: 1
+  impactPrefab: {fileID: 0}
+  impactPrefabLifeTime: 0.85
+  damageMode: 0
+  damageMultiplierMin: 0.8
+  damageMultiplierMax: 1.4
+  damageCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  homingMode: 0
+  slowDownRate: 2
+  homingDelay: 0.5
+  homingAcceleration: 10
+  maxSpeed: 15
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyCheckDistance: 10
+  destroyOnGround: 0
+  ricochetOffGround: 0
+  splitOnGround: 0
+  splitPrefab: {fileID: 0}
+  splitCount: 2
+  splitMinSpeed: 5
+  splitMaxSpeed: 10
+  splitMinAngle: 30
+  splitMaxAngle: 60
+  splitLifeTime: 5
+  useColliderWindow: 0
+  armTime: 0
+  disarmTime: 0
+  lifeTime: 10
+  splashEffectPrefab: {fileID: 0}
+  damageToParticleCount:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  finalDirection: {x: 0, y: 0}
+  lastFramePosition: {x: 0, y: 0}
+  sp: {fileID: 0}
 --- !u!1 &8358772531210594620
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +299,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1653343281
-  m_SortingLayer: 4
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.3160377, g: 1, b: 0.5493989, a: 1}

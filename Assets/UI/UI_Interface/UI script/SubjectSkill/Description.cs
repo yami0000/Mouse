@@ -11,10 +11,14 @@ public class Description : MonoBehaviour
     [SerializeField] private TextMeshProUGUI skillNameText;
     [SerializeField] private TextMeshProUGUI skillDescriptionText;
 
+    private bool isShowing = false;
 
     private void Start()
     {
-        Hide();
+        // Start() runs on the first activation, which can be the Show() call itself,
+        // so only hide if nothing has asked to show the tooltip yet.
+        if (!isShowing)
+            Hide();
     }
     void Update()
     {
@@ -30,6 +34,7 @@ public class Description : MonoBehaviour
 
     public void Show(string skillName, string description)
     {
+        isShowing = true;
         gameObject.SetActive(true);
         skillNameText.text = skillName;
         skillDescriptionText.text = description;
@@ -37,6 +42,7 @@ public class Description : MonoBehaviour
 
     public void Hide()
     {
+        isShowing = false;
         gameObject.SetActive(false);
     }
 }

@@ -17,10 +17,19 @@ public class SpawnPoint : DETECTION
     private static readonly List<SpawnPoint> all = new();
     private Coroutine walkRoutine;
 
+    private bool isArrivalPoint;
+
+    private void Awake()
+    {
+        // Only the spawn point the player is arriving at may auto-walk.
+        // PendingSpawnId is still set here; GameManager clears it in sceneLoaded (after Awake, before Start).
+        isArrivalPoint = GameManager.Instance != null && GameManager.Instance.PendingSpawnId == id;
+    }
+
     private void Start()
     {
 
-        if (!IfWalked && _walk )
+        if (!IfWalked && _walk && isArrivalPoint)
         {
             Walk();
             IfWalked = true;

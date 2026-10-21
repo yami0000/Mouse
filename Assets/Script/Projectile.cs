@@ -55,10 +55,9 @@ public class Projectile : MonoBehaviour
 
         Ammo.GetComponent<Rigidbody2D>().velocity = velocity;
 
-        EnemyAmmo_Effect _Ammo = Ammo.GetComponent<EnemyAmmo_Effect>();
+        AmmoBehaviour _Ammo = Ammo.GetComponent<AmmoBehaviour>();
         if (_Ammo != null)
             _Ammo.Initialize(enemy);
-        _Ammo.Initialize2(enemy);
 
 
         Destroy(Ammo, Range);

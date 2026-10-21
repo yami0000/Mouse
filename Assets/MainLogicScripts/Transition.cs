@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class Transition : DETECTION
 {
-    public int Num;
     public string targetSpawnId;
     public bool CanInteract;
     public bool AutoLoad;
@@ -17,7 +16,7 @@ public class Transition : DETECTION
         base.Interact();
 
         if (CanInteract)
-            GameManager.Instance.LoadScene(Num, targetSpawnId);
+            GameManager.Instance.LoadScene(targetSpawnId);
      }
 
     private void Awake()
@@ -45,6 +44,6 @@ public class Transition : DETECTION
     {
         base.Event();
         if(AutoLoad)
-            GameManager.Instance.LoadScene(Num, targetSpawnId);
+            GameManager.Instance.LoadScene(targetSpawnId);
     }
 }

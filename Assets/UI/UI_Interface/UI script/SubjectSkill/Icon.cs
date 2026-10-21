@@ -24,6 +24,7 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     [HideInInspector]public bool isActivated = false;
     private bool isHovered = false;
+    private Coroutine showRoutine;
 
     [Header("Former Skill")]
     [SerializeField] private Icon[] RequiredSkill;
@@ -70,27 +71,41 @@ public class Icon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public void OnPointerEnter(PointerEventData eventData)
     {
         isHovered = true;
-        StartCoroutine(WaitTillShow());
-        
+        StopShowRoutine();
+        showRoutine = StartCoroutine(WaitTillShow());
     }
 
-    IEnumerator WaitTillShow() 
+    IEnumerator WaitTillShow()
     {
-    yield return new WaitForSeconds(1f);
+        // Realtime so the tooltip still appears if the skill menu sets Time.timeScale = 0
+        yield return new WaitForSecondsRealtime(1f);
+        showRoutine = null;
         if (isHovered)
-    description.Show(skillName, skillDescription);
-
+            description.Show(skillName, skillDescription);
     }
+
     public void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
+        StopShowRoutine();
         description.Hide();
+    }
+
+    private void StopShowRoutine()
+    {
+        if (showRoutine != null)
+        {
+            StopCoroutine(showRoutine);
+            showRoutine = null;
+        }
     }
 
 
     public void OnPointerClick(PointerEventData eventData)
     {
         isHovered = false;
+        StopShowRoutine();
+        description.Hide();
         if (isActivated)
          return;
 

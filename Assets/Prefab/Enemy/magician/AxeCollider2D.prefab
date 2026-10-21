@@ -117,9 +117,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8562728815441541744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ec912a71ae4c14d9f0bae51b4de804, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d2f686c49fa94db5c893a6743c51d7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  A: 0
-  B: 1
-  CanBeDestroyed: 1
+  side: 0
+  impactMode: 0
+  hitOnce: 1
+  damageMode: 0
+  homingMode: 0
+  destroyOnGround: 0
+  ricochetOffGround: 0
+  splitOnGround: 0
+  useColliderWindow: 1
+  armTime: 0
+  disarmTime: 1
+  destroyOnHit: 1

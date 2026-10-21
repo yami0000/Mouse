@@ -31,6 +31,8 @@ public class PlayerDashState : PlayerReadyToAttack
 
         player.Setvelocity(player.dashspeed * player.dashDir, 0);
 
+        player.CreateDust(player.dashDustInterval);
+
         if (stateTimer < 0)
         {
             stateMachine.ChangeState(player.idleState);
