@@ -1,0 +1,1050 @@
+fileFormatVersion: 2
+guid: e06816e1c05b1cb45b468e1e9f73d1fe
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7947934666716841208
+    second: Prosecutor_0
+  - first:
+      213: -7821381608087683305
+    second: Prosecutor_1
+  - first:
+      213: 3505629654112886441
+    second: Prosecutor_2
+  - first:
+      213: 2335383776056703685
+    second: Prosecutor_3
+  - first:
+      213: 140994920876771970
+    second: Prosecutor_4
+  - first:
+      213: 8456473454248399588
+    second: Prosecutor_5
+  - first:
+      213: 5019324918283248199
+    second: Prosecutor_6
+  - first:
+      213: 3623973332590036531
+    second: Prosecutor_7
+  - first:
+      213: -6748612267694356608
+    second: Prosecutor_8
+  - first:
+      213: -149081639690818289
+    second: Prosecutor_9
+  - first:
+      213: 8884797820854927124
+    second: Prosecutor_10
+  - first:
+      213: 7481361046811618556
+    second: Prosecutor_11
+  - first:
+      213: 3403144923738244818
+    second: Prosecutor_12
+  - first:
+      213: -7682016237181118674
+    second: Prosecutor_13
+  - first:
+      213: -1861733928958280218
+    second: Prosecutor_14
+  - first:
+      213: -5572107319386546132
+    second: Prosecutor_15
+  - first:
+      213: -6450788866960480539
+    second: Prosecutor_16
+  - first:
+      213: -3745047749283445831
+    second: Prosecutor_17
+  - first:
+      213: -6741918579253754405
+    second: Prosecutor_18
+  - first:
+      213: 4101450287891005423
+    second: Prosecutor_19
+  - first:
+      213: 2946039454799628393
+    second: Prosecutor_20
+  - first:
+      213: 3167038452368108749
+    second: Prosecutor_21
+  - first:
+      213: 6216756559092497637
+    second: Prosecutor_22
+  - first:
+      213: 649936497744842743
+    second: Prosecutor_23
+  - first:
+      213: 9044975429421460942
+    second: Prosecutor_24
+  - first:
+      213: 3566478078196420304
+    second: Prosecutor_25
+  - first:
+      213: -3279368389581041462
+    second: Prosecutor_26
+  - first:
+      213: 514810769655868508
+    second: Prosecutor_27
+  - first:
+      213: 373110623754273254
+    second: Prosecutor_28
+  - first:
+      213: -1162068077502625596
+    second: Prosecutor_29
+  - first:
+      213: -6525846550895162140
+    second: Prosecutor_30
+  - first:
+      213: 4159576532263136729
+    second: Prosecutor_31
+  - first:
+      213: 1328401095793166911
+    second: Prosecutor_32
+  - first:
+      213: 6143003992634481189
+    second: Prosecutor_33
+  - first:
+      213: -5650792544514828438
+    second: Prosecutor_34
+  - first:
+      213: 4622221213964462944
+    second: Prosecutor_35
+  - first:
+      213: -3927461879060216875
+    second: Prosecutor_36
+  - first:
+      213: -3986379638844978206
+    second: Prosecutor_37
+  - first:
+      213: -786249479660138314
+    second: Prosecutor_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Prosecutor_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 863
+        width: 101
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80b7454d78343b190800000000000000
+      internalID: -7947934666716841208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 922
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71ff82dedded47390800000000000000
+      internalID: -7821381608087683305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_2
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 853
+        width: 148
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae5977c89f76a030800000000000000
+      internalID: 3505629654112886441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_3
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 802
+        width: 188
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5caf112cb23f86020800000000000000
+      internalID: 2335383776056703685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_4
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 600
+        width: 213
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28a8efd222ae4f100800000000000000
+      internalID: 140994920876771970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_5
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 665
+        width: 21
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e21ff46dcd6b5570800000000000000
+      internalID: 8456473454248399588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_6
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 670
+        width: 19
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7422a8e6b6938a540800000000000000
+      internalID: 5019324918283248199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_7
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 602
+        width: 235
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 336848c9b80fa4230800000000000000
+      internalID: 3623973332590036531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_8
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 604
+        width: 188
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0870c31f5ec1852a0800000000000000
+      internalID: -6748612267694356608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_9
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 658
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0d22bfd90b5eedf0800000000000000
+      internalID: -149081639690818289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_10
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 658
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41ff83d5b842d4b70800000000000000
+      internalID: 8884797820854927124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_11
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 622
+        width: 41
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfca6afeb3223d760800000000000000
+      internalID: 7481361046811618556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 596
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d6879a07466a3f20800000000000000
+      internalID: 3403144923738244818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_13
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 600
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e275900feeef36590800000000000000
+      internalID: -7682016237181118674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_14
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 597
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ed36220bdac926e0800000000000000
+      internalID: -1861733928958280218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_15
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 593
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c206c915ae5eba2b0800000000000000
+      internalID: -5572107319386546132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_16
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 402
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e6a6c704b13a76a0800000000000000
+      internalID: -6450788866960480539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_17
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 396
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b385150aeae60cc0800000000000000
+      internalID: -3745047749283445831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_18
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 398
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd549fab5c4ef62a0800000000000000
+      internalID: -6741918579253754405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 354
+        width: 92
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fefbaa17e474be830800000000000000
+      internalID: 4101450287891005423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_20
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 367
+        width: 91
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9680e9d764f62e820800000000000000
+      internalID: 2946039454799628393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_21
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 373
+        width: 26
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcc676751b493fb20800000000000000
+      internalID: 3167038452368108749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_22
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 371
+        width: 66
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ecb9c7172b564650800000000000000
+      internalID: 6216756559092497637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_23
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 392
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ff84aa1dc9050900800000000000000
+      internalID: 649936497744842743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_24
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 380
+        width: 42
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecd6dc01b35368d70800000000000000
+      internalID: 9044975429421460942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_25
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 386
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de8d168aecae7130800000000000000
+      internalID: 3566478078196420304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_26
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 356
+        width: 64
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0906313d75d72d0800000000000000
+      internalID: -3279368389581041462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_27
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 375
+        width: 28
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5c22ebdaa9f42700800000000000000
+      internalID: 514810769655868508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_28
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 373
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e14ccea22e8d2500800000000000000
+      internalID: 373110623754273254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_29
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 366
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c882ab8d318fdfe0800000000000000
+      internalID: -1162068077502625596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_30
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 378
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ec8f2b23298f65a0800000000000000
+      internalID: -6525846550895162140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_31
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 372
+        width: 23
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dd689551d8c9b930800000000000000
+      internalID: 4159576532263136729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_32
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 360
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3acdf922cd6f6210800000000000000
+      internalID: 1328401095793166911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_33
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 341
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52ad8c29595504550800000000000000
+      internalID: 6143003992634481189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_34
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 131
+        width: 25
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6794c4be1a5491b0800000000000000
+      internalID: -5650792544514828438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_35
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 115
+        width: 22
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06b60ab54bd652040800000000000000
+      internalID: 4622221213964462944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_36
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 122
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d34ab5ca3ade79c0800000000000000
+      internalID: -3927461879060216875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_37
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 119
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eb8bc6d6d88da8c0800000000000000
+      internalID: -3986379638844978206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Prosecutor_38
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 106
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b09504934ea615f0800000000000000
+      internalID: -786249479660138314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

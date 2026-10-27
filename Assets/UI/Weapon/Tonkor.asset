@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Tonkor
   m_EditorClassIdentifier: 
-  ItemType: 4
+  itemID: 
   itemName: Bone_Tonkor
+  ItemType: 4
   icon: {fileID: -3941375285955399018, guid: 9ebf1b2c617667e4ebddb24671fbb27b, type: 3}
   price: 0
   Description: 
@@ -46,9 +47,24 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 20
   sLightningDamage: 0
+  ammoPrefab: {fileID: 0}
+  ammoOffset: {x: 4.4, y: 1.2}
   xVelocity: 14
   firingRate: 1.8
   effectiveTime: 2
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    offset: {x: 4.4, y: 1.2}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
   FirePower: 155
   Armor: 0
   FireDamage: 0

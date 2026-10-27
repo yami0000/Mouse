@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: Prosecutor
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Prosecutor
+  ItemType: 4
+  icon: {fileID: 8195278882426428292, guid: 8535bbfab20de554180953005e77e34f, type: 3}
+  price: 0
+  Description: 
+  itemEffects: []
+  passiveEffects: []
+  equipmentType: 0
+  mechanism: 0
+  Level: 0
+  equipmentEffects: []
+  Mods: []
+  modSlotCount: 0
+  sFirePower: 250
+  Agility: 0
+  Vitality: 0
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  sArmor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 50
+  PoisonResistance: 0
+  sFireDamage: 0
+  sFrostDamage: 0
+  sPoisonDamage: 0
+  sLightningDamage: 0
+  ammoPrefab: {fileID: 7878448091121260419, guid: 82677ca8975396b44836156af4c335b5, type: 3}
+  ammoOffset: {x: 11.2, y: 1.1}
+  xVelocity: 35
+  firingRate: 2
+  effectiveTime: 4
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1637137237103488234, guid: d9f8585a8cb8d5943aec705b1ec689ad, type: 3}
+    disabled: 0
+    offset: {x: 21, y: 2.1}
+    rotation: 0
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 1
+    turnParticles: 1
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    disabled: 0
+    offset: {x: 11.2, y: 1.1}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
+  FirePower: 250
+  Armor: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0

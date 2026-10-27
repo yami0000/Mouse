@@ -4,6 +4,8 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(StateFX))]
 public class StateFXDrawer : FilteredDrawer
 {
+    protected override string DisabledField => "disabled";
+
     protected override bool Show(SerializedProperty _property, SerializedProperty _child)
     {
         if (_child.name != "seconds")

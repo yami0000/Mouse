@@ -1,11 +1,4 @@
- 
-using System.Collections;
-using System.Collections.Generic;
- 
 using UnityEngine;
-using static UnityEditor.Search.SearchColumn;
-
-
 
 
 [System.Serializable]
@@ -22,9 +15,6 @@ public class DropEntry
 
 public class ItemDrop : MonoBehaviour
 {
-   
-
-
     [SerializeField] private DropEntry[] dropTable;
     [SerializeField] private GameObject dropPrefab;
 
@@ -34,7 +24,8 @@ public class ItemDrop : MonoBehaviour
         {
             for (int i = 0; i < entry.rollTimes; i++)
             {
-                if (Random.Range(0, 100) <= entry.dropChance)
+                // Rolls 0-99, so 0% never drops and 100% always does.
+                if (Random.Range(0, 100) < entry.dropChance)
                 {
                     DropItem(entry.item);
                 }
@@ -46,11 +37,10 @@ public class ItemDrop : MonoBehaviour
 
     public void DropItem(ItemData _itemData)
     {
-     GameObject newDrop = Instantiate(dropPrefab,transform.position,Quaternion.identity);
+        GameObject newDrop = Instantiate(dropPrefab, transform.position, Quaternion.identity);
 
-    Vector2 randomVelocity = new Vector2(Random.Range(-5,5), Random.Range(10,15));   
-    
-    newDrop.GetComponent<ItemDropMovement>().SetUpItem(_itemData, randomVelocity);
-    
+        Vector2 randomVelocity = new Vector2(Random.Range(-5f, 5f), Random.Range(10f, 15f));
+
+        newDrop.GetComponent<ItemDropMovement>().SetUpItem(_itemData, randomVelocity);
     }
 }

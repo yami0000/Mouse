@@ -160,25 +160,41 @@ public class AmmoBehaviourEditor : Editor
             drawn.Add("splitLifeTime");
         }
 
-        Section("Collider Window");
-        Draw("useColliderWindow");
+        // Player ammo is live at once and timed by the weapon's Effective Time, so both are enemy-only.
+        bool isEnemyAmmo = Matches(side, (int)AmmoSide.Enemy);
 
-        if (Get("useColliderWindow").boolValue || Get("useColliderWindow").hasMultipleDifferentValues)
+        if (isEnemyAmmo)
         {
-            Draw("armTime");
-            Draw("disarmTime");
+            Section("Collider Window");
+            Draw("useColliderWindow");
 
-            if (Get("disarmTime").floatValue <= Get("armTime").floatValue)
-                EditorGUILayout.HelpBox("Disarm Time is not past Arm Time, so the collider arms and stays armed.", MessageType.Info);
+            if (Get("useColliderWindow").boolValue || Get("useColliderWindow").hasMultipleDifferentValues)
+            {
+                Draw("armTime");
+                Draw("disarmTime");
+
+                if (Get("disarmTime").floatValue <= Get("armTime").floatValue)
+                    EditorGUILayout.HelpBox("Disarm Time is not past Arm Time, so the collider arms and stays armed.", MessageType.Info);
+            }
+            else
+            {
+                drawn.Add("armTime");
+                drawn.Add("disarmTime");
+            }
+
+            Section("Lifetime");
+            Draw("lifeTime");
         }
         else
         {
+            drawn.Add("useColliderWindow");
             drawn.Add("armTime");
             drawn.Add("disarmTime");
-        }
+            drawn.Add("lifeTime");
 
-        Section("Lifetime");
-        Draw("lifeTime");
+            EditorGUILayout.Space(6);
+            EditorGUILayout.HelpBox("Lifetime comes from the weapon's Effective Time (Item Data Equipment).", MessageType.None);
+        }
 
         DrawEverythingElse();
 

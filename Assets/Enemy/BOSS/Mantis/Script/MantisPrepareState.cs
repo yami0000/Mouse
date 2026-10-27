@@ -13,7 +13,7 @@ public class MantisPrepareState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        boss.stateTimer_Mantis = 10.2f;
+        boss.stateTimer_Mantis = 6f;
     }
 
     public override void Exit()

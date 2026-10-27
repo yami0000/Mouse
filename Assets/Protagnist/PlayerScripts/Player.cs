@@ -75,7 +75,7 @@ public class Player : Entity
     public AnimationCurve dustDensityBySpeed = new AnimationCurve(new Keyframe(0, 0), new Keyframe(12, 1), new Keyframe(25, 2));
     private float dustTimer;
     [Header("Character UI")]
-    public GameObject E;//E»¥¶¯ui
+    public GameObject E;//Eäº’åŠ¨ui
     [Header("Throwable")]
     public GameObject Grenade;
     public GameObject impactDot;
@@ -342,6 +342,64 @@ public class Player : Entity
         _ChargingAni = Instantiate(Charging, transform);
     }
     public void DestroyChargingAni() => Destroy(_ChargingAni);
+
+    #region Recoil
+    private Coroutine recoilRoutine;
+
+    /// <summary>
+    /// Pushes the player back against _shotDirection as the weapon's recoil describes: speeding up,
+    /// then slowing to a stop. Movement input waits until it is over, and the player never turns around.
+    /// </summary>
+    public void ApplyRecoil(Vector2 _shotDirection, WeaponRecoil _recoil)
+    {
+        if (_recoil == null || !_recoil.Enabled)
+            return;
+
+        Vector2 pushDirection = -_shotDirection;
+        if (_recoil.horizontalOnly)
+            pushDirection.y = 0f;
+
+        if (pushDirection.sqrMagnitude < 0.0001f)
+            return;
+
+        // A shot fired mid-recoil carries on at full push instead of building up from a standstill again,
+        // so automatic weapons shove steadily rather than stutter.
+        float startTime = isRecoiling ? _recoil.accelerationTime : 0f;
+
+        if (recoilRoutine != null)
+            StopCoroutine(recoilRoutine);
+
+        recoilRoutine = StartCoroutine(Recoil(pushDirection.normalized, _recoil, startTime));
+    }
+
+    private IEnumerator Recoil(Vector2 _direction, WeaponRecoil _recoil, float _time)
+    {
+        isRecoiling = true;
+        float lastVerticalPush = 0f;
+
+        while (_time < _recoil.Duration)
+        {
+            yield return new WaitForFixedUpdate();
+            _time += Time.fixedDeltaTime;
+
+            Vector2 push = _direction * _recoil.SpeedAt(_time);
+
+            // Sideways the push is the whole velocity; vertically it rides on top of gravity and jumps.
+            rb.velocity = new Vector2(push.x, rb.velocity.y - lastVerticalPush + push.y);
+            lastVerticalPush = push.y;
+        }
+
+        isRecoiling = false;
+        recoilRoutine = null;
+    }
+
+    // A disabled object stops its coroutines, which would otherwise leave movement locked.
+    private void OnDisable()
+    {
+        isRecoiling = false;
+        recoilRoutine = null;
+    }
+    #endregion
 
     public void CreateDust(float _interval)
     {

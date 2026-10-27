@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Passives/RocketPack")]
 public class Passive_RocketPack : PassiveEffectSO
 {
     public float Multiplier;

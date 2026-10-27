@@ -104,14 +104,16 @@ public class AmmoBehaviour : MonoBehaviour
     [Tooltip("Seconds before a shard cleans itself up. 0 = leave it alone.")]
     public float splitLifeTime = 5f;
 
-    [Tooltip("Keep the collider off until Arm Time, for hazards whose animation has a wind up.")]
+    // Collider Window and Life Time are enemy-only. Player ammo is timed by the weapon's
+    // Effective Time (ItemData_Equipment) and is live from the moment it is fired.
+    [Tooltip("Enemy ammo only: keep the collider off until Arm Time, for hazards whose animation has a wind up.")]
     public bool useColliderWindow = false;
     [Tooltip("Seconds after spawn before the collider turns on.")]
     public float armTime = 0f;
     [Tooltip("Seconds after spawn before it turns back off. Leave at or below Arm Time to stay armed.")]
     public float disarmTime = 0f;
 
-    [Tooltip("Seconds before it destroys itself. 0 = whoever fired it decides.")]
+    [Tooltip("Enemy ammo only: seconds before it destroys itself. 0 = whoever fired it decides.")]
     public float lifeTime = 0f;
 
     [Tooltip("Splash spawned on a damaging hit, aimed back along the flight path.")]
@@ -180,6 +182,9 @@ public class AmmoBehaviour : MonoBehaviour
 
         if (homingMode == AmmoHomingMode.Homing)
             homingTarget = FindHomingTarget();
+
+        if (side == AmmoSide.Player)
+            return; // the weapon's Effective Time decides how long it lives
 
         if (useColliderWindow && cd != null)
             StartCoroutine(ColliderWindow());

@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,12 +103,12 @@ TextureImporter:
       name: "\u5DE6\u8F6E_0"
       rect:
         serializedVersion: 2
-        x: 357
-        y: 57
-        width: 1505
-        height: 882
-      alignment: 6
-      pivot: {x: 0, y: 0}
+        x: 218
+        y: 77
+        width: 592
+        height: 348
+      alignment: 9
+      pivot: {x: 0.15221797, y: 0.34083065}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 52b8e23024a19df4c845756a707356b3
+    spriteID: 7a9eefc76540744458d761c67fb5f080
     internalID: 0
     vertices: []
     indices: 

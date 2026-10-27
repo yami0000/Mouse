@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,72 +20,24 @@ public class ShopInventory : MonoBehaviour
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
 
         InventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
-        AddStartingItems();
-    }
 
-    private void AddStartingItems()
-    {
-        for (int i = 0; i < startingEquipment.Count; i++)
-        {
-            AddItem(startingEquipment[i]);
+        foreach (ItemData item in startingEquipment)
+            InventoryItem.AddTo(inventory, inventoryDictionary, item);
 
-        }
+        UpdateSlotUI();
     }
 
     public void AddItem(ItemData _item)
     {
-       
-        AddToInventory(_item);
-        
+        InventoryItem.AddTo(inventory, inventoryDictionary, _item);
         UpdateSlotUI();
-
     }
 
     public void RemoveItem(ItemData _item)
     {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            if (value.stackSize <= 1)
-            {
-                inventory.Remove(value);
-                inventoryDictionary.Remove(_item);
-            }
-            else
-                value.RemoveStack();
-
+        if (InventoryItem.RemoveFrom(inventory, inventoryDictionary, _item, false, out _))
             UpdateSlotUI();
-        }
-    }
-            private void AddToInventory(ItemData _item)
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            value.AddStack();
-
-        }
-        else
-        {
-            InventoryItem newitem = new InventoryItem(_item);
-            inventory.Add(newitem);
-            inventoryDictionary.Add(_item, newitem);
-
-        }
     }
 
-    private void UpdateSlotUI() 
-    {
-
-        for (int i = 0; i < InventoryItemSlot.Length; i++)
-        {
-            InventoryItemSlot[i].CleanUpSlot();
-        }
-
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            InventoryItemSlot[i].UpdateSlot(inventory[i]);
-
-        }
-
-
-    }
+    private void UpdateSlotUI() => UI_ItemSlot.Fill(InventoryItemSlot, inventory);
 }

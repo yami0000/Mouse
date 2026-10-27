@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AmmoGen
   m_EditorClassIdentifier: 
   shotCountToTrigger: 3
-  equipmentEffects:
-  - {fileID: 11400000, guid: b948bff3022f197479adfa74745058f7, type: 2}
+  ammoPrefab: {fileID: 40656258184260550, guid: 72a109408e6c32b48845a2d6a23e8e77, type: 3}
+  equipmentEffects: []

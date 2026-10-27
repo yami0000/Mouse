@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class UI_modsEquipped : MonoBehaviour, IPointerDownHandler
 {
@@ -32,31 +29,18 @@ public class UI_modsEquipped : MonoBehaviour, IPointerDownHandler
         itemImage.sprite = mod.icon;
     }
 
+    // Clicking an installed mod takes it off the equipment and back into the inventory.
     public void OnPointerDown(PointerEventData eventData)
     {
-
-        PlayerStats playerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
-
-
-        var panel = UpgradePanel.Instance;
+        UpgradePanel panel = UpgradePanel.Instance;
         if (panel == null || panel.Equipment == null) return;
 
         int index = transform.GetSiblingIndex(); // index of clicked slot in the UI
-        bool removed = panel.Equipment.TryRemoveModAt(index, out Mod removedMod);
-        if (!removed) return;
+        if (!panel.Equipment.UninstallModAt(index, out Mod removedMod)) return; // undoes its stats and weapon handling
 
-        bool isEquipped = Inventory.Instance.equipmentDictionary.ContainsKey(panel.Equipment);//ÒÆ³ýÊýÖµ
-        if (isEquipped)
-            removedMod.RemoveModifiers(playerStats);
-        if(removedMod.firingRate != 0)
-        removedMod.RemoveModi(UpgradePanel.Instance.Equipment);
-           
         Inventory.Instance.AddItem(removedMod);
 
         UpgradeSystem.Instance.UpdateModSlot(panel.Equipment);
         panel.upgradeData(panel.Equipment);
-
-         
     }
 }
-

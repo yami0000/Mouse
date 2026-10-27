@@ -100,15 +100,8 @@ public class YarnQuestCommands : MonoBehaviour
             return 0;
         }
 
-        int count = 0;
-
-        if (Inventory.Instance.inventoryDictionary.TryGetValue(item, out InventoryItem inventoryValue))
-            count += inventoryValue.stackSize;
-
-        if (Inventory.Instance.stashDictionary.TryGetValue(item, out InventoryItem stashValue))
-            count += stashValue.stackSize;
-
-        return count;
+        // Equipment is held as a runtime copy, so ask the inventory rather than looking the asset up directly.
+        return Inventory.Instance.GetStackSize(item);
     }
 
     bool HasItem(string itemID, int amount)

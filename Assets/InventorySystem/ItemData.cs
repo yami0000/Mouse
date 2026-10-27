@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,13 +7,12 @@ public enum ItemType
     Material,
     UsableObject,
     Mods,
-    Equipment,
-    Throwable
+    Equipment
 
 }
 
 
-[CreateAssetMenu(fileName ="New Item Name",menuName = "Data/Item")]
+// Created from Assets > Create > Data > Item (see Editor/DataAssetMenu.cs).
 public class ItemData : ScriptableObject
 {
     public string itemID;
@@ -25,9 +22,6 @@ public class ItemData : ScriptableObject
     public int price;
 
     [TextArea] public string Description;
-
-    //[Range(0,100)]
-    //public float dropChance;
 
     public ItemEffect[] itemEffects;
     public PassiveEffectSO[] passiveEffects;

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 
-[CreateAssetMenu(fileName = "Item Effect", menuName = "Data/Item Effect/Heal")]
 
 public class Effect_Heal : ItemEffect
 {

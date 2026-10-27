@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/Passives/EmergencyProtocal")]
 public class Passive_EmergencyProtocal : PassiveEffectSO
 {
     public float Multiplier;

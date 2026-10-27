@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
+  m_Name: Comet
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Comet
+  ItemType: 4
+  icon: {fileID: 3019202048710185961, guid: 2e4bcd0304110d6449335c0ed4038014, type: 3}
+  price: 0
+  Description: Deal massive damage with a single powerful blow. The ammo will even
+    scorch the air itself, leaving a temporary trace that will deal fire damage to
+    the enemy.(Extremely long reload time!)
+  itemEffects: []
+  passiveEffects: []
+  equipmentType: 0
+  mechanism: 0
+  Level: 0
+  equipmentEffects: []
+  Mods: []
+  modSlotCount: 0
+  sFirePower: 0
+  Agility: 0
+  Vitality: 0
+  Damage: 500
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  sArmor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  sFireDamage: 300
+  sFrostDamage: 0
+  sPoisonDamage: 50
+  sLightningDamage: 0
+  ammoPrefab: {fileID: 7878448091121260419, guid: b6e952ae60b91ad459de345a8f747f59, type: 3}
+  ammoOffset: {x: 5, y: 1.1}
+  xVelocity: 40
+  firingRate: 5
+  effectiveTime: 1.2
+  recoil:
+    force: 15
+    accelerationTime: 0.2
+    decelerationTime: 0.3
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 6553228999915093763, guid: e5e4b2b5d5772fd44909f96df536f0c8, type: 3}
+    disabled: 0
+    offset: {x: 15, y: 1.1}
+    rotation: 0
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 1
+    turnParticles: 1
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    disabled: 0
+    offset: {x: 0, y: 0}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
+  FirePower: 0
+  Armor: 0
+  FireDamage: 300
+  FrostDamage: 0
+  PoisonDamage: 50
+  LightningDamage: 0

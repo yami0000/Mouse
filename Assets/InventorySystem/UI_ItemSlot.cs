@@ -4,8 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Unity.VisualScripting;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 
 
@@ -16,16 +14,18 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
     private bool isHovered = false;
+    private Coroutine showRoutine;
 
     public InventoryItem item;
     [HideInInspector]public  ItemData_Equipment equip;
-    
 
-    public void Start()
+    /// <summary>Shows _items in _slots in order and empties the slots left over.</summary>
+    public static void Fill(UI_ItemSlot[] _slots, List<InventoryItem> _items)
     {
-      
+        for (int i = 0; i < _slots.Length; i++)
+            _slots[i].UpdateSlot(i < _items.Count ? _items[i] : null);
     }
-    
+
     public void UpdateSlot(InventoryItem _newItem)
     {
         if (_newItem == null || _newItem.data == null)
@@ -35,14 +35,11 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
         }
 
         item = _newItem;
+        equip = item.data as ItemData_Equipment;
+
         itemImage.color = Color.white;
         itemImage.preserveAspect = true;
         itemImage.sprite = item.data.icon;
-
-        if (item.data is ItemData_Equipment equipmentData)
-        {
-            equip = equipmentData;
-        }
 
         itemText.text = item.stackSize > 1 ? item.stackSize.ToString() : "";
 
@@ -60,57 +57,23 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
     }
     private void OnDisable()
     {
-        
+
         isHovered = false;
 
         invDescription?.Hide();
-        
+
         StopAllCoroutines();
-    }//当UI被关掉时，说明栏也会随之消失
+    }//褰揢I闅愯棌鐨勬椂鍊欒鏄庢爮涔熶細闅忎箣娑堝け
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         if (item == null || item.data == null)
-        {
-            
             return;
-        }
 
+        // Inventory works out the slot, the stats, the passives and what shows on the player.
         if (item.data.ItemType == ItemType.Equipment)
-        {
-            ItemData_Equipment equipmentData = item.data as ItemData_Equipment;//这是件新的装备，但不一定是武器
+            Inventory.Instance.EquipItem(item.data);
 
-
-
-
-            if (equipmentData.equipmentType == EquipmentType.Throwable)
-                Inventory.Instance.EquipItem(item.data, transferAll: true);
-            else
-            {
-                GetPlayer().GetComponent<PassiveSkillHandler>().RegisterItem(item.data);
-              
-                Inventory.Instance.EquipItem(item.data);
-            
-            }
-
-
-          
-              if (equipmentData.equipmentType == EquipmentType.Weapon) //装备武器
-              PlayerWeaponHolder.Instance.EquipWeapon(equipmentData);
-
-              if(equipmentData.equipmentType == EquipmentType.Armor)//装备护甲/帽子？
-              PlayerArmorHolder.Instance.EquipArmor(equipmentData);
-
-            if (equipmentData.equipmentType == EquipmentType.Companion)
-              PlayerCompanion.Instance.EquipCompanion(equipmentData);
-
-             
-
-
-
-        }
-
-        
-        if (item?.data.ItemType == ItemType.UsableObject)
+        else if (item.data.ItemType == ItemType.UsableObject)
         {
             ItemData data = item.data;
             Inventory.Instance.RemoveItem(data);
@@ -126,32 +89,42 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
     {
 
         isHovered = true;
+        StopShowRoutine();
         if (item?.data == null) return;
 
-        StartCoroutine(WaitTillShow());
+        showRoutine = StartCoroutine(WaitTillShow());
 
     }
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         isHovered = false;
+        StopShowRoutine();
         if (invDescription == null) return;
         invDescription.Hide();
     }
     IEnumerator WaitTillShow()
     {
-        yield return new WaitForSeconds(1f);
+        // Realtime so the tooltip still appears if the inventory menu sets Time.timeScale = 0
+        yield return new WaitForSecondsRealtime(1f);
+        showRoutine = null;
         if (item?.data == null) yield break;
         if (isHovered)
             invDescription.Show(item,equip);
-           
-              
 
     }
-    private static Player GetPlayer()
+
+    private void StopShowRoutine()
+    {
+        if (showRoutine != null)
+        {
+            StopCoroutine(showRoutine);
+            showRoutine = null;
+        }
+    }
+    protected static Player GetPlayer()
     {
         return PlayerManager.Instance.player;
     }
 
-    
-}
 
+}

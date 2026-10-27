@@ -16,9 +16,14 @@ public class InvDescription : MonoBehaviour
     [SerializeField] private float TwoThree;
     [SerializeField] private float ThreeFour;
 
+    private bool isShowing = false;
+
     private void Start()
     {
-        Hide();
+        // Start() runs on the first activation, which can be the Show() call itself,
+        // so only hide if nothing has asked to show the tooltip yet.
+        if (!isShowing)
+            Hide();
     }
     void Update()
     {
@@ -34,7 +39,7 @@ public class InvDescription : MonoBehaviour
 
     public void Show(InventoryItem item, ItemData_Equipment equip)
     {
-
+        isShowing = true;
         gameObject.SetActive(true);
         if (item == null && equip == null) return;
         // 1. Clear previous info
@@ -87,6 +92,7 @@ public class InvDescription : MonoBehaviour
     public void Hide()
     {
         if (gameObject == null) return;
+        isShowing = false;
         gameObject.SetActive(false);
     }
 }

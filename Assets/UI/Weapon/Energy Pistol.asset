@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Energy Pistol
   m_EditorClassIdentifier: 
-  ItemType: 4
+  itemID: 
   itemName: Energy Pistol
+  ItemType: 4
   icon: {fileID: -1435255028787470546, guid: 37562f3fc7c19e64cbc7754e5a5586b8, type: 3}
   price: 0
   Description: 
@@ -22,8 +23,7 @@ MonoBehaviour:
   equipmentType: 0
   mechanism: 0
   Level: 1
-  equipmentEffects:
-  - {fileID: 11400000, guid: b043618bc30095a4e8cc9a61eb8a0ced, type: 2}
+  equipmentEffects: []
   Mods:
   - {fileID: 0}
   - {fileID: 0}
@@ -45,9 +45,24 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 0
   sLightningDamage: 0
+  ammoPrefab: {fileID: 7878448091121260419, guid: d5810450a5ca4024da13b177891f7e20, type: 3}
+  ammoOffset: {x: 4.1, y: 1.5}
   xVelocity: 30
   firingRate: 0.5
   effectiveTime: 0.5
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    offset: {x: 4.1, y: 1.5}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
   FirePower: 22
   Armor: 0
   FireDamage: 0

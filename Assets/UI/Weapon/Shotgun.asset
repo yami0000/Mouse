@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  ItemType: 4
+  itemID: 
   itemName: Shotgun
+  ItemType: 4
   icon: {fileID: -5529709960281448441, guid: a6e391458d4ebb149a408ed1f0051061, type: 3}
   price: 0
   Description: Shoot 3 ammos on firing.Extermely effective against enemy who dares
@@ -46,9 +47,24 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 12
   sLightningDamage: 0
+  ammoPrefab: {fileID: 0}
+  ammoOffset: {x: 7.4, y: 1.3}
   xVelocity: 15
   firingRate: 0.90000004
   effectiveTime: 0.4
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    offset: {x: 7.4, y: 1.3}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
   FirePower: 20
   Armor: 0
   FireDamage: 0

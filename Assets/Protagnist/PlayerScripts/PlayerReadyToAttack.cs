@@ -28,25 +28,20 @@ public class PlayerReadyToAttack : PlayerState
     {
         base.Update();
         if (Input.GetKey(KeyCode.Mouse0) && !PlayerWeaponHolder.Instance.isHolding)
-            stateMachine.ChangeState(player.attackState);//∆’Õ®π•ª˜£®≈Áª£©
+            stateMachine.ChangeState(player.attackState);//ÊôÆÈÄöÊîªÂáªÔºàÂñ∑ÁÅ´Ôºâ
 
-        if (PlayerWeaponHolder.Instance.isHolding)
+        ItemData_Equipment weaponData = PlayerWeaponHolder.Instance.isHolding
+            ? Inventory.Instance.GetEquipment(EquipmentType.Weapon)
+            : null;
+
+        // No early returns in here: the throwable input below has to run every frame too.
+        if (weaponData != null)
         {
-            ItemData_Equipment weaponData = Inventory.Instance.GetEquipment(EquipmentType.Weapon);
-            if (weaponData == null) return;
-
-            Transform playerTransform = GetPlayer().transform;
-
-
             if (weaponData.mechanism == Mechanism.common)
             {
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
-                    if (GetPlayer().Timer > 0) return;
-                    weaponData.ExecuteEquipmentEffect(playerTransform, weaponData);
-                    _TriggerModEffect(weaponData);
-                }
-            }//∆’Õ®Œ‰∆˜
+                if (Input.GetKey(KeyCode.Mouse0) && GetPlayer().Timer <= 0)
+                    FireWeapon(weaponData);
+            }//ÊôÆÈÄöÊ≠¶Âô®
 
 
             else if (weaponData.mechanism == Mechanism.charge)
@@ -73,10 +68,7 @@ public class PlayerReadyToAttack : PlayerState
 
                     if (Input.GetKeyUp(KeyCode.Mouse0)&&GetPlayer()._ChargingAni != null)
                     {
- 
-                        weaponData.ExecuteEquipmentEffect(playerTransform, weaponData);
-
-                        _TriggerModEffect(weaponData);
+                        FireWeapon(weaponData);
 
                         GetPlayer().DestroyChargingAni();
 
@@ -86,11 +78,11 @@ public class PlayerReadyToAttack : PlayerState
             } 
 
 
-        }//”–Œ‰∆˜
+        }//ÊúâÊ≠¶Âô®
 
         if (Input.GetKey(KeyCode.Q))
         {
-            if (Inventory.Instance.Throwable()!=null) 
+            if (Inventory.Instance.GetEquipment(EquipmentType.Throwable) != null)
             {
                 Vector2 aimDir = GameManager.Instance.GetMouse(false);  
                 GetPlayer().DrawProjection(aimDir);
@@ -101,7 +93,7 @@ public class PlayerReadyToAttack : PlayerState
         }
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            ItemData_Equipment E = Inventory.Instance.Throwable();
+            ItemData_Equipment E = Inventory.Instance.GetEquipment(EquipmentType.Throwable);
             GetPlayer().lineRenderer.enabled = false;
             Vector2 aimDir = GameManager.Instance.GetMouse(false);
             GetPlayer().FireInAHole(aimDir, E);
@@ -113,6 +105,25 @@ public class PlayerReadyToAttack : PlayerState
     private static Player GetPlayer()
     {
         return PlayerManager.Instance.player;
+    }
+
+    // Everything that happens when a weapon goes off: the shot, special mods, fire FX on the weapon,
+    // recoil, and the wait until the next shot.
+    private void FireWeapon(ItemData_Equipment weaponData)
+    {
+        Player player = GetPlayer();
+        Vector2 aim = GameManager.Instance.GetMouse(true);
+
+        weaponData.FireAmmo(weaponData.ammoPrefab, PlayerWeaponHolder.Instance.WeaponTransform);   // straight shot from the muzzle, if the weapon has one
+        weaponData.ExecuteEquipmentEffect(player.transform);            // spread, arc and other special firing
+        _TriggerModEffect(weaponData);
+
+        PlayerWeaponHolder.Instance.PlayFireFX(weaponData);
+        player.ApplyRecoil(aim, weaponData.recoil);
+
+        // One fire rate for every weapon, however it shoots. Reaper shortens the gap while active.
+        bool reaper = SK.Instance.Skill.EquippedSkill == "Reaper" && player.UsingSkill;
+        player.Timer = reaper ? weaponData.firingRate / 1.4f : weaponData.firingRate;//Â¶ÇÊûúÊäÄËÉΩÂèëÂä®ÔºåÂ≠êÂºπÂèëÂ∞ÑÊó∂Èó¥Èó¥Èöô/1.4
     }
 
     public void _TriggerModEffect(ItemData_Equipment equip)

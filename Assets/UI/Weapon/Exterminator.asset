@@ -23,8 +23,7 @@ MonoBehaviour:
   equipmentType: 0
   mechanism: 1
   Level: 1
-  equipmentEffects:
-  - {fileID: 11400000, guid: 74ae3f9017b714244b450aee1260fc13, type: 2}
+  equipmentEffects: []
   Mods:
   - {fileID: 0}
   - {fileID: 0}
@@ -48,9 +47,24 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 0
   sLightningDamage: 0
+  ammoPrefab: {fileID: 40656258184260550, guid: ac07a0a7af144bc45ab4159483c5fdc5, type: 3}
+  ammoOffset: {x: 7.7, y: 0.8}
   xVelocity: 30
   firingRate: 0.5
   effectiveTime: 3
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    offset: {x: 7.7, y: 0.8}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
   FirePower: 35
   Armor: 0
   FireDamage: 9

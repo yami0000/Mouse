@@ -14694,17 +14694,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317b40ee95109034c889ff1e23722adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Num: 8
-  ID: 08-01
+  ID: 10-01
   isUIOpened: 0
   isInteract: 0
   isInteractGrandma: 0
-  isMantisBossFightStarted: 0
-  isMantisAlive: 0
-  MantisHealth: 0
-  MantisMaxHealth: 0
-  ScorpionHealth: 0
-  ScorpionMaxHealth: 0
 --- !u!4 &871780451
 Transform:
   m_ObjectHideFlags: 0
@@ -27885,6 +27878,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!1 &1614670565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1614670566}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1614670566
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614670565}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.23, y: 1.07, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7352877000112105136}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1615418671
 GameObject:
   m_ObjectHideFlags: 0
@@ -38852,7 +38876,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 29.04424, y: 9.93}
+  m_Size: {x: 6.59, y: 3.11}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -41013,10 +41037,11 @@ Transform:
   m_GameObject: {fileID: 7792831939290389366}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0.88, y: -0.48, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1614670566}
   m_Father: {fileID: 5790250874815600607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7547339018097483954
@@ -41878,6 +41903,10 @@ MonoBehaviour:
     amount: 1
   - item: {fileID: 11400000, guid: 064f30e92f667494a91034bdf2068bd2, type: 2}
     amount: 30
+  - item: {fileID: 11400000, guid: 7b036d594d210de4f82ccf32a16aeb3c, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 0f1c59f37c3af5b45bb221c378e94997, type: 2}
+    amount: 1
   startingEquipment: []
   inventory: []
   stash: []

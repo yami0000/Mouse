@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class StartingItem
@@ -44,10 +39,11 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
 
     public event System.Action OnInventoryUIUpdated;
     public event System.Action<ItemData, int> OnItemAdded;
+
+    // asset -> the copy the inventory actually holds (see ToRuntime)
+    private readonly Dictionary<ItemData_Equipment, ItemData_Equipment> runtimeCopies = new Dictionary<ItemData_Equipment, ItemData_Equipment>();
     private void Awake()
     {
-
-
         if (Instance == null)
         {
             Instance = this;
@@ -58,8 +54,7 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
     }
 
     private void Start()
-    { 
-
+    {
         inventory = new List<InventoryItem>();
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
 
@@ -88,6 +83,50 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
         }
     }
 
+    private void OnDestroy()
+    {
+        foreach (ItemData_Equipment copy in runtimeCopies.Values)
+            if (copy != null)
+                Destroy(copy);
+
+        runtimeCopies.Clear();
+    }
+
+    /// <summary>
+    /// Equipment is held as a copy of its asset, made the first time the asset is seen, so mods and
+    /// weapon tweaks never write back into the project. Every call with the same asset gets the same
+    /// copy, so stacking and lookups behave as before. Anything else, or a copy, comes back unchanged.
+    /// Use this before looking an item up in the dictionaries yourself.
+    /// </summary>
+    public ItemData ToRuntime(ItemData _item)
+    {
+        if (_item is not ItemData_Equipment equipment || equipment.IsRuntimeCopy)
+            return _item;
+
+        if (!runtimeCopies.TryGetValue(equipment, out ItemData_Equipment copy) || copy == null)
+        {
+            copy = equipment.CreateRuntimeCopy();
+            runtimeCopies[equipment] = copy;
+        }
+
+        return copy;
+    }
+
+    /// <summary>How many of _item are carried, counting the inventory and the stash. Takes the asset or its copy.</summary>
+    public int GetStackSize(ItemData _item)
+    {
+        _item = ToRuntime(_item);
+        int count = 0;
+
+        if (inventoryDictionary.TryGetValue(_item, out InventoryItem inventoryValue))
+            count += inventoryValue.stackSize;
+
+        if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
+            count += stashValue.stackSize;
+
+        return count;
+    }
+
     public void OnBeforeSerialize() { }
 
     public void OnAfterDeserialize()
@@ -102,16 +141,20 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
         startingEquipment.Clear();
     }
 
-    public ItemData_Equipment Throwable()
+    #region Equip
+
+    /// <summary>
+    /// Moves an item from the inventory or stash into an equipment slot, sending whatever was in
+    /// that slot back. Throwables move their whole stack and carry no stats or passives; anything
+    /// else moves one at a time and starts applying its stats, passives and look on the player.
+    /// </summary>
+    public void EquipItem(ItemData _item, UI_EquipmentSlot targetSlot = null)
     {
-        var entry = equipmentDictionary.FirstOrDefault(item => item.Key.equipmentType == EquipmentType.Throwable);
-        return entry.Key; // null if not found, FirstOrDefault handles it
-    }
-    public void EquipItem(ItemData _item, UI_EquipmentSlot targetSlot = null, bool transferAll = false)
-    {
-        ItemData_Equipment newEquipment = _item as ItemData_Equipment;
-        if (newEquipment == null)return;
- 
+        _item = ToRuntime(_item);
+        if (_item is not ItemData_Equipment newEquipment) return;
+
+        bool isThrowable = newEquipment.equipmentType == EquipmentType.Throwable;
+
         UI_EquipmentSlot slot = targetSlot
             ?? GetFirstEmptySlotOfType(newEquipment.equipmentType)
             ?? GetFirstSlotOfType(newEquipment.equipmentType);
@@ -119,20 +162,8 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
         if (slot == null) return;
 
         // Unequip whatever is already in that slot and return it to inventory
-        if (slot.currentItem?.data != null)
-        {
-            ItemData_Equipment oldEquipment = slot.currentItem.data as ItemData_Equipment;
-
-
-            if (oldEquipment != null)
-            {
-                // Unequip and recover the full stack back to inventory in one pass
-                if (UnequipItem(oldEquipment, out int recoveredStack))
-                    AddItem(oldEquipment, recoveredStack, notify: false);
-
-                slot.currentItem = null;
-            }
-        }
+        if (slot.currentItem?.data is ItemData_Equipment oldEquipment)
+            UnequipToInventory(oldEquipment);
 
         // Find source stack
         if (!inventoryDictionary.TryGetValue(_item, out InventoryItem source))
@@ -140,224 +171,170 @@ public class Inventory : MonoBehaviour, ISerializationCallbackReceiver
 
         if (source == null)
         {
-            Debug.LogError($"Item not found in inventory or stash: {_item?.name}");
+            Debug.LogError($"Item not found in inventory or stash: {_item.name}");
             return;
         }
 
-        int stackToTransfer = transferAll ? source.stackSize : 1;
-
         // Build the equipped item with the correct stack BEFORE removing from inventory
-        InventoryItem newItem = new InventoryItem(_item);
-        for (int i = 1; i < stackToTransfer; i++)
-            newItem.AddStack();
+        InventoryItem newItem = new InventoryItem(_item, isThrowable ? source.stackSize : 1);
 
         equipment.Add(newItem);
         equipmentDictionary.Add(newEquipment, newItem);
         slot.currentItem = newItem;
 
-        if (!transferAll)
-            newEquipment.AddModifiers(); // modifiers don't apply to consumables
+        if (!isThrowable) // modifiers and passives don't apply to consumables
+        {
+            GetPassives().RegisterItem(newEquipment);
+            newEquipment.AddModifiers();
+        }
 
-        // Safe to remove now that equipment is registered
-        if (transferAll)
-            RemoveItem(_item, removeAll: true);
-        else
-            RemoveItem(_item);
+        ShowOnPlayer(newEquipment);
 
-        UpdateSlotUI();
+        // Safe to remove now that equipment is registered; this also refreshes the slots.
+        RemoveItem(_item, removeAll: isThrowable);
     }
+
+    /// <summary>
+    /// Takes the item off: undoes its stats, passives and look, and empties its slot.
+    /// stackSize is how many were equipped, so the caller can hand them back.
+    /// </summary>
     public bool UnequipItem(ItemData_Equipment itemToRemove, out int stackSize)
     {
         stackSize = 0;
+        itemToRemove = ToRuntime(itemToRemove) as ItemData_Equipment;
         if (itemToRemove == null) return false;
+        if (!equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value)) return false;
 
-        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
+        stackSize = value.stackSize;
+        equipment.Remove(value);
+        equipmentDictionary.Remove(itemToRemove);
+
+        if (itemToRemove.equipmentType != EquipmentType.Throwable)
         {
-            stackSize = value.stackSize;
-            equipment.Remove(value);
-            equipmentDictionary.Remove(itemToRemove);
             itemToRemove.RemoveModifiers();
-            return true;
+            GetPassives().UnregisterItem(itemToRemove);
         }
-        return false;
+
+        HideFromPlayer(itemToRemove);
+
+        UI_EquipmentSlot owningSlot = System.Array.Find(equipmentSlot, s => s.currentItem == value);
+        if (owningSlot != null)
+            owningSlot.currentItem = null;
+
+        return true;
     }
     public bool UnequipItem(ItemData_Equipment itemToRemove) => UnequipItem(itemToRemove, out _);
-    public int UnequipAllItem(ItemData_Equipment itemToRemove)
+
+    /// <summary>Unequips the item and puts everything that was equipped back into the inventory.</summary>
+    public void UnequipToInventory(ItemData_Equipment _item)
     {
-        UnequipItem(itemToRemove, out int stackSize);
-        return stackSize;
+        if (UnequipItem(_item, out int stackSize))
+            AddItem(_item, stackSize, notify: false);
     }
+
+    /// <summary>Uses up one equipped throwable (or the whole stack), emptying its slot when none are left.</summary>
     public void RemoveEquipItem(ItemData _item, bool removeAll = false)
     {
-        ItemData_Equipment E = _item as ItemData_Equipment;
-        if (E == null) return;
+        _item = ToRuntime(_item);
+        if (_item is not ItemData_Equipment throwable || throwable.equipmentType != EquipmentType.Throwable) return;
+        if (!equipmentDictionary.TryGetValue(throwable, out InventoryItem stack)) return;
 
-        if (!equipmentDictionary.TryGetValue(E, out InventoryItem equipmentValue)) return;
-        if (E.equipmentType != EquipmentType.Throwable) return;
-
-        if (removeAll || equipmentValue.stackSize <= 1)
-        {
-            // Full removal: clear dictionary, list, and the slot that owns this item
-            equipment.Remove(equipmentValue);
-            equipmentDictionary.Remove(E);
-            E.RemoveModifiers();
-
-            UI_EquipmentSlot owningSlot = System.Array.Find(equipmentSlot,
-                s => s.currentItem == equipmentValue);
-            if (owningSlot != null)
-            {
-                owningSlot.currentItem = null;
-                owningSlot.CleanUpSlot();
-            }
-        }
+        if (removeAll || stack.stackSize <= 1)
+            UnequipItem(throwable);
         else
-        {
-            equipmentValue.RemoveStack();
-        }
+            stack.RemoveStack();
 
         UpdateSlotUI();
     }
+
+    public ItemData_Equipment GetEquipment(EquipmentType _type)
+    {
+        foreach (ItemData_Equipment equipped in equipmentDictionary.Keys)
+        {
+            if (equipped.equipmentType == _type)
+                return equipped;
+        }
+
+        return null;
+    }
+
+    private static PassiveSkillHandler GetPassives() => PlayerManager.Instance.player.GetComponent<PassiveSkillHandler>();
+
+    private static void ShowOnPlayer(ItemData_Equipment _item)
+    {
+        switch (_item.equipmentType)
+        {
+            case EquipmentType.Weapon: PlayerWeaponHolder.Instance.EquipWeapon(_item); break;     //装备武器
+            case EquipmentType.Armor: PlayerArmorHolder.Instance.EquipArmor(_item); break;        //装备护甲/帽子
+            case EquipmentType.Companion: PlayerCompanion.Instance.EquipCompanion(_item); break;
+        }
+    }
+
+    private static void HideFromPlayer(ItemData_Equipment _item)
+    {
+        switch (_item.equipmentType)
+        {
+            case EquipmentType.Weapon: PlayerWeaponHolder.Instance.UnEquipWeapon(); break;
+            case EquipmentType.Armor: PlayerArmorHolder.Instance.UnEquipArmor(); break;
+            case EquipmentType.Companion: PlayerCompanion.Instance.UnEquipCompanion(); break;
+        }
+    }
+
+    #endregion
+
+    #region Add and Remove
+
     public int RemoveItem(ItemData _item, bool removeAll = false)
     {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            int removed = removeAll ? value.stackSize : 1;
-            if (removeAll || value.stackSize <= 1)
-            {
-                inventory.Remove(value);
-                inventoryDictionary.Remove(_item);
-            }
-            else
-            {
-                value.RemoveStack();
-            }
-            UpdateSlotUI();
-            return removed;
-        }
+        _item = ToRuntime(_item);
 
-        if (stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
-        {
-            int removed = removeAll ? stashValue.stackSize : 1;
-            if (removeAll || stashValue.stackSize <= 1)
-            {
-                stash.Remove(stashValue);
-                stashDictionary.Remove(_item);
-            }
-            else
-            {
-                stashValue.RemoveStack();
-            }
-            UpdateSlotUI();
-            return removed;
-        }
+        if (!InventoryItem.RemoveFrom(inventory, inventoryDictionary, _item, removeAll, out int removed) &&
+            !InventoryItem.RemoveFrom(stash, stashDictionary, _item, removeAll, out removed))
+            return 0;
 
-        return 0;
+        UpdateSlotUI();
+        return removed;
     }
     public void AddItem(ItemData _item, int count = 1, bool notify = true)
     {
         if (count <= 0) return;
 
+        _item = ToRuntime(_item);
+
+        // Equipment goes to the inventory, everything else (mods, materials, currency) to the stash.
         if (_item.ItemType == ItemType.Equipment)
-            AddToInventory(_item, count);
+            InventoryItem.AddTo(inventory, inventoryDictionary, _item, count);
         else
-            AddToStash(_item, count);
+            InventoryItem.AddTo(stash, stashDictionary, _item, count);
 
         if (notify)
             OnItemAdded?.Invoke(_item, count);
 
         UpdateSlotUI();
     }
-    private void AddToInventory(ItemData _item, int count = 1)
-    {
-        if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            for (int i = 0; i < count; i++) value.AddStack();
-        }
-        else
-        {
-            InventoryItem newItem = new InventoryItem(_item);
-            for (int i = 1; i < count; i++) newItem.AddStack();  
-            inventory.Add(newItem);
-            inventoryDictionary.Add(_item, newItem);
-        }
-    }
-    private void AddToStash(ItemData _item, int count = 1)
-    {
-        if (stashDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            for (int i = 0; i < count; i++) value.AddStack();
-        }
-        else
-        {
-            InventoryItem newItem = new InventoryItem(_item);
-            for (int i = 1; i < count; i++) newItem.AddStack();
-            stash.Add(newItem);
-            stashDictionary.Add(_item, newItem);
-        }
-    }
+
+    #endregion
 
     #region Slot and UI
     private UI_EquipmentSlot GetFirstEmptySlotOfType(EquipmentType type)
     {
         return System.Array.Find(equipmentSlot,
-            s => s.slotType == type && s.currentItem.data == null);
+            s => s.slotType == type && s.currentItem?.data == null);
     }
     private UI_EquipmentSlot GetFirstSlotOfType(EquipmentType type)
     {
         return System.Array.Find(equipmentSlot,
             s => s.slotType == type);
     }
-    public ItemData_Equipment GetEquipment(EquipmentType _type) 
-    {
-        ItemData_Equipment equipedItem = null;
-
-        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary) 
-        {
-            if (item.Key.equipmentType == _type)
-                equipedItem = item.Key;
-
-        }
-
-        return equipedItem;
-    }
-    private void UpdateSlotUI() 
+    private void UpdateSlotUI()
     {
         foreach (UI_EquipmentSlot slot in equipmentSlot)
-        {
-            if (slot.currentItem != null)
-                slot.UpdateSlot(slot.currentItem);
-            else
-                slot.CleanUpSlot();
-        }
+            slot.UpdateSlot(slot.currentItem); // an empty slot cleans itself up
 
-        
-        for (int i = 0; i < InventoryItemSlot.Length; i++)
-        {
-            InventoryItemSlot[i].CleanUpSlot();
-        }
-
-        for (int i = 0; i < stashItemSlot.Length; i++)
-        {
-            stashItemSlot[i].CleanUpSlot();
-        }
-
-
-
-        for (int i = 0; i < inventory.Count; i++) 
-        {
-            InventoryItemSlot[i].UpdateSlot(inventory[i]);
-
-        }
-
-        for (int i = 0; i < stash.Count; i++)
-        {
-            stashItemSlot[i].UpdateSlot(stash[i]);  
-
-        }
+        UI_ItemSlot.Fill(InventoryItemSlot, inventory);
+        UI_ItemSlot.Fill(stashItemSlot, stash);
 
         OnInventoryUIUpdated?.Invoke();
-
-
     }
     #endregion
 }

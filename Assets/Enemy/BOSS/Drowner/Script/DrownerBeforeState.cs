@@ -25,11 +25,7 @@ public class DrownerBeforeState : EnemyState
         base.Update();
         float yOffset = Mathf.PingPong(Time.time * boss.speed, boss.height);
         boss.transform.position = startPos + new Vector3(0, yOffset, 0);
-        if (boss.IsPlayerDetected())
-        {
-            stateMachine.ChangeState(boss.downState);
-
-        }
+     
 
     }
     public override void Exit()

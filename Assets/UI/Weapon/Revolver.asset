@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fe1514e028c9b4e9bf2de3d2961fe2, type: 3}
   m_Name: Revolver
   m_EditorClassIdentifier: 
-  ItemType: 4
+  itemID: 
   itemName: Revolver
-  icon: {fileID: 21300000, guid: dd8511223693acd4b8685f3878644940, type: 3}
+  ItemType: 4
+  icon: {fileID: 3297035664552192199, guid: dd8511223693acd4b8685f3878644940, type: 3}
   price: 0
   Description: 
   itemEffects: []
@@ -22,8 +23,7 @@ MonoBehaviour:
   equipmentType: 0
   mechanism: 0
   Level: 1
-  equipmentEffects:
-  - {fileID: 11400000, guid: 21b2f9ae753615041a0e2c9e4ca15953, type: 2}
+  equipmentEffects: []
   Mods:
   - {fileID: 0}
   - {fileID: 0}
@@ -45,9 +45,24 @@ MonoBehaviour:
   sFrostDamage: 0
   sPoisonDamage: 0
   sLightningDamage: 0
+  ammoPrefab: {fileID: 3449193476524243985, guid: 77fb2d5dbfd751747942a6c9ae65e273, type: 3}
+  ammoOffset: {x: 5.1, y: 1.2}
   xVelocity: 25
   firingRate: 0.8
   effectiveTime: 0.7
+  recoil:
+    force: 0
+    accelerationTime: 0.05
+    decelerationTime: 0.2
+    horizontalOnly: 1
+  fireEffects:
+  - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    offset: {x: 5.1, y: 1.2}
+    rotation: -90
+    scale: {x: 1, y: 1, z: 1}
+    followWeapon: 0
+    lifetime: 0
+    turnParticles: 1
   FirePower: 45
   Armor: 0
   FireDamage: 0

@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public enum _Type 
+public enum _Type
 {
 common,
 special
 
 }
 
-[CreateAssetMenu(fileName ="Mod",menuName ="Data/Mod/BasicMod")]
+// Created from Assets > Create > Data Asset... (see Editor/DataAssetMenu.cs).
 public class Mod : ItemData
 {
     public _Type type;
@@ -34,85 +31,74 @@ public class Mod : ItemData
     public int PoisonDamage;
     public int LightningDamage;
 
+    [Header("Weapon handling")]
+    [Tooltip("Multiplies the weapon's X Velocity. 0 = unchanged.")]
     public float xVelocity;
+    [Tooltip("Multiplies the weapon's Firing Rate (the delay between shots). 0 = unchanged.")]
     public float firingRate;
+    [Tooltip("Seconds added to the weapon's Effective Time.")]
     public float effectiveTime;
 
 
-    public void ApplyModEffect(ItemData_Equipment equip) 
+    public void ApplyModEffect(ItemData_Equipment equip)
     {
-     foreach(var effect in itemEffects)
+        if (itemEffects == null) return;
+
+        foreach (var effect in itemEffects)
+            effect.ExecuteModEffect(PlayerManager.Instance.player.transform, equip);
+    }
+
+    public void AddModifiers(PlayerStats playerStats) => ApplyModifiers(playerStats, true);
+    public void RemoveModifiers(PlayerStats playerStats) => ApplyModifiers(playerStats, false);
+
+    // One list for both directions, so adding and removing can never drift apart.
+    private void ApplyModifiers(PlayerStats playerStats, bool _add)
+    {
+        void Apply(Stats _stat, int _value)
         {
-            effect.ExecuteModEffect(PlayerManager.Instance.player.transform,equip);
-            
+            if (_add) _stat.AddModifier(_value);
+            else _stat.RemoveModifier(_value);
         }
-    
-    }
-    public void AddModifiers(PlayerStats playerStats)
-    {
-        playerStats.FirePower.AddModifier(FirePower);
-        playerStats.Vitality.AddModifier(Vitality);
 
-        playerStats.Damage.AddModifier(Damage);
-        playerStats.CriticalChance.AddModifier(CriticalChance);
-        playerStats.CriticalDamage.AddModifier(CriticalDamage);
+        Apply(playerStats.FirePower, FirePower);
+        Apply(playerStats.Vitality, Vitality);
 
-        playerStats.MaxHP.AddModifier(MaxHP);
-        playerStats.Armor.AddModifier(Armor);
+        Apply(playerStats.Damage, Damage);
+        Apply(playerStats.CriticalChance, CriticalChance);
+        Apply(playerStats.CriticalDamage, CriticalDamage);
 
-        playerStats.FireResistance.AddModifier(FireResistance);
-        playerStats.FrostDamage.AddModifier(FrostDamage);
-        playerStats.LightingResistance.AddModifier(LightingResistance);
-        playerStats.PoisonResistance.AddModifier(PoisonResistance);
+        Apply(playerStats.MaxHP, MaxHP);
+        Apply(playerStats.Armor, Armor);
 
-        playerStats.FireDamage.AddModifier(FireDamage);
-        playerStats.FrostDamage.AddModifier(FrostDamage);
-        playerStats.PoisonDamage.AddModifier(PoisonDamage);
-        playerStats.LightningDamage.AddModifier(LightningDamage);
+        Apply(playerStats.FireResistance, FireResistance);
+        Apply(playerStats.FrostResistance, FrostResistance);
+        Apply(playerStats.LightingResistance, LightingResistance);
+        Apply(playerStats.PoisonResistance, PoisonResistance);
+
+        Apply(playerStats.FireDamage, FireDamage);
+        Apply(playerStats.FrostDamage, FrostDamage);
+        Apply(playerStats.PoisonDamage, PoisonDamage);
+        Apply(playerStats.LightningDamage, LightningDamage);
     }
 
-    public void AddModi(ItemData_Equipment equip)
+    /// <summary>Changes how the weapon shoots. Undone by RemoveWeaponModifiers.</summary>
+    public void ApplyWeaponModifiers(ItemData_Equipment equip)
     {
-        if(xVelocity !=0)
-        equip.xVelocity *= xVelocity;
+        if (xVelocity != 0)
+            equip.xVelocity *= xVelocity;
         if (firingRate != 0)
             equip.firingRate *= firingRate;
         equip.effectiveTime += effectiveTime;
 
     }
 
-    public void RemoveModifiers(PlayerStats playerStats)
-    {
-        playerStats.FirePower.RemoveModifier(FirePower);
-        playerStats.Vitality.RemoveModifier(Vitality);
-
-        playerStats.Damage.RemoveModifier(Damage);
-        playerStats.CriticalChance.RemoveModifier(CriticalChance);
-        playerStats.CriticalDamage.RemoveModifier(CriticalDamage);
-
-        playerStats.MaxHP.RemoveModifier(MaxHP);
-        playerStats.Armor.RemoveModifier(Armor);
-
-        playerStats.FireResistance.RemoveModifier(FireResistance);
-        playerStats.FrostDamage.RemoveModifier(FrostDamage);
-        playerStats.LightingResistance.RemoveModifier(LightingResistance);
-        playerStats.PoisonResistance.RemoveModifier(PoisonResistance);
-
-        playerStats.FireDamage.RemoveModifier(FireDamage);
-        playerStats.FrostDamage.RemoveModifier(FrostDamage);
-        playerStats.PoisonDamage.RemoveModifier(PoisonDamage);
-        playerStats.LightningDamage.RemoveModifier(LightningDamage);
-    }
-
-    public void RemoveModi(ItemData_Equipment equip)
+    public void RemoveWeaponModifiers(ItemData_Equipment equip)
     {
         if (xVelocity != 0)
-        equip.xVelocity /= xVelocity;
+            equip.xVelocity /= xVelocity;
         if (firingRate != 0)
             equip.firingRate /= firingRate;
         equip.effectiveTime -= effectiveTime;
 
     }
 }
-
-

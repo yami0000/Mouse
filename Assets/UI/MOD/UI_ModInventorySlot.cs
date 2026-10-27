@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UI_ModInventorySlot : MonoBehaviour, IPointerDownHandler
 {
@@ -39,31 +35,18 @@ public class UI_ModInventorySlot : MonoBehaviour, IPointerDownHandler
             stackText.text = item.stackSize > 1 ? item.stackSize.ToString() : "";
     }
 
+    // Clicking an owned mod installs it on the equipment open in the upgrade panel.
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        PlayerStats playerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
+        if (item?.data is not Mod mod) return;
 
-        if (item == null || item.data == null)
-        {
+        UpgradePanel panel = UpgradePanel.Instance;
+        if (panel == null || panel.Equipment == null) return;
 
-            return;
-        }
-        Mod E = item.data as Mod;
+        if (!panel.Equipment.InstallMod(mod)) return; // applies its stats and weapon handling
 
-         
-        bool added = UpgradePanel.Instance.Equipment.TryAddMod(E);
-        if (!added || UpgradePanel.Instance.Equipment == null)
-            return;
-
-        bool isEquipped = Inventory.Instance.equipmentDictionary.ContainsKey(UpgradePanel.Instance.Equipment);//ÒÆ³ýÊýÖµ
-        if (isEquipped)
-            E.AddModifiers(playerStats);
-        if (E.firingRate != 0)
-            E.AddModi(UpgradePanel.Instance.Equipment);
-
-        Inventory.Instance.RemoveItem(E);
-        UpgradeSystem.Instance.UpdateModSlot(UpgradePanel.Instance.Equipment);
-        UpgradePanel.Instance.upgradeData(UpgradePanel.Instance.Equipment);
-
+        Inventory.Instance.RemoveItem(mod);
+        UpgradeSystem.Instance.UpdateModSlot(panel.Equipment);
+        panel.upgradeData(panel.Equipment);
     }
-    }
+}
