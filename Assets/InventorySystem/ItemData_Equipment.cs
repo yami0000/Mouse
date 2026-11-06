@@ -149,11 +149,6 @@ public class ItemData_Equipment : ItemData
     public int modSlotCount ;
 
 
-    [Header("Major Stats")]
-    public int sFirePower;
-    public int Agility;
-    public int Vitality;
-
     [Header("Damage")]
     public int Damage;
     public int CriticalChance;
@@ -188,7 +183,6 @@ public class ItemData_Equipment : ItemData
     public List<WeaponFireFX> fireEffects = new List<WeaponFireFX>();
 
     [Header("Stats can be influenced by level")]
-    public int FirePower;
     public int Armor;
     public int FireDamage;
     public int FrostDamage;
@@ -215,10 +209,21 @@ public class ItemData_Equipment : ItemData
                             && Inventory.Instance.equipmentDictionary != null
                             && Inventory.Instance.equipmentDictionary.ContainsKey(this);
 
-    /// <summary>Puts the mod in the first free slot. False when it isn't a mod or every slot is taken.</summary>
-    public bool TryAddMod(Mod modItem)
+    /// <summary>
+    /// Puts the mod in slot _index, or the first free slot when _index is -1. False when it isn't a mod,
+    /// the slot doesn't exist or is taken, or (with -1) every slot is taken.
+    /// </summary>
+    public bool TryAddMod(Mod modItem, int _index = -1)
     {
         if (modItem == null || modItem.ItemType != ItemType.Mods || Mods == null) return false;
+
+        if (_index >= 0)
+        {
+            if (_index >= Mods.Length || Mods[_index] != null) return false;
+
+            Mods[_index] = modItem;
+            return true;
+        }
 
         for (int i = 0; i < Mods.Length; i++)
         {
@@ -244,12 +249,13 @@ public class ItemData_Equipment : ItemData
     }
 
     /// <summary>
-    /// Slots the mod in and applies it: its weapon handling straight away, its stats only while
-    /// this equipment is worn (equipping applies them otherwise). False when nothing changed.
+    /// Slots the mod in (slot _index, or the first free one for -1) and applies it: its weapon handling
+    /// straight away, its stats only while this equipment is worn (equipping applies them otherwise).
+    /// False when nothing changed.
     /// </summary>
-    public bool InstallMod(Mod _mod)
+    public bool InstallMod(Mod _mod, int _index = -1)
     {
-        if (!TryAddMod(_mod)) return false;
+        if (!TryAddMod(_mod, _index)) return false;
 
         if (IsEquipped)
             _mod.AddModifiers(GetPlayerStats());
@@ -270,6 +276,108 @@ public class ItemData_Equipment : ItemData
         return true;
     }
 
+    /// <summary>
+    /// Swaps the mods in slots _from and _to (either may be empty). Nothing is applied or undone:
+    /// the same mods stay installed. False when a slot doesn't exist or nothing would move.
+    /// </summary>
+    public bool MoveMod(int _from, int _to)
+    {
+        if (Mods == null || _from == _to) return false;
+        if (_from < 0 || _from >= Mods.Length || _to < 0 || _to >= Mods.Length) return false;
+        if (Mods[_from] == null && Mods[_to] == null) return false;
+
+        (Mods[_from], Mods[_to]) = (Mods[_to], Mods[_from]);
+        return true;
+    }
+
+    /// <summary>
+    /// Damage per second: Damage, installed mods included, over the delay between shots
+    /// (which mods have already changed). 0 when it doesn't fire.
+    /// </summary>
+    public float Dps => firingRate > 0f
+        ? StatWithMods(TooltipField.Damage) / firingRate
+        : 0f;
+
+    private float StatWithMods(TooltipField _stat) => TryGetTooltipNumber(_stat, out float value) ? value : 0f;
+
+    public override string GetTooltipText(TooltipField _field)
+    {
+        switch (_field)
+        {
+            case TooltipField.Type:
+                return equipmentType.ToString();
+
+            case TooltipField.Mods:
+                if (Mods == null || Mods.Length == 0) return null;
+
+                // "1/3", then one "- name" line per installed mod.
+                int installed = 0;
+                string names = "";
+                foreach (Mod mod in Mods)
+                {
+                    if (mod == null) continue;
+                    installed++;
+                    names += $"\n- {mod.itemName}";
+                }
+                return $"{installed}/{Mods.Length}{names}";
+
+            default:
+                return base.GetTooltipText(_field);
+        }
+    }
+
+    /// <summary>
+    /// Stats come with the installed mods' bonuses added, so the tooltip and the upgrade panel show
+    /// what the equipment really gives. Weapon handling (speed, delay, lifetime) already includes mods.
+    /// </summary>
+    public override bool TryGetTooltipNumber(TooltipField _field, out float _value)
+    {
+        // Only things that fire have a Firing Rate, so armor and amulets get 0 (hidden by Hide When Zero).
+        if (_field == TooltipField.DPS)
+        {
+            _value = Dps;
+            return true;
+        }
+
+        if (!TryGetOwnNumber(_field, out _value))
+            return base.TryGetTooltipNumber(_field, out _value);
+
+        if (TooltipFields.IsStat(_field) && Mods != null)
+            foreach (Mod mod in Mods)
+                if (mod != null && mod.TryGetTooltipNumber(_field, out float bonus))
+                    _value += bonus;
+
+        return true;
+    }
+
+    /// <summary>This equipment's own number for _field, without mods.</summary>
+    private bool TryGetOwnNumber(TooltipField _field, out float _value)
+    {
+        switch (_field)
+        {
+            case TooltipField.Level: _value = Level; return true;
+            case TooltipField.BulletSpeed: _value = xVelocity; return true;
+            case TooltipField.ShotDelay: _value = firingRate; return true;
+            case TooltipField.BulletLifetime: _value = effectiveTime; return true;
+
+            case TooltipField.Damage: _value = Damage; return true;
+            case TooltipField.CriticalChance: _value = CriticalChance; return true;
+            case TooltipField.CriticalDamage: _value = CriticalDamage; return true;
+            case TooltipField.MaxHP: _value = MaxHP; return true;
+            case TooltipField.Armor: _value = Armor; return true;
+            case TooltipField.FireResistance: _value = FireResistance; return true;
+            case TooltipField.FrostResistance: _value = FrostResistance; return true;
+            case TooltipField.LightningResistance: _value = LightingResistance; return true;
+            case TooltipField.PoisonResistance: _value = PoisonResistance; return true;
+            case TooltipField.FireDamage: _value = FireDamage; return true;
+            case TooltipField.FrostDamage: _value = FrostDamage; return true;
+            case TooltipField.PoisonDamage: _value = PoisonDamage; return true;
+            case TooltipField.LightningDamage: _value = LightningDamage; return true;
+
+            default: _value = 0f; return false;
+        }
+    }
+
     /// <summary>Spawns every Fire Effect on _weapon, the transform of the weapon being held.</summary>
     public void PlayFireEffects(Transform _weapon)
     {
@@ -281,13 +389,14 @@ public class ItemData_Equipment : ItemData
 
     private void OnValidate()//excute when data is changing in the inspector.
     {
+        // Equipment is always Equipment; the Inspector hides the field.
+        ItemType = ItemType.Equipment;
+
         if (Mods == null || Mods.Length != modSlotCount)
         {
             System.Array.Resize(ref Mods, modSlotCount);
         }
         int maxVal = Mathf.Max(new int[] { sFireDamage, sFrostDamage, sPoisonDamage, sLightningDamage });
-
-        FirePower = sFirePower + 5 * Level;
 
         if(equipmentType == EquipmentType.Armor)
         Armor = sArmor + 7 * Level;
@@ -310,18 +419,23 @@ public class ItemData_Equipment : ItemData
     public Vector3 MuzzlePosition(Transform _weapon) =>
         _weapon.position + _weapon.rotation * Vector3.Scale(ammoOffset, _weapon.lossyScale);
 
-    /// <summary>Fires one _ammoPrefab from the muzzle along the aim, at this weapon's X Velocity, gone after its Effective Time.</summary>
-    public void FireAmmo(GameObject _ammoPrefab, Transform _weapon)
+    /// <summary>
+    /// Fires one _ammoPrefab from the muzzle along the aim, at this weapon's X Velocity, gone after its Effective Time.
+    /// Returns the bullet, or null when there is no prefab.
+    /// </summary>
+    public GameObject FireAmmo(GameObject _ammoPrefab, Transform _weapon)
     {
-        if (_ammoPrefab == null) return;
+        if (_ammoPrefab == null) return null;
 
         // Facing comes from the player, as before, so ammo sprites still flip with them.
         Quaternion facing = PlayerManager.Instance.player.transform.rotation;
 
         GameObject ammo = Instantiate(_ammoPrefab, MuzzlePosition(_weapon), facing);
         ammo.GetComponent<Rigidbody2D>().velocity = GameManager.Instance.GetMouse(true) * xVelocity;
+        AmmoBehaviour.MarkSource(ammo, _ammoPrefab);
 
         Destroy(ammo, effectiveTime);
+        return ammo;
     }
 
     public void ExecuteEquipmentEffect(Transform _position)
@@ -345,9 +459,6 @@ public class ItemData_Equipment : ItemData
             if (_add) _stat.AddModifier(_value);
             else _stat.RemoveModifier(_value);
         }
-
-        Apply(playerStats.FirePower, FirePower);
-        Apply(playerStats.Vitality, Vitality);
 
         Apply(playerStats.Damage, Damage);
         Apply(playerStats.CriticalChance, CriticalChance);

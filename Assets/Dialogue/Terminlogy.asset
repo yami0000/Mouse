@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e985c66836c5dc324e347d091f040b, type: 3}
+  m_Name: Terminlogy
+  m_EditorClassIdentifier: 
+  terms:
+  - termID: ORION
+    title: ORION
+    description: A special force with 9 members with their own expertise during the
+      Eclipse war, only Rigel survived from the war.
+  - termID: MOD
+    title: MOD
+    description: A powerful tech developed by ministry of science which can enhance
+      the weapon and even change its mechanism.
+  - termID: FIREPOWER
+    title: Firepower
+    description: Decide how much damage a single bullet can deal
+  - termID: RATE OF FIRE
+    title: Rate Of Fire
+    description: Decide how frequent the weapon can fire.
+  - termID: Eclipse War
+    title: Eclipse War
+    description: 'on M.C. 547, an eclipse happened in eastern part of the Republic
+      of mammals, this is also the time when Arthropods Union lanuched their first
+      attack,symbolizing the start of the war.
+
+      The war lasted for 5 years,
+      with great loss on both sides, R.O.F made a truce with A.U.  with slight advantage.
+      Although the war has ended 7 years ago,it is not ended theoratically.'
+  - termID: MEISSA
+    title: Meissa
+    description: Captain of the ORION. Being genetically modified and implanted with
+      cyberware since a very young age, Meissa was once the best warrior in the Republic
+      of Mammels. During the Eclipse war, Meissa and his team was ambushed and exterminated
+      but no one discovered Meissa's body since than.

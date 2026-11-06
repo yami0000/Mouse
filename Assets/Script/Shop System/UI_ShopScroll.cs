@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // Smooth mouse-wheel scrolling with elastic overscroll bounce for the shop entry list.
 // Lives on the ScrollArea object (needs an Image with Raycast Target ON to receive
@@ -63,7 +64,10 @@ public class UI_ShopScroll : MonoBehaviour, IScrollHandler
     private float MaxScroll()
     {
         // How far the content can legitimately scroll. 0 when it fits in the viewport.
-        return Mathf.Max(0f, content.rect.height - viewport.rect.height);
+        // Uses the layout group's preferred height (the real height of all entries), so it
+        // still works when the container's RectTransform isn't resized by a ContentSizeFitter.
+        float contentHeight = Mathf.Max(content.rect.height, LayoutUtility.GetPreferredHeight(content));
+        return Mathf.Max(0f, contentHeight - viewport.rect.height);
     }
 
     private void ApplyPosition()

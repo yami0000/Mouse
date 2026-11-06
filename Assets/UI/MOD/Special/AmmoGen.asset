@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
   m_Name: AmmoGen
   m_EditorClassIdentifier: 
-  ItemType: 3
+  itemID: 
   itemName: AmmoGeb
-  icon: {fileID: -7609786907305081198, guid: 55e68e6397bfcc040ad829b6e430f855, type: 3}
+  ItemType: 3
+  icon: {fileID: -4673967478871628841, guid: 5cdc57800f12fe940ac64e2cfb82a624, type: 3}
   price: 0
-  Description: 
-  itemEffects:
-  - {fileID: 11400000, guid: 20efd2c91b8ba214ba5acd42e02db050, type: 2}
+  Description: Every {AmmoGen.shotCountToTrigger} shots, fires an extra bullet.
+  itemEffects: []
+  passiveEffects: []
   type: 1
-  FirePower: 0
-  Vitality: 0
   Damage: 0
   CriticalChance: 0
   CriticalDamage: 0
@@ -38,3 +37,14 @@ MonoBehaviour:
   xVelocity: 0
   firingRate: 0
   effectiveTime: 0
+  effects:
+  - rid: 1000
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: Mod_AmmoGen, ns: , asm: Assembly-CSharp}
+      data:
+        shotCountToTrigger: 3
+        ammoPrefab: {fileID: 40656258184260550, guid: 72a109408e6c32b48845a2d6a23e8e77, type: 3}
+        equipmentEffects: []

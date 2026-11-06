@@ -29,10 +29,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   modSlotCount: 3
-  sFirePower: 20
-  Agility: 0
-  Vitality: 0
-  Damage: 0
+  Damage: 25
   CriticalChance: 20
   CriticalDamage: 160
   MaxHP: 0
@@ -57,13 +54,13 @@ MonoBehaviour:
     horizontalOnly: 1
   fireEffects:
   - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    disabled: 0
     offset: {x: 4.5, y: 1.1}
     rotation: -90
     scale: {x: 1, y: 1, z: 1}
     followWeapon: 0
     lifetime: 0
     turnParticles: 1
-  FirePower: 25
   Armor: 0
   FireDamage: 0
   FrostDamage: 0

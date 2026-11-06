@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
+  m_Name: Rainbow
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Rainbow
+  ItemType: 3
+  icon: {fileID: 788941230023162578, guid: db89a5c4a9a162f459326cb59fd25244, type: 3}
+  price: 0
+  Description: Each bullet carries a random element worth {Rainbow.share:%} of the
+    weapon's Damage[[ ({round(Rainbow.share * Weapon.Damage)})]].
+  itemEffects: []
+  passiveEffects: []
+  type: 1
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  Armor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0
+  xVelocity: 0
+  firingRate: 0
+  effectiveTime: 0
+  effects:
+  - rid: 1000
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: Mod_Rainbow, ns: , asm: Assembly-CSharp}
+      data:
+        share: 0.3
+        tintAmmo: 1
+        fireColor: {r: 0.9685534, g: 0.2467069, b: 0.26257673, a: 1}
+        frostColor: {r: 0.45, g: 0.85, b: 1, a: 1}
+        poisonColor: {r: 0.55, g: 1, b: 0.3, a: 1}
+        lightningColor: {r: 1, g: 0.95, b: 0.35, a: 1}

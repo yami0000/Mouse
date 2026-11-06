@@ -13,6 +13,7 @@ public class Effect_Grenade :ItemEffect
         Vector3 muzzle = data.MuzzlePosition(PlayerWeaponHolder.Instance.WeaponTransform);
         GameObject Ammo = Instantiate(AmmoPrefab, muzzle, player.transform.rotation);
         Ammo.GetComponent<Rigidbody2D>().velocity = new Vector2(data.xVelocity * player.facingDir, yVelocity);
+        AmmoBehaviour.MarkSource(Ammo, AmmoPrefab);
 
         Destroy(Ammo, data.effectiveTime);
     }

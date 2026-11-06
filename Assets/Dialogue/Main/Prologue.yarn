@@ -1,0 +1,66 @@
+title:First_Scene_01
+---
+Rigel:Everyone,Keep pushing,we are closing to the fort. #line:0ace70b 
+Meissa:Rigel,can you hear me? #line:00ffdeb 
+Rigel:Yes,Captain. #line:0836570 
+Meissa:Me and Bear are moving close to the fort.ETA in 10 minutes. #line:0adcd27 
+Meissa:Enemy's fire power is stronger on your side,so proceed with caution. #line:07e3434 
+Rigel:Roger that. #line:0b1a722 
+Rigel:Let's move to the coordination. #line:0f8bd3a 
+===
+
+title:First_Scene_02
+---
+Meissa:(Scream and Gunfire) #line:027ca48 
+Meissa:something is not right here,we have been sent to the trap! #line:0257536 
+Meissa:We are being ambushed,Rigel,don't go to that coordination!I repeat... #line:0024c73 
+Rigel:Captain,you are okay? #line:047220b 
+Rigel:Captain! #line:02e22e1 
+Rigel:We have to save him! #line:03315d7 
+Soilder A:This is suicide,we have to retreat! #line:08b78f2 
+Soilder B:We didn't rest since last night.I can't.., #line:03f1285 
+Rigel:This is an order!Captain always treats you well,this is how you repay him? #line:080b210 
+Soilder A:But... #line:099bdf4 
+Rigel:I said,this is an ORDER.Follow me. #line:0463ef4 
+===
+
+title:Intro_CinderTail
+---
+CinderTail:Finally,you came. #line:0a7bd1e 
+Rigel:Captain?Captain!! #line:04cbda1 
+Captain:Run...Rigel... #line:08d2dd7 
+CinderTail:Looks like your Captain's life maintanence system is failing. #line:0f092f9 
+CinderTail:His lung is broken and oxygen is running out.5 minutes.If you can beat me in 5 minutes,maybe your captain will live. #line:06d304b 
+CinderTail:Or you can walk away now,I will pretend nothing happened. #line:00b20d3 
+Rigel:Captain!!Arhhhhhhhhh!!!! #line:06da880 
+Captain:Run... #line:05db81a 
+CinderTail:Calm down,little mouse,anger can solve nothing. #line:0512258 
+CinderTail:Let's dance. #line:000c3ce 
+===
+
+title:First_Scene_04
+---
+CinderTail:Not bad,not bad at all. #line:04361b4 
+CinderTail:You almost got me,little mouse.Almost. #line:035567d 
+CinderTail:Looks like there are valuable implants in you. #line:09e0fd1 
+CinderTail:Preparing for a throughal autopsy,little mouse,hehehe.... #line:0d83ae0 
+===
+
+title:Wake
+---
+Rigel:Captain!!! #line:0cbbf58 
+Rigel:...... #line:0f965a5 
+Rigel:Another bad dream... #line:0e76ab5 
+Rigel:Even the war is ended 7 years ago,the past is still torturing me. #line:02aba05 
+Rigel:Let's get up. #line:0a4030d 
+<<accept_quest "Intro_001">>
+===
+
+title:Past_Memory
+---
+Rigel:This photo is taken before the war... #line:0673ce4 
+Rigel:ORION...A special force that consisted of nine best warriors from the country.I was one of them. #line:0ae832b 
+Rigel:...and I am the only one who lived. #line:0b04fb2 
+Rigel:Every time I look at the picture,I feel like they are watching me from the hell. #line:0402d4a 
+Rigel:This is a curse,and I have to live with that curse for the rest of my life... #line:099332f 
+===

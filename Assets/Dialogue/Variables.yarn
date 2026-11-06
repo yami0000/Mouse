@@ -1,0 +1,28 @@
+title: Variables
+---
+// Every variable the dialogue uses, declared once here. This node is never run;
+// Yarn reads the declarations when it compiles the project.
+
+// side_02_001_01
+<<declare $player_spoke_to_grandma = false>>
+<<declare $side_02_001_accepted = false>>
+
+// side_02_002_01
+<<declare $player_spoke_to_police_first = true>>
+
+// King
+<<declare $player_spoke_to_King_first = true>>
+
+// Gabriel
+<<declare $player_spoke_to_Gabriel_first = true>>
+
+// Vendor
+<<declare $player_spoke_to_Athena_first = true>>
+
+// Lion_Start
+<<declare $player_spoke_to_Lion = false>>
+
+// Side_02_004_01
+<<declare $player_paid_arena_fee = false>>
+<<declare $player_talked_to_receptionist = false>>
+===

@@ -24,9 +24,6 @@ MonoBehaviour:
   equipmentEffects: []
   Mods: []
   modSlotCount: 0
-  sFirePower: 0
-  Agility: 0
-  Vitality: 0
   Damage: 500
   CriticalChance: 0
   CriticalDamage: 0
@@ -43,7 +40,6 @@ MonoBehaviour:
   xVelocity: 0
   firingRate: 0
   effectiveTime: 0
-  FirePower: 0
   Armor: 0
   FireDamage: 0
   FrostDamage: 0

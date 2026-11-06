@@ -13,8 +13,7 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
     [SerializeField] private InvDescription invDescription;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
-    private bool isHovered = false;
-    private Coroutine showRoutine;
+    private HoverDelay hover;
 
     public InventoryItem item;
     [HideInInspector]public  ItemData_Equipment equip;
@@ -55,14 +54,16 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
         itemText.text = "";
 
     }
+    // Empty in the Inspector = the scene's one tooltip (InvDescription.Main).
+    private InvDescription Description => invDescription != null ? invDescription : InvDescription.Main;
+    private HoverDelay Hover => hover ??= new HoverDelay(this);
+
     private void OnDisable()
     {
+        Hover.Stop();
 
-        isHovered = false;
-
-        invDescription?.Hide();
-
-        StopAllCoroutines();
+        if (Description != null)
+            Description.Hide();
     }//当UI隐藏的时候说明栏也会随之消失
     public virtual void OnPointerDown(PointerEventData eventData)
     {
@@ -87,39 +88,20 @@ public class UI_ItemSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHan
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-
-        isHovered = true;
-        StopShowRoutine();
+        Hover.Stop();
         if (item?.data == null) return;
 
-        showRoutine = StartCoroutine(WaitTillShow());
-
+        Hover.Start(() =>
+        {
+            if (item?.data != null && Description != null)
+                Description.Show(item);
+        });
     }
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        isHovered = false;
-        StopShowRoutine();
-        if (invDescription == null) return;
-        invDescription.Hide();
-    }
-    IEnumerator WaitTillShow()
-    {
-        // Realtime so the tooltip still appears if the inventory menu sets Time.timeScale = 0
-        yield return new WaitForSecondsRealtime(1f);
-        showRoutine = null;
-        if (item?.data == null) yield break;
-        if (isHovered)
-            invDescription.Show(item,equip);
-
-    }
-
-    private void StopShowRoutine()
-    {
-        if (showRoutine != null)
-        {
-            StopCoroutine(showRoutine);
-            showRoutine = null;
-        }
+        Hover.Stop();
+        if (Description == null) return;
+        Description.Hide();
     }
     protected static Player GetPlayer()
     {

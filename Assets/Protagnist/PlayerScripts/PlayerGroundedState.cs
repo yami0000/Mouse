@@ -24,24 +24,10 @@ public class PlayerGroundedState : PlayerReadyToAttack
     {
         base.Update();
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (GetEquippedSkill() == "Protective Shield")
-                if(player.CanUseSkill())
-                    stateMachine.ChangeState(player.shieldState);
-        }
-            
-
-
         if (!player.IsGroundDetected())
                     stateMachine.ChangeState(player.airState);
 
         if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
-    }
-
-    private static string GetEquippedSkill()
-    {
-        return SK.Instance.Skill.EquippedSkill;
     }
 }

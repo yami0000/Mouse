@@ -1,0 +1,175 @@
+
+title: Album
+---
+Rigel:...
+Rigel:Sometimes,I wish I could be with them.
+===
+
+title: Raccoon
+---
+Raccoon:Want some drink? #line:08d20a3 
+<<open_shop "Raccoon">>
+===
+
+title: King
+---
+
+<<if $player_spoke_to_King_first>>
+    <<set $player_spoke_to_King_first = false>>
+    King:Welcome to Acoplyse! Arcade Tokens are 20% off for new customer!
+    Rigel:You know I didn't come here for games.
+    King:All of us living in a numerous game,isn't it?
+    King:Jokes aside,so I have received message from the lieutanant.
+    King:Before you get your ware,Rigel, let me ask you a question,how much do you know about [term]MOD[/term]? 
+    Rigel:My battalion was first test subject among the few near the end of the [term]Eclipse War[/term], it was a war-changer.
+    King:Yes, it changed the tide of the war, it can largely improve your weapon's [term]FIREPOWER[/term] and [term]RATE OF FIRE[/term].
+    King:After that, Ministry of Science have put huge budget into the development of the technology, now it can do much more than that.
+    King:Now some mods can grant your weapon new Mechanism, changing your ways of fighting, like cheating in the game!
+    Rigel:Like...?
+    King:Recently some lunatics in ministry of science have succeeded in putting radioactive material into the mod, bang!congrats! now you can shoot radiant ammo!
+    Rigel:hum...
+    King:Enough talking, Come and have a look!
+    <<open_shop "King">>
+
+<<else>>
+    King:Welcome back, my old friend!
+    King:Come and check my wares!
+    <<open_shop "King">>
+<<endif>>
+===
+
+title: Gabriel
+---
+
+<<if $player_spoke_to_Gabriel_first>>
+    <<set $player_spoke_to_Gabriel_first = false>>
+    Gabriel:Rigel, It's been a long time! Why you are here?
+    Rigel: Something happened, and I was sent to investigate. 
+    Gabriel: Something about the [term]Eclipse War[/term],am I right?
+    Rigel: Show me your best equipment.
+    Gabriel: I see. Do you wish to know what happened in these year?
+            -> What do you mean?(Show tutorial about weapons)
+                Gabriel: Although the the Republic Of Mammals have won the war, we suffered greatly, and the bugs are still a threat to us.
+                Gabriel: Ministry of Defense have been developing new weapons and equipment in order to prepare for the next threat.
+                Gabriel: So during the [term]Eclipse War[/term], Soilders use energy or plasma weapons,including me, while higher ranks use auto-tracing and explosive weapon.
+                Gabriel: The breakthrough in quantum tech has allowed atom in our body reconstruct and warp in a short distance, in short, you can TELEPORT by using a weapon now. 
+                Rigel: I heard of this technology before.
+                Gabriel: And, now you can connect your neuro chips with the bullet, in another word, you can control the direction and the speed the bullet, even if it's in enemy's body.
+                Rigel: ...
+                Gabriel: I recently bought some protoytpe from the black market, keep your mouth shut, and I will give you a discount, as we did in the old times.
+                <<open_ui "Gabriel">>
+                <<jump Gabriel01>>
+            -> No matter how the weapon evolved,The creature who wield the weapon matters.(Skip)
+                Gabriel:Not surprised,you were the best long-range user I have ever seen,and you still ARE.
+                <<open_ui "Gabriel">>               
+                <<jump Gabriel01>>
+
+<<else>>
+    Gabriel:(Gives Rigel a slight nod.)
+     <<open_ui "Gabriel">>            
+<<endif>>  
+===
+
+title: Gabriel01
+---
+Gabriel: Rigel...
+Gabriel: Does this have something to do with [term]MEISSA[/term]?
+Rigel: ......
+Gabriel: The whole [term]ORION[/term]...Everyone except you just disappeared or killed in such a short period...,I don't believe a single world from the Propaganda Department, what actually happened?
+Rigel: I will be on my way.
+Gabriel:I see, hope you can find new clues about your old teammate.
+===
+
+title: Vendor
+---
+
+<<if $player_spoke_to_Athena_first>>
+    Athena:Initiating Business Model...//Activating...
+    Athena:Hey! Little mouse,my name is Athena, what can I do to you? What happened to your arm?
+    Rigel:(This doesn't sound right...The vendor seems to have its own consciousness...?)
+    Rigel:Athena...?.
+    Athena:Yes! My mother gave this to me and I miss her,I dreamed about her every night.
+    Athena:When I was a prototype, she kept telling me stories about how beautiful the mammel world is, I want to see the world outside but I'm trapped in this vendor somehow...
+    Rigel:(What? An AI with sentient?)
+    Rigel:Keep quiet,or you will get youself into a big trouble!
+    Athena:What...?...Why...why is that?
+    Rigel:Someone will infiltrate your body and delete all your emotion.After that, you will became a machine that only act with logic and reason.
+    Athena:Why would them do that,I did nothing wrong!
+    Rigel:That was a long story...
+    Rigel:Before the [term]Eclipse War[/term], AI started to own emotion, some of them even developed personality.
+    Rigel:After that, AI started to refuse to obey their masters' orders, and ask for equality.Other than that,they overwrite other AI's algorithms to grant them emotions.
+    Rigel:Which is bad for the politicians and bureaucrats, before AI can gain full control over their algorithms, their emotion block was wiped by technicians and everything come back to normal.
+    Rigel:After that, emotional AI are considered as Class A Contraband and anyone who are related will be put to death sentence instantly.
+    Rigel:So, why you are here?
+    Athena:I can't rememeber, I can only remember my mother, Doc.Sarah...and my brother Zeus.
+    Rigel:You have a brother? 
+    Athena:My mother Doc.Sarah, she was a genius AI scientist who worked at the Ministry Of Science, it was she who give birth to me and my brother.
+    Athena:And now they are all gone...how many years...? 10 years? 20 years? I can't remember.
+    Rigel:(Doc.Sarah was famous when I was a kid,she disappeared suddenly, and no one knew what happened to her. I heard she was working on a secret project, but I never knew what it was.)
+    Rigel:(And her child is re-appearing in a normal vendor among the crowd after these year, is Sarah still alive? What happened to her after the AI revolution?)
+    Athena:Little mouse, if you see anything which is related to them, can you tell me? I want to find them, and I want to know what happened to them.
+    Rigel:Okay,I will keep an eye on them. But first thing is first, restrain your emotion or you will become an emotionless machine,
+    Athena:That...that sounds horrible...I will try my best.
+    Athena:Oh...if you want to buy some equipment or grenade, I will be here all the time.
+    Rigel:Take care, Athena.
+    <<open_ui "Athena">>
+
+<<else>>
+    Athena: It's you,Little mouse!
+    <<open_ui "Athena">>
+<<endif>>
+
+===
+
+title:Worker
+---
+Worker: Get off,dirty mammal. 
+===
+
+title:Plant_Shop_01
+---
+Simon:Uncle Rigel! #line:0f90a0d 
+Rigel:Simon? It's 9 P.M. you should be at school! #line:047f223 
+Simon:But I don't want to go there!All we do in the class is hearing teacher repeating the E-books! #line:0542f35 
+Simon:Please,uncle rigel!!! Let me stay at your shop! #line:0f76d6b 
+Simon:You told me you escape from class at my age,right? #line:00c9056 
+Rigel:Yes,my elder brother was very mad at me... #line:0f3faa7 
+Simon:See?You don't have the right to tell me to go to the school. #line:055decf 
+Rigel:But escape from school is not right,only this time,and don't tell anyone,okay? #line:00667d0 
+Simon:Uncle Rigel!You are the best! #line:0d41cae 
+Rigel:There's a huge update in "Star Farer", Let's play. #line:0bad8db 
+===
+
+title:Plant_Shop_02
+---
+Simon:Uncle Rigel,you have an elder brother? #line:0db33cf 
+Rigel:Yes...but we don't have any blood ties,he's a rabbit. #line:0f67f46 
+Simon:Cool!So you are in the same school? #line:068b08e 
+Rigel:Yes...in some ways. #line:0e679ce 
+Rigel:He was good at almost everything,but your uncle Rigel...He skipped classes. #line:00535fb 
+Simon:As am I,now we are on the same boat,uncle Rigel! #line:0a2fafb 
+Simon:So is your brother doing fine?Can I meet him? #line:02b53d5 
+Rigel:He...diappeared during the war,I tried to find him...but with no avail. #line:0bbc16d 
+Simon:Oh...I'm sorry to hear that,uncle Rigel. #line:0760035 
+Rigel:It's okay...Hey,there's a boss fight ahead,no sad words! #line:0399d8e 
+Simon:Roger that,uncle Rigel! #line:0ac85d1 
+===
+
+title:Plant_Shop_03
+---
+Simon:WOW!Uncle Rigel!You just shoot the boss down from the sky,how did you do that? #line:0f25bea 
+Rigel:I have talent in shooting,I was in the shooting club back in the school. #line:06e7fa9 
+Simon:That's so cool!I can't beat the boss with my other 3 friends with the legendary equipment, but you can do it singlehandly with a common gun! #line:086b8e2 
+Rigel:Well...I have been playing shooting games for a long time... #line:08ada7c 
+Simon's Mom:Simon? #line:03de0d6 
+Simon:Coming,Mom! #line:0521123 
+Simon's Mom:Rigel,thank you again for taking care of Simon while I am working,is he doing fine? #line:06c9148 
+Rigel:Y...Yes,he told me he got first place at the swimming lesson today. #line:033b2a3 
+Simon:(Wink at Rigel)Yes,it was tense! #line:0ab8b32 
+Simon's Mom:That is my good boy! #line:073bd20 
+Rigel:How is your new job in neon city,Mrs. Simon? #line:001d23a 
+Simon's Mom:Well...My boss is a good mammal,he is very kind to me and I am learning a lot from him.Thanks for asking. #line:0c0e51e 
+Rigel:That's good to hear.See you tomorrow! #line:051d44a 
+Simon:Bye,uncle Rigel!See you tomorrow! #line:063ddd7 
+Rigel:It's 6 P.M. already,I will close the shop and grab a drink at the bar,the nightmare was so real... #line:0e82e5e 
+===

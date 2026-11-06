@@ -5856,7 +5856,7 @@ MonoBehaviour:
     BaseValue: 250
     modifiers: 
   Damage:
-    BaseValue: 0
+    BaseValue: 250
     modifiers: 
   CriticalChance:
     BaseValue: 0

@@ -28,9 +28,10 @@ public class PlayerStats  : EntityStats
     public override void HealEntity(int HealAmount)
     {
         base.HealEntity(HealAmount);
-        OnHealthChanged?.Invoke();
         CurrentHP += HealAmount;
         CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHP.GetValue());
+        // After the change, so the health bar shows the healed value.
+        OnHealthChanged?.Invoke();
     }
 
  

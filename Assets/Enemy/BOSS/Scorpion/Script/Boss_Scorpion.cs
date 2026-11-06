@@ -2,6 +2,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
  
 
 public class Boss_Scorpion : Enemy
@@ -38,9 +39,10 @@ public class Boss_Scorpion : Enemy
     public float swingdistance;
     [Header("Damage calculation")]
     public float Energy;
-    [SerializeField] private float FirePowerMultiplyer;
+    [FormerlySerializedAs("FirePowerMultiplyer")]
+    [SerializeField] private float DamageMultiplyer;
     [SerializeField] private float FallOffSpeed;
-    private int OriFirePower;
+    private int OriDamage;
     [Header("Laser")]
     public LaserAttack laser;
     [Header("ShotGun")]
@@ -101,7 +103,7 @@ public class Boss_Scorpion : Enemy
 
         PlayerManager.Instance.player.OnScriptedDefeat += HandlePlayerDefeated;
 
-        OriFirePower = stats.FirePower.BaseValue;
+        OriDamage = stats.Damage.BaseValue;
 
         player = PlayerManager.Instance.player.transform;
 
@@ -122,7 +124,7 @@ public class Boss_Scorpion : Enemy
         fx.sr.material.SetFloat("_BlendAmount", 1 - Energy / 100);
 
          
-        stats.FirePower.BaseValue= OriFirePower + (int)(Energy * FirePowerMultiplyer);
+        stats.Damage.BaseValue= OriDamage + (int)(Energy * DamageMultiplyer);
 
         
         

@@ -1,0 +1,158 @@
+title:Lion_intro
+---
+
+Lion:Rigel! Are you all right?
+Rigel:It is their new model, it WAS strong.
+Lion:That's good to hear,I can understand why no one have ever questioned about your skill.
+Lion:Things are getting hot,you need to come to the Minisry Of Defense ASAP.
+Rigel:Roger that.
+===
+
+
+title:Lion_Start
+---
+
+<<if $player_spoke_to_Lion is false>>
+    Lion:Good,you came. #line:00ce04a 
+    Rigel:Are they lanuching their next attack?
+    Lion:It seems not.They need more than that in order to do so.
+    Lion:But that's not our primary concern.The BattleDroid is.
+    Lion:The BattleDroid is equipped with many advanced tech which our expert can't understand.
+    Lion:What's worse,recently our intel team has captured an encrypted message that the Arthropods Union is doing large-scale experiment about Military-Grade BattleDroid and BioTech. #line:0c7da74 
+    Lion:Although this is obviously not the signal of invasion,Judge from the BattleDriod,I am afarid we don't have much time. #line:0781f64 
+    Lion:To pacify the crowd, we are going to suppress the news of the attack and send a diplomat team.Other than that... #line:06cfcb1 
+    Lion:...we are asking you to go on a private investigation about what they are doing. #line:09092dd 
+    Rigel:With pleasure.
+    <<set $player_spoke_to_Lion = true>>
+    <<jump Lion_Middle>>
+
+<<else>>
+    Lion:Good hunting,Rigel. #line:0334cc2 
+<<endif>>
+===
+
+title:Lion_Middle
+---
+Lion:Good,before the operation,do you have any Qusetion? #line:08410a3 
+        -> Where are they doing this experiment? #line:006f37f 
+            Lion:According to our intel team,the main focus is in the RUST CITY,the heart of their industrial complex. #line:0871780 
+            Lion:There are a huge lab there,we need you to find a way to infiltrate and gather the information. #line:0fdd81d 
+            <<jump Lion_Middle>>
+        -> What exactly are they working on? #line:07cd1a6 
+            Lion:We can't tell so far,but it seems they are developing BattleDroid,and Biological Weapon for their soilders. #line:036b7ee 
+            Lion:Which can greatly enhance their peformance in battle. #line:0cea460 
+            <<jump Lion_Middle>>
+        -> I'm ready. #line:08ffb2d 
+            Lion:Good. #line:0b0e4c6 
+Lion:We will provide you an ID card that will allow you to enter and exit RUST CITY at any time. #line:0eec082 
+Lion:Also,some money will be transferred to your account,use it wisely before the operation. #line:0a51e70 
+<<get_item "0001" 50>>
+Lion:I will contact "King" in neon city to give you some equipment.
+Lion:And... #line:0a5d8cb 
+Lion:Rigel,do you remember "CINDERTAIL"? #line:05a541b 
+Rigel:I made bad dreams about him until yesterday, I will never forget him. #line:02cee14 
+Lion:"Cindertail"...the bug who killed MEISSA...He reappeared...after a long disappearence since the end of the war, in the rust city. #line:009d008 
+Rigel:I won't fail this time. #line:014a605 
+Lion:Tell me when you are ready,Dismiss. #line:085cad6 
+ <<accept_quest "main_001">>
+ <<accept_quest "main_00A">>
+===
+
+title:Lion_Last
+---
+Lion:How's the preparation? #line:0161e86 
+        -> I need more time.  #line:060cb02 
+            Lion:Take your time,Rigel. #line:0cda29e 
+            <<jump Lion_Middle>>
+        -> I'm ready for the mission. #line:034058d 
+            Lion:Good. #line:026e742 
+            Lion:We can't send you into the rust city officially because of your past,but we can send you near the city by our stealth shattle. #line:0433d8b 
+            Lion:Good luck and stay low-profile.This way. #line:037ee24 
+            <<jump Lion_Middle>>
+
+
+===
+
+title:Lion_Weapon
+---
+Lion:Rigel,see that? You know what to do.
+Rigel:A cyber-spider! In the sewer?
+Lion:We gave you several weapons before the trip,you can have a try on them.
+Lion:Each weapon has its own trait.For example,shotgun is good at close range,but the bullet won't reach far; while assault rifle is good at middle range.
+Lion:Check your invnentory.
+
+
+===
+
+title: DefeatMantis
+---
+Rigel:That was a military-grade Cyber Mantis,why did it appear in the sewer? 
+Rigel:Someone knew I would come.But who, and how?
+Rigel:I can't let my guard down.
+===
+
+title:Lab_First
+---
+Rigel:So the lab is still in the center of the city. #line:09ab42a 
+Rigel:The lab is so big...stretching to the top of the underground strcture. #line:066c87b 
+Rigel:The lab itself is not hard to find,the question is,how do I get in? #line:0370424 
+Rigel:Due to the security system,even the cutting-edge infiltration drone can't get in, so I can't get in by normal ways.  #line:05aa312 
+Rigel:There must be some way to get in. #line:0302081 
+Rigel:It would be better for me to gather some information in the city. #line:0fb14d5 
+<<progress_objective "lab">>
+===
+
+ 
+title:Zig_Zag
+---
+Zig:STAND RIGHT THERE,mammal. #line:09ab7f7 
+Zig:Disarm all your Communication systems.RIGHT NOW. #line:0bda183 
+Zig:If I can see a single device transferring data with outside,my companion will shoot you to a hornet. #line:0fc9c01 
+Rigel:Okay,Okay!Relax,All comms down! #line:0dbcbbb 
+Zig:Wise choice.You have been sniffing around the lab.Who are you,and what do you want? #line:0090c3a 
+Rigel:Name's Sam,have been a chip trafficker for many years,you can check my ID. #line:0f9f500 
+Rigel:And don't need to worry about me,I want to enter the lab same as your guys,we can collaborate. #line:0df4f88 
+Zag:boss,How... #line:0fdc736 
+Zig:Trafficker always know how to negotiate,eh?True,I am a humble merchant who "borrows" other's good ware too,same as you. #line:054a429 
+Zig:Recently the lab is doing something big,very big.My boys told me thousands of valuable material are transported there everyday. #line:05cbb8c 
+Zig:It's risky,but if we can manage to "borrow" a tiny portion of it...I can't even imagine!! #line:0109347 
+Zig:But business is business,to prove your capability,we need you to do something for us,and we can discuss more after that. #line:09e6021 
+Rigel:(Here we go again...) #line:0eb6480 
+Zig:I need a special chip that can see through the wall of the lab,without it,it would be reckless to proceed. #line:0bcc7f5 
+Zig:This can be circulated in the black market of your mammal country... #line:06665ba 
+Zig:...or you can "borrow" it from the leaders of the local gang in the deep sewers,one of them must have it. #line:0858262 
+Zig:I will send you my code,contact me once you finished. #line:076978f 
+Zig:Good Luck. #line:0031041 
+===
+
+title:Zag_Comment
+---
+Zag:A word,boss? #line:08a83bf 
+Zig:Zag,This is not the right time! #line:063795e 
+Zag:It's about Sam,the way he fought,it's nothing I have seemed before. #line:0d125a9 
+Zag:I have been in the army for a couple of years,and I saw lots of fights.This...This is something I have NEVER seem before. #line:063b3d3 
+Zag:His movement,his way of using weapons and tactics...it's ART. #line:00ad1dd 
+Zag:Like playing a chess game,he can always kill opponent's general with the shortest steps. #line:07a17b6 
+Zag:I dare to say that if we have someone like him during the war,maybe tide of the war would have been on our side. #line:08128a9 
+Zig:What the hell?!Zag,are you speaking for dirty mammals? #line:070f8fa 
+Zig:But it does make sense.How can a trafficker fought so well?How did he know what we wanted to do at the first place? #line:09d0d1a 
+Zig:Things are getting more interesting,we just keep playing with him,I want to see how this ends... #line:0af2f07 
+Zig:hehehehe... #line:002b260 
+===
+
+title:Main_001_05
+---
+CinderTail:Well,well,well,looks who's here.
+CinderTail:Few tiny little bugs dare to infiltrate the lab.
+CinderTail:And what do  Looks like an arm isn't enough to teach you a lesson,eh?
+Zig:What the... Sam? You met before?
+Rigel:...
+CinderTail:Sam? HAHAHAHAAAAAAAAA!!!
+CinderTail:A cute nickname you picked for yourself...RIGEL.
+Zig&Zag:What???
+Zig:So you are telling me we are doing business with the "DEMON" all the time?
+Zag:...you...you are alive?
+Rigel:Listen,whatever my identity is,we have to save our life first!
+CinderTail:Hahahahaha!!You'd better listen to him!
+
+===

@@ -36,7 +36,8 @@ public class UI_ShopEntry : MonoBehaviour, IPointerEnterHandler, IPointerDownHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (item == null) return;
+        // Only left-click buys; right-click closes the shop (UI_Shop.Update).
+        if (item == null || eventData.button != PointerEventData.InputButton.Left) return;
         shopUI.TryPurchase(item);
     }
 }

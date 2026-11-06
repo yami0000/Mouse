@@ -1,46 +1,37 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class UI_modsEquipped : MonoBehaviour, IPointerDownHandler
+/// <summary>
+/// One of the mod slots of the equipment open in the upgrade panel. Takes owned mods dropped on it
+/// (swapping out whatever was there), swaps places with another of these slots, and goes back to
+/// the owned mods when dragged onto them or clicked.
+/// </summary>
+public class UI_modsEquipped : UpgradeSlotBase
 {
-    [SerializeField] private Image itemImage;
-    public Mod mod;
+    /// <summary>The equipment's mod slot this shows (its place among the slots in the ModSlot parent).</summary>
+    public int Index => transform.GetSiblingIndex();
 
-    public void CleanUpSlot()
+    public Mod mod => Item?.data as Mod;
+
+    public void UpdateSlot(Mod _mod) => UpdateSlot(_mod != null ? new InventoryItem(_mod) : null);
+
+    public override void OnPointerClick(PointerEventData _event)
     {
-        mod = null;
-        itemImage.sprite = null;
-        itemImage.color = Color.clear;
+        if (mod != null)
+            UpgradeSystem.Instance.UninstallMod(Index);
     }
 
-
-    public void UpdateSlot(Mod newMod)
+    protected override bool Receive(UI_DragSlot _from)
     {
-        mod = newMod;
-
-        if (mod == null)
+        switch (_from)
         {
-            CleanUpSlot();
-            return;
+            case UI_ModInventorySlot owned when owned.Item?.data is Mod newMod:
+                return UpgradeSystem.Instance.InstallMod(newMod, Index);
+
+            case UI_modsEquipped other:
+                return UpgradeSystem.Instance.MoveMod(other.Index, Index);
+
+            default:
+                return false;
         }
-
-        itemImage.color = Color.white;
-        itemImage.sprite = mod.icon;
-    }
-
-    // Clicking an installed mod takes it off the equipment and back into the inventory.
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        UpgradePanel panel = UpgradePanel.Instance;
-        if (panel == null || panel.Equipment == null) return;
-
-        int index = transform.GetSiblingIndex(); // index of clicked slot in the UI
-        if (!panel.Equipment.UninstallModAt(index, out Mod removedMod)) return; // undoes its stats and weapon handling
-
-        Inventory.Instance.AddItem(removedMod);
-
-        UpgradeSystem.Instance.UpdateModSlot(panel.Equipment);
-        panel.upgradeData(panel.Equipment);
     }
 }

@@ -27,6 +27,8 @@ public class UI_Shop : MonoBehaviour
     private readonly List<UI_ShopEntry> spawnedEntries = new List<UI_ShopEntry>();
     private bool isOpen;
 
+    public bool IsOpen => isOpen;
+
     private void Awake()
     {
         if (Instance == null)
@@ -44,7 +46,7 @@ public class UI_Shop : MonoBehaviour
     {
         if (!isOpen) return;
 
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Mouse1))
             Close();
     }
 
@@ -100,7 +102,7 @@ public class UI_Shop : MonoBehaviour
 
         infoNameText.text = item.itemName;
         infoTypeText.text = item.ItemType.ToString();
-        infoDescriptionText.text = item.Description;
+        infoDescriptionText.text = item.GetTooltipText(TooltipField.Description);
 
         infoIconImage.sprite = item.icon;
         infoIconImage.preserveAspect = true;

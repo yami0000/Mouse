@@ -9,20 +9,14 @@ using UnityEngine.UI;
 /// coroutine so its lifetime is independent of Inventory. Re-acquiring the same
 /// item bumps the count and resets the hold timer (see AddCount).
 ///
-/// Prefab hierarchy expected:
-///   Root            (layout-controlled by the container's VerticalLayoutGroup; fixed height)
-///     SlideRoot     (RectTransform that this script slides horizontally)
-///       Icon  (Image)
-///       Name  (TextMeshProUGUI)
-///       Count (TextMeshProUGUI)
-///
-/// We animate SlideRoot, NOT the root, so the layout group can stack toasts
-/// vertically without fighting the horizontal slide.
+/// UI_ItemNotification places the toast: it stacks them and glides the ones below
+/// up when one leaves. This script only animates SlideOffset (how far right of its
+/// slot the toast is), which the manager adds to the x, so the two never fight over
+/// the position.
 /// </summary>
 public class ItemToast : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private RectTransform slideRoot;
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI countText;
@@ -35,18 +29,24 @@ public class ItemToast : MonoBehaviour
 
     private ItemData data;
     private int count;
-    private float restingX;
     private bool shown;
     private Coroutine lifecycle;
-    private Action<ItemData> onDismiss;
+    private Action<ItemToast> onDismiss;
 
-    public void Initialize(ItemData item, int amount, Action<ItemData> dismissCallback)
+    public ItemData Data => data;
+    public RectTransform Rect => (RectTransform)transform;
+
+    /// <summary>How far right of its slot the toast is: hiddenOffsetX parked off screen, 0 shown.</summary>
+    public float SlideOffset { get; private set; }
+
+    /// <summary>How far down the stack the toast is right now. Eased towards its slot by UI_ItemNotification.</summary>
+    public float StackY { get; set; }
+
+    public void Initialize(ItemData item, int amount, Action<ItemToast> dismissCallback)
     {
         data = item;
         count = amount;
         onDismiss = dismissCallback;
-
-        restingX = slideRoot.anchoredPosition.x;
 
         itemImage.sprite = item.icon;
         itemImage.preserveAspect = true;
@@ -54,7 +54,7 @@ public class ItemToast : MonoBehaviour
         RefreshCount();
 
         // start parked off-screen to the right
-        slideRoot.anchoredPosition = new Vector2(restingX + hiddenOffsetX, slideRoot.anchoredPosition.y);
+        SlideOffset = hiddenOffsetX;
 
         RestartLifecycle();
     }
@@ -89,7 +89,7 @@ public class ItemToast : MonoBehaviour
     {
         if (!shown)
         {
-            yield return SlideTo(restingX, slideInDuration, EaseOutBack);
+            yield return SlideTo(0f, slideInDuration, EaseOutBack);
             shown = true;
         }
 
@@ -99,14 +99,14 @@ public class ItemToast : MonoBehaviour
 
     private IEnumerator ExitRoutine()
     {
-        yield return SlideTo(restingX + hiddenOffsetX, slideOutDuration, EaseInCubic);
-        onDismiss?.Invoke(data);
+        yield return SlideTo(hiddenOffsetX, slideOutDuration, EaseInCubic);
+        onDismiss?.Invoke(this);
         Destroy(gameObject);
     }
 
-    private IEnumerator SlideTo(float targetX, float duration, Func<float, float> ease)
+    private IEnumerator SlideTo(float targetOffset, float duration, Func<float, float> ease)
     {
-        float startX = slideRoot.anchoredPosition.x;
+        float startOffset = SlideOffset;
         float elapsed = 0f;
 
         // unscaled so notifications still animate while the game is paused (Time.timeScale = 0)
@@ -114,11 +114,10 @@ public class ItemToast : MonoBehaviour
         {
             elapsed += Time.unscaledDeltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
-            float x = Mathf.LerpUnclamped(startX, targetX, ease(t));
-            slideRoot.anchoredPosition = new Vector2(x, slideRoot.anchoredPosition.y);
+            SlideOffset = Mathf.LerpUnclamped(startOffset, targetOffset, ease(t));
             yield return null;
         }
-        slideRoot.anchoredPosition = new Vector2(targetX, slideRoot.anchoredPosition.y);
+        SlideOffset = targetOffset;
     }
 
     // slight overshoot on entry for the "bounce" feel

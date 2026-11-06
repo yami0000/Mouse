@@ -32,6 +32,15 @@ public enum AmmoHomingMode
     Homing      // coasts to a stop, then accelerates at a target
 }
 
+/// <summary>Why a bullet went away. Passed to PlayerAmmoEnded.</summary>
+public enum AmmoEndReason
+{
+    Expired,    // ran out of time (the weapon's Effective Time) or was removed by something else
+    Ground,     // touched Ground
+    Target,     // hit or healed something
+    Shield      // eaten by a shield
+}
+
 /// <summary>
 /// Anything spawned by a projectile that then deals damage of its own: an explosion, a
 /// lingering cloud, a shockwave. Implement this and whoever spawns it hands over the stats
@@ -133,6 +142,31 @@ public class AmmoBehaviour : MonoBehaviour
     /// </summary>
     public event System.Action<AmmoBehaviour, EntityStats> OnTargetAffected;
 
+    /// <summary>
+    /// Raised for every player bullet as it starts flying, before homing picks a target, so mods
+    /// can change how it behaves (see ModEffects).
+    /// </summary>
+    public static event System.Action<AmmoBehaviour> PlayerAmmoFired;
+
+    /// <summary>Raised when a player bullet damages an enemy, with the damage dealt (see ModEffects).</summary>
+    public static event System.Action<AmmoBehaviour, EntityStats, int> PlayerAmmoHit;
+
+    /// <summary>
+    /// Raised as a player bullet is destroyed, with why (see ModEffects). Not raised when the scene
+    /// unloads or the game quits.
+    /// </summary>
+    public static event System.Action<AmmoBehaviour, AmmoEndReason> PlayerAmmoEnded;
+
+    /// <summary>Element damage this one bullet adds to its hits, on top of the owner's (set by mods such as Rainbow).</summary>
+    [System.NonSerialized] public ElementBonus elementBonus;
+    /// <summary>The prefab this bullet was made from, when its spawner said (see MarkSource). Null otherwise.</summary>
+    [System.NonSerialized] public GameObject sourcePrefab;
+    /// <summary>How many times a mod has fired this bullet again after it ended (Armament Recycling).</summary>
+    [System.NonSerialized] public int recycledCount;
+
+    private AmmoEndReason? endReason;
+    private static bool quitting;
+
     protected Entity owner;
     protected EntityStats ownerStats;
 
@@ -147,11 +181,44 @@ public class AmmoBehaviour : MonoBehaviour
     private float chargeTime;
     private readonly HashSet<GameObject> alreadyAffected = new HashSet<GameObject>();
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void WatchQuitting()
+    {
+        quitting = false;
+        Application.quitting -= OnQuitting;
+        Application.quitting += OnQuitting;
+    }
+
+    private static void OnQuitting() => quitting = true;
+
+    /// <summary>Remembers which prefab _ammo was made from, so mods can fire the same bullet again.</summary>
+    public static void MarkSource(GameObject _ammo, GameObject _prefab)
+    {
+        if (_ammo != null && _ammo.TryGetComponent(out AmmoBehaviour ammo))
+            ammo.sourcePrefab = _prefab;
+    }
+
     protected virtual void Awake()
     {
         sp = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<Collider2D>();
+    }
+
+    /// <summary>Destroys the bullet, recording why for PlayerAmmoEnded. The first reason given wins.</summary>
+    public virtual void DestroyAmmo(AmmoEndReason _reason)
+    {
+        endReason ??= _reason;
+        Destroy(gameObject);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (side != AmmoSide.Player || quitting || !gameObject.scene.isLoaded)
+            return;
+
+        // Destroyed without a reason: the timed Destroy from Effective Time, or another script.
+        PlayerAmmoEnded?.Invoke(this, endReason ?? AmmoEndReason.Expired);
     }
 
     protected virtual void Start()
@@ -160,6 +227,9 @@ public class AmmoBehaviour : MonoBehaviour
         // its own owner up here. Enemy ammo is handed its owner by the enemy that fires it.
         if (side == AmmoSide.Player && ownerStats == null)
             Initialize(PlayerManager.Instance.player);
+
+        if (side == AmmoSide.Player)
+            PlayerAmmoFired?.Invoke(this);
 
         if (rb != null)
         {
@@ -354,6 +424,9 @@ public class AmmoBehaviour : MonoBehaviour
 
             finalDirection = ((Vector2)transform.position - lastFramePosition).normalized;
             PlayImpactFX(finalDirection, damageDealt);
+
+            if (side == AmmoSide.Player)
+                PlayerAmmoHit?.Invoke(this, target, damageDealt);
         }
 
         SpawnImpactPrefab(collision.transform.position);
@@ -361,7 +434,7 @@ public class AmmoBehaviour : MonoBehaviour
         OnTargetAffected?.Invoke(this, target);
 
         if (destroyOnHit)
-            Destroy(gameObject);
+            DestroyAmmo(AmmoEndReason.Target);
 
         return true;
     }
@@ -381,7 +454,7 @@ public class AmmoBehaviour : MonoBehaviour
         OnTargetAffected?.Invoke(this, target);
 
         if (destroyOnHit)
-            Destroy(gameObject);
+            DestroyAmmo(AmmoEndReason.Target);
 
         return true;
     }
@@ -406,7 +479,7 @@ public class AmmoBehaviour : MonoBehaviour
                 break;
         }
 
-        return ownerStats.DoDamage(_target, damageMultiplier);
+        return ownerStats.DoDamage(_target, damageMultiplier, elementBonus);
     }
 
     protected virtual void OnTouchedGround(Vector2 _contactPoint)
@@ -414,14 +487,14 @@ public class AmmoBehaviour : MonoBehaviour
         if (splitOnGround)
         {
             Split(_contactPoint);
-            Destroy(gameObject);
+            DestroyAmmo(AmmoEndReason.Ground);
             return;
         }
 
         if (destroyOnGround)
         {
             SpawnImpactPrefab(transform.position);
-            Destroy(gameObject);
+            DestroyAmmo(AmmoEndReason.Ground);
         }
     }
 
@@ -475,7 +548,7 @@ public class AmmoBehaviour : MonoBehaviour
     /// <summary>The player's shield eats the shot, and refunds a little health with Metabolism.</summary>
     protected virtual void OnBlockedByShield()
     {
-        if (SK.Instance != null && SK.Instance.Skill != null && SK.Instance.Skill.Metabolism)
+        if (Skill.Instance != null && Skill.Instance.Metabolism)
         {
             EntityStats playerStats = PlayerManager.Instance.player.stats;
 
@@ -485,7 +558,7 @@ public class AmmoBehaviour : MonoBehaviour
             playerStats.CurrentHP = Mathf.Clamp(playerStats.CurrentHP, -100, playerStats.GetMaxHealth());
         }
 
-        Destroy(gameObject);
+        DestroyAmmo(AmmoEndReason.Shield);
     }
 
     protected virtual void PlayImpactFX(Vector2 _lastVelocity, int _damage)

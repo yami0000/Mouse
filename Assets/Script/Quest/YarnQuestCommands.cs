@@ -15,9 +15,10 @@ public class YarnQuestCommands : MonoBehaviour
     {
         runner.AddCommandHandler<string>("accept_quest", AcceptQuest);
         runner.AddCommandHandler<string>("progress_objective", ProgressObjective);
-        runner.AddCommandHandler<string>("get_item", GetItem);
+        runner.AddCommandHandler<string, int>("get_item", GetItem);
         runner.AddCommandHandler<string, int>("remove_item", RemoveItem);
         runner.AddCommandHandler<string>("open_shop", OpenShop);
+        runner.AddCommandHandler<string>("open_ui", OpenUI);
         runner.AddCommandHandler<int, string>("change_scene", ChangeScene);
 
         runner.AddFunction<string, int, bool>("has_item", HasItem);
@@ -43,7 +44,8 @@ public class YarnQuestCommands : MonoBehaviour
         QuestManager.Instance.ProgressTalkObjective(dialogueKey);
     }
 
-    void GetItem(string itemID)
+    // <<get_item "0002">> gives one, <<get_item "0002" 30>> gives 30 (one notification showing x30).
+    void GetItem(string itemID, int amount = 1)
     {
         ItemData item = ItemDatabase.Instance.GetItem(itemID);
 
@@ -53,7 +55,13 @@ public class YarnQuestCommands : MonoBehaviour
             return;
         }
 
-        Inventory.Instance.AddItem(item);
+        if (amount <= 0)
+        {
+            Debug.LogWarning($"get_item '{itemID}': amount must be at least 1 (got {amount}).");
+            return;
+        }
+
+        Inventory.Instance.AddItem(item, amount);
     }
 
     void RemoveItem(string itemID, int amount = 1)
@@ -76,17 +84,35 @@ public class YarnQuestCommands : MonoBehaviour
             Inventory.Instance.RemoveItem(item);
     }
 
-    void OpenShop(string merchantID)
+    // Returns IEnumerator so Yarn waits here until the shop is closed,
+    // then continues with the lines written after <<open_shop>>.
+    IEnumerator OpenShop(string merchantID)
     {
         MerchantStock merchant = MerchantStock.Find(merchantID);
 
         if (merchant == null)
         {
             Debug.LogError("Merchant not found: " + merchantID);
-            return;
+            yield break;
         }
 
         merchant.OpenShop();
+        yield return new WaitWhile(() => UI_Shop.Instance.IsOpen);
+    }
+    
+    // Same as OpenShop: dialogue waits until the UI page is closed.
+    IEnumerator OpenUI(string uiID)
+    {
+        UI_Active ui = UI_Active.Find(uiID);
+
+        if (ui == null)
+        {
+            Debug.LogError("UI not found: " + uiID);
+            yield break;
+        }
+
+        ui.OpenMenu();
+        yield return new WaitWhile(() => ui.IsOpen);
     }
 
     // Counts the item in both the inventory and the stash

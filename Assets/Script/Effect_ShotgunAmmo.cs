@@ -26,6 +26,7 @@ public class Effect_ShotgunAmmo : ItemEffect
 
             GameObject Ammo = Instantiate(AmmoPrefab, muzzle, Quaternion.identity);
             Ammo.GetComponent<Rigidbody2D>().velocity = direction.normalized * data.xVelocity;
+            AmmoBehaviour.MarkSource(Ammo, AmmoPrefab);
 
             Destroy(Ammo, data.effectiveTime);
 

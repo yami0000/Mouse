@@ -50,7 +50,6 @@ public class Player : Entity
     [SerializeField] Collider2D shieldcollider;
 
     public float Timer;
-    [HideInInspector] public float SkillTimer;
 
     [HideInInspector] public float xInput;
     [HideInInspector] public float yInput;
@@ -58,7 +57,6 @@ public class Player : Entity
 
     [Header("Reaper")]
     [HideInInspector] public bool UsingSkill;
-    private bool HaveUsedSkill;
 
     [Header("Double Jump")]
     [HideInInspector] public bool CanDoubleJump;
@@ -141,7 +139,6 @@ public class Player : Entity
         defaultMoveSpeed = movespeed;
         defaultDashSpeed = dashspeed;
         shieldcollider.enabled = false;
-        HaveUsedSkill = false;
     }
 
 
@@ -201,20 +198,10 @@ public class Player : Entity
             yInput = Input.GetAxisRaw("Vertical");
         }
 
-        if (Input.GetMouseButtonDown(1))
-        { if (SK.Instance.Skill.EquippedSkill == "Reaper")
-                if (CanUseSkill() && !HaveUsedSkill)
-                {
-                    Debug.Log("Reaper");
-                    int FirePowerPlus = (int)(stats.FirePower.GetValue() * 0.25f);
-                    HaveUsedSkill = true;
-                    StartCoroutine(Reaper(FirePowerPlus));
-                }
-        }
+        HandleActiveSkills();
 
         StateMachine.currentState.Update();
 
-        SkillTimer -= Time.deltaTime;
         Timer -= Time.deltaTime;
 
         CheckForDashInput();
@@ -243,27 +230,53 @@ public class Player : Entity
         }
     }
     #region Skill System
-    IEnumerator Reaper(int firepowerplus)
+    // Runs with the player, so like everything else here it stops while a menu is open:
+    // cooldowns wait, and picking a new trigger key can't fire the skill.
+    private void HandleActiveSkills()
+    {
+        Skill skill = Skill.Instance;
+        if (skill == null) return;
+
+        skill.TickCooldowns(Time.deltaTime);
+
+        for (int i = 0; i < skill.ActiveSkills.Count; i++)
+        {
+            ActiveSkillEntry entry = skill.ActiveSkills[i];
+
+            if (entry.key != KeyCode.None && Input.GetKeyDown(entry.key) && entry.IsReady)
+                UseActiveSkill(entry);
+        }
+    }
+
+    // What each active skill does. Its cooldown starts when it ends, not here.
+    private void UseActiveSkill(ActiveSkillEntry _entry)
+    {
+        switch (_entry.id)
+        {
+            case ActiveSkillId.ProtectiveShield:
+                if (StateMachine.currentState is PlayerGroundedState)
+                    StateMachine.ChangeState(shieldState);
+                break;
+
+            case ActiveSkillId.Reaper:
+                if (!UsingSkill)
+                    StartCoroutine(Reaper((int)(stats.Damage.GetValue() * 0.25f)));
+                break;
+        }
+    }
+
+    IEnumerator Reaper(int damageplus)
     {
         UsingSkill = true;
 
-        stats.FirePower.AddModifier(firepowerplus);
+        stats.Damage.AddModifier(damageplus);
 
         yield return new WaitForSeconds(10);
 
         UsingSkill = false;
-        HaveUsedSkill = false;
-        stats.FirePower.RemoveModifier(firepowerplus);
-        SkillTimer = SK.Instance.Skill.Reaper;
+        stats.Damage.RemoveModifier(damageplus);
+        Skill.Instance.StartCooldown(ActiveSkillId.Reaper);
     }//Skill "Reaper"
-    public bool CanUseSkill()
-    {
-        if (SkillTimer <= 0)
-            return true;
-        else
-            return false;
-
-    }
     public void shield()
     {
         StartCoroutine(Shield());
@@ -274,11 +287,11 @@ public class Player : Entity
         yield return new WaitForSeconds(0.15f);
 
 
-        float shieldTime = SK.Instance.Skill.OverCharging ? 0.8f : 0.5f;
+        float shieldTime = Skill.Instance.OverCharging ? 0.8f : 0.5f;
 
         while (shieldTime >= 0)
         {
-            if (SK.Instance.Skill.OverCharging)
+            if (Skill.Instance.OverCharging)
                 anim.speed = 0.625f;
 
             shieldTime -= Time.deltaTime;
@@ -330,7 +343,8 @@ public class Player : Entity
             Exp = EX;
             Level += 1;
             ExpUntilUP = Level * 100;
-            SK.Instance.Skill.SP += 1;
+            if (Skill.Instance != null) // OnValidate also runs outside play mode
+                Skill.Instance.SP += 1;
 
         }
     }

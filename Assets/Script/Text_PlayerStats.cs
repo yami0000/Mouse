@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Text_PlayerStats : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI Health;
-    [SerializeField] private TextMeshProUGUI FirePower;
+    [FormerlySerializedAs("FirePower")]
+    [SerializeField] private TextMeshProUGUI Damage;
     [SerializeField] private TextMeshProUGUI Armor;
     [SerializeField] private TextMeshProUGUI CritChance;
     [SerializeField] private TextMeshProUGUI CritDMG;
@@ -19,7 +21,7 @@ public class Text_PlayerStats : MonoBehaviour
     {
         PlayerStats player = PlayerManager.Instance.player.GetComponent<PlayerStats>();
         Health.text = player.CurrentHP.ToString() + "/" + player.GetMaxHealth();
-        FirePower.text = player.FirePower.GetValue().ToString();
+        Damage.text = player.Damage.GetValue().ToString();
         Armor.text = player.Armor.GetValue().ToString();
         CritChance.text = player.CriticalChance.GetValue().ToString() + "%";
         CritDMG.text = player.CriticalDamage.GetValue().ToString() + "%";

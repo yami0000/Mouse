@@ -20,10 +20,7 @@ MonoBehaviour:
   itemEffects: []
   equipmentType: 1
   equipmentEffects: []
-  FirePower: 0
-  Agility: 0
   Intelligence: 0
-  Vitality: 0
   Damage: 0
   CriticalChance: 0
   CriticalDamage: 0

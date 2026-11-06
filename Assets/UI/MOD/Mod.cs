@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum _Type
@@ -10,11 +11,10 @@ special
 // Created from Assets > Create > Data Asset... (see Editor/DataAssetMenu.cs).
 public class Mod : ItemData
 {
+    // Set by OnValidate: special when the mod has Effects. Hidden in the Inspector (see ModEditor).
     public _Type type;
 
     [Header("Stat bonuses from this Mod")]
-    public int FirePower;
-    public int Vitality;
     public int Damage;
     public int CriticalChance;
     public int CriticalDamage;
@@ -39,13 +39,56 @@ public class Mod : ItemData
     [Tooltip("Seconds added to the weapon's Effective Time.")]
     public float effectiveTime;
 
+    [Header("Special Effects")]
+    [Tooltip("Mechanisms this mod adds to the weapon it's installed on. Press +, then pick the type from the " +
+             "dropdown on the right; its settings open below it. Any effect makes the mod Special.")]
+    [SerializeReference] public List<ModEffect> effects = new List<ModEffect>();
 
-    public void ApplyModEffect(ItemData_Equipment equip)
+    private void OnValidate()
     {
-        if (itemEffects == null) return;
+        // A mod is always a Mod; the Inspector hides the field (see ModEditor).
+        ItemType = ItemType.Mods;
 
-        foreach (var effect in itemEffects)
-            effect.ExecuteModEffect(PlayerManager.Instance.player.transform, equip);
+        type = _Type.common;
+        if (effects != null)
+            foreach (ModEffect effect in effects)
+                if (effect != null)
+                    type = _Type.special;
+    }
+
+    public override string GetTooltipText(TooltipField _field)
+    {
+        if (_field == TooltipField.Type)
+            return $"Mod  {type}";
+
+        return base.GetTooltipText(_field);
+    }
+
+    public override bool TryGetTooltipNumber(TooltipField _field, out float _value)
+    {
+        switch (_field)
+        {
+            case TooltipField.Damage: _value = Damage; return true;
+            case TooltipField.CriticalChance: _value = CriticalChance; return true;
+            case TooltipField.CriticalDamage: _value = CriticalDamage; return true;
+            case TooltipField.MaxHP: _value = MaxHP; return true;
+            case TooltipField.Armor: _value = Armor; return true;
+            case TooltipField.FireResistance: _value = FireResistance; return true;
+            case TooltipField.FrostResistance: _value = FrostResistance; return true;
+            case TooltipField.LightningResistance: _value = LightingResistance; return true;
+            case TooltipField.PoisonResistance: _value = PoisonResistance; return true;
+            case TooltipField.FireDamage: _value = FireDamage; return true;
+            case TooltipField.FrostDamage: _value = FrostDamage; return true;
+            case TooltipField.PoisonDamage: _value = PoisonDamage; return true;
+            case TooltipField.LightningDamage: _value = LightningDamage; return true;
+
+            // Weapon handling, as ApplyWeaponModifiers changes it. 0 = unchanged.
+            case TooltipField.BulletSpeedMultiplier: _value = xVelocity; return true;
+            case TooltipField.ShotDelayMultiplier: _value = firingRate; return true;
+            case TooltipField.BulletLifetimeBonus: _value = effectiveTime; return true;
+
+            default: return base.TryGetTooltipNumber(_field, out _value);
+        }
     }
 
     public void AddModifiers(PlayerStats playerStats) => ApplyModifiers(playerStats, true);
@@ -59,9 +102,6 @@ public class Mod : ItemData
             if (_add) _stat.AddModifier(_value);
             else _stat.RemoveModifier(_value);
         }
-
-        Apply(playerStats.FirePower, FirePower);
-        Apply(playerStats.Vitality, Vitality);
 
         Apply(playerStats.Damage, Damage);
         Apply(playerStats.CriticalChance, CriticalChance);

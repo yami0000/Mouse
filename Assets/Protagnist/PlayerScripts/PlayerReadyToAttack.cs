@@ -122,23 +122,10 @@ public class PlayerReadyToAttack : PlayerState
         player.ApplyRecoil(aim, weaponData.recoil);
 
         // One fire rate for every weapon, however it shoots. Reaper shortens the gap while active.
-        bool reaper = SK.Instance.Skill.EquippedSkill == "Reaper" && player.UsingSkill;
+        bool reaper = player.UsingSkill;
         player.Timer = reaper ? weaponData.firingRate / 1.4f : weaponData.firingRate;//如果技能发动，子弹发射时间间隙/1.4
     }
 
-    public void _TriggerModEffect(ItemData_Equipment equip)
-    {
-        if (equip.Mods != null && equip.Mods.Any(m => m?.type == _Type.special))
-        {
-            // At least one mod is "Special", trigger the effects
-            foreach (var mod in equip.Mods)
-            {
-                if (mod?.type == _Type.special)
-                {
-                    mod.ApplyModEffect(equip);
-                }
-            }
-        } 
-
-    }
+    // Lets the installed mods' effects react to the shot (ModEffect.OnShot).
+    public void _TriggerModEffect(ItemData_Equipment equip) => ModEffects.Shot(equip);
 }

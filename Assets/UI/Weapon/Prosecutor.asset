@@ -26,10 +26,7 @@ MonoBehaviour:
   equipmentEffects: []
   Mods: []
   modSlotCount: 0
-  sFirePower: 250
-  Agility: 0
-  Vitality: 0
-  Damage: 0
+  Damage: 250
   CriticalChance: 0
   CriticalDamage: 0
   MaxHP: 0
@@ -69,7 +66,6 @@ MonoBehaviour:
     followWeapon: 0
     lifetime: 0
     turnParticles: 1
-  FirePower: 250
   Armor: 0
   FireDamage: 0
   FrostDamage: 0

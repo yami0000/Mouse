@@ -28,7 +28,7 @@ public class NPCstate
     public virtual void Enter()
     {
         triggerCalled = false;
-        npc.anim.SetBool(animBoolName, true);
+        npc.anim?.SetBool(animBoolName, true);
         rb = npc.rb;
  
 

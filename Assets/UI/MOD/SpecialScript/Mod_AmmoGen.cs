@@ -1,33 +1,40 @@
+using System;
 using UnityEngine;
 
-
-// Every Shot Count To Trigger shots, fires an extra bullet (and any extra effects) from the modded weapon.
-public class Mod_AmmoGen : ItemEffect
+/// <summary>Every Shot Count To Trigger shots, fires an extra bullet (and any extra effects) from the modded weapon.</summary>
+[Serializable]
+public class Mod_AmmoGen : ModEffect
 {
-    private int shotCount = 0;
-    [SerializeField]private int shotCountToTrigger;
+    [Min(1)]
+    [SerializeField] private int shotCountToTrigger = 3;
 
     [Tooltip("The extra bullet, fired from the weapon's muzzle along the aim with its X Velocity and Effective Time.")]
     [SerializeField] private GameObject ammoPrefab;
 
     [Tooltip("Extra effects fired alongside it, e.g. a Shotgun spread.")]
     public ItemEffect[] equipmentEffects;
-    public override void ExecuteModEffect(Transform _position,ItemData_Equipment equip)
+
+    private class Counter
     {
-        base.ExecuteModEffect(_position,equip);
-        shotCount++;
-
-        if (shotCount >= shotCountToTrigger)
-        {
-            equip.FireAmmo(ammoPrefab, PlayerWeaponHolder.Instance.WeaponTransform);
-
-            foreach (var item in equipmentEffects)
-                item.ExecuteWeaponEffect(_position,equip);
-
-            shotCount = 0;
-        }
-
+        public int shots;
     }
 
+    public override void OnShot(ItemData_Equipment _weapon)
+    {
+        Counter counter = StateFor<Counter>(_weapon);
+        counter.shots++;
 
+        if (counter.shots < shotCountToTrigger) return;
+
+        counter.shots = 0;
+
+        _weapon.FireAmmo(ammoPrefab, PlayerWeaponHolder.Instance.WeaponTransform);
+
+        if (equipmentEffects == null) return;
+
+        Transform player = PlayerManager.Instance.player.transform;
+        foreach (ItemEffect effect in equipmentEffects)
+            if (effect != null)
+                effect.ExecuteWeaponEffect(player, _weapon);
+    }
 }

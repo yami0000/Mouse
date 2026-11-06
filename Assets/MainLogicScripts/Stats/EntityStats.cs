@@ -2,19 +2,27 @@
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
+/// <summary>Element damage a single hit carries on top of the attacker's own, e.g. Rainbow's on one bullet.</summary>
+[System.Serializable]
+public struct ElementBonus
+{
+    public int fire;
+    public int frost;
+    public int poison;
+    public int lightning;
+}
+
 public class EntityStats : MonoBehaviour
 {
     private Effects fx;
      public int absorbedDAMAGE; 
 
     [Header("Damage")]
-    public Stats FirePower;
     public Stats Damage;
     public Stats CriticalChance;
     public Stats CriticalDamage;
 
     [Header("Defensive Stats")]
-    public Stats Vitality;
     public Stats MaxHP;
     public Stats Armor;
     public Stats FireResistance;
@@ -108,10 +116,14 @@ public class EntityStats : MonoBehaviour
    
 
 
-    public virtual int DoDamage(EntityStats _targetStats, float damageMultiplier = 1.0f)
+    /// <summary>
+    /// A hit from these stats: Damage times damageMultiplier, crit, the target's armor, then the elements.
+    /// _bonus is element damage this one hit carries on top, e.g. from a mod on the bullet.
+    /// </summary>
+    public virtual int DoDamage(EntityStats _targetStats, float damageMultiplier = 1.0f, ElementBonus _bonus = default)
     {
-       
-            int baseDamage = Damage.GetValue() + FirePower.GetValue();
+
+            int baseDamage = Damage.GetValue();
 
             baseDamage = (int)(baseDamage * damageMultiplier);
 
@@ -124,11 +136,26 @@ public class EntityStats : MonoBehaviour
             Debug.Log($"Final Damage: {finalDamage}, Absorbed: {absorbedDamage}");
 
             _targetStats.TakeDamage(finalDamage);
-            DoElementDamage(_targetStats);
+            DoElementDamage(_targetStats, _bonus);
 
             return finalDamage;
-       
 
+
+    }
+
+    /// <summary>
+    /// A set amount of damage, such as a mod's radiation or shockwave: only the target's armor takes
+    /// anything off. No crit and no elements. Returns the damage dealt.
+    /// </summary>
+    public virtual int DoFixedDamage(EntityStats _targetStats, int _damage)
+    {
+        if (_targetStats == null || _damage <= 0)
+            return 0;
+
+        int finalDamage = ArmorSystem(_targetStats, _damage, out _);
+        _targetStats.TakeDamage(finalDamage);
+
+        return finalDamage;
     }
 
     public virtual void Heal(EntityStats _targetStats) 
@@ -162,19 +189,19 @@ public class EntityStats : MonoBehaviour
         poisonMeter = 0;
     }
 
-    public virtual void DoElementDamage(EntityStats _targetStats)
+    public virtual void DoElementDamage(EntityStats _targetStats, ElementBonus _bonus = default)
     {
-        int _fireDamage = FireDamage.GetValue();
-        int _frostDamage = FrostDamage.GetValue();
-        int _lightingDamage = LightningDamage.GetValue();
-        int _poisionDamage = PoisonDamage.GetValue();
+        int _fireDamage = FireDamage.GetValue() + _bonus.fire;
+        int _frostDamage = FrostDamage.GetValue() + _bonus.frost;
+        int _lightingDamage = LightningDamage.GetValue() + _bonus.lightning;
+        int _poisionDamage = PoisonDamage.GetValue() + _bonus.poison;
 
          
         int totalElementDamage = CheckTargetFireResistance(_targetStats, _fireDamage)+CheckTargetFrostResistance(_targetStats, _frostDamage) + CheckTargetLightingResistance(_targetStats, _lightingDamage) + CheckTargetPoisonResistance(_targetStats,_poisionDamage);
 
 
         _targetStats.TakeDamage(totalElementDamage);
-        _targetStats.ApplyElementalBuildup(_targetStats,FireDamage.GetValue(), FrostDamage.GetValue(), LightningDamage.GetValue(), PoisonDamage.GetValue());
+        _targetStats.ApplyElementalBuildup(_targetStats, _fireDamage, _frostDamage, _lightingDamage, _poisionDamage);
 
          
         _targetStats.SetIgniteDamage(Mathf.RoundToInt(_fireDamage * .1f));
@@ -346,7 +373,7 @@ public class EntityStats : MonoBehaviour
 
     public int GetMaxHealth()
     {
-        return MaxHP.GetValue() + Vitality.GetValue() * 5; 
+        return MaxHP.GetValue();
 
     }
 }

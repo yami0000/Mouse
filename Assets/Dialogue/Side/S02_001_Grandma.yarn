@@ -1,0 +1,42 @@
+title: side_02_001_01
+---
+
+<<if $player_spoke_to_grandma>>
+    Grandma: Hello! Little mouse! #line:0e01903 
+    Grandma: Interested in my wares? #line:09c762a 
+        -> Let me have a look... #line:0650d70 
+            Grandma:Please have a look! #line:04a0946 
+            <<open_shop "Mary">>
+        -> Maybe next time... #line:0d123a0 
+            Grandma:Save travel,little mouse! #line:01c384a 
+    <<if not $side_02_001_accepted>>
+        Grandma: ...little mouse,you are a mammal,you must have been to the upper level right? #line:0db00c0 
+        Grandma: Can you bring me some FLOWERS? #line:00fad50 
+        Grandma: You see, underground has no sun,all we can grow is mushrooms. #line:099f3c3 
+        Grandma: I can give something valuable to you, if you can bring me some FLOWERS. #line:03523d3 
+        <<accept_quest "side_02_001">>
+        <<set $side_02_001_accepted = true>>
+        <<jump side_02_001_02>>
+    <<endif>>
+
+<<else>>
+    Grandma: Oh...It's been a while since I saw a mammal... #line:070c734 
+    <<set $player_spoke_to_grandma = true>>
+    Grandma: Little mouse, do you want to buy some mushroom? #line:0d0562c 
+        -> Let me have a look... #line:0502793 
+            Grandma:Please have a look! #line:015319e 
+            <<open_shop "Mary">>
+        -> Maybe next time... #line:0cb70fb 
+            Grandma:Save travel,little mouse! #line:012eb7a 
+<<endif>>
+===
+
+title: side_02_001_02
+---
+Rigel:I have some Lilies in my shop,let me take some for grandma.
+===
+
+title: side_02_001_03
+---
+Rigel:Let's bring this to grandma.
+===

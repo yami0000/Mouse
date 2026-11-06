@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d53e8582814050033e3ae5082b01b1, type: 3}
+  m_Name: Character Database
+  m_EditorClassIdentifier: 
+  characters:
+  - characterName: Rigel
+    portrait: {fileID: -6053841060726746562, guid: cf048d31d1053ee42aecf3b08ffb53c2, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Captain
+    portrait: {fileID: 963498483747758163, guid: a7d3f35cf9afdbe4caf1e0d771e3369c, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Bear
+    portrait: {fileID: 3181587230368130581, guid: aa4dc3f12a481c14a910cfd3fc6f57af, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Grandma
+    portrait: {fileID: 21300000, guid: 5143cc2b3bce6f54399640c71810a821, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Raccoon
+    portrait: {fileID: 21300000, guid: 0525f4a7abb512b44a7f5e809697df71, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Worker
+    portrait: {fileID: 21300000, guid: 8c5573758a9e37d469d5010492e92e39, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Sif
+    portrait: {fileID: 1127102070073755556, guid: 6f7bd21006dc97f49a4f5bf195ea3cc2, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Mic
+    portrait: {fileID: -7140769347374734817, guid: 722c9ac6f05473f4187012bcaf5765f8, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Lion
+    portrait: {fileID: -4209461767521648114, guid: 37b9c80b8bae5d94ba1b07d09a3724f3, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Zig
+    portrait: {fileID: -91434257679840430, guid: c419a97973f8678478a2d7b0a8fe720b, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Zag
+    portrait: {fileID: -4209461767521648114, guid: 2b026f3d5f86d17429a43871ff903b81, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: CinderTail
+    portrait: {fileID: 7454471848843852592, guid: 85dfb6bd7ce6f4642815f42b32bff378, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Meissa
+    portrait: {fileID: -1648555420839537733, guid: da655d7ec60b5634a86be4df525d2502, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Soilder A
+    portrait: {fileID: 21300000, guid: f77ceb8e3c1cdf643ace76fbd41f7f1f, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Soilder B
+    portrait: {fileID: 21300000, guid: 682729f66f156fd4d8ca2b9d19cdc789, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Simon
+    portrait: {fileID: 21300000, guid: 56bee9d94b0d4b64da1473b7460fc45d, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Police
+    portrait: {fileID: 21300000, guid: 3703a6152d3ade0448d07e944c1b4aaf, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Cole
+    portrait: {fileID: 21300000, guid: b93eb32b7803be54897c31789dfa478d, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: ???
+    portrait: {fileID: 2984615224879501125, guid: 4512bcd80d17be247adb633cd5fd343c, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Receptionist
+    portrait: {fileID: 21300000, guid: 04905ed690ce602429b6845fc68587e8, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Gabriel
+    portrait: {fileID: 4276463694950988455, guid: 247b2267aa546634cafbfb15bdb750fe, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: King
+    portrait: {fileID: 21300000, guid: ce2fda67de21dfd4b9ca6c9d8e753c1f, type: 3}
+    portraitAnimator: {fileID: 0}
+  - characterName: Athena
+    portrait: {fileID: 0}
+    portraitAnimator: {fileID: 0}
+  - characterName: Simon's Mom
+    portrait: {fileID: 0}
+    portraitAnimator: {fileID: 0}

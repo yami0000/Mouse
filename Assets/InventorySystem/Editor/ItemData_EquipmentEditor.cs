@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEditor;
 
 /// <summary>
-/// Inspector for equipment. Weapon settings only show on weapons, and the stats worked out
+/// Inspector for equipment. Item Type is hidden (OnValidate always sets it to Equipment), weapon
+/// settings only show on weapons, and the stats worked out
 /// from Level in OnValidate are greyed out, since anything typed there is overwritten.
 /// Every other field draws as usual, so new fields need no change here.
 /// </summary>
@@ -19,7 +20,7 @@ public class ItemData_EquipmentEditor : Editor
     // Recomputed from the s-prefixed base stats and Level on every change.
     private static readonly HashSet<string> derived = new HashSet<string>
     {
-        "FirePower", "FireDamage", "FrostDamage", "PoisonDamage", "LightningDamage",
+        "FireDamage", "FrostDamage", "PoisonDamage", "LightningDamage",
     };
 
     public override void OnInspectorGUI()
@@ -36,6 +37,9 @@ public class ItemData_EquipmentEditor : Editor
         while (property.NextVisible(enterChildren))
         {
             enterChildren = false;
+
+            if (property.name == "ItemType" || property.name == "cyberwareType" || property.name == "cyberwareSkills")
+                continue;
 
             if (!isWeapon && weaponOnly.Contains(property.name))
                 continue;

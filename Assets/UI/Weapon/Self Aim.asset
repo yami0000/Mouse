@@ -29,10 +29,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   modSlotCount: 3
-  sFirePower: 10
-  Agility: 0
-  Vitality: 0
-  Damage: 0
+  Damage: 15
   CriticalChance: 5
   CriticalDamage: 125
   MaxHP: 0
@@ -43,7 +40,7 @@ MonoBehaviour:
   PoisonResistance: 0
   sFireDamage: 0
   sFrostDamage: 0
-  sPoisonDamage: 0
+  sPoisonDamage: 19
   sLightningDamage: 0
   ammoPrefab: {fileID: 40656258184260550, guid: 72a109408e6c32b48845a2d6a23e8e77, type: 3}
   ammoOffset: {x: 3.8, y: 1.7}
@@ -57,15 +54,15 @@ MonoBehaviour:
     horizontalOnly: 1
   fireEffects:
   - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    disabled: 0
     offset: {x: 3.8, y: 1.7}
     rotation: -90
     scale: {x: 1, y: 1, z: 1}
     followWeapon: 0
     lifetime: 0
     turnParticles: 1
-  FirePower: 15
-  Armor: 0
+  Armor: 7
   FireDamage: 0
   FrostDamage: 0
-  PoisonDamage: 0
+  PoisonDamage: 23
   LightningDamage: 0

@@ -56,7 +56,7 @@ public class PlayerJumpState : PlayerReadyToAttack
         if (player.xInput != 0)
             player.Setvelocity(player.movespeed * 0.8f * player.xInput, rb.velocity.y);
 
-        if (SK.Instance.Skill.DoubleJump)
+        if (Skill.Instance.DoubleJump)
             if (Input.GetKeyDown(KeyCode.Space) && player.CanDoubleJump)
             {
                 player.CanDoubleJump = false;

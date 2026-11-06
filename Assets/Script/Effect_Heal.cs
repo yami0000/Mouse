@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 
 
 public class Effect_Heal : ItemEffect
 {
     [SerializeField] int HealAmount;
-    [SerializeField] int FirePowerUP;
+    [FormerlySerializedAs("FirePowerUP")]
+    [SerializeField] int DamageUP;
     [SerializeField] int ArmorUP;
     [SerializeField] int CritChanceUP;
     [SerializeField] int CritDamageUP;
@@ -18,7 +20,7 @@ public class Effect_Heal : ItemEffect
         PlayerStats player = PlayerManager.Instance.player.GetComponent<PlayerStats>();
         player.HealEntity(HealAmount);
 
-        player.FirePower.AddModifier(FirePowerUP); 
+        player.Damage.AddModifier(DamageUP); 
         player.Armor.AddModifier(ArmorUP);
         player.CriticalChance.AddModifier(CritChanceUP);
         player.CriticalDamage.AddModifier(CritDamageUP);    

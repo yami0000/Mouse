@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
+  m_Name: LaserPointer
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Laser Pointer
+  ItemType: 3
+  icon: {fileID: 3373080179550594614, guid: f94c21a936cc0254a9da97e6cbae4180, type: 3}
+  price: 0
+  Description: A laser sight shows where your bullets will fly, up to {LaserPointer.maxDistance}
+    units ahead.
+  itemEffects: []
+  passiveEffects: []
+  type: 1
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  Armor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0
+  xVelocity: 0
+  firingRate: 0
+  effectiveTime: 0
+  effects:
+  - rid: 1000
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: Mod_LaserPointer, ns: , asm: Assembly-CSharp}
+      data:
+        stopAt:
+          serializedVersion: 2
+          m_Bits: 0
+        stopAtTriggers: 0
+        maxDistance: 12
+        width: 0.04
+        startColor: {r: 1, g: 0.15, b: 0.15, a: 0.9}
+        endColor: {r: 1, g: 0.15, b: 0.15, a: 0.15294118}
+        material: {fileID: 0}
+        sortingLayer: ForeGround
+        sortingOrder: 0
+        endPrefab: {fileID: 0}

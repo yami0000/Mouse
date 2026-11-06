@@ -31,10 +31,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   modSlotCount: 5
-  sFirePower: 30
-  Agility: 0
-  Vitality: 0
-  Damage: 0
+  Damage: 35
   CriticalChance: 10
   CriticalDamage: 150
   MaxHP: 0
@@ -65,7 +62,6 @@ MonoBehaviour:
     followWeapon: 0
     lifetime: 0
     turnParticles: 1
-  FirePower: 35
   Armor: 0
   FireDamage: 9
   FrostDamage: 0

@@ -1,52 +1,22 @@
-using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class UI_ModInventorySlot : MonoBehaviour, IPointerDownHandler
+/// <summary>
+/// A mod the player owns, in the upgrade screen. Drag it onto one of the open equipment's mod
+/// slots (UI_modsEquipped) to install it there, or click it to install it in the first free one.
+/// Dropping an installed mod here takes it off the equipment.
+/// </summary>
+public class UI_ModInventorySlot : UpgradeSlotBase
 {
-    [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI stackText; // optional
-
-    public InventoryItem item { get; private set; }
-
-    public void CleanUpSlot()
+    public override void OnPointerClick(PointerEventData _event)
     {
-        item = null;
-        icon.sprite = null;
-        icon.color = Color.clear;
-        if (stackText != null) stackText.text = "";
+        if (Item?.data is Mod mod)
+            UpgradeSystem.Instance.InstallMod(mod);
     }
 
-    public void UpdateSlot(InventoryItem newItem)
+    protected override bool Receive(UI_DragSlot _from)
     {
-        item = newItem;
+        if (_from is not UI_modsEquipped installed) return false;
 
-        if (item == null || item.data == null)
-        {
-            CleanUpSlot();
-            return;
-        }
-
-        icon.color = Color.white;
-        icon.sprite = item.data.icon;
-
-        if (stackText != null)
-            stackText.text = item.stackSize > 1 ? item.stackSize.ToString() : "";
-    }
-
-    // Clicking an owned mod installs it on the equipment open in the upgrade panel.
-    public virtual void OnPointerDown(PointerEventData eventData)
-    {
-        if (item?.data is not Mod mod) return;
-
-        UpgradePanel panel = UpgradePanel.Instance;
-        if (panel == null || panel.Equipment == null) return;
-
-        if (!panel.Equipment.InstallMod(mod)) return; // applies its stats and weapon handling
-
-        Inventory.Instance.RemoveItem(mod);
-        UpgradeSystem.Instance.UpdateModSlot(panel.Equipment);
-        panel.upgradeData(panel.Equipment);
+        return UpgradeSystem.Instance.UninstallMod(installed.Index);
     }
 }

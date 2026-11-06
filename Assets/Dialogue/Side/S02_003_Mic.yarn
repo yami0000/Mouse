@@ -1,0 +1,48 @@
+title:Side_02_003_01
+---
+Rigel:Hey!Mic,how's your patrol going!
+Mic:Sam!I was going to ask you for advice.
+Mic:Few minutes ago,there was a report that  blood is leaked out of door,I asked captian for help but he was engaging with a large crime group...
+Rigel:Busy man,isn't him...?
+Mic:I'm checking the equipment,Can you go with me?
+        -> Sure!
+            Mic:You are so nice! Let's go!
+        -> I have other things to attend to...
+            Mic:No worry...I think I can handle myself...
+===
+
+title:Side_02_003_01_
+---
+Rigel:Mic is to small to handle this kind of case,I'd better lend a hand.
+Mic:You are back Sam!
+        -> Let's go!
+            Mic:What a relieve!Let's depart!
+        -> I have other things to attend to...
+            Mic:No worry...I think I can handle myself...
+===
+
+title:Side_02_003_02
+---
+Rigel:...
+Mic:!!!!
+Rigel:Mic,you okay?
+Mic:I...want to puke...
+Rigel:Take your time, I will take a look around.
+===
+
+title:Side_02_003_02_01
+---
+Rigel:Intestine is ripped from the body,they didn't even stand a chance...
+===
+
+title:Side_02_003_02_02
+---
+Rigel:Interesting...
+Rigel:Window is sealed,door is locked...How did they get out?
+===
+
+title:Side_02_003_02_03
+---
+Rigel:What's this?
+Rigel:
+===

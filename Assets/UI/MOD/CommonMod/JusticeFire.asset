@@ -17,9 +17,7 @@ MonoBehaviour:
   icon: {fileID: -2350515283805884568, guid: b8bba8d3c4b02f7498531cf6475e15f3, type: 3}
   price: 0
   itemEffects: []
-  FirePower: 40
-  Vitality: 0
-  Damage: 0
+  Damage: 40
   CriticalChance: 0
   CriticalDamage: 0
   MaxHP: 0

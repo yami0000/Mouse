@@ -48,7 +48,7 @@ public class Enemy_Scavanger : Enemy
     public float Range;
     public float xVelocity;
     public GameObject AmmoPrefab;
-    private int FP;
+    private int FP; // base Damage, scaled up by energy when it shoots
 
     protected override void Awake()
     {
@@ -69,7 +69,7 @@ public class Enemy_Scavanger : Enemy
         base.Start();
         player = PlayerManager.Instance.player.transform; 
         stateMachine.Initialize(flyState);
-        FP= stats.FirePower.GetValue();
+        FP= stats.Damage.BaseValue;
         Run = false;
     }
 
@@ -240,7 +240,7 @@ public class Enemy_Scavanger : Enemy
     #region Shoot
     public void Shoot() 
     {
-        stats.FirePower.BaseValue = FP * (energy / 2 + 1);
+        stats.Damage.BaseValue = FP * (energy / 2 + 1);
         S = StartCoroutine(ShootAmmo());
     
     }

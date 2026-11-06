@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 689fdc96af6c43147b6b888c8f51d950, type: 3}
+  m_Name: RadioactiveSubstance
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Radioactive Substance
+  ItemType: 3
+  icon: {fileID: -5889583045366677356, guid: 7152d5d4267397f4d85b09df5b632c06, type: 3}
+  price: 0
+  Description: Bullets irradiate enemies within {RadioactiveSubstance.radius} for
+    {RadioactiveSubstance.baseDamage} + {RadioactiveSubstance.damageRate:%} of the
+    weapon's Damage[[ ({RadioactiveSubstance.baseDamage + round(RadioactiveSubstance.damageRate
+    * Weapon.Damage)})]] every {RadioactiveSubstance.interval}s while they fly.
+  itemEffects: []
+  passiveEffects: []
+  type: 1
+  Damage: 0
+  CriticalChance: 0
+  CriticalDamage: 0
+  MaxHP: 0
+  Armor: 0
+  FireResistance: 0
+  FrostResistance: 0
+  LightingResistance: 0
+  PoisonResistance: 0
+  FireDamage: 0
+  FrostDamage: 0
+  PoisonDamage: 0
+  LightningDamage: 0
+  xVelocity: 0
+  firingRate: 0
+  effectiveTime: 0
+  effects:
+  - rid: 1000
+  references:
+    version: 2
+    RefIds:
+    - rid: 1000
+      type: {class: Mod_RadioactiveSubstance, ns: , asm: Assembly-CSharp}
+      data:
+        radius: 1.5
+        interval: 0.5
+        baseDamage: 3
+        damageRate: 0.1
+        enemyLayers:
+          serializedVersion: 2
+          m_Bits: 0
+        showLight: 1
+        lightColor: {r: 0.45, g: 1, b: 0.25, a: 1}
+        lightIntensity: 1
+        lightInnerRadius: 0.2
+        lightFalloff: 0.5
+        visualPrefab: {fileID: 0}

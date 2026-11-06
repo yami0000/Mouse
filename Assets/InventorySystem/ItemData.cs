@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,8 +8,20 @@ public enum ItemType
     Material,
     UsableObject,
     Mods,
-    Equipment
+    Equipment,
+    Cyberware // saved as a number in every item asset, so new types go at the end
 
+}
+
+/// <summary>What kind of cyberware an item is. A Cyberware joint can be set to accept only one of these.</summary>
+public enum CyberwareType
+{
+    Neural,
+    Ocular,
+    Arm,
+    Leg,
+    Spine,
+    Organ
 }
 
 
@@ -21,10 +34,17 @@ public class ItemData : ScriptableObject
     public Sprite icon;
     public int price;
 
-    [TextArea] public string Description;
+    [Tooltip("{tokens} show this item's values, e.g. {Damage} or {EnhancedFirePowder.damageRate:%}. " +
+             "Insert Value lists them all; hover it for the rest of the syntax.")]
+    [LiveText] public string Description;
 
     public ItemEffect[] itemEffects;
     public PassiveEffectSO[] passiveEffects;
+
+    // Only shown when Item Type is Cyberware (see ItemDataEditor).
+    public CyberwareType cyberwareType;
+    [Tooltip("The small tree this cyberware opens. Each entry fills the Cyberware Skill joint with the same Slot number.")]
+    public List<SkillInfo> cyberwareSkills = new List<SkillInfo>();
 
 
     public void ExecuteItemEffect(Transform _position)
@@ -33,6 +53,33 @@ public class ItemData : ScriptableObject
         {
             effect.ExecuteEffect(_position);
         }
+    }
+
+    /// <summary>
+    /// This item's text for a tooltip text field (see TooltipFields.IsText), or null when it has none.
+    /// Which fields show, and how, is set up in InvDescription's layouts.
+    /// </summary>
+    public virtual string GetTooltipText(TooltipField _field)
+    {
+        switch (_field)
+        {
+            case TooltipField.Name: return itemName;
+            case TooltipField.Type: return ItemType == ItemType.Cyberware ? $"Cyberware  {cyberwareType}" : ItemType.ToString();
+            case TooltipField.Description: return LiveText.Format(Description, this, InvDescription.ValueStyle);
+            default: return null;
+        }
+    }
+
+    /// <summary>This item's number for a tooltip number field. False when the item doesn't have that field.</summary>
+    public virtual bool TryGetTooltipNumber(TooltipField _field, out float _value)
+    {
+        _value = 0f;
+
+        if (_field != TooltipField.Price)
+            return false;
+
+        _value = price;
+        return true;
     }
 
 

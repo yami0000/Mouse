@@ -27,14 +27,12 @@ MonoBehaviour:
   equipmentEffects:
   - {fileID: 11400000, guid: 9c26bf97d7216c24197de5305c4f161c, type: 2}
   Mods:
-  - {fileID: 11400000, guid: 64f313dce317a8f44b75bf977ab71de0, type: 2}
-  - {fileID: 11400000, guid: 46a8045424c524e4b9bfe4e403d0ea0c, type: 2}
-  - {fileID: 11400000, guid: 19ff857e1b908c5418dc05a55a33a9f6, type: 2}
-  modSlotCount: 3
-  sFirePower: 15
-  Agility: 0
-  Vitality: 0
-  Damage: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  modSlotCount: 4
+  Damage: 20
   CriticalChance: 12
   CriticalDamage: 160
   MaxHP: 0
@@ -59,13 +57,13 @@ MonoBehaviour:
     horizontalOnly: 1
   fireEffects:
   - prefab: {fileID: 1272373424107737784, guid: c7657b539a8094e49ab385b4e1132527, type: 3}
+    disabled: 0
     offset: {x: 7.4, y: 1.3}
     rotation: -90
     scale: {x: 1, y: 1, z: 1}
     followWeapon: 0
     lifetime: 0
     turnParticles: 1
-  FirePower: 20
   Armor: 0
   FireDamage: 0
   FrostDamage: 0
