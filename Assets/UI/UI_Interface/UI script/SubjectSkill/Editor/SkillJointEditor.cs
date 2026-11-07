@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,11 +41,26 @@ public class SkillJointEditor : Editor
         if (changed && tree != null)
         {
             SyncNames();
-            SkillTreeAuthoring.RefreshPreview(tree);
+            SkillTreeAuthoring.RefreshLines(tree);
         }
+
+        DrawCyberwareImageButton();
 
         if (targets.Length == 1 && tree != null)
             DrawAddButtons(tree, joint);
+    }
+
+    // For joints made before Cyberware Image existed, or changed to Cyberware afterwards.
+    private void DrawCyberwareImageButton()
+    {
+        SkillJoint[] missing = targets.Cast<SkillJoint>()
+            .Where(joint => joint.kind == SkillJointKind.Cyberware && joint.cyberwareImage == null)
+            .ToArray();
+
+        if (missing.Length == 0 || !GUILayout.Button("Create Cyberware Image")) return;
+
+        foreach (SkillJoint joint in missing)
+            SkillTreeAuthoring.CreateCyberwareImage(joint);
     }
 
     private void DrawKindFields(SkillJointKind _kind)
@@ -57,12 +73,16 @@ public class SkillJointEditor : Editor
                 EditorGUILayout.HelpBox("Costs no skill points: activated by installing a cyberware. Left-click opens the list of carried cyberware once it's ready.", MessageType.None);
                 EditorGUILayout.PropertyField(info.FindPropertyRelative("skillName"));
                 EditorGUILayout.PropertyField(info.FindPropertyRelative("description"));
-                EditorGUILayout.PropertyField(info.FindPropertyRelative("icon"), new GUIContent("Empty Icon", "Shown until a cyberware is installed. After that, the item's icon."));
+                EditorGUILayout.PropertyField(info.FindPropertyRelative("icon"));
+                EditorGUILayout.PropertyField(info.FindPropertyRelative("activeIcon"), new GUIContent("Active Icon", "Replaces Icon once a cyberware is installed, with the item's image on top of it."));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cyberwareImage"));
 
                 SerializedProperty any = serializedObject.FindProperty("acceptsAnyType");
                 EditorGUILayout.PropertyField(any);
                 if (any.hasMultipleDifferentValues || !any.boolValue)
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("acceptedType"));
+
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("preinstalled"), new GUIContent("Pre-installed"));
                 break;
 
             case SkillJointKind.CyberwareSkill:
@@ -72,6 +92,9 @@ public class SkillJointEditor : Editor
 
             default:
                 EditorGUILayout.PropertyField(info, true);
+
+                if (((SkillJoint)target).info.IsListed && GUILayout.Button("Edit in Skill List"))
+                    SkillTreeAuthoring.OpenSkillList();
                 break;
         }
     }
@@ -85,7 +108,7 @@ public class SkillJointEditor : Editor
 
             string wanted = joint.kind == SkillJointKind.CyberwareSkill
                 ? $"{SkillTreeAuthoring.Label(joint.kind)} {joint.cyberwareSlot}"
-                : string.IsNullOrEmpty(joint.info.skillName) ? null : joint.info.skillName;
+                : string.IsNullOrEmpty(joint.info.Name) ? null : joint.info.Name;
 
             if (wanted != null && joint.name != wanted)
             {

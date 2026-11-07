@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28d2aa326e5d1d469ed4e610beadbc6, type: 3}
+  m_Name: Hell Engine
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Hell Engine
+  ItemType: 5
+  icon: {fileID: 4268571198076091427, guid: e5fa01f35348a134c9bb006b3c8d4b43, type: 3}
+  price: 8000
+  Description: 'Gives temporary health equal to 30% of Rigel''s max health over 2
+    seconds. It takes damage before health, and once delivered it loses 4% of max
+    health each second. The cooldown starts when it runs out.
+
+    A Heart will plump
+    blood of hell into each cell of user''s body, greatly enhancing survivability.
+
+'
+  itemEffects: []
+  passiveEffects: []
+  cyberwareType: 5
+  cyberwareGives:
+    skillName: 
+    description: 
+    icon: {fileID: 0}
+    activeIcon: {fileID: 0}
+    cost: 1
+    activatedAtStart: 0
+    stats: []
+    mechanism: 0
+    activeSkill: 3
+    cooldown: 0
+    defaultKey: 0
+  cyberwareSkills:
+  - skillName: 
+    description: 
+    icon: {fileID: 0}
+    activeIcon: {fileID: 0}
+    cost: 1
+    activatedAtStart: 0
+    stats: []
+    mechanism: 4
+    activeSkill: 0
+    cooldown: 0
+    defaultKey: 0
+  - skillName: 
+    description: 
+    icon: {fileID: 0}
+    activeIcon: {fileID: 0}
+    cost: 1
+    activatedAtStart: 0
+    stats: []
+    mechanism: 5
+    activeSkill: 0
+    cooldown: 0
+    defaultKey: 0

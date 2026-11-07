@@ -96,7 +96,7 @@ public class EntityStats : MonoBehaviour
         {
             //Debug.Log(gameObject.name + " is taking " + igniteDamage + " burning damage");
 
-            CurrentHP -= igniteDamage;
+            CurrentHP -= AbsorbDamage(igniteDamage);
 
             if (CurrentHP <= 0)
             { Die(); 
@@ -267,9 +267,12 @@ public class EntityStats : MonoBehaviour
 
     public void SetIgniteDamage(int _damage) => igniteDamage = _damage;
 
+    /// <summary>Every instance of damage passes through here on its way to CurrentHP. Returns what's left of it.</summary>
+    protected virtual int AbsorbDamage(int _damage) => _damage;
+
     public virtual void TakeDamage(int _damage)
     {
-        CurrentHP -= _damage;
+        CurrentHP -= AbsorbDamage(_damage);
 
         
 

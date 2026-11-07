@@ -11,7 +11,7 @@ public class ModEditor : Editor
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-        DrawPropertiesExcluding(serializedObject, "ItemType", "type", "itemEffects", "cyberwareType", "cyberwareSkills");
+        DrawPropertiesExcluding(serializedObject, "ItemType", "type", "itemEffects", "cyberwareType", "cyberwareGives", "cyberwareSkills");
         serializedObject.ApplyModifiedProperties();
     }
 }

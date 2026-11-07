@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b09da8ae2ad3f6445a3eb4f3efbedcc6
+guid: d611829fa1fd9ba4ba32816174973b8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6320548904248603537
-    second: Skill Points_0
+      213: 7896156557432890801
+    second: Basic Attribute_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skill Points_0
+      name: Basic Attribute_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 749
-        height: 545
+        width: 207
+        height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 193f83f9db917b750800000000000000
-      internalID: 6320548904248603537
+      spriteID: 1b5a8a8ad88c49d60800000000000000
+      internalID: 7896156557432890801
       vertices: []
       indices: 
       edges: []

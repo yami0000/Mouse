@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Opens from a Cyberware joint: what's installed in it, and every cyberware it accepts that the player
-/// is carrying. Right-clicking a carried one installs it; right-clicking the installed one takes it out.
+/// is carrying. Left-clicking a carried one installs it; left-clicking the installed one takes it out.
 /// </summary>
 public class UI_CyberwarePanel : MonoBehaviour
 {
@@ -68,7 +68,7 @@ public class UI_CyberwarePanel : MonoBehaviour
         return carried;
     }
 
-    public void SlotRightClicked(UI_CyberwareSlot _slot)
+    public void SlotClicked(UI_CyberwareSlot _slot)
     {
         if (joint == null || _slot.Item == null) return;
 

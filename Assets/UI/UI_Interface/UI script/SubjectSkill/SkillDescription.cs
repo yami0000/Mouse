@@ -66,7 +66,8 @@ public class SkillDescription : MonoBehaviour
 
     public void Show(SkillJoint _joint)
     {
-        SkillInfo info = _joint.Content;
+        // With an item installed, its stats, cooldown and key are what count. Name and description are read from the item below.
+        SkillInfo info = _joint.Installed != null ? _joint.Installed.cyberwareGives : _joint.Content;
         if (info == null) return;
 
         SkillTooltipContext context;
@@ -127,9 +128,9 @@ public class SkillDescription : MonoBehaviour
     {
         switch (_field)
         {
-            case SkillTooltipField.Name: return _info.skillName;
+            case SkillTooltipField.Name: return _joint.Installed != null ? _joint.Installed.itemName : _info.Name;
             case SkillTooltipField.Kind: return KindName(_joint.kind);
-            case SkillTooltipField.Description: return _info.description;
+            case SkillTooltipField.Description: return _joint.Installed != null ? _joint.Installed.GetTooltipText(TooltipField.Description) : _info.Description;
 
             case SkillTooltipField.State:
                 if (_joint.kind == SkillJointKind.Cyberware && _joint.State == SkillJointState.Ready)
@@ -156,9 +157,9 @@ public class SkillDescription : MonoBehaviour
     {
         switch (_field)
         {
-            case SkillTooltipField.Name: return _entry.info.skillName;
+            case SkillTooltipField.Name: return _entry.info.Name;
             case SkillTooltipField.Kind: return "Active skill";
-            case SkillTooltipField.Description: return _entry.info.description;
+            case SkillTooltipField.Description: return _entry.info.Description;
             case SkillTooltipField.TriggerKey: return Skill.KeyName(_entry.key);
             case SkillTooltipField.KeyHint: return _hint;
             default: return InfoValue(_field, _entry.info);
@@ -174,7 +175,7 @@ public class SkillDescription : MonoBehaviour
                 return string.Join("\n", _info.stats);
 
             case SkillTooltipField.Cooldown:
-                return _info.activeSkill != ActiveSkillId.None && _info.cooldown > 0f ? _info.cooldown.ToString("0.##") : null;
+                return _info.activeSkill != ActiveSkillId.None && _info.Cooldown > 0f ? _info.Cooldown.ToString("0.##") : null;
 
             default: return null;
         }
@@ -188,7 +189,7 @@ public class SkillDescription : MonoBehaviour
                 if (entry.id == _info.activeSkill)
                     return entry.key;
 
-        return _info.defaultKey;
+        return _info.DefaultKey;
     }
 
     private static string KindName(SkillJointKind _kind)
@@ -231,7 +232,9 @@ public class SkillDescription : MonoBehaviour
                 Line(SkillTooltipField.Name, "Title"),
                 Line(SkillTooltipField.Kind, "Subtitle"),
                 Line(SkillTooltipField.State, "Subtitle"),
-                Line(SkillTooltipField.InstalledCyberware, "Stat", "Installed  {v}"),
+                Line(SkillTooltipField.Stats, "Stat"),
+                Line(SkillTooltipField.Cooldown, "Stat", "Cooldown  {v}s"),
+                Line(SkillTooltipField.TriggerKey, "Stat", "Trigger  {v}"),
                 Line(SkillTooltipField.Description, "Body")),
             Layout(SkillTooltipContext.ActiveSkillList,
                 Line(SkillTooltipField.Name, "Title"),

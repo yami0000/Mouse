@@ -41,14 +41,11 @@ public class UI_ActiveSkillRow : MonoBehaviour, IPointerEnterHandler, IPointerEx
         SkillJointLook look = SkillTree.Instance != null ? SkillTree.Instance.LookFor(entry.kind) : null;
 
         if (fill != null && look != null)
-        {
-            fill.sprite = look.shape;
-            fill.color = info.activeIcon != null ? Color.clear : look.activeFill;
-        }
+            fill.color = info.ActiveIcon != null ? Color.clear : look.activeFill;
 
         if (icon != null)
         {
-            icon.sprite = info.activeIcon != null ? info.activeIcon : info.icon;
+            icon.sprite = info.ActiveIcon != null ? info.ActiveIcon : info.Icon;
             icon.enabled = icon.sprite != null;
             icon.preserveAspect = true;
         }

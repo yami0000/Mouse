@@ -18,21 +18,24 @@ public enum SkillJointState
     Activated
 }
 
-/// <summary>Things a joint can switch on. To add one: add it here, then read it with Skill.Instance.Has(...).</summary>
+/// <summary>Things a joint can switch on. To add one: add it here, read it with Skill.Instance.Has(...), then give it an entry in Skill List.</summary>
 public enum SkillMechanism
 {
     None,
     DoubleJump,
     Metabolism,
-    OverCharging
+    OverCharging,
+    Hellfire,
+    ShieldOfTheInferno
 }
 
-/// <summary>Skills with a trigger key. To add one: add it here, then give it a case in Player.UseActiveSkill.</summary>
+/// <summary>Skills with a trigger key. To add one: add it here, give it a case in Player.UseActiveSkill, then give it an entry in Skill List.</summary>
 public enum ActiveSkillId
 {
     None,
     ProtectiveShield,
-    Reaper
+    Reaper,
+    HellEngine
 }
 
 /// <summary>A stat a joint can raise. Same numbers as TooltipField, so it reads like an item's stat line.</summary>
@@ -99,25 +102,37 @@ public class SkillInfo
     [TextArea(2, 6)] public string description;
 
     [Header("Icon")]
-    [Tooltip("The line art, see-through inside. The joint's shape colours in behind it when activated (Skill Tree > Joint Looks), so this one sprite is enough.")]
+    [Tooltip("The line art, see-through inside. The joint's background Image colours in behind it when activated (Skill Tree > Joint Looks), so this one sprite is enough.")]
     public Sprite icon;
-    [Tooltip("Optional. Only for an icon whose activated form can't be made by colouring the joint's shape behind it.")]
+    [Tooltip("Optional. Only for an icon whose activated form can't be made by colouring the joint's background behind it.")]
     public Sprite activeIcon;
 
     [Header("Unlocking")]
     [Tooltip("Skill points to activate. Cyberware joints ignore this.")]
     [Min(0)] public int cost = 1;
-    [Tooltip("Free, and activated as soon as every previous joint is. A previous joint that isn't activated still holds it back.")]
+    [Tooltip("Free, and activated as soon as every previous joint allows it. A previous joint that isn't activated still holds it back, unless it's a Cyberware joint ready for installing.")]
     public bool activatedAtStart;
 
     [Header("What it gives")]
     public List<SkillStatBonus> stats = new List<SkillStatBonus>();
+    [Tooltip("Pick a skill from Skill List. Its name, description and icons then come from there.")]
     public SkillMechanism mechanism;
-    [Tooltip("Makes this a skill with a trigger key, listed on the left of the skill page.")]
+    [Tooltip("Pick a skill from Skill List: a skill with a trigger key, listed on the left of the skill page. Its name, description, icons, cooldown and key then come from there.")]
     public ActiveSkillId activeSkill;
     [Min(0)] public float cooldown;
     [Tooltip("The trigger key until the player changes it.")]
     public KeyCode defaultKey;
+
+    private ListedSkill Listed => SkillList.Find(mechanism, activeSkill);
+
+    /// <summary>Whether Skill List supplies what's below, instead of this skill's own fields.</summary>
+    public bool IsListed => Listed != null;
+    public string Name => Listed != null ? Listed.skillName : skillName;
+    public string Description => Listed != null ? Listed.description : description;
+    public Sprite Icon => Listed != null ? Listed.icon : icon;
+    public Sprite ActiveIcon => Listed != null ? Listed.activeIcon : activeIcon;
+    public float Cooldown => Listed is ListedActiveSkill active ? active.cooldown : cooldown;
+    public KeyCode DefaultKey => Listed is ListedActiveSkill active ? active.defaultKey : defaultKey;
 
     public void Apply(PlayerStats _stats, Skill _skill, SkillJointKind _kind)
     {
@@ -149,16 +164,14 @@ public class ActiveSkillEntry
     public int grants; // how many activated joints give it
 
     public bool IsReady => cooldownLeft <= 0f;
-    public float CooldownFraction => info.cooldown > 0f ? Mathf.Clamp01(cooldownLeft / info.cooldown) : 0f;
+    public float CooldownFraction => info.Cooldown > 0f ? Mathf.Clamp01(cooldownLeft / info.Cooldown) : 0f;
 }
 
-/// <summary>How one kind of joint looks in each state. The shape is shared, so icons only need one sprite.</summary>
+/// <summary>The colours of one kind of joint in each state. The sprites stay on the joint's own Images.</summary>
 [Serializable]
 public class SkillJointLook
 {
     public SkillJointKind kind;
-    [Tooltip("The closed shape behind the icon: see-through while locked, coloured in when activated. White, so Active Fill colours it.")]
-    public Sprite shape;
     public Color lockedFill = Color.clear;
     public Color readyFill = Color.clear;
     public Color activeFill = new Color(0.2f, 0.65f, 0.85f);

@@ -43,6 +43,8 @@ public class ItemData : ScriptableObject
 
     // Only shown when Item Type is Cyberware (see ItemDataEditor).
     public CyberwareType cyberwareType;
+    [Tooltip("What this cyberware gives by itself while it's installed and its joint is activated. Only its stats, mechanism and active skill are used; the inspector hides the rest.")]
+    public SkillInfo cyberwareGives = new SkillInfo();
     [Tooltip("The small tree this cyberware opens. Each entry fills the Cyberware Skill joint with the same Slot number.")]
     public List<SkillInfo> cyberwareSkills = new List<SkillInfo>();
 
@@ -75,11 +77,27 @@ public class ItemData : ScriptableObject
     {
         _value = 0f;
 
-        if (_field != TooltipField.Price)
+        if (_field == TooltipField.Price)
+        {
+            _value = price;
+            return true;
+        }
+
+        if (ItemType != ItemType.Cyberware)
             return false;
 
-        _value = price;
-        return true;
+        // SkillStat uses TooltipField's numbers, so a stat it gives fills that stat's tooltip line.
+        bool found = false;
+
+        foreach (SkillStatBonus bonus in cyberwareGives.stats)
+        {
+            if ((int)bonus.stat != (int)_field) continue;
+
+            _value += bonus.value;
+            found = true;
+        }
+
+        return found;
     }
 
 

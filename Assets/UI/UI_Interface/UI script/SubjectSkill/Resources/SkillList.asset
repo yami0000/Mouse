@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3e91a4d2b84f06a5e1c08f6b2d47e3, type: 3}
+  m_Name: SkillList
+  m_EditorClassIdentifier: 
+  mechanisms:
+  - skillName: Double Jump
+    description: Rigel can jump once more in mid-air.
+    icon: {fileID: -116059596369708853, guid: 3b0bdf0f30aed5d47ad48d45238ddf1f, type: 3}
+    activeIcon: {fileID: -8653933793622392015, guid: 3128144b55d1c634b84a97dc746d9fb4, type: 3}
+    id: 1
+    hellfireCooldownReduction: 50
+    hellfireBonusHealth: 10
+    infernoOverflowReduction: 50
+  - skillName: Metabolism
+    description: Each projectile blocked by the shield restores health equal to 1.5%
+      of Rigel's max health.
+    icon: {fileID: -7967023689970816139, guid: a77b615159cf9134c85ec9fa8385f8e9, type: 3}
+    activeIcon: {fileID: -786446539840865608, guid: 2f957e275e14ac14b84f7bb4350abad5, type: 3}
+    id: 2
+    hellfireCooldownReduction: 50
+    hellfireBonusHealth: 10
+    infernoOverflowReduction: 50
+  - skillName: OverCharging
+    description: Extends the shield from 0.5s to 0.8s, blocking projectiles for longer.
+    icon: {fileID: -2983701386142527004, guid: e4e7ad1620c434d4c90aeb68df130fb5, type: 3}
+    activeIcon: {fileID: -3111342745564097530, guid: 339c88c27e280ab4c90ea4bfe9825bbf, type: 3}
+    id: 3
+    hellfireCooldownReduction: 50
+    hellfireBonusHealth: 10
+    infernoOverflowReduction: 50
+  - skillName: Hellfire
+    description: If Hell Engine's temporary health runs out on its own with no damage
+      taken, its cooldown is cut by 50% and the next use gives 10% more of Rigel's
+      max health. This keeps building until Rigel takes damage during a use.
+    icon: {fileID: -1983434036056564680, guid: be07374d5a4bbe64087e73a09ba6f339, type: 3}
+    activeIcon: {fileID: -2933708640437804221, guid: 89cee4dce21c723489a7c30db005bbd5, type: 3}
+    id: 4
+    hellfireCooldownReduction: 50
+    hellfireBonusHealth: 10
+    infernoOverflowReduction: 50
+  - skillName: Shield of the Inferno
+    description: When a single hit is larger than Rigel's temporary health, the damage
+      that gets through is halved before it reaches health.
+    icon: {fileID: 6774638106954105971, guid: 9e9129cd18efb284ebd1a7ae3b298eba, type: 3}
+    activeIcon: {fileID: 752949754982210412, guid: 47f729e5a4e9f6447be3167de1d04e86, type: 3}
+    id: 5
+    hellfireCooldownReduction: 50
+    hellfireBonusHealth: 10
+    infernoOverflowReduction: 50
+  activeSkills:
+  - skillName: Protective Shield
+    description: Raises a shield for 0.5s that blocks enemy projectiles. Can only
+      be used on the ground. The cooldown starts when the shield ends.
+    icon: {fileID: -6717884257390833292, guid: a1185a19c54ca044bb59c9e2d999fc17, type: 3}
+    activeIcon: {fileID: -3341676862019376097, guid: f0c0e7530ce9db7408fb0f61f568f5e0, type: 3}
+    id: 1
+    cooldown: 6
+    defaultKey: 324
+    hellEngineHealth: 30
+    hellEngineSeconds: 2
+  - skillName: Reaper
+    description: Rigel's prosthetic drives the gun into berserk mode, firing 40%
+      faster with 25% more firepower for 10 seconds. The cooldown starts when it
+      ends.
+    icon: {fileID: 21300000, guid: edc14af2a9265904fb4e8fa1efe2741c, type: 3}
+    activeIcon: {fileID: 21300000, guid: 42c98177133278e40940b5c3a5d5a042, type: 3}
+    id: 2
+    cooldown: 35
+    defaultKey: 114
+    hellEngineHealth: 30
+    hellEngineSeconds: 2
+  - skillName: Hell Engine
+    description: Gives temporary health equal to 30% of Rigel's max health over 2
+      seconds. It takes damage before health, and once delivered it loses 4% of max
+      health each second. The cooldown starts when it runs out.
+    icon: {fileID: 4268571198076091427, guid: 3d37a853bafe1874b9ec5e9755c493a5, type: 3}
+    activeIcon: {fileID: 6229566100657306549, guid: f8f2a53c714173742a62b0f596fc4498, type: 3}
+    id: 3
+    cooldown: 30
+    defaultKey: 102
+    hellEngineHealth: 35
+    hellEngineSeconds: 0.8

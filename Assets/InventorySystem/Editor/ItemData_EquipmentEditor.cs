@@ -38,7 +38,7 @@ public class ItemData_EquipmentEditor : Editor
         {
             enterChildren = false;
 
-            if (property.name == "ItemType" || property.name == "cyberwareType" || property.name == "cyberwareSkills")
+            if (property.name == "ItemType" || property.name == "cyberwareType" || property.name == "cyberwareGives" || property.name == "cyberwareSkills")
                 continue;
 
             if (!isWeapon && weaponOnly.Contains(property.name))

@@ -37,6 +37,8 @@ public class Skill : MonoBehaviour
     public bool Metabolism => Has(SkillMechanism.Metabolism);
     public bool OverCharging => Has(SkillMechanism.OverCharging);
     public bool DoubleJump => Has(SkillMechanism.DoubleJump);
+    public bool Hellfire => Has(SkillMechanism.Hellfire);
+    public bool ShieldOfTheInferno => Has(SkillMechanism.ShieldOfTheInferno);
 
     void Awake()
     {
@@ -80,7 +82,7 @@ public class Skill : MonoBehaviour
 
         if (!entries.TryGetValue(_info.activeSkill, out ActiveSkillEntry entry))
         {
-            entry = new ActiveSkillEntry { id = _info.activeSkill, key = FreeKey(_info.defaultKey) };
+            entry = new ActiveSkillEntry { id = _info.activeSkill, key = FreeKey(_info.DefaultKey) };
             entries[_info.activeSkill] = entry;
         }
 
@@ -117,7 +119,14 @@ public class Skill : MonoBehaviour
     public void StartCooldown(ActiveSkillId _id)
     {
         if (entries.TryGetValue(_id, out ActiveSkillEntry entry))
-            entry.cooldownLeft = entry.info.cooldown;
+            entry.cooldownLeft = entry.info.Cooldown;
+    }
+
+    /// <summary>Takes _percent of the skill's cooldown time off what's left of it.</summary>
+    public void ReduceCooldown(ActiveSkillId _id, float _percent)
+    {
+        if (entries.TryGetValue(_id, out ActiveSkillEntry entry))
+            entry.cooldownLeft -= entry.info.Cooldown * _percent * 0.01f;
     }
 
     /// <summary>
@@ -140,7 +149,7 @@ public class Skill : MonoBehaviour
         {
             if (other == _entry || other.key != _key) continue;
 
-            _problem = $"{KeyName(_key)} is used by {other.info.skillName}";
+            _problem = $"{KeyName(_key)} is used by {other.info.Name}";
             return false;
         }
 

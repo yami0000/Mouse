@@ -44,7 +44,7 @@ public class SkillLinks : MaskableGraphic
             {
                 if (earlier == null || (playing && !earlier.IsVisible)) continue;
 
-                Color lineColor = playing && !(earlier.IsActive && joint.IsActive) ? lockedColor : activeColor;
+                Color lineColor = playing && !(earlier.OpensNext && joint.IsActive) ? lockedColor : activeColor;
                 AddLine(vh, earlier, joint, lineColor);
             }
         }

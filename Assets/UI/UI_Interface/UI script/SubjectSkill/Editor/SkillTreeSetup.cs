@@ -36,6 +36,44 @@ public static class SkillTreeSetup
         Debug.Log("[SkillTree] Set up. Check the skill page, then save the scene and delete Icon.cs.", skill);
     }
 
+    /// <summary>A copy of UI_Health/Health on top of it, so it's the same size and shape. One undo step; not saved until you save the scene.</summary>
+    [MenuItem("Tools/Skill Tree/Add Temporary Health Bar")]
+    private static void AddTemporaryHealthBar()
+    {
+        if (Object.FindFirstObjectByType<UI_TemporaryHealthBar>(FindObjectsInactive.Include) != null)
+        {
+            Debug.Log("[SkillTree] The scene already has a temporary health bar.");
+            return;
+        }
+
+        Skill skill = Object.FindFirstObjectByType<Skill>(FindObjectsInactive.Include);
+        Transform health = skill != null ? skill.transform.parent.Find("UI_Health/Health") : null;
+
+        if (health == null)
+        {
+            Debug.LogError("[SkillTree] Can't find UI_Health/Health next to UI_Skill in the open scene.");
+            return;
+        }
+
+        GameObject bar = Object.Instantiate(health.gameObject, health.parent);
+        Undo.RegisterCreatedObjectUndo(bar, "Add Temporary Health Bar");
+        bar.name = "Temporary Health";
+        bar.transform.SetSiblingIndex(health.GetSiblingIndex() + 1);
+
+        Image image = bar.GetComponent<Image>();
+        image.color = new Color(1f, 0.55f, 0.1f);
+        image.fillAmount = 0f;
+        image.raycastTarget = false;
+
+        UI_TemporaryHealthBar script = bar.AddComponent<UI_TemporaryHealthBar>();
+        SerializedObject settings = new SerializedObject(script);
+        settings.FindProperty("fill").objectReferenceValue = image;
+        settings.ApplyModifiedPropertiesWithoutUndo();
+
+        EditorSceneManager.MarkSceneDirty(bar.scene);
+        Selection.activeGameObject = bar;
+    }
+
     [MenuItem("Tools/Skill Tree/Check for Problems")]
     private static void CheckMenu()
     {
@@ -69,33 +107,28 @@ public static class SkillTreeSetup
         UI_CyberwarePanel panel = BuildCyberwarePanel(background, font);
 
         SkillTree tree = Undo.AddComponent<SkillTree>(_skill.gameObject);
-        Sprite defaultShape = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
+        Sprite rowShape = AssetDatabase.GetBuiltinExtraResource<Sprite>("UI/Skin/Knob.psd");
         SerializedObject treeSettings = new SerializedObject(tree);
         treeSettings.FindProperty("jointRoot").objectReferenceValue = content;
         treeSettings.FindProperty("links").objectReferenceValue = links;
         treeSettings.FindProperty("description").objectReferenceValue = description;
         treeSettings.FindProperty("cyberwarePanel").objectReferenceValue = panel;
-
-        SerializedProperty looks = treeSettings.FindProperty("looks");
-        for (int i = 0; i < looks.arraySize; i++)
-            looks.GetArrayElementAtIndex(i).FindPropertyRelative("shape").objectReferenceValue = defaultShape;
-
         treeSettings.ApplyModifiedProperties();
 
         MigrateOldJoints(tree, background);
         RemoveOldPage(background);
 
-        BuildActiveSkillList(background, font, defaultShape);
+        BuildActiveSkillList(background, font, rowShape);
         BuildSkillPoints(background, font);
         panel.transform.SetAsLastSibling();
 
-        ReplaceOldHud(_skill.transform.parent, defaultShape, font);
+        ReplaceOldHud(_skill.transform.parent, rowShape, font);
 
         // SK, DragManager and anything else whose script is gone.
         Undo.RegisterCompleteObjectUndo(_skill.gameObject, "Set Up Skill Tree");
         GameObjectUtility.RemoveMonoBehavioursWithMissingScript(_skill.gameObject);
 
-        SkillTreeAuthoring.RefreshPreview(tree);
+        SkillTreeAuthoring.RefreshLines(tree);
         EditorSceneManager.MarkSceneDirty(_skill.gameObject.scene);
         Undo.CollapseUndoOperations(undoGroup);
     }
@@ -371,7 +404,7 @@ public static class SkillTreeSetup
         backdrop.color = new Color(0.06f, 0.07f, 0.1f, 0.95f);
 
         TextMeshProUGUI title = AddLabel(root, "Title", _font, 36f, 0f, 70f, "");
-        AddLabel(root, "Installed Label", _font, 24f, 80f, 40f, "Installed  (right-click to remove)");
+        AddLabel(root, "Installed Label", _font, 24f, 80f, 40f, "Installed  (left-click to remove)");
 
         UI_CyberwareSlot installed = BuildSlot(root, _font, "Installed Slot");
         RectTransform installedRect = (RectTransform)installed.transform;
@@ -379,7 +412,7 @@ public static class SkillTreeSetup
         installedRect.pivot = new Vector2(0.5f, 1f);
         installedRect.anchoredPosition = new Vector2(0f, -125f);
 
-        AddLabel(root, "Carried Label", _font, 24f, 260f, 40f, "Carried  (right-click to install)");
+        AddLabel(root, "Carried Label", _font, 24f, 260f, 40f, "Carried  (left-click to install)");
 
         RectTransform grid = NewChild("Carried", root);
         grid.anchorMin = Vector2.zero;

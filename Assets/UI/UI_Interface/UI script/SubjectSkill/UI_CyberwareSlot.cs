@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>One cyberware in the panel: its usual item description on hover, right-click to (un)install.</summary>
+/// <summary>One cyberware in the panel: its usual item description on hover, left-click to (un)install.</summary>
 public class UI_CyberwareSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] private Image icon;
@@ -45,10 +45,10 @@ public class UI_CyberwareSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button != PointerEventData.InputButton.Right || panel == null) return;
+        if (eventData.button != PointerEventData.InputButton.Left || panel == null) return;
 
         HideDescription();
-        panel.SlotRightClicked(this);
+        panel.SlotClicked(this);
     }
 
     private void OnDisable() => HideDescription();

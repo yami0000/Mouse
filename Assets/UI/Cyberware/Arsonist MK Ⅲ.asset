@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28d2aa326e5d1d469ed4e610beadbc6, type: 3}
+  m_Name: "Arsonist MK \u2162"
+  m_EditorClassIdentifier: 
+  itemID: 
+  itemName: Arsonist MK.3
+  ItemType: 5
+  icon: {fileID: 7425356050021008088, guid: b78d9fa0f46ef1e43994e3aa3a3b7fbd, type: 3}
+  price: 2500
+  Description: Fierce flame thrower that transfer bio-energy into combustible material,
+    extremely effective against flammable objects.
+  itemEffects: []
+  passiveEffects: []
+  cyberwareType: 2
+  cyberwareSkills: []

@@ -4,8 +4,8 @@ using UnityEngine;
 /// <summary>
 /// Holds the tree together: who may activate what, and installing cyberware. Every change ends in
 /// Recalculate, which walks the joints in order and works out each one from what's before it. So a
-/// cyberware coming out takes its joints, and anything hanging off them, with it, and they come back
-/// when it goes in again.
+/// cyberware coming out takes its Cyberware Skill joints, and anything hanging off them, with it, and
+/// they come back when it goes in again. An empty socket that's ready doesn't hold back other joints.
 /// Sits on the always-active UI_Skill, so all of this works while the page itself is closed.
 /// </summary>
 public class SkillTree : MonoBehaviour
@@ -33,6 +33,7 @@ public class SkillTree : MonoBehaviour
 
     private List<SkillJoint> joints = new List<SkillJoint>();
     private PlayerStats playerStats;
+    private HoverDelay hoverDelay;
 
     // Paid-for skills are remembered per cyberware, not per joint, so they survive being uninstalled.
     private readonly Dictionary<ItemData, HashSet<int>> unlockedSkills = new Dictionary<ItemData, HashSet<int>>();
@@ -41,6 +42,10 @@ public class SkillTree : MonoBehaviour
     public SkillLinks Links => links;
     public SkillDescription Description => description;
     public IReadOnlyList<SkillJoint> Joints => joints;
+    /// <summary>The joint really under the pointer. Null when there isn't one.</summary>
+    public SkillJoint Hovered { get; private set; }
+
+    private HoverDelay HoverTimer => hoverDelay ??= new HoverDelay(this);
 
     private void Awake()
     {
@@ -58,6 +63,11 @@ public class SkillTree : MonoBehaviour
     private void Start()
     {
         playerStats = PlayerManager.Instance.player.GetComponent<PlayerStats>();
+
+        foreach (SkillJoint joint in joints)
+            if (joint.Installed != null)
+                WarnAboutMissingSlots(joint, joint.Installed);
+
         Recalculate();
     }
 
@@ -115,8 +125,23 @@ public class SkillTree : MonoBehaviour
     public bool IsUnlocked(ItemData _cyberware, int _slot) =>
         _cyberware != null && unlockedSkills.TryGetValue(_cyberware, out HashSet<int> slots) && slots.Contains(_slot);
 
+    /// <summary>Hides the description of the joint the pointer left, and after the usual delay shows _joint's.</summary>
+    public void SetHovered(SkillJoint _joint)
+    {
+        if (Hovered == _joint) return;
+
+        Hovered = _joint;
+        HoverTimer.Stop();
+        description.Hide();
+
+        if (_joint != null)
+            HoverTimer.Start(() => description.Show(_joint));
+    }
+
     public void JointClicked(SkillJoint _joint)
     {
+        HoverTimer.Stop();
+
         if (_joint.kind == SkillJointKind.Cyberware)
         {
             description.Hide();

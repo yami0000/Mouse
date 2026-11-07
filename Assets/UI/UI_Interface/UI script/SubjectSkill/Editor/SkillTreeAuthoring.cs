@@ -12,6 +12,13 @@ public static class SkillTreeAuthoring
 
     public static string Label(SkillJointKind _kind) => ObjectNames.NicifyVariableName(_kind.ToString());
 
+    [MenuItem("Tools/Skill Tree/Open Skill List")]
+    public static void OpenSkillList()
+    {
+        Selection.activeObject = SkillList.Instance;
+        EditorGUIUtility.PingObject(SkillList.Instance);
+    }
+
     /// <summary>A new joint at _position on the map, after _previous when there is one. Selected, ready to fill in.</summary>
     public static SkillJoint CreateJoint(SkillTree _tree, SkillJointKind _kind, Vector2 _position, SkillJoint _previous = null)
     {
@@ -37,6 +44,7 @@ public static class SkillTreeAuthoring
         Image icon = iconObject.GetComponent<Image>();
         icon.raycastTarget = false;
         icon.preserveAspect = true;
+        icon.enabled = false; // no sprite yet, and a blank Image would be a white square covering the joint
 
         SkillJoint joint = go.GetComponent<SkillJoint>();
         joint.kind = _kind;
@@ -44,7 +52,10 @@ public static class SkillTreeAuthoring
         joint.icon = icon;
 
         if (_kind == SkillJointKind.Cyberware)
+        {
             joint.info.cost = 0;
+            CreateCyberwareImage(joint);
+        }
 
         if (_previous != null)
             joint.previous.Add(_previous);
@@ -52,9 +63,29 @@ public static class SkillTreeAuthoring
         if (_kind == SkillJointKind.CyberwareSkill)
             joint.cyberwareSlot = NextSlot(_tree, joint);
 
-        RefreshPreview(_tree);
+        RefreshLines(_tree);
         Selection.activeGameObject = go;
         return joint;
+    }
+
+    /// <summary>The child that shows the installed item. Starts switched off, since it has no sprite until something is installed.</summary>
+    public static void CreateCyberwareImage(SkillJoint _joint)
+    {
+        GameObject go = new GameObject("Cyberware Image", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        Undo.RegisterCreatedObjectUndo(go, "Create Cyberware Image");
+
+        go.layer = _joint.gameObject.layer;
+        go.transform.SetParent(_joint.transform, false);
+        ((RectTransform)go.transform).sizeDelta = ((RectTransform)_joint.transform).rect.size * 0.7f;
+
+        Image image = go.GetComponent<Image>();
+        image.raycastTarget = false;
+        image.preserveAspect = true;
+        image.enabled = false;
+
+        Undo.RecordObject(_joint, "Create Cyberware Image");
+        _joint.cyberwareImage = image;
+        EditorUtility.SetDirty(_joint);
     }
 
     /// <summary>A spot beside _joint for a new one, moved along until nothing is in the way.</summary>
@@ -123,29 +154,12 @@ public static class SkillTreeAuthoring
         RefreshLines(_to);
     }
 
-    public static void RefreshLines(SkillJoint _joint)
+    public static void RefreshLines(SkillJoint _joint) => RefreshLines(_joint.GetComponentInParent<SkillTree>(true));
+
+    /// <summary>Redraws the lines. Joint Images are left alone outside Play mode: what they look like there is yours to set.</summary>
+    public static void RefreshLines(SkillTree _tree)
     {
-        SkillTree tree = _joint.GetComponentInParent<SkillTree>(true);
-        if (tree != null && tree.Links != null)
-            tree.Links.SetVerticesDirty();
-    }
-
-    /// <summary>Shows every joint as activated in the editor, in its kind's look, so it can be seen while placing it.</summary>
-    public static void RefreshPreview(SkillTree _tree)
-    {
-        if (_tree == null || _tree.JointRoot == null || Application.isPlaying) return;
-
-        foreach (SkillJoint joint in _tree.JointRoot.GetComponentsInChildren<SkillJoint>(true))
-        {
-            // No cyberware to read an icon from yet, so a Cyberware Skill joint is just its shape.
-            SkillInfo content = joint.kind == SkillJointKind.CyberwareSkill ? null : joint.info;
-            joint.ShowLook(_tree.LookFor(joint.kind), SkillJointState.Activated, content, null);
-
-            if (joint.fill != null) EditorUtility.SetDirty(joint.fill);
-            if (joint.icon != null) EditorUtility.SetDirty(joint.icon);
-        }
-
-        if (_tree.Links != null)
+        if (_tree != null && _tree.Links != null)
             _tree.Links.SetVerticesDirty();
     }
 
@@ -170,6 +184,12 @@ public static class SkillTreeAuthoring
 
             if (joint.kind == SkillJointKind.CyberwareSkill && joint.FindOwner() == null)
                 problems.Add($"{joint.name}: a Cyberware Skill joint has to come after a Cyberware joint, or it can never show.");
+
+            if (joint.kind == SkillJointKind.Cyberware && joint.cyberwareImage == null)
+                problems.Add($"{joint.name}: has no Cyberware Image, so an installed item won't show on it.");
+
+            if (joint.kind == SkillJointKind.Cyberware && joint.preinstalled != null && !joint.Accepts(joint.preinstalled))
+                problems.Add($"{joint.name}: can't take its Pre-installed {joint.preinstalled.name}: it isn't a cyberware this joint accepts.");
         }
 
         foreach (var sameSlot in joints.Where(joint => joint.kind == SkillJointKind.CyberwareSkill && joint.FindOwner() != null)

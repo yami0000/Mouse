@@ -58,6 +58,8 @@ public class Player : Entity
     [Header("Reaper")]
     [HideInInspector] public bool UsingSkill;
 
+    private HellEngine hellEngine;
+
     [Header("Double Jump")]
     [HideInInspector] public bool CanDoubleJump;
 
@@ -261,6 +263,13 @@ public class Player : Entity
             case ActiveSkillId.Reaper:
                 if (!UsingSkill)
                     StartCoroutine(Reaper((int)(stats.Damage.GetValue() * 0.25f)));
+                break;
+
+            case ActiveSkillId.HellEngine:
+                hellEngine ??= new HellEngine((PlayerStats)stats);
+
+                if (!hellEngine.IsRunning)
+                    hellEngine.Trigger();
                 break;
         }
     }

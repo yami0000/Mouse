@@ -13,7 +13,7 @@ public class SkillTreeEditor : Editor
         EditorGUI.BeginChangeCheck();
         DrawDefaultInspector();
         if (EditorGUI.EndChangeCheck())
-            SkillTreeAuthoring.RefreshPreview(tree);
+            SkillTreeAuthoring.RefreshLines(tree);
 
         if (tree.JointRoot == null) return;
 

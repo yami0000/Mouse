@@ -2,8 +2,8 @@ using UnityEditor;
 using UnityEngine;
 
 /// <summary>
-/// Inspector for plain items. Type sits under Item Type and, like the cyberware's skills, only shows
-/// when Item Type is Cyberware. Every other field draws as usual, so new fields need no change here.
+/// Inspector for plain items. Type sits under Item Type and, like what the cyberware gives and its
+/// skills, only shows when Item Type is Cyberware. Every other field draws as usual, so new fields need no change here.
 /// Equipment and mods have their own inspectors, which hide these fields too.
 /// </summary>
 [CustomEditor(typeof(ItemData))]
@@ -24,7 +24,7 @@ public class ItemDataEditor : Editor
         {
             enterChildren = false;
 
-            if (property.name == "cyberwareType" || property.name == "cyberwareSkills")
+            if (property.name == "cyberwareType" || property.name == "cyberwareGives" || property.name == "cyberwareSkills")
                 continue;
 
             using (new EditorGUI.DisabledScope(property.name == "m_Script"))
@@ -39,7 +39,16 @@ public class ItemDataEditor : Editor
         }
 
         if (isCyberware)
+        {
+            // Stats carries the "What it gives" header. The rest of SkillInfo means nothing on the item itself.
+            SerializedProperty gives = serializedObject.FindProperty("cyberwareGives");
+            EditorGUILayout.PropertyField(gives.FindPropertyRelative("stats"), true);
+            EditorGUILayout.PropertyField(gives.FindPropertyRelative("mechanism"));
+            EditorGUILayout.PropertyField(gives.FindPropertyRelative("activeSkill"));
+
+            EditorGUILayout.Space();
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cyberwareSkills"), true);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }
